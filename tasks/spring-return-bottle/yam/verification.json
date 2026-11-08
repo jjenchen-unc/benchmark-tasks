@@ -1,0 +1,56 @@
+{
+  "continuous_model_evaluation": false,
+  "continuous_model_score": null,
+  "unique_server_sessions": 0,
+  "session_transitions": 0,
+  "table_support_regraded_samples": 0,
+  "all_samples_on_table": true,
+  "table_support_criterion": "Circular base low edge within10mm of tabletop; base centre x in[-.154,.874], y in[-.614,.614]m",
+  "valid_completed_trial": true,
+  "benchmark_score": 1.0,
+  "framework_score": 1.0,
+  "partial_or_complete_trace_result": {
+    "score": 1.0,
+    "success": true,
+    "failure": null,
+    "steps": 309,
+    "simulated_seconds": 15.45
+  },
+  "first_credit_ticks": {
+    "0.25": 190,
+    "0.5": 306,
+    "1.0": 309
+  },
+  "recorded_steps": 309,
+  "framework_step_events": 309,
+  "policy": "yam_scripted",
+  "model": null,
+  "termination_reasons": [
+    "success"
+  ],
+  "framework_results": {
+    "abstentions": {},
+    "errored_trials": 0,
+    "metrics": {
+      "task_score": 1.0
+    },
+    "total_scenes": 1,
+    "total_trials": 1
+  },
+  "has_infrastructure_error": false,
+  "max_sampled_wrist_force_n": 8.316338539123535,
+  "max_sampled_tilt_deg": 2.7350207318322686,
+  "max_angles_deg": {
+    "lid_deg": 114.24406632195108,
+    "loop_deg": 82.29531006408283,
+    "button_deg": 9.855524132674226
+  },
+  "dream_request_count": 0,
+  "dream_request_attempts": 0,
+  "expired_retry_messages": 0,
+  "tracking_error_rad": [],
+  "guard_modifications": 5,
+  "final_log": "adhoc_ead5f5b8.json",
+  "scope": "One fixed-layout trial; no success-rate estimate or robustness claim.",
+  "controller": "spring_motion.plan, seed0"
+}

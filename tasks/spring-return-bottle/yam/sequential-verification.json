@@ -1,0 +1,53 @@
+{
+  "continuous_model_evaluation": false,
+  "continuous_model_score": null,
+  "unique_server_sessions": 0,
+  "session_transitions": 0,
+  "table_support_regraded_samples": 0,
+  "all_samples_on_table": true,
+  "table_support_criterion": "Circular base low edge within10mm of tabletop; base centre x in[-.154,.874], y in[-.614,.614]m",
+  "valid_completed_trial": true,
+  "benchmark_score": 0.0,
+  "framework_score": 0.0,
+  "partial_or_complete_trace_result": {
+    "score": 0.0,
+    "success": false,
+    "failure": null,
+    "steps": 500,
+    "simulated_seconds": 25.0
+  },
+  "first_credit_ticks": {
+    "0.25": 190
+  },
+  "recorded_steps": 500,
+  "framework_step_events": 500,
+  "policy": "yam_scripted",
+  "model": null,
+  "termination_reasons": [
+    "max_steps"
+  ],
+  "framework_results": {
+    "abstentions": {},
+    "errored_trials": 0,
+    "metrics": {
+      "task_score": 0.0
+    },
+    "total_scenes": 1,
+    "total_trials": 1
+  },
+  "has_infrastructure_error": false,
+  "max_sampled_wrist_force_n": 8.147050857543945,
+  "max_sampled_tilt_deg": 2.4947337824911577,
+  "max_angles_deg": {
+    "lid_deg": 0.7348601061625247,
+    "loop_deg": 84.04635200122067,
+    "button_deg": 5.99414669484651
+  },
+  "dream_request_count": 0,
+  "dream_request_attempts": 0,
+  "expired_retry_messages": 0,
+  "tracking_error_rad": [],
+  "guard_modifications": 21,
+  "final_log": "adhoc_0ea37615.json",
+  "scope": "One fixed-layout trial; no success-rate estimate or robustness claim."
+}

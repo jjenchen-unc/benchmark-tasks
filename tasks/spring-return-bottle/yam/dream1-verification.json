@@ -1,0 +1,57 @@
+{
+  "continuous_model_evaluation": true,
+  "continuous_model_score": 0.0,
+  "unique_server_sessions": 1,
+  "session_transitions": 0,
+  "table_support_regraded_samples": 0,
+  "all_samples_on_table": true,
+  "table_support_criterion": "Circular base low edge within10mm of tabletop; base centre x in[-.154,.874], y in[-.614,.614]m",
+  "valid_completed_trial": true,
+  "benchmark_score": 0.0,
+  "framework_score": 0.0,
+  "partial_or_complete_trace_result": {
+    "score": 0.0,
+    "success": false,
+    "failure": null,
+    "steps": 2400,
+    "simulated_seconds": 120.0
+  },
+  "first_credit_ticks": {},
+  "recorded_steps": 2400,
+  "framework_step_events": 2400,
+  "policy": "dream",
+  "model": "dreamlabs/dream-1-beta",
+  "termination_reasons": [
+    "max_steps"
+  ],
+  "framework_results": {
+    "abstentions": {},
+    "errored_trials": 0,
+    "metrics": {
+      "task_score": 0.0
+    },
+    "total_scenes": 1,
+    "total_trials": 1
+  },
+  "has_infrastructure_error": false,
+  "max_sampled_wrist_force_n": 7.28656005859375,
+  "max_sampled_tilt_deg": 0.0,
+  "max_angles_deg": {
+    "lid_deg": 0.19926675363094198,
+    "loop_deg": -6.155400653238455e-06,
+    "button_deg": -1.1164520442835476e-06
+  },
+  "dream_request_count": 592,
+  "dream_request_attempts": 592,
+  "expired_retry_messages": 0,
+  "tracking_error_rad": [
+    {
+      "max": 0.050888933813616755,
+      "mean": 0.011159172701259237
+    }
+  ],
+  "guard_modifications": 874,
+  "final_log": "adhoc_76d4c6eb.json",
+  "scope": "One fixed-layout trial; no success-rate estimate or robustness claim.",
+  "wall_time_s_including_startup": 2044.179
+}

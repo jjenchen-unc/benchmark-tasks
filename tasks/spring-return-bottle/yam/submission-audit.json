@@ -1,0 +1,371 @@
+{
+  "checks": {
+    "task_board_review": true,
+    "scored_media_verified": true,
+    "isolated_task_reproduction": true,
+    "sequential_release_probe": true,
+    "sustained_hold_reference": true,
+    "live_support_measurement": true,
+    "model_session_continuity": true
+  },
+  "scope": "One fixed-layout success, one matched release/body-brace/press negative, one continuous Dream-1 beta evaluation. Task-folder-only28CPU tests plus isolated offline reproduction of scores1.0/0.0/0.0. No second isolated GPU replay, randomized robustness, hardware validation, or exhaustive exploit search.",
+  "positive_reference": {
+    "continuous_model_evaluation": false,
+    "continuous_model_score": null,
+    "unique_server_sessions": 0,
+    "session_transitions": 0,
+    "table_support_regraded_samples": 0,
+    "all_samples_on_table": true,
+    "table_support_criterion": "Circular base low edge within10mm of tabletop; base centre x in[-.154,.874], y in[-.614,.614]m",
+    "valid_completed_trial": true,
+    "benchmark_score": 1.0,
+    "framework_score": 1.0,
+    "partial_or_complete_trace_result": {
+      "score": 1.0,
+      "success": true,
+      "failure": null,
+      "steps": 309,
+      "simulated_seconds": 15.45
+    },
+    "first_credit_ticks": {
+      "0.25": 190,
+      "0.5": 306,
+      "1.0": 309
+    },
+    "recorded_steps": 309,
+    "framework_step_events": 309,
+    "policy": "yam_scripted",
+    "model": null,
+    "termination_reasons": [
+      "success"
+    ],
+    "framework_results": {
+      "abstentions": {},
+      "errored_trials": 0,
+      "metrics": {
+        "task_score": 1.0
+      },
+      "total_scenes": 1,
+      "total_trials": 1
+    },
+    "has_infrastructure_error": false,
+    "max_sampled_wrist_force_n": 8.316338539123535,
+    "max_sampled_tilt_deg": 2.7350207318322686,
+    "max_angles_deg": {
+      "lid_deg": 114.24406632195108,
+      "loop_deg": 82.29531006408283,
+      "button_deg": 9.855524132674226
+    },
+    "dream_request_count": 0,
+    "dream_request_attempts": 0,
+    "expired_retry_messages": 0,
+    "tracking_error_rad": [],
+    "guard_modifications": 5,
+    "final_log": "adhoc_ead5f5b8.json",
+    "scope": "One fixed-layout trial; no success-rate estimate or robustness claim."
+  },
+  "novelty_review": {
+    "board": "https://tasks.robocurve.org/board",
+    "displayed_total": 1101,
+    "accepted": 18,
+    "pending_or_planned": 1083,
+    "submission_ids_visible": 986,
+    "method": "Searched full visible index for bottle, safety loop, rocker, detent and flip-top; read nearest task details and scanned previous-cohort bottle ideas.",
+    "closest": [
+      {
+        "id": "TK-Z97WAY",
+        "status": "Pending review",
+        "title": "Take the cap off a child-resistant medicine bottle",
+        "mechanism": "Axial push plus anticlockwise cap rotation; simulated software release after sufficient pressed rotation."
+      },
+      {
+        "id": "TK-6WMEW3",
+        "status": "Pending review",
+        "title": "Open a bottle either way and pour it into a cup",
+        "mechanism": "Either unscrew cap or simple detent flip-top; main score is poured contents."
+      },
+      {
+        "id": "TK-RSPMXH",
+        "status": "Accepted",
+        "title": "Release a two-latch lid and lift it out with both hands",
+        "mechanism": "Simultaneous opposing prismatic latches and detached lid placement."
+      }
+    ],
+    "distinction": "Passive spring-return loop requires sustained release during separate rocker press. Parent detent loop permits sequential operation; no exterior change.",
+    "limitation": "No identical loop/rocker bottle found in reviewed visible descriptions. Reviewer novelty judgment remains open; no exhaustive search of all external benchmark implementations.",
+    "review_date": "2026-11-08",
+    "additional_nearby": [
+      {
+        "id": "TK-4D4BN7",
+        "mechanism": "Own pending parent detented-loop/rocker bottle; sequential operation"
+      },
+      {
+        "id": "TK-DSGGLD",
+        "mechanism": "Hold spring-return drawer while retrieving block; drawer/translation rather than bottle loop/rocker"
+      }
+    ]
+  },
+  "current_source_sha256": {
+    "check_submission.py": "cbe330c7a01505943c5c991b39408abc0941c8566bea31f49a2bc12094acefb3",
+    "spring_bottle/__init__.py": "63938a393542cf4a344ecab63d0c98c0ec4e21e2d49c91e996720a4ae904b211",
+    "spring_bottle/bottle_model.py": "4c968ed001ea835521578600cd8792b4805cd935bf6ab23ace68c7917ebba338",
+    "spring_bottle/scoring.py": "f53ed319e07d31ded2701ab4a124fd0959621981a66f08b7a468d63674209b66",
+    "spring_bottle/support.py": "ad977d668b06fb332ecbf51d3f18c58d2732bc6ca6ec92679ff7f0da804deda9",
+    "task.py": "a064804533105272cda427be874eca496be657d5a786036b46f11e2e8921e99a",
+    "test_mechanism.py": "8604a302c64c06b0742c9c665d6244b7a79487fb141a4241cb4de3caab8c5f13",
+    "test_scoring.py": "df32a681961867c69158a36cf13f87b5840eaee12633fead193f221599b38ec8",
+    "test_support.py": "3d0b23e33508dbdccd4cae6061a7215d9eb19ed426d0163682e6aff65a201d86",
+    "yam/analyze_evaluation.py": "7a1ef75269c99d5804ec2d80cdfd571106b4e30fd1df0ac9b7382805b467c162",
+    "yam/audit_sequential.py": "a24d95314426a738db1b9595e20da3a5a1f123495787ef5533d08c05b751d9d3",
+    "yam/dream_continuity.py": "e7943ee76a2979a1f6c1af32d28d65864fe50a6afd9c0892856dbb381bfe6c63",
+    "yam/evaluate.sh": "6f890d4682f6f675cd96fa9d810141c1e947265a4323261ff5a9488cc97281ac",
+    "yam/probe.py": "c2b39beee2493e18a1e71ad98fde9ec8b0e2ce23c17765c71f73740057f86f0b",
+    "yam/probe_hold.py": "277686d0dee8af1e6f4bb342ea9c51814ffb290026f3869cb779ef4d091bc85f",
+    "yam/sequential_reference.py": "f87363693055df59f255adbc521f10eb6cf1a84c2c71921ec0e77a001d046297",
+    "yam/spring_motion.py": "7b54d1215e2124cb103ac0ee9e40b42b1e9b752a50ab9625e675ac6879011288",
+    "yam/spring_runtime.py": "869e994b22ffb6285d3daaad1ceef8571e3f63dbe5709bf61e129a8670a004bf",
+    "yam/spring_usd.py": "466cb3c438f7c96abae85f05e798d3dd085f8a643ba990bf15cd7e40702f0877",
+    "yam/task.py": "ad73d88f0d35ebe652f9036c5b6ea185f2ddb603f58eb28461a1d57ea4623f92",
+    "yam/test_continuity.py": "e8b58e02e068f2e412b8fcfc54ed7dd9df8f96dba5eb93ae8b52bcb97ad5240b",
+    "yam/test_contract.py": "73c4dc2089ba81562e7851bbd5b50751f31d8e17f4a371b3dd6c6aa51bfa76fb"
+  },
+  "sequential_release": {
+    "continuous_model_evaluation": false,
+    "continuous_model_score": null,
+    "unique_server_sessions": 0,
+    "session_transitions": 0,
+    "table_support_regraded_samples": 0,
+    "all_samples_on_table": true,
+    "table_support_criterion": "Circular base low edge within10mm of tabletop; base centre x in[-.154,.874], y in[-.614,.614]m",
+    "valid_completed_trial": true,
+    "benchmark_score": 0.0,
+    "framework_score": 0.0,
+    "partial_or_complete_trace_result": {
+      "score": 0.0,
+      "success": false,
+      "failure": null,
+      "steps": 500,
+      "simulated_seconds": 25.0
+    },
+    "first_credit_ticks": {
+      "0.25": 190
+    },
+    "recorded_steps": 500,
+    "framework_step_events": 500,
+    "policy": "yam_scripted",
+    "model": null,
+    "termination_reasons": [
+      "max_steps"
+    ],
+    "framework_results": {
+      "abstentions": {},
+      "errored_trials": 0,
+      "metrics": {
+        "task_score": 0.0
+      },
+      "total_scenes": 1,
+      "total_trials": 1
+    },
+    "has_infrastructure_error": false,
+    "max_sampled_wrist_force_n": 8.147050857543945,
+    "max_sampled_tilt_deg": 2.4947337824911577,
+    "max_angles_deg": {
+      "lid_deg": 0.7348601061625247,
+      "loop_deg": 84.04635200122067,
+      "button_deg": 5.99414669484651
+    },
+    "dream_request_count": 0,
+    "dream_request_attempts": 0,
+    "expired_retry_messages": 0,
+    "tracking_error_rad": [],
+    "guard_modifications": 21,
+    "final_log": "adhoc_0ea37615.json",
+    "scope": "One fixed-layout trial; no success-rate estimate or robustness claim."
+  },
+  "isolated_package_checks": {
+    "task_folder_only_copy": "/tmp/robocurve-spring-standalone",
+    "mechanism_scoring_support_tests": 13,
+    "yam_contract_and_continuity_tests": 15,
+    "passed": 28,
+    "full_gpu_repeat_in_isolated_copy": false,
+    "isolated_offline_rescoring": {
+      "scripted_positive": 1.0,
+      "sequential_negative": 0.0,
+      "valid_completed_trial": true
+    },
+    "isolated_model_rescore": {
+      "score": 0.0,
+      "continuous": true
+    }
+  },
+  "model_evaluation": {
+    "continuous_model_evaluation": true,
+    "continuous_model_score": 0.0,
+    "unique_server_sessions": 1,
+    "session_transitions": 0,
+    "table_support_regraded_samples": 0,
+    "all_samples_on_table": true,
+    "table_support_criterion": "Circular base low edge within10mm of tabletop; base centre x in[-.154,.874], y in[-.614,.614]m",
+    "valid_completed_trial": true,
+    "benchmark_score": 0.0,
+    "framework_score": 0.0,
+    "partial_or_complete_trace_result": {
+      "score": 0.0,
+      "success": false,
+      "failure": null,
+      "steps": 2400,
+      "simulated_seconds": 120.0
+    },
+    "first_credit_ticks": {},
+    "recorded_steps": 2400,
+    "framework_step_events": 2400,
+    "policy": "dream",
+    "model": "dreamlabs/dream-1-beta",
+    "termination_reasons": [
+      "max_steps"
+    ],
+    "framework_results": {
+      "abstentions": {},
+      "errored_trials": 0,
+      "metrics": {
+        "task_score": 0.0
+      },
+      "total_scenes": 1,
+      "total_trials": 1
+    },
+    "has_infrastructure_error": false,
+    "max_sampled_wrist_force_n": 7.28656005859375,
+    "max_sampled_tilt_deg": 0.0,
+    "max_angles_deg": {
+      "lid_deg": 0.19926675363094198,
+      "loop_deg": -6.155400653238455e-06,
+      "button_deg": -1.1164520442835476e-06
+    },
+    "dream_request_count": 592,
+    "dream_request_attempts": 592,
+    "expired_retry_messages": 0,
+    "tracking_error_rad": [
+      {
+        "max": 0.050888933813616755,
+        "mean": 0.011159172701259237
+      }
+    ],
+    "guard_modifications": 874,
+    "final_log": "adhoc_76d4c6eb.json",
+    "scope": "One fixed-layout trial; no success-rate estimate or robustness claim.",
+    "wall_time_s_including_startup": 2044.179
+  },
+  "preflight": {
+    "continuous_model_evaluation": true,
+    "continuous_model_score": 0.0,
+    "unique_server_sessions": 1,
+    "session_transitions": 0,
+    "table_support_regraded_samples": 0,
+    "all_samples_on_table": true,
+    "table_support_criterion": "Circular base low edge within10mm of tabletop; base centre x in[-.154,.874], y in[-.614,.614]m",
+    "valid_completed_trial": true,
+    "benchmark_score": 0.0,
+    "framework_score": 0.0,
+    "partial_or_complete_trace_result": {
+      "score": 0.0,
+      "success": false,
+      "failure": null,
+      "steps": 56,
+      "simulated_seconds": 2.8
+    },
+    "first_credit_ticks": {},
+    "recorded_steps": 56,
+    "framework_step_events": 56,
+    "policy": "dream",
+    "model": "dreamlabs/dream-1-beta",
+    "termination_reasons": [
+      "max_steps"
+    ],
+    "framework_results": {
+      "abstentions": {},
+      "errored_trials": 0,
+      "metrics": {
+        "task_score": 0.0
+      },
+      "total_scenes": 1,
+      "total_trials": 1
+    },
+    "has_infrastructure_error": false,
+    "max_sampled_wrist_force_n": 7.4801225662231445,
+    "max_sampled_tilt_deg": 0.0,
+    "max_angles_deg": {
+      "lid_deg": 0.19926663356902297,
+      "loop_deg": -6.155420194566418e-06,
+      "button_deg": -1.1165311255951475e-06
+    },
+    "dream_request_count": 6,
+    "dream_request_attempts": 6,
+    "expired_retry_messages": 0,
+    "tracking_error_rad": [
+      {
+        "max": 0.021712168969210688,
+        "mean": 0.015842009624342818
+      }
+    ],
+    "guard_modifications": 19,
+    "final_log": "adhoc_bd2784a6.json",
+    "scope": "One fixed-layout trial; no success-rate estimate or robustness claim."
+  },
+  "media_id": "M-CAT8J6",
+  "media": {
+    "model_run.mp4": {
+      "bytes": 2145523,
+      "sha256": "f02bcdca3d28072186881f4b9d0b58898e4d55dffcc9c90f638b60b54d91175b",
+      "programs": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 640,
+          "height": 176,
+          "pix_fmt": "yuv420p",
+          "nb_frames": "2401"
+        }
+      ],
+      "format": {
+        "duration": "120.050000"
+      }
+    },
+    "demo.mp4": {
+      "bytes": 206966,
+      "sha256": "0f934e3e979224eb6bdeaf8ea4a5efdf32aa85781db10515a2236f74ca1b7705",
+      "programs": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 640,
+          "height": 176,
+          "pix_fmt": "yuv420p",
+          "nb_frames": "310"
+        }
+      ],
+      "format": {
+        "duration": "15.500000"
+      }
+    },
+    "setup.png": {
+      "bytes": 60390,
+      "sha256": "4ad5bbd0a2839d7d9685119783a2368e3f8a20c790dce3db3b052a2fadd2bc4e"
+    }
+  },
+  "geometry_comparison": {
+    "unchanged": {
+      "geom": true,
+      "mesh": true,
+      "material": true,
+      "body": true,
+      "pair": true
+    },
+    "scope": "Complete ordered XML attributes of geometry, meshes, materials, bodies and internal pair definitions. Joint spring parameters and removed native motor actuators intentionally differ."
+  },
+  "limits": [
+    "Negative controller matches this task positive fold/press plan with release and body brace; it is not a joint-identical replay of the differently positioned parent task.",
+    "Model guard modifications are disclosed; remaining interface/model effects are not isolated.",
+    "Geometry, physical runtime and scoring source match the recorded successful demo and full model trial; metadata/media/results were finalized after recording.",
+    "Blind setup and top/right videos visually checked; both MP4s fully decode with original20fps timing."
+  ]
+}

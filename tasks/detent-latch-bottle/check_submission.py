@@ -7,6 +7,8 @@ root=Path(__file__).resolve().parent
 spec=json.loads((root/'task.json').read_text())
 required=('title','category','instruction','setup','scoring','run_limit','fidelity','scores','media')
 issues=[f'Missing required field: {key}' for key in required if not spec.get(key)]
+if len(spec.get('fidelity',''))>500:
+    issues.append('Fidelity note exceeds the task board limit of500characters.')
 if any(word in spec.get('scores','').lower() for word in ('not run','pending')):
     issues.append('Required model evaluation is pending.')
 for name in ('yam/task.py','yam/evaluate.sh','yam/dream_continuity.py','yam/analyze_evaluation.py'):

@@ -1,0 +1,288 @@
+#usda 1.0
+(
+    defaultPrim = "D3Carton3"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "D3Carton3" (
+    prepend apiSchemas = ["PhysicsArticulationRootAPI", "PhysxArticulationAPI"]
+    customData = {
+        dictionary d3 = {
+            bool nativeScoreTransfers = 0
+            string padMassAccounting = "200g carton +15g fixed pad corners; separate15g moving face"
+            string sourceSceneSha256 = "117d609f90f3dcb0afe413b1bdc509f16aa10a601de8d305500c0cf31be0cbda"
+        }
+    }
+)
+{
+    bool physxArticulation:enabledSelfCollisions = 0
+    int physxArticulation:solverPositionIterationCount = 32
+    int physxArticulation:solverVelocityIterationCount = 4
+    quatf xformOp:orient = (1, 0, 0, 0)
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+    def Xform "base" (
+        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        point3f physics:centerOfMass = (0, 0, 0.022313954)
+        float3 physics:diagonalInertia = (0.000708933, 0.0010695796, 0.0014536541)
+        float physics:mass = 0.215
+        quatf physics:principalAxes = (1, 0, 0, 0)
+        float physxRigidBody:angularDamping = 0
+        float physxRigidBody:linearDamping = 0
+        quatf xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+        def Cube "carton_3_floor" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </D3Carton3/base/carton_3_floor_material> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            float physxCollision:contactOffset = 0.0005
+            float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.72, 0.58, 0.4)]
+            double size = 2
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.089, 0.069, 0.002)
+            double3 xformOp:translate = (0, 0, -0.002)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Material "carton_3_floor_material" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.8
+            float physics:restitution = 0
+            float physics:staticFriction = 0.8
+        }
+
+        def Cube "carton_3_wall_xp" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </D3Carton3/base/carton_3_wall_xp_material> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            float physxCollision:contactOffset = 0.0005
+            float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.72, 0.58, 0.4)]
+            double size = 2
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.002, 0.069, 0.041)
+            double3 xformOp:translate = (0.08700000000000001, 0, 0.041)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Material "carton_3_wall_xp_material" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.1
+            float physics:restitution = 0
+            float physics:staticFriction = 1.1
+        }
+
+        def Cube "carton_3_wall_xn" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </D3Carton3/base/carton_3_wall_xn_material> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            float physxCollision:contactOffset = 0.0005
+            float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.72, 0.58, 0.4)]
+            double size = 2
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.002, 0.069, 0.041)
+            double3 xformOp:translate = (-0.08700000000000001, 0, 0.041)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Material "carton_3_wall_xn_material" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.1
+            float physics:restitution = 0
+            float physics:staticFriction = 1.1
+        }
+
+        def Cube "carton_3_wall_yp" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </D3Carton3/base/carton_3_wall_yp_material> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            float physxCollision:contactOffset = 0.0005
+            float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.72, 0.58, 0.4)]
+            double size = 2
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.085, 0.002, 0.041)
+            double3 xformOp:translate = (0, 0.067, 0.041)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Material "carton_3_wall_yp_material" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.1
+            float physics:restitution = 0
+            float physics:staticFriction = 1.1
+        }
+
+        def Cube "carton_3_wall_yn" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </D3Carton3/base/carton_3_wall_yn_material> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            float physxCollision:contactOffset = 0.0005
+            float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.72, 0.58, 0.4)]
+            double size = 2
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.085, 0.002, 0.041)
+            double3 xformOp:translate = (0, -0.067, 0.041)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Material "carton_3_wall_yn_material" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.1
+            float physics:restitution = 0
+            float physics:staticFriction = 1.1
+        }
+
+        def Cube "carton_3_mark_0"
+        {
+            color3f[] primvars:displayColor = [(0.1, 0.1, 0.1)]
+            double size = 2
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.0003, 0.005, 0.012)
+            double3 xformOp:translate = (-0.0893, -0.016, 0.0492)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "carton_3_mark_1"
+        {
+            color3f[] primvars:displayColor = [(0.1, 0.1, 0.1)]
+            double size = 2
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.0003, 0.005, 0.012)
+            double3 xformOp:translate = (-0.0893, 0, 0.0492)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "carton_3_mark_2"
+        {
+            color3f[] primvars:displayColor = [(0.1, 0.1, 0.1)]
+            double size = 2
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.0003, 0.005, 0.012)
+            double3 xformOp:translate = (-0.0893, 0.016, 0.0492)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def Xform "lid" (
+        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        point3f physics:centerOfMass = (0, -0.069, 0.002)
+        float3 physics:diagonalInertia = (0.000063533334, 0.000105666666, 0.00016909333)
+        float physics:mass = 0.04
+        quatf physics:principalAxes = (1, 0, 0, 0)
+        float physxRigidBody:angularDamping = 0
+        float physxRigidBody:linearDamping = 0
+        quatf xformOp:orient = (0.6409969, -0.7675435, 0, 0)
+        double3 xformOp:translate = (0, 0.069, 0.082)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+        def Cube "lid_3_plate" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </D3Carton3/lid/lid_3_plate_material> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            float physxCollision:contactOffset = 0.0005
+            float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.72, 0.58, 0.4)]
+            double size = 2
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.089, 0.069, 0.002)
+            double3 xformOp:translate = (0, -0.069, 0.002)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Material "lid_3_plate_material" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.1
+            float physics:restitution = 0
+            float physics:staticFriction = 1.1
+        }
+
+        def Cube "lid_3_flap" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </D3Carton3/lid/lid_3_flap_material> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            float physxCollision:contactOffset = 0.0005
+            float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.72, 0.58, 0.4)]
+            double size = 2
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.085, 0.001, 0.01)
+            double3 xformOp:translate = (0, -0.138, -0.01)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Material "lid_3_flap_material" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.1
+            float physics:restitution = 0
+            float physics:staticFriction = 1.1
+        }
+    }
+
+    def PhysicsRevoluteJoint "lid_hinge" (
+        prepend apiSchemas = ["PhysicsDriveAPI:angular"]
+    )
+    {
+        float drive:angular:physics:damping = 0.004
+        float drive:angular:physics:maxForce = inf
+        float drive:angular:physics:stiffness = 0
+        uniform token drive:angular:physics:type = "force"
+        uniform token physics:axis = "X"
+        rel physics:body0 = </D3Carton3/base>
+        rel physics:body1 = </D3Carton3/lid>
+        bool physics:collisionEnabled = 0
+        point3f physics:localPos0 = (0, 0.069, 0.082)
+        point3f physics:localPos1 = (0, 0, 0)
+        quatf physics:localRot0 = (0, 0, 0, 1)
+        quatf physics:localRot1 = (0, 0, 0, 1)
+        float physics:lowerLimit = 0
+        float physics:upperLimit = 100.26762
+    }
+}
+

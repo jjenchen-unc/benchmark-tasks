@@ -1,0 +1,2627 @@
+{
+  "authority": "Actual task.py spawn roots and authored local USD geometry/joints; native initial world poses omitted from this public inventory. Exact base/lid reset poses follow local assets and1.75rad hinge coordinate.",
+  "cargo": [
+    {
+      "name": "box_A",
+      "spawn_world_m": [
+        0.29,
+        -0.06,
+        0.7725
+      ],
+      "rotation_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "size_m": [
+        0.12,
+        0.068,
+        0.05
+      ],
+      "mass_kg": 0.2471,
+      "material": "rigid gray shell, estimated static/dynamic friction 1; blue A/green B visual tag, white/red indicator",
+      "visual_primitives": [
+        {
+          "name": "box_A_tag",
+          "body": "box_A",
+          "type": 6,
+          "size": [
+            0.02,
+            0.012,
+            0.0003
+          ],
+          "local_position_m": [
+            -0.03,
+            0.0,
+            0.025300000000000003
+          ],
+          "local_quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rgba": [
+            0.15000000596046448,
+            0.3499999940395355,
+            0.8500000238418579,
+            1.0
+          ],
+          "friction": [
+            1.1,
+            0.01,
+            0.001
+          ],
+          "contact_enabled": false,
+          "solref": [
+            0.004,
+            1.0
+          ],
+          "solimp": [
+            0.99,
+            0.999,
+            0.0001,
+            0.5,
+            2.0
+          ],
+          "full_size_m": [
+            0.04,
+            0.024,
+            0.0006
+          ],
+          "size_convention": "size is half-extents; full_size_m is full dimensions; pose is local to actual spawned box"
+        },
+        {
+          "name": "box_A_indicator",
+          "body": "box_A",
+          "type": 6,
+          "size": [
+            0.009,
+            0.009,
+            0.0003
+          ],
+          "local_position_m": [
+            0.035,
+            0.0,
+            0.025300000000000003
+          ],
+          "local_quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rgba": [
+            0.9700000286102295,
+            0.9700000286102295,
+            0.9700000286102295,
+            1.0
+          ],
+          "friction": [
+            1.1,
+            0.01,
+            0.001
+          ],
+          "contact_enabled": false,
+          "solref": [
+            0.004,
+            1.0
+          ],
+          "solimp": [
+            0.99,
+            0.999,
+            0.0001,
+            0.5,
+            2.0
+          ],
+          "full_size_m": [
+            0.018,
+            0.018,
+            0.0006
+          ],
+          "size_convention": "size is half-extents; full_size_m is full dimensions; pose is local to actual spawned box"
+        }
+      ]
+    },
+    {
+      "name": "box_B",
+      "spawn_world_m": [
+        0.44999999999999996,
+        -0.06,
+        0.7725
+      ],
+      "rotation_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "size_m": [
+        0.12,
+        0.068,
+        0.05
+      ],
+      "mass_kg": 0.6289,
+      "material": "rigid gray shell, estimated static/dynamic friction 1; blue A/green B visual tag, white/red indicator",
+      "visual_primitives": [
+        {
+          "name": "box_B_tag",
+          "body": "box_B",
+          "type": 6,
+          "size": [
+            0.02,
+            0.012,
+            0.0003
+          ],
+          "local_position_m": [
+            -0.03,
+            0.0,
+            0.025300000000000003
+          ],
+          "local_quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rgba": [
+            0.15000000596046448,
+            0.6499999761581421,
+            0.25,
+            1.0
+          ],
+          "friction": [
+            1.1,
+            0.01,
+            0.001
+          ],
+          "contact_enabled": false,
+          "solref": [
+            0.004,
+            1.0
+          ],
+          "solimp": [
+            0.99,
+            0.999,
+            0.0001,
+            0.5,
+            2.0
+          ],
+          "full_size_m": [
+            0.04,
+            0.024,
+            0.0006
+          ],
+          "size_convention": "size is half-extents; full_size_m is full dimensions; pose is local to actual spawned box"
+        },
+        {
+          "name": "box_B_indicator",
+          "body": "box_B",
+          "type": 6,
+          "size": [
+            0.009,
+            0.009,
+            0.0003
+          ],
+          "local_position_m": [
+            0.035,
+            0.0,
+            0.025300000000000003
+          ],
+          "local_quaternion_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rgba": [
+            0.9700000286102295,
+            0.9700000286102295,
+            0.9700000286102295,
+            1.0
+          ],
+          "friction": [
+            1.1,
+            0.01,
+            0.001
+          ],
+          "contact_enabled": false,
+          "solref": [
+            0.004,
+            1.0
+          ],
+          "solimp": [
+            0.99,
+            0.999,
+            0.0001,
+            0.5,
+            2.0
+          ],
+          "full_size_m": [
+            0.018,
+            0.018,
+            0.0006
+          ],
+          "size_convention": "size is half-extents; full_size_m is full dimensions; pose is local to actual spawned box"
+        }
+      ]
+    }
+  ],
+  "cartons": [
+    {
+      "carton": 1,
+      "asset": "carton-1.usda",
+      "sha256": "5d73681ef7e2100a648bdf6f8d1acba0a5560a1ca604c4e11138d0a29d55d507",
+      "source_lid_angle_rad": 1.75,
+      "base_mass_kg": 0.215,
+      "base_com_local_m": [
+        0.0,
+        0.0,
+        0.022313953488372097
+      ],
+      "base_inertia_body_kg_m2": [
+        [
+          0.0007089329748062014,
+          0.0,
+          4.3281940994196093e-19
+        ],
+        [
+          0.0,
+          0.0010695796414728674,
+          0.0
+        ],
+        [
+          4.328194099419609e-19,
+          0.0,
+          0.0014536541666666663
+        ]
+      ],
+      "lid_mass_kg": 0.04,
+      "source_carton_rigid_mass_kg": 0.2,
+      "scope": "Exact source rigid shapes and hinge axis/range, physical pad mass split; source soft lid-contact response and numeric hinge armature are not copied.",
+      "position_world_m": [
+        0.32,
+        -0.22,
+        0.7515
+      ],
+      "spawn_world_m": [
+        0.32,
+        -0.22,
+        0.7515
+      ],
+      "rotation_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "pad_spawn_world_m": [
+        0.32,
+        -0.22,
+        0.7799999999999999
+      ],
+      "pad_size_m": [
+        0.164,
+        0.124,
+        0.003
+      ],
+      "pad_moving_mass_kg": 0.015,
+      "pad_fixed_mass_kg": 0.015,
+      "lid_initial_q_rad": 1.75,
+      "material": "rigid brown estimated cardboard; see USD physics materials; passive yellow foam global face",
+      "empty_assembly_mass_kg": 0.27
+    },
+    {
+      "carton": 2,
+      "asset": "carton-2.usda",
+      "sha256": "324a65e5aa838a14e1f0ba1946cf1018e13967ccfd6fcfad47029b2f885d7c18",
+      "source_lid_angle_rad": 1.75,
+      "base_mass_kg": 0.215,
+      "base_com_local_m": [
+        0.0,
+        0.0,
+        0.022313953488372097
+      ],
+      "base_inertia_body_kg_m2": [
+        [
+          0.0007089329748062014,
+          0.0,
+          4.3281940994196093e-19
+        ],
+        [
+          0.0,
+          0.0010695796414728674,
+          0.0
+        ],
+        [
+          4.328194099419609e-19,
+          0.0,
+          0.0014536541666666663
+        ]
+      ],
+      "lid_mass_kg": 0.04,
+      "source_carton_rigid_mass_kg": 0.2,
+      "scope": "Exact source rigid shapes and hinge axis/range, physical pad mass split; source soft lid-contact response and numeric hinge armature are not copied.",
+      "position_world_m": [
+        0.55,
+        -0.22,
+        0.7515
+      ],
+      "spawn_world_m": [
+        0.55,
+        -0.22,
+        0.7515
+      ],
+      "rotation_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "pad_spawn_world_m": [
+        0.55,
+        -0.22,
+        0.7799999999999999
+      ],
+      "pad_size_m": [
+        0.164,
+        0.124,
+        0.003
+      ],
+      "pad_moving_mass_kg": 0.015,
+      "pad_fixed_mass_kg": 0.015,
+      "lid_initial_q_rad": 1.75,
+      "material": "rigid brown estimated cardboard; see USD physics materials; passive yellow foam global face",
+      "empty_assembly_mass_kg": 0.27
+    },
+    {
+      "carton": 3,
+      "asset": "carton-3.usda",
+      "sha256": "5d1568fba96ac8fba7ea4129820f2dd7062503375c20b3ae2d6d202c3483baa3",
+      "source_lid_angle_rad": 1.75,
+      "base_mass_kg": 0.215,
+      "base_com_local_m": [
+        0.0,
+        0.0,
+        0.022313953488372097
+      ],
+      "base_inertia_body_kg_m2": [
+        [
+          0.0007089329748062014,
+          0.0,
+          4.3281940994196093e-19
+        ],
+        [
+          0.0,
+          0.0010695796414728674,
+          0.0
+        ],
+        [
+          4.328194099419609e-19,
+          0.0,
+          0.0014536541666666663
+        ]
+      ],
+      "lid_mass_kg": 0.04,
+      "source_carton_rigid_mass_kg": 0.2,
+      "scope": "Exact source rigid shapes and hinge axis/range, physical pad mass split; source soft lid-contact response and numeric hinge armature are not copied.",
+      "position_world_m": [
+        0.32,
+        0.1,
+        0.7515
+      ],
+      "spawn_world_m": [
+        0.32,
+        0.1,
+        0.7515
+      ],
+      "rotation_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "pad_spawn_world_m": [
+        0.32,
+        0.1,
+        0.7799999999999999
+      ],
+      "pad_size_m": [
+        0.164,
+        0.124,
+        0.003
+      ],
+      "pad_moving_mass_kg": 0.015,
+      "pad_fixed_mass_kg": 0.015,
+      "lid_initial_q_rad": 1.75,
+      "material": "rigid brown estimated cardboard; see USD physics materials; passive yellow foam global face",
+      "empty_assembly_mass_kg": 0.27
+    },
+    {
+      "carton": 4,
+      "asset": "carton-4.usda",
+      "sha256": "1fb636fb822808fab63947289406fbf09f1983c11e005b59e3b02fa29292e3aa",
+      "source_lid_angle_rad": 1.75,
+      "base_mass_kg": 0.215,
+      "base_com_local_m": [
+        0.0,
+        0.0,
+        0.022313953488372097
+      ],
+      "base_inertia_body_kg_m2": [
+        [
+          0.0007089329748062014,
+          0.0,
+          4.3281940994196093e-19
+        ],
+        [
+          0.0,
+          0.0010695796414728674,
+          0.0
+        ],
+        [
+          4.328194099419609e-19,
+          0.0,
+          0.0014536541666666663
+        ]
+      ],
+      "lid_mass_kg": 0.04,
+      "source_carton_rigid_mass_kg": 0.2,
+      "scope": "Exact source rigid shapes and hinge axis/range, physical pad mass split; source soft lid-contact response and numeric hinge armature are not copied.",
+      "position_world_m": [
+        0.55,
+        0.1,
+        0.7515
+      ],
+      "spawn_world_m": [
+        0.55,
+        0.1,
+        0.7515
+      ],
+      "rotation_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "pad_spawn_world_m": [
+        0.55,
+        0.1,
+        0.7799999999999999
+      ],
+      "pad_size_m": [
+        0.164,
+        0.124,
+        0.003
+      ],
+      "pad_moving_mass_kg": 0.015,
+      "pad_fixed_mass_kg": 0.015,
+      "lid_initial_q_rad": 1.75,
+      "material": "rigid brown estimated cardboard; see USD physics materials; passive yellow foam global face",
+      "empty_assembly_mass_kg": 0.27
+    }
+  ],
+  "all_carton_local_primitives": [
+    {
+      "name": "carton_1_floor",
+      "body": "carton_1",
+      "type": 6,
+      "size": [
+        0.08900000000000001,
+        0.069,
+        0.002
+      ],
+      "local_position_m": [
+        0.0,
+        0.0,
+        -0.002
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.7200000286102295,
+        0.5799999833106995,
+        0.4000000059604645,
+        1.0
+      ],
+      "friction": [
+        0.8,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": true,
+      "solref": [
+        0.001,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.17800000000000002,
+        0.138,
+        0.004
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "carton_1_wall_xp",
+      "body": "carton_1",
+      "type": 6,
+      "size": [
+        0.002,
+        0.069,
+        0.041
+      ],
+      "local_position_m": [
+        0.08700000000000001,
+        0.0,
+        0.041
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.7200000286102295,
+        0.5799999833106995,
+        0.4000000059604645,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": true,
+      "solref": [
+        0.004,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.004,
+        0.138,
+        0.082
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "carton_1_wall_xn",
+      "body": "carton_1",
+      "type": 6,
+      "size": [
+        0.002,
+        0.069,
+        0.041
+      ],
+      "local_position_m": [
+        -0.08700000000000001,
+        0.0,
+        0.041
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.7200000286102295,
+        0.5799999833106995,
+        0.4000000059604645,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": true,
+      "solref": [
+        0.004,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.004,
+        0.138,
+        0.082
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "carton_1_wall_yp",
+      "body": "carton_1",
+      "type": 6,
+      "size": [
+        0.085,
+        0.002,
+        0.041
+      ],
+      "local_position_m": [
+        0.0,
+        0.067,
+        0.041
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.7200000286102295,
+        0.5799999833106995,
+        0.4000000059604645,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": true,
+      "solref": [
+        0.004,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.17,
+        0.004,
+        0.082
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "carton_1_wall_yn",
+      "body": "carton_1",
+      "type": 6,
+      "size": [
+        0.085,
+        0.002,
+        0.041
+      ],
+      "local_position_m": [
+        0.0,
+        -0.067,
+        0.041
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.7200000286102295,
+        0.5799999833106995,
+        0.4000000059604645,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": true,
+      "solref": [
+        0.004,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.17,
+        0.004,
+        0.082
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "carton_1_mark_0",
+      "body": "carton_1",
+      "type": 6,
+      "size": [
+        0.0003,
+        0.005,
+        0.012
+      ],
+      "local_position_m": [
+        -0.0893,
+        0.0,
+        0.0492
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.10000000149011612,
+        0.10000000149011612,
+        0.10000000149011612,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": false,
+      "solref": [
+        0.004,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.0006,
+        0.01,
+        0.024
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "lid_1_plate",
+      "body": "lid_1",
+      "type": 6,
+      "size": [
+        0.08900000000000001,
+        0.069,
+        0.002
+      ],
+      "local_position_m": [
+        0.0,
+        0.069,
+        0.002
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.7200000286102295,
+        0.5799999833106995,
+        0.4000000059604645,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": true,
+      "solref": [
+        0.01,
+        1.0
+      ],
+      "solimp": [
+        0.9,
+        0.95,
+        0.005,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.17800000000000002,
+        0.138,
+        0.004
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "lid_1_flap",
+      "body": "lid_1",
+      "type": 6,
+      "size": [
+        0.085,
+        0.001,
+        0.01
+      ],
+      "local_position_m": [
+        0.0,
+        0.138,
+        -0.01
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.7200000286102295,
+        0.5799999833106995,
+        0.4000000059604645,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": true,
+      "solref": [
+        0.004,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.17,
+        0.002,
+        0.02
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "carton_2_floor",
+      "body": "carton_2",
+      "type": 6,
+      "size": [
+        0.08900000000000001,
+        0.069,
+        0.002
+      ],
+      "local_position_m": [
+        0.0,
+        0.0,
+        -0.002
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.7200000286102295,
+        0.5799999833106995,
+        0.4000000059604645,
+        1.0
+      ],
+      "friction": [
+        0.8,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": true,
+      "solref": [
+        0.001,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.17800000000000002,
+        0.138,
+        0.004
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "carton_2_wall_xp",
+      "body": "carton_2",
+      "type": 6,
+      "size": [
+        0.002,
+        0.069,
+        0.041
+      ],
+      "local_position_m": [
+        0.08700000000000001,
+        0.0,
+        0.041
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.7200000286102295,
+        0.5799999833106995,
+        0.4000000059604645,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": true,
+      "solref": [
+        0.004,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.004,
+        0.138,
+        0.082
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "carton_2_wall_xn",
+      "body": "carton_2",
+      "type": 6,
+      "size": [
+        0.002,
+        0.069,
+        0.041
+      ],
+      "local_position_m": [
+        -0.08700000000000001,
+        0.0,
+        0.041
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.7200000286102295,
+        0.5799999833106995,
+        0.4000000059604645,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": true,
+      "solref": [
+        0.004,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.004,
+        0.138,
+        0.082
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "carton_2_wall_yp",
+      "body": "carton_2",
+      "type": 6,
+      "size": [
+        0.085,
+        0.002,
+        0.041
+      ],
+      "local_position_m": [
+        0.0,
+        0.067,
+        0.041
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.7200000286102295,
+        0.5799999833106995,
+        0.4000000059604645,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": true,
+      "solref": [
+        0.004,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.17,
+        0.004,
+        0.082
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "carton_2_wall_yn",
+      "body": "carton_2",
+      "type": 6,
+      "size": [
+        0.085,
+        0.002,
+        0.041
+      ],
+      "local_position_m": [
+        0.0,
+        -0.067,
+        0.041
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.7200000286102295,
+        0.5799999833106995,
+        0.4000000059604645,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": true,
+      "solref": [
+        0.004,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.17,
+        0.004,
+        0.082
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "carton_2_mark_0",
+      "body": "carton_2",
+      "type": 6,
+      "size": [
+        0.0003,
+        0.005,
+        0.012
+      ],
+      "local_position_m": [
+        -0.0893,
+        -0.008,
+        0.0492
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.10000000149011612,
+        0.10000000149011612,
+        0.10000000149011612,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": false,
+      "solref": [
+        0.004,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.0006,
+        0.01,
+        0.024
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "carton_2_mark_1",
+      "body": "carton_2",
+      "type": 6,
+      "size": [
+        0.0003,
+        0.005,
+        0.012
+      ],
+      "local_position_m": [
+        -0.0893,
+        0.008,
+        0.0492
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.10000000149011612,
+        0.10000000149011612,
+        0.10000000149011612,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": false,
+      "solref": [
+        0.004,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.0006,
+        0.01,
+        0.024
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "lid_2_plate",
+      "body": "lid_2",
+      "type": 6,
+      "size": [
+        0.08900000000000001,
+        0.069,
+        0.002
+      ],
+      "local_position_m": [
+        0.0,
+        0.069,
+        0.002
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.7200000286102295,
+        0.5799999833106995,
+        0.4000000059604645,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": true,
+      "solref": [
+        0.01,
+        1.0
+      ],
+      "solimp": [
+        0.9,
+        0.95,
+        0.005,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.17800000000000002,
+        0.138,
+        0.004
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "lid_2_flap",
+      "body": "lid_2",
+      "type": 6,
+      "size": [
+        0.085,
+        0.001,
+        0.01
+      ],
+      "local_position_m": [
+        0.0,
+        0.138,
+        -0.01
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.7200000286102295,
+        0.5799999833106995,
+        0.4000000059604645,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": true,
+      "solref": [
+        0.004,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.17,
+        0.002,
+        0.02
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "carton_3_floor",
+      "body": "carton_3",
+      "type": 6,
+      "size": [
+        0.08900000000000001,
+        0.069,
+        0.002
+      ],
+      "local_position_m": [
+        0.0,
+        0.0,
+        -0.002
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.7200000286102295,
+        0.5799999833106995,
+        0.4000000059604645,
+        1.0
+      ],
+      "friction": [
+        0.8,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": true,
+      "solref": [
+        0.001,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.17800000000000002,
+        0.138,
+        0.004
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "carton_3_wall_xp",
+      "body": "carton_3",
+      "type": 6,
+      "size": [
+        0.002,
+        0.069,
+        0.041
+      ],
+      "local_position_m": [
+        0.08700000000000001,
+        0.0,
+        0.041
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.7200000286102295,
+        0.5799999833106995,
+        0.4000000059604645,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": true,
+      "solref": [
+        0.004,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.004,
+        0.138,
+        0.082
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "carton_3_wall_xn",
+      "body": "carton_3",
+      "type": 6,
+      "size": [
+        0.002,
+        0.069,
+        0.041
+      ],
+      "local_position_m": [
+        -0.08700000000000001,
+        0.0,
+        0.041
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.7200000286102295,
+        0.5799999833106995,
+        0.4000000059604645,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": true,
+      "solref": [
+        0.004,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.004,
+        0.138,
+        0.082
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "carton_3_wall_yp",
+      "body": "carton_3",
+      "type": 6,
+      "size": [
+        0.085,
+        0.002,
+        0.041
+      ],
+      "local_position_m": [
+        0.0,
+        0.067,
+        0.041
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.7200000286102295,
+        0.5799999833106995,
+        0.4000000059604645,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": true,
+      "solref": [
+        0.004,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.17,
+        0.004,
+        0.082
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "carton_3_wall_yn",
+      "body": "carton_3",
+      "type": 6,
+      "size": [
+        0.085,
+        0.002,
+        0.041
+      ],
+      "local_position_m": [
+        0.0,
+        -0.067,
+        0.041
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.7200000286102295,
+        0.5799999833106995,
+        0.4000000059604645,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": true,
+      "solref": [
+        0.004,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.17,
+        0.004,
+        0.082
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "carton_3_mark_0",
+      "body": "carton_3",
+      "type": 6,
+      "size": [
+        0.0003,
+        0.005,
+        0.012
+      ],
+      "local_position_m": [
+        -0.0893,
+        -0.016,
+        0.0492
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.10000000149011612,
+        0.10000000149011612,
+        0.10000000149011612,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": false,
+      "solref": [
+        0.004,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.0006,
+        0.01,
+        0.024
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "carton_3_mark_1",
+      "body": "carton_3",
+      "type": 6,
+      "size": [
+        0.0003,
+        0.005,
+        0.012
+      ],
+      "local_position_m": [
+        -0.0893,
+        0.0,
+        0.0492
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.10000000149011612,
+        0.10000000149011612,
+        0.10000000149011612,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": false,
+      "solref": [
+        0.004,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.0006,
+        0.01,
+        0.024
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "carton_3_mark_2",
+      "body": "carton_3",
+      "type": 6,
+      "size": [
+        0.0003,
+        0.005,
+        0.012
+      ],
+      "local_position_m": [
+        -0.0893,
+        0.016,
+        0.0492
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.10000000149011612,
+        0.10000000149011612,
+        0.10000000149011612,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": false,
+      "solref": [
+        0.004,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.0006,
+        0.01,
+        0.024
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "lid_3_plate",
+      "body": "lid_3",
+      "type": 6,
+      "size": [
+        0.08900000000000001,
+        0.069,
+        0.002
+      ],
+      "local_position_m": [
+        0.0,
+        -0.069,
+        0.002
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.7200000286102295,
+        0.5799999833106995,
+        0.4000000059604645,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": true,
+      "solref": [
+        0.01,
+        1.0
+      ],
+      "solimp": [
+        0.9,
+        0.95,
+        0.005,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.17800000000000002,
+        0.138,
+        0.004
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "lid_3_flap",
+      "body": "lid_3",
+      "type": 6,
+      "size": [
+        0.085,
+        0.001,
+        0.01
+      ],
+      "local_position_m": [
+        0.0,
+        -0.138,
+        -0.01
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.7200000286102295,
+        0.5799999833106995,
+        0.4000000059604645,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": true,
+      "solref": [
+        0.004,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.17,
+        0.002,
+        0.02
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "carton_4_floor",
+      "body": "carton_4",
+      "type": 6,
+      "size": [
+        0.08900000000000001,
+        0.069,
+        0.002
+      ],
+      "local_position_m": [
+        0.0,
+        0.0,
+        -0.002
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.7200000286102295,
+        0.5799999833106995,
+        0.4000000059604645,
+        1.0
+      ],
+      "friction": [
+        0.8,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": true,
+      "solref": [
+        0.001,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.17800000000000002,
+        0.138,
+        0.004
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "carton_4_wall_xp",
+      "body": "carton_4",
+      "type": 6,
+      "size": [
+        0.002,
+        0.069,
+        0.041
+      ],
+      "local_position_m": [
+        0.08700000000000001,
+        0.0,
+        0.041
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.7200000286102295,
+        0.5799999833106995,
+        0.4000000059604645,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": true,
+      "solref": [
+        0.004,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.004,
+        0.138,
+        0.082
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "carton_4_wall_xn",
+      "body": "carton_4",
+      "type": 6,
+      "size": [
+        0.002,
+        0.069,
+        0.041
+      ],
+      "local_position_m": [
+        -0.08700000000000001,
+        0.0,
+        0.041
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.7200000286102295,
+        0.5799999833106995,
+        0.4000000059604645,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": true,
+      "solref": [
+        0.004,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.004,
+        0.138,
+        0.082
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "carton_4_wall_yp",
+      "body": "carton_4",
+      "type": 6,
+      "size": [
+        0.085,
+        0.002,
+        0.041
+      ],
+      "local_position_m": [
+        0.0,
+        0.067,
+        0.041
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.7200000286102295,
+        0.5799999833106995,
+        0.4000000059604645,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": true,
+      "solref": [
+        0.004,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.17,
+        0.004,
+        0.082
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "carton_4_wall_yn",
+      "body": "carton_4",
+      "type": 6,
+      "size": [
+        0.085,
+        0.002,
+        0.041
+      ],
+      "local_position_m": [
+        0.0,
+        -0.067,
+        0.041
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.7200000286102295,
+        0.5799999833106995,
+        0.4000000059604645,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": true,
+      "solref": [
+        0.004,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.17,
+        0.004,
+        0.082
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "carton_4_mark_0",
+      "body": "carton_4",
+      "type": 6,
+      "size": [
+        0.0003,
+        0.005,
+        0.012
+      ],
+      "local_position_m": [
+        -0.0893,
+        -0.024,
+        0.0492
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.10000000149011612,
+        0.10000000149011612,
+        0.10000000149011612,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": false,
+      "solref": [
+        0.004,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.0006,
+        0.01,
+        0.024
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "carton_4_mark_1",
+      "body": "carton_4",
+      "type": 6,
+      "size": [
+        0.0003,
+        0.005,
+        0.012
+      ],
+      "local_position_m": [
+        -0.0893,
+        -0.008,
+        0.0492
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.10000000149011612,
+        0.10000000149011612,
+        0.10000000149011612,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": false,
+      "solref": [
+        0.004,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.0006,
+        0.01,
+        0.024
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "carton_4_mark_2",
+      "body": "carton_4",
+      "type": 6,
+      "size": [
+        0.0003,
+        0.005,
+        0.012
+      ],
+      "local_position_m": [
+        -0.0893,
+        0.008,
+        0.0492
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.10000000149011612,
+        0.10000000149011612,
+        0.10000000149011612,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": false,
+      "solref": [
+        0.004,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.0006,
+        0.01,
+        0.024
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "carton_4_mark_3",
+      "body": "carton_4",
+      "type": 6,
+      "size": [
+        0.0003,
+        0.005,
+        0.012
+      ],
+      "local_position_m": [
+        -0.0893,
+        0.024,
+        0.0492
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.10000000149011612,
+        0.10000000149011612,
+        0.10000000149011612,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": false,
+      "solref": [
+        0.004,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.0006,
+        0.01,
+        0.024
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "lid_4_plate",
+      "body": "lid_4",
+      "type": 6,
+      "size": [
+        0.08900000000000001,
+        0.069,
+        0.002
+      ],
+      "local_position_m": [
+        0.0,
+        -0.069,
+        0.002
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.7200000286102295,
+        0.5799999833106995,
+        0.4000000059604645,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": true,
+      "solref": [
+        0.01,
+        1.0
+      ],
+      "solimp": [
+        0.9,
+        0.95,
+        0.005,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.17800000000000002,
+        0.138,
+        0.004
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    },
+    {
+      "name": "lid_4_flap",
+      "body": "lid_4",
+      "type": 6,
+      "size": [
+        0.085,
+        0.001,
+        0.01
+      ],
+      "local_position_m": [
+        0.0,
+        -0.138,
+        -0.01
+      ],
+      "local_quaternion_wxyz": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rgba": [
+        0.7200000286102295,
+        0.5799999833106995,
+        0.4000000059604645,
+        1.0
+      ],
+      "friction": [
+        1.1,
+        0.01,
+        0.001
+      ],
+      "contact_enabled": true,
+      "solref": [
+        0.004,
+        1.0
+      ],
+      "solimp": [
+        0.99,
+        0.999,
+        0.0001,
+        0.5,
+        2.0
+      ],
+      "full_size_m": [
+        0.17,
+        0.002,
+        0.02
+      ],
+      "size_convention": "size is half-extents; full_size_m is full dimensions; local pose relative to named authored body"
+    }
+  ],
+  "station": {
+    "dependency": "yam_arena.station + yam_arena.scene pinned separately",
+    "bases_m": {
+      "left": [
+        0,
+        0.305,
+        0.75
+      ],
+      "right": [
+        0,
+        -0.305,
+        0.75
+      ]
+    },
+    "table_size_m": [
+      1.1,
+      1.3,
+      0.06
+    ],
+    "table_center_m": [
+      0.36,
+      0,
+      0.7175
+    ],
+    "table_top_m": 0.7475,
+    "floor_z_m": -0.0125,
+    "robot": "two I2RT YAM arms, six joints and mean-jaw each; 27/7 Nm total incl gravity, fingers40N",
+    "objects": [
+      "table",
+      "floor",
+      "left arm",
+      "right arm",
+      "stand foot",
+      "stand mast capsule",
+      "stand arm capsule",
+      "camera housing",
+      "lamp"
+    ],
+    "cameras": "calibrated overhead + left/right wrist RGB; exact calibrations recorded in station-reference.py",
+    "materials": "station room uses colored primitive table/floor and stand with roughness0.7/0.5; external robot meshes black/white. Full source parameters in scene-reference.py; no texture copied.",
+    "rig": {
+      "name": "station-calibrated",
+      "bases": {
+        "left": [
+          0.0,
+          0.305,
+          0.75
+        ],
+        "right": [
+          0.0,
+          -0.305,
+          0.75
+        ]
+      },
+      "top_cam": {
+        "pos": [
+          -0.16649487853050232,
+          -0.008999999612569809,
+          1.6918205499649046
+        ],
+        "rot_xyzw": [
+          0.18301085645621007,
+          -0.18301085645621007,
+          -0.6830131963726356,
+          0.6830131963726356
+        ],
+        "convention": "opengl",
+        "lens": {
+          "fx": 392.195617675781,
+          "fy": 391.722351074219,
+          "cx": 318.389434814453,
+          "cy": 177.876312255859,
+          "width": 640,
+          "height": 360
+        }
+      },
+      "wrist_cams": {
+        "left": {
+          "pos": [
+            0.0003999999999999915,
+            -0.069638,
+            0.07276200000000001
+          ],
+          "rot_xyzw": [
+            0.9756188502039811,
+            -0.002816999567479388,
+            0.003226999504528134,
+            0.21942996630883527
+          ],
+          "convention": "opengl",
+          "lens": {
+            "fx": 390.666,
+            "fy": 390.162,
+            "cx": 317.526,
+            "cy": 176.146,
+            "width": 640,
+            "height": 360
+          }
+        },
+        "right": {
+          "pos": [
+            -8.528195379902339e-18,
+            -0.069638,
+            0.071699
+          ],
+          "rot_xyzw": [
+            0.9756188502039811,
+            -0.002816999567479388,
+            0.003226999504528134,
+            0.21942996630883527
+          ],
+          "convention": "opengl",
+          "lens": {
+            "fx": 390.666,
+            "fy": 390.162,
+            "cx": 317.526,
+            "cy": 176.146,
+            "width": 640,
+            "height": 360
+          }
+        }
+      },
+      "dream_look": true
+    },
+    "camera_stand": {
+      "stand_foot": [
+        "box",
+        [
+          0.11,
+          0.11,
+          0.016
+        ],
+        [
+          -0.23649487853050233,
+          -0.008999999612569809,
+          0.7555
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "stand_mast": [
+        "capsule",
+        [
+          0.012,
+          0.9283205499649047
+        ],
+        [
+          -0.23649487853050233,
+          -0.008999999612569809,
+          1.2276602749824523
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "stand_arm": [
+        "capsule",
+        [
+          0.009,
+          0.053851648071345064
+        ],
+        [
+          -0.2114948785305023,
+          -0.008999999612569809,
+          1.7018205499649046
+        ],
+        [
+          0.0,
+          0.5606288093051837,
+          0.0,
+          0.8280672304692729
+        ]
+      ],
+      "camera_housing": [
+        "box",
+        [
+          0.05,
+          0.042,
+          0.022
+        ],
+        [
+          -0.1734948130126891,
+          -0.008999999612569809,
+          1.7039449434443779
+        ],
+        [
+          0.18301085645621007,
+          -0.18301085645621007,
+          -0.6830131963726356,
+          0.6830131963726356
+        ]
+      ]
+    },
+    "floor": {
+      "size_m": [
+        200,
+        200,
+        0.02
+      ],
+      "center_m": [
+        0,
+        0,
+        -0.02250000000000007
+      ]
+    },
+    "lamp_world_m": [
+      0.03999999999999998,
+      -0.8,
+      2.6875
+    ]
+  },
+  "seed": 42,
+  "object_jitter": 0
+}

@@ -14,6 +14,6 @@
   "run_limit": "1,604 genuine14D joint-position actions at20 Hz (80.2 simulated seconds).",
   "reset_notes": "Restore the fixed layout, both arms ready/open, both indicators white, all four lids open1.75 rad and untucked, automatic testers armed. Clear shock/contact/force/drop/finalhold history; no object jitter.",
   "fidelity": "Rigid cartons, lids and boxes; no cardboard tearing or flap flex. Foam uses a passive6DOF rigid top face with global compression/tilt/shear compliance, damping and densification; no independent corner warp or side collision. Tuck is a contact/force-gated hinge constraint. A finite25N/2Nm tester releases the package into free fall. Shock uses a time-weighted2ms proper-acceleration history. Material/friction values are estimates.",
-  "scores": "Dream-1 (dreamlabs/dream-1-beta):0.0 after1,604 actions, normal time-limit termination;393 requests in one continuous session. Matching-source genuine-YAM Brev scripted replay:1.0 after363 actions/18.15 simulated seconds; matching UNC replay also1.0. One fixed layout; no robustness or model-success claim.",
+  "scores": "Dream-1:0.0 (1,604 actions,393 requests,one continuous session). Scripted YAM demo:1.0 (363 actions,18.15s) on Brev; matching UNC replay:1.0. One fixed layout; no robustness claim.",
   "media": "M-JXX2XM"
 }

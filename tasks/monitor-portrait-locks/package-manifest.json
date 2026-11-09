@@ -1,0 +1,54 @@
+{
+  "kind": "validated standalone source with real uploaded media and checked publication ownership",
+  "at": "2026-11-09T18:47:35.998049+00:00",
+  "scope": "all packaged files except this manifest; source correspondence is separately verified",
+  "files": {
+    "LICENSE.i2rt": "7cd0a0224a287ebd6c45703eb6623d264c7810f8958d65de8f99e87ccd9f4891",
+    "README.md": "a82db291687c4fae2fbaaa77269afa58701c3336f0db57b63d084302a522a2f2",
+    "THIRD_PARTY_NOTICES.md": "b38e7155ebe49218b5096c6f589be7dd383a4e45cc7df7210fef6224896de67d",
+    "contract.py": "52d8920516dad51213e04aa88aef594dae1fdfa1a4a5e334e82e9b68ca627cb1",
+    "controller-parameters.json": "394844df9d62d8dbd4e4c1c54e15d7960974bdb27b739eab050e7efb33334319",
+    "dream_continuity.py": "3a72ded4856a4657f24f1d09f93443d8fa4289f921f120bf113c9558cff18911",
+    "fixture.json": "dc0ff226601899f30762ef66e65283f82af96f78a1443b78b120c08ecc1d9f30",
+    "grasp_mesh_preflight.py": "f3d57e7a4f021f6675d95f6e252dc5212d0cb29d9bfd1bc0d8ee62a0569c2298",
+    "inspect_entry.py": "494064ca3358286aff33987625e4dc81ee27a656df02c1bd2f2d578fc8b5abfc",
+    "kit.py": "83952c24cef53a3105c8946ef37baa530e7a1c9e85093cc8c4570d630589065a",
+    "monitor.usda": "0a44a7c3b04d7ade77ac36cfb001b753903104eb84a80da2ffc0a05b32f3782b",
+    "numeric_score.py": "bc5b49ece9139b99c9afef478bb35687ccb25bc62fb1af54d769beecd0bf81c5",
+    "physics_observer.py": "261e077a3b1d737156b7709ae2b1621a393e4040d39d23b94810ec3284b6bb91",
+    "record_overview.py": "c421cf1bb5a4dec5adb1cbc867e921dd29889833c99f822e134a83e29f231f0f",
+    "room_geometry.py": "495cdfe67d86a0ca37b7945d5d9465e366a453700fe0e8ee00a3496f5597582c",
+    "run_demo.py": "4d879b7fba31de0c95aa77da2731cbba2fc8f42b91759e329d8984f7ca2d6d68",
+    "setup-inventory.json": "677759af58f7e6bf25885768a3747420e3de82fa4e604e15cbf34ae178e0ec48",
+    "source-provenance.json": "827326be9b5978f0c1f8adcdf0530837c0cad53b5301987092e4373297d8afc3",
+    "task.json": "b42b34bb43532672d6542256f449c51f2a91a11310bb3d3fd6227b469179a417",
+    "task.py": "858e7d61862113e6fb823b3dea7581da00e9c79874d0fbbd19e1027e2e7ef367",
+    "telemetry_math.py": "175c018a666d58e3a50a9737d447aadb49977ec6207e034d7941c61c0b9e13ba"
+  },
+  "actual_results": {
+    "model": {
+      "name": "dreamlabs/dream-1-beta",
+      "score": 0.0,
+      "actions": 1428,
+      "requests": 349,
+      "sessions": 1
+    },
+    "scripted_demo": {
+      "score": 1.0,
+      "actions": 1204,
+      "hold_s": 20.033333333332518
+    }
+  },
+  "packaging_only_differences": [
+    "task.py module docstring",
+    "identical instruction read from final task.json",
+    "record_overview.py metadata filename and pre-launch output-folder guard",
+    "truthful metadata, README and notices",
+    "real uploaded media ID and refreshed packaging manifest; no runtime change"
+  ],
+  "submission_ready": true,
+  "remaining": [],
+  "package_fingerprint": "b2b9a208cc10d5cafcaf994c8fafcace54de0c5630294b75126877601152d8fc",
+  "official_accepted": false,
+  "media_id": "M-HG9KE5"
+}

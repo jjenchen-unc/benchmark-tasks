@@ -1,0 +1,15 @@
+{
+  "source_package": "artifacts/submission-integration/round1/input-packages/B5_monitor--stand_position",
+  "source_scene_sha256": "170466a191bad1db572ff35081de72181c4de09b13cb187fe33d6aebd9f1e6e8",
+  "numeric_score_source": "artifacts/submission-integration/round1/input-packages/B5_monitor--stand_position/scoring/stand_position_score.py",
+  "numeric_score_source_sha256": "fa5542f87dfbc7082ee36f042e38c7573a476108c2987369b38de0541c95cb86",
+  "copied_ast_nodes": [
+    "imports",
+    "constant assignments",
+    "_finite",
+    "_out",
+    "score"
+  ],
+  "source_preserved": true,
+  "native_scores_transfer": false
+}

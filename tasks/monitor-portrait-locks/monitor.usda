@@ -1,0 +1,2961 @@
+#usda 1.0
+(
+    defaultPrim = "B5Stand"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "B5Stand" (
+    prepend apiSchemas = ["PhysicsArticulationRootAPI", "PhysxArticulationAPI"]
+    customData = {
+        dictionary b5 = {
+            bool nativeScoresTransfer = 0
+            string sourceSceneSha256 = "170466a191bad1db572ff35081de72181c4de09b13cb187fe33d6aebd9f1e6e8"
+            string target = "portrait_side"
+        }
+    }
+)
+{
+    bool physxArticulation:enabledSelfCollisions = 1
+    int physxArticulation:solverPositionIterationCount = 64
+    int physxArticulation:solverVelocityIterationCount = 8
+    quatd xformOp:orient = (1, 0, 0, 0)
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+    def "links"
+    {
+        def Xform "sensor_mount" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+            customData = {
+                dictionary b5 = {
+                    bool virtualFixedWrenchFrame = 1
+                }
+            }
+        )
+        {
+            float3 physics:diagonalInertia = (1e-10, 1e-10, 1e-10)
+            float physics:mass = 0.000001
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Xform "monitor_stand" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI", "PhysicsFilteredPairsAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (-0.0077941176, 1.3877788e-17, 0.078705885)
+            float3 physics:diagonalInertia = (0.06369383, 0.0557092, 0.02581009)
+            prepend rel physics:filteredPairs = [
+                </B5Stand/links/stand_carriage>,
+                </B5Stand/links/button_0>,
+                </B5Stand/links/button_1>,
+                </B5Stand/links/button_2>,
+            ]
+            float physics:mass = 3.4
+            quatf physics:principalAxes = (0.7071054, -0.0014058866, -0.0014058866, 0.7071054)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            int physxRigidBody:solverPositionIterationCount = 64
+            int physxRigidBody:solverVelocityIterationCount = 8
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cube "stand_foot" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_1_1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.64, 0.67, 0.7)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.28, 0.22, 0.016)
+                double3 xformOp:translate = (0.0050000000000000044, 0, 0.008000000000000007)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "stand_column" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_1_1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.64, 0.67, 0.7)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.05, 0.07, 0.42)
+                double3 xformOp:translate = (0, 0, 0.22599999999999998)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "stand_pod" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_1_1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.64, 0.67, 0.7)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (0.9659258492011169, 0, -0.2588189595935754, 0)
+                float3 xformOp:scale = (0.09, 0.124, 0.08)
+                double3 xformOp:translate = (-0.105, 0, 0.061999999999999944)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "stand_pod_web" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_1_1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.64, 0.67, 0.7)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.06, 0.08, 0.108)
+                double3 xformOp:translate = (-0.049999999999999996, 0, 0.06999999999999995)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cylinder "button_bezel_0"
+            {
+                uniform token axis = "Z"
+                double height = 0.0012
+                color3f[] primvars:displayColor = [(0.1, 0.11, 0.13)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.0095
+                quatd xformOp:orient = (0.9659258492011169, 0, -0.2588189595935754, 0)
+                double3 xformOp:translate = (-0.1253, -0.035, 0.09716099999999994)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cylinder "button_bezel_1"
+            {
+                uniform token axis = "Z"
+                double height = 0.0012
+                color3f[] primvars:displayColor = [(0.1, 0.11, 0.13)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.0095
+                quatd xformOp:orient = (0.9659258492011169, 0, -0.2588189595935754, 0)
+                double3 xformOp:translate = (-0.1253, 0, 0.09716099999999994)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cylinder "button_bezel_2"
+            {
+                uniform token axis = "Z"
+                double height = 0.0012
+                color3f[] primvars:displayColor = [(0.1, 0.11, 0.13)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.0095
+                quatd xformOp:orient = (0.9659258492011169, 0, -0.2588189595935754, 0)
+                double3 xformOp:translate = (-0.1253, 0.035, 0.09716099999999994)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+        }
+
+        def Xform "stand_carriage" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0, 0)
+            float3 physics:diagonalInertia = (0.0008125, 0.0007369, 0.0001044)
+            float physics:mass = 0.3
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            int physxRigidBody:solverPositionIterationCount = 64
+            int physxRigidBody:solverVelocityIterationCount = 8
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.037000000000000005, 0, 0.20499999999999985)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cube "carriage_plate" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_1_1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.1, 0.11, 0.13)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.024, 0.06, 0.17)
+                double3 xformOp:translate = (0, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth0" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.003)
+                double3 xformOp:translate = (-0.039, 0.02, 0.07815)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth1" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.0017)
+                double3 xformOp:translate = (-0.039, 0.02, 0.0725)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth2" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.0017)
+                double3 xformOp:translate = (-0.039, 0.02, 0.0675)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth3" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.0017)
+                double3 xformOp:translate = (-0.039, 0.02, 0.0625)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth4" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.0017)
+                double3 xformOp:translate = (-0.039, 0.02, 0.0575)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth5" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.0017)
+                double3 xformOp:translate = (-0.039, 0.02, 0.0525)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth6" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.0017)
+                double3 xformOp:translate = (-0.039, 0.02, 0.0475)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth7" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.0017)
+                double3 xformOp:translate = (-0.039, 0.02, 0.0425)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth8" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.0017)
+                double3 xformOp:translate = (-0.039, 0.02, 0.0375)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth9" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.0017)
+                double3 xformOp:translate = (-0.039, 0.02, 0.0325)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth10" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.0017)
+                double3 xformOp:translate = (-0.039, 0.02, 0.0275)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth11" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.0017)
+                double3 xformOp:translate = (-0.039, 0.02, 0.0225)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth12" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.0017)
+                double3 xformOp:translate = (-0.039, 0.02, 0.0175)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth13" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.0017)
+                double3 xformOp:translate = (-0.039, 0.02, 0.0125)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth14" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.0017)
+                double3 xformOp:translate = (-0.039, 0.02, 0.0075)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth15" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.0017)
+                double3 xformOp:translate = (-0.039, 0.02, 0.0025)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth16" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.0017)
+                double3 xformOp:translate = (-0.039, 0.02, -0.0025)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth17" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.0017)
+                double3 xformOp:translate = (-0.039, 0.02, -0.0075)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth18" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.0017)
+                double3 xformOp:translate = (-0.039, 0.02, -0.0125)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth19" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.0017)
+                double3 xformOp:translate = (-0.039, 0.02, -0.0175)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth20" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.0017)
+                double3 xformOp:translate = (-0.039, 0.02, -0.0225)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth21" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.0017)
+                double3 xformOp:translate = (-0.039, 0.02, -0.0275)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth22" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.0017)
+                double3 xformOp:translate = (-0.039, 0.02, -0.0325)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth23" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.0017)
+                double3 xformOp:translate = (-0.039, 0.02, -0.0375)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth24" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.0017)
+                double3 xformOp:translate = (-0.039, 0.02, -0.0425)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth25" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.0017)
+                double3 xformOp:translate = (-0.039, 0.02, -0.0475)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth26" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.0017)
+                double3 xformOp:translate = (-0.039, 0.02, -0.0525)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth27" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.0017)
+                double3 xformOp:translate = (-0.039, 0.02, -0.0575)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth28" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.0017)
+                double3 xformOp:translate = (-0.039, 0.02, -0.0625)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth29" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.0017)
+                double3 xformOp:translate = (-0.039, 0.02, -0.0675)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "rack_tooth30" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.01, 0.003)
+                double3 xformOp:translate = (-0.039, 0.02, -0.07315)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+        }
+
+        def Xform "stand_tilt" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0.00021428571, -0.008, -0.009714286)
+            float3 physics:diagonalInertia = (0.000945158, 0.00067544356, 0.00034300916)
+            float physics:mass = 0.35
+            quatf physics:principalAxes = (0.9409973, -0.33838144, -0.004430396, 0.0015766952)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            int physxRigidBody:solverPositionIterationCount = 64
+            int physxRigidBody:solverVelocityIterationCount = 8
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.067, 0, 0.20499999999999985)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cube "tilt_housing" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_1_1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.1, 0.11, 0.13)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.024, 0.11, 0.11)
+                double3 xformOp:translate = (0, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "tilt_lock_cover" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_1_1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.1, 0.11, 0.13)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.073, 0.032, 0.028)
+                double3 xformOp:translate = (0.0015, -0.056, -0.068)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "tiltlock_tooth0" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (-0.7050813915894741, 0.7050813915894741, 0.0534811297024538, 0.0534811297024538)
+                float3 xformOp:scale = (0.00567882, 0.008, 0.006)
+                double3 xformOp:translate = (0.0105497, -0.048, -0.0691422)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "tiltlock_tooth1" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (-0.7069385081326817, 0.7069385081326817, 0.015425489267391785, 0.015425489267391785)
+                float3 xformOp:scale = (0.00280846, 0.008, 0.006)
+                double3 xformOp:translate = (0.00305274, -0.048, -0.0699193)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "tiltlock_tooth2" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (-0.7069385081326817, 0.7069385081326817, -0.015425489267391785, -0.015425489267391785)
+                float3 xformOp:scale = (0.00280846, 0.008, 0.006)
+                double3 xformOp:translate = (-0.00305274, -0.048, -0.0699193)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "tiltlock_tooth3" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (-0.7055928118480571, 0.7055928118480571, -0.04624698766787241, -0.04624698766787241)
+                float3 xformOp:scale = (0.00280846, 0.008, 0.006)
+                double3 xformOp:translate = (-0.00913499, -0.048, -0.0693872)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "tiltlock_tooth4" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (-0.7029039784937744, 0.7029039784937744, -0.07698049764468548, -0.07698049764468548)
+                float3 xformOp:scale = (0.00280846, 0.008, 0.006)
+                double3 xformOp:translate = (-0.0151477, -0.048, -0.068327)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "tiltlock_tooth5" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (-0.6988771952537358, 0.6988771952537358, -0.10756703005229619, -0.10756703005229619)
+                float3 xformOp:scale = (0.00280846, 0.008, 0.006)
+                double3 xformOp:translate = (-0.0210452, -0.048, -0.0667468)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "tiltlock_tooth6" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (-0.691429019693973, 0.691429019693973, -0.14807400421759193, -0.14807400421759193)
+                float3 xformOp:scale = (0.00689932, 0.008, 0.006)
+                double3 xformOp:translate = (-0.0286322, -0.048, -0.0637832)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+        }
+
+        def Xform "stand_pivot" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0.031725805, 0, 0)
+            float3 physics:diagonalInertia = (0.07868167, 0.058867235, 0.021167234)
+            float physics:mass = 3.1
+            quatf physics:principalAxes = (0.70710677, 0.70710677, 0, 0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            int physxRigidBody:solverPositionIterationCount = 64
+            int physxRigidBody:solverVelocityIterationCount = 8
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.087, 0, 0.20499999999999985)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cube "vesa_plate" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_1_1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.1, 0.11, 0.13)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.008, 0.1, 0.1)
+                double3 xformOp:translate = (0.006, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "pivotlock_tooth0" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (-0.44090805900011587, 0.5528110739744189, -0.44090805900011587, 0.5528110739744189)
+                float3 xformOp:scale = (0.0033762, 0.008, 0.006)
+                double3 xformOp:translate = (-0.011, -0.010001, -0.0438421)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "pivotlock_tooth1" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (-0.461335230598934, 0.5358822678613544, -0.461335230598934, 0.5358822678613544)
+                float3 xformOp:scale = (0.0033762, 0.008, 0.006)
+                double3 xformOp:translate = (-0.011, -0.00668588, -0.0444685)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "pivotlock_tooth2" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (-0.48111303734880656, 0.518199040227793, -0.48111303734880656, 0.518199040227793)
+                float3 xformOp:scale = (0.0033762, 0.008, 0.006)
+                double3 xformOp:translate = (-0.011, -0.00333309, -0.0448446)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "pivotlock_tooth3" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (0.5211700581891614, -0.4778930533572403, 0.5211700581891614, -0.4778930533572403)
+                float3 xformOp:scale = (0.00449052, 0.008, 0.006)
+                double3 xformOp:translate = (-0.011, 0.00388648, -0.0447756)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "pivotlock_tooth4" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (0.5443656644574628, -0.45129372182624594, 0.5443656644574628, -0.45129372182624594)
+                float3 xformOp:scale = (0.00449052, 0.008, 0.006)
+                double3 xformOp:translate = (-0.011, 0.0083297, -0.0441653)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "pivotlock_tooth5" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (0.5662047202575679, -0.4235707907281255, 0.5662047202575679, -0.4235707907281255)
+                float3 xformOp:scale = (0.00449052, 0.008, 0.006)
+                double3 xformOp:translate = (-0.011, 0.01269, -0.0431152)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "pivotlock_tooth6" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (0.5866331234639934, -0.3947930830889506, 0.5866331234639934, -0.3947930830889506)
+                float3 xformOp:scale = (0.00449052, 0.008, 0.006)
+                double3 xformOp:translate = (-0.011, 0.0169239, -0.0416358)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "pivotlock_tooth7" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (0.6056008775705278, -0.3650309262046254, 0.6056008775705278, -0.3650309262046254)
+                float3 xformOp:scale = (0.00449052, 0.008, 0.006)
+                double3 xformOp:translate = (-0.011, 0.0209892, -0.0397418)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "pivotlock_tooth8" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (0.6230597674741382, -0.33435987521691785, 0.6230597674741382, -0.33435987521691785)
+                float3 xformOp:scale = (0.00449052, 0.008, 0.006)
+                double3 xformOp:translate = (-0.011, 0.0248456, -0.037452)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "pivotlock_tooth9" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (0.638966443511874, -0.3028562102149913, 0.638966443511874, -0.3028562102149913)
+                float3 xformOp:scale = (0.00449052, 0.008, 0.006)
+                double3 xformOp:translate = (-0.011, 0.0284546, -0.0347893)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "pivotlock_tooth10" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (0.6532814294902178, -0.27059817790077156, 0.6532814294902178, -0.27059817790077156)
+                float3 xformOp:scale = (0.00449052, 0.008, 0.006)
+                double3 xformOp:translate = (-0.011, 0.0317802, -0.0317802)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "pivotlock_tooth11" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (0.6659691088746368, -0.2376660388543602, 0.6659691088746368, -0.2376660388543602)
+                float3 xformOp:scale = (0.00449052, 0.008, 0.006)
+                double3 xformOp:translate = (-0.011, 0.0347893, -0.0284546)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "pivotlock_tooth12" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (0.6769981083975608, -0.20414103268604405, 0.6769981083975608, -0.20414103268604405)
+                float3 xformOp:scale = (0.00449052, 0.008, 0.006)
+                double3 xformOp:translate = (-0.011, 0.037452, -0.0248456)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "pivotlock_tooth13" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (0.6863404617260922, -0.170108114437891, 0.6863404617260922, -0.170108114437891)
+                float3 xformOp:scale = (0.00449052, 0.008, 0.006)
+                double3 xformOp:translate = (-0.011, 0.0397418, -0.0209892)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "pivotlock_tooth14" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (0.6939730070556236, -0.1356520013791739, 0.6939730070556236, -0.1356520013791739)
+                float3 xformOp:scale = (0.00449052, 0.008, 0.006)
+                double3 xformOp:translate = (-0.011, 0.0416358, -0.0169239)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "pivotlock_tooth15" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (0.6998770352892008, -0.10085700508541204, 0.6998770352892008, -0.10085700508541204)
+                float3 xformOp:scale = (0.00449052, 0.008, 0.006)
+                double3 xformOp:translate = (-0.011, 0.0431152, -0.01269)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "pivotlock_tooth16" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (0.7040375267893897, -0.06581155576553054, 0.7040375267893897, -0.06581155576553054)
+                float3 xformOp:scale = (0.00449052, 0.008, 0.006)
+                double3 xformOp:translate = (-0.011, 0.0441653, -0.0083297)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "pivotlock_tooth17" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (0.7064442858985972, -0.030601812384579236, 0.7064442858985972, -0.030601812384579236)
+                float3 xformOp:scale = (0.00449052, 0.008, 0.006)
+                double3 xformOp:translate = (-0.011, 0.0447756, -0.00388648)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "pivotlock_tooth18" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (0.7066203484757828, 0.026223712932445138, 0.7066203484757828, 0.026223712932445138)
+                float3 xformOp:scale = (0.0033762, 0.008, 0.006)
+                double3 xformOp:translate = (-0.011, 0.0448446, 0.00333309)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "pivotlock_tooth19" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (0.7051392403485773, 0.05271291796733768, 0.7051392403485773, 0.05271291796733768)
+                float3 xformOp:scale = (0.0033762, 0.008, 0.006)
+                double3 xformOp:translate = (-0.011, 0.0444685, 0.00668588)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "pivotlock_tooth20" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                token visibility = "invisible"
+                quatd xformOp:orient = (0.7026654730462129, 0.07912795327026881, 0.7026654730462129, 0.07912795327026881)
+                float3 xformOp:scale = (0.0033762, 0.008, 0.006)
+                double3 xformOp:translate = (-0.011, 0.0438421, 0.010001)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "monitor_panel" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_0_8> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.12, 0.12, 0.13)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.047, 0.49, 0.29)
+                double3 xformOp:translate = (0.0335, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "monitor_display"
+            {
+                color3f[] primvars:displayColor = [(0.02, 0.05, 0.08)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.0008, 0.474, 0.262)
+                double3 xformOp:translate = (0.0574, 0, 0.004)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "monitor_logo"
+            {
+                color3f[] primvars:displayColor = [(0.64, 0.67, 0.7)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.0008, 0.024, 0.006)
+                double3 xformOp:translate = (0.0578, 0, -0.139)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "monitor_led"
+            {
+                color3f[] primvars:displayColor = [(0.9, 0.9, 0.9)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.0008, 0.004, 0.003)
+                double3 xformOp:translate = (0.0578, -0.225, -0.139)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+        }
+
+        def Xform "pin_P" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (-0.0035, 0, 0)
+            float3 physics:diagonalInertia = (6.801429e-8, 6.801429e-8, 4.3714286e-9)
+            float physics:mass = 0.004
+            quatf physics:principalAxes = (0.70710677, 0, -0.70710677, 0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            int physxRigidBody:solverPositionIterationCount = 64
+            int physxRigidBody:solverVelocityIterationCount = 8
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.07300000000000001, 0, 0.1599999999999998)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Capsule "pin_P_geom" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.012
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double radius = 0.0015
+                token visibility = "invisible"
+                quatd xformOp:orient = (0.7071067811865476, 0, -0.7071067811865475, 0)
+                double3 xformOp:translate = (-0.0034999999999999996, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+        }
+
+        def Xform "pin_T" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, -0.0035, 0)
+            float3 physics:diagonalInertia = (6.801429e-8, 6.801429e-8, 4.3714286e-9)
+            float physics:mass = 0.004
+            quatf physics:principalAxes = (0.70710677, 0.70710677, 0, -0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            int physxRigidBody:solverPositionIterationCount = 64
+            int physxRigidBody:solverVelocityIterationCount = 8
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.067, -0.051, 0.1349999999999998)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Capsule "pin_T_geom" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.012
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double radius = 0.0015
+                token visibility = "invisible"
+                quatd xformOp:orient = (0.7071067811865476, 0.7071067811865475, 0, -0)
+                double3 xformOp:translate = (0, -0.0034999999999999996, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+        }
+
+        def Xform "pin_H" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (-0.0035, 0, 0)
+            float3 physics:diagonalInertia = (6.801429e-8, 6.801429e-8, 4.3714286e-9)
+            float physics:mass = 0.004
+            quatf physics:principalAxes = (0.70710677, 0, -0.70710677, 0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            int physxRigidBody:solverPositionIterationCount = 64
+            int physxRigidBody:solverVelocityIterationCount = 8
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (-0.0049999999999999975, 0.01999999999999999, 0.28)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Capsule "pin_H_geom" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.012
+                rel material:binding:physics = </B5Stand/materials/mu_0_12> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </B5Stand/links/monitor_stand/stand_foot>,
+                    </B5Stand/links/monitor_stand/stand_column>,
+                    </B5Stand/links/monitor_stand/stand_pod>,
+                    </B5Stand/links/monitor_stand/stand_pod_web>,
+                    </B5Stand/links/stand_carriage/carriage_plate>,
+                    </B5Stand/links/stand_tilt/tilt_housing>,
+                    </B5Stand/links/stand_tilt/tilt_lock_cover>,
+                    </B5Stand/links/stand_pivot/vesa_plate>,
+                    </B5Stand/links/stand_pivot/monitor_panel>,
+                    </B5Stand/links/button_0/button_0_cap>,
+                    </B5Stand/links/button_1/button_1_cap>,
+                    </B5Stand/links/button_2/button_2_cap>,
+                    </B5Stand/links/side_box/side_box_geom>,
+                ]
+                float physxCollision:contactOffset = 0.00005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [0]
+                double radius = 0.0015
+                token visibility = "invisible"
+                quatd xformOp:orient = (0.7071067811865476, 0, -0.7071067811865475, 0)
+                double3 xformOp:translate = (-0.0034999999999999996, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+        }
+
+        def Xform "button_0" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0, 0.0035)
+            float3 physics:diagonalInertia = (1.6333334e-7, 1.6333334e-7, 2.45e-7)
+            float physics:mass = 0.01
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            int physxRigidBody:solverPositionIterationCount = 64
+            int physxRigidBody:solverVelocityIterationCount = 8
+            quatd xformOp:orient = (0.9659258492011169, 0, -0.2588189595935754, 0)
+            double3 xformOp:translate = (-0.125, -0.035, 0.09664099999999998)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cylinder "button_0_cap" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.007
+                rel material:binding:physics = </B5Stand/materials/mu_0_8> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.16, 0.17, 0.19)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.007
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0.0035)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+        }
+
+        def Xform "button_1" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0, 0.0035)
+            float3 physics:diagonalInertia = (1.6333334e-7, 1.6333334e-7, 2.45e-7)
+            float physics:mass = 0.01
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            int physxRigidBody:solverPositionIterationCount = 64
+            int physxRigidBody:solverVelocityIterationCount = 8
+            quatd xformOp:orient = (0.9659258492011169, 0, -0.2588189595935754, 0)
+            double3 xformOp:translate = (-0.125, 0, 0.09664099999999998)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cylinder "button_1_cap" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.007
+                rel material:binding:physics = </B5Stand/materials/mu_0_8> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.16, 0.17, 0.19)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.007
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0.0035)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+        }
+
+        def Xform "button_2" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0, 0.0035)
+            float3 physics:diagonalInertia = (1.6333334e-7, 1.6333334e-7, 2.45e-7)
+            float physics:mass = 0.01
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            int physxRigidBody:solverPositionIterationCount = 64
+            int physxRigidBody:solverVelocityIterationCount = 8
+            quatd xformOp:orient = (0.9659258492011169, 0, -0.2588189595935754, 0)
+            double3 xformOp:translate = (-0.125, 0.035, 0.09664099999999998)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cylinder "button_2_cap" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.007
+                rel material:binding:physics = </B5Stand/materials/mu_0_8> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.16, 0.17, 0.19)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.007
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0.0035)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+        }
+
+        def Xform "side_box" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI"]
+            customData = {
+                dictionary b5 = {
+                    bool stationaryObstacle = 1
+                }
+            }
+        )
+        {
+            bool physics:kinematicEnabled = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (-0.06, -0.1, -0.8)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cube "side_box_geom" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding:physics = </B5Stand/materials/mu_1_1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.25, 0.3, 0.38)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.12, 0.1, 0.2)
+                double3 xformOp:translate = (0.16, -0.22, 0.9)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+        }
+    }
+
+    def "materials"
+    {
+        def Material "mu_1_1" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.1
+            float physics:restitution = 0
+            float physics:staticFriction = 1.1
+        }
+
+        def Material "mu_0_12" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.12
+            float physics:restitution = 0
+            float physics:staticFriction = 0.12
+        }
+
+        def Material "mu_0_8" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.8
+            float physics:restitution = 0
+            float physics:staticFriction = 0.8
+        }
+    }
+
+    def "joints"
+    {
+        def PhysicsPrismaticJoint "height" (
+            prepend apiSchemas = ["PhysxJointAPI", "PhysxJointAxisAPI:linear", "PhysicsDriveAPI:linear"]
+            customData = {
+                dictionary b5 = {
+                    bool passiveOnly = 1
+                }
+            }
+        )
+        {
+            float drive:linear:physics:damping = 6
+            float drive:linear:physics:maxForce = inf
+            float drive:linear:physics:stiffness = 30
+            float drive:linear:physics:targetPosition = 1.301366
+            uniform token drive:linear:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </B5Stand/links/monitor_stand>
+            rel physics:body1 = </B5Stand/links/stand_carriage>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0.037, 0, 0.205)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0.70710677, 0, -0.70710677, 0)
+            quatf physics:localRot1 = (0.70710677, 0, -0.70710677, 0)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 0.145
+            float physxJoint:armature = 0.05
+            float physxJointAxis:linear:dynamicFrictionEffort = 5.95663
+            float physxJointAxis:linear:staticFrictionEffort = 5.95663
+        }
+
+        def PhysicsRevoluteJoint "tilt" (
+            prepend apiSchemas = ["PhysxJointAPI", "PhysxJointAxisAPI:angular", "PhysicsDriveAPI:angular"]
+            customData = {
+                dictionary b5 = {
+                    bool passiveOnly = 1
+                }
+            }
+        )
+        {
+            float drive:angular:physics:damping = 0.0052359877
+            float drive:angular:physics:maxForce = inf
+            float drive:angular:physics:stiffness = 0.008726646
+            float drive:angular:physics:targetPosition = 187.15683
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </B5Stand/links/stand_carriage>
+            rel physics:body1 = </B5Stand/links/stand_tilt>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0.03, 0, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0.70710677, 0, 0, -0.70710677)
+            quatf physics:localRot1 = (0.70710677, 0, 0, -0.70710677)
+            float physics:lowerLimit = -5.000002
+            float physics:upperLimit = 20.999992
+            float physxJoint:armature = 0.02
+            float physxJointAxis:angular:dynamicFrictionEffort = 0.535234
+            float physxJointAxis:angular:staticFrictionEffort = 0.535234
+        }
+
+        def PhysicsRevoluteJoint "pivot" (
+            prepend apiSchemas = ["PhysxJointAPI", "PhysxJointAxisAPI:angular", "PhysicsDriveAPI:angular"]
+            customData = {
+                dictionary b5 = {
+                    bool passiveOnly = 1
+                }
+            }
+        )
+        {
+            float drive:angular:physics:damping = 0.0052359877
+            float drive:angular:physics:maxForce = inf
+            float drive:angular:physics:stiffness = 0
+            float drive:angular:physics:targetPosition = 0
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </B5Stand/links/stand_tilt>
+            rel physics:body1 = </B5Stand/links/stand_pivot>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0.02, 0, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0, 0, 0, 1)
+            quatf physics:localRot1 = (0, 0, 0, 1)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 90
+            float physxJoint:armature = 0.02
+            float physxJointAxis:angular:dynamicFrictionEffort = 0.302494
+            float physxJointAxis:angular:staticFrictionEffort = 0.302494
+        }
+
+        def PhysicsPrismaticJoint "pin_P" (
+            prepend apiSchemas = ["PhysxJointAPI", "PhysxJointAxisAPI:linear", "PhysicsDriveAPI:linear", "PhysxMimicJointAPI:rotX"]
+            customData = {
+                dictionary b5 = {
+                    bool passiveOnly = 1
+                }
+            }
+        )
+        {
+            float drive:linear:physics:damping = 0.4
+            float drive:linear:physics:maxForce = inf
+            float drive:linear:physics:stiffness = 410.471
+            float drive:linear:physics:targetPosition = -0.0030677
+            uniform token drive:linear:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </B5Stand/links/stand_tilt>
+            rel physics:body1 = </B5Stand/links/pin_P>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0.006, 0, -0.045)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0, 0, 0, 1)
+            quatf physics:localRot1 = (0, 0, 0, 1)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 0.0065
+            float physxJoint:armature = 0.05
+            float physxJointAxis:linear:dynamicFrictionEffort = 0
+            float physxJointAxis:linear:staticFrictionEffort = 0
+            float physxMimicJoint:rotX:gearing = -1
+            float physxMimicJoint:rotX:offset = 0
+            rel physxMimicJoint:rotX:referenceJoint = </B5Stand/joints/button_1>
+            token physxMimicJoint:rotX:referenceJointAxis = "rotX"
+        }
+
+        def PhysicsPrismaticJoint "pin_T" (
+            prepend apiSchemas = ["PhysxJointAPI", "PhysxJointAxisAPI:linear", "PhysicsDriveAPI:linear", "PhysxMimicJointAPI:rotX"]
+            customData = {
+                dictionary b5 = {
+                    bool passiveOnly = 1
+                }
+            }
+        )
+        {
+            float drive:linear:physics:damping = 0.4
+            float drive:linear:physics:maxForce = inf
+            float drive:linear:physics:stiffness = 499.312
+            float drive:linear:physics:targetPosition = -0.00316453
+            uniform token drive:linear:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </B5Stand/links/stand_carriage>
+            rel physics:body1 = </B5Stand/links/pin_T>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0.03, -0.051, -0.07)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0.70710677, 0, 0, -0.70710677)
+            quatf physics:localRot1 = (0.70710677, 0, 0, -0.70710677)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 0.0065
+            float physxJoint:armature = 0.05
+            float physxJointAxis:linear:dynamicFrictionEffort = 0
+            float physxJointAxis:linear:staticFrictionEffort = 0
+            float physxMimicJoint:rotX:gearing = -1
+            float physxMimicJoint:rotX:offset = 0
+            rel physxMimicJoint:rotX:referenceJoint = </B5Stand/joints/button_0>
+            token physxMimicJoint:rotX:referenceJointAxis = "rotX"
+        }
+
+        def PhysicsPrismaticJoint "pin_H" (
+            prepend apiSchemas = ["PhysxJointAPI", "PhysxJointAxisAPI:linear", "PhysicsDriveAPI:linear", "PhysxMimicJointAPI:rotX"]
+            customData = {
+                dictionary b5 = {
+                    bool passiveOnly = 1
+                }
+            }
+        )
+        {
+            float drive:linear:physics:damping = 0.4
+            float drive:linear:physics:maxForce = inf
+            float drive:linear:physics:stiffness = 448.83
+            float drive:linear:physics:targetPosition = -0.00258128
+            uniform token drive:linear:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </B5Stand/links/monitor_stand>
+            rel physics:body1 = </B5Stand/links/pin_H>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (-0.005, 0.02, 0.28)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0, 0, 0, 1)
+            quatf physics:localRot1 = (0, 0, 0, 1)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 0.0065
+            float physxJoint:armature = 0.05
+            float physxJointAxis:linear:dynamicFrictionEffort = 0
+            float physxJointAxis:linear:staticFrictionEffort = 0
+            float physxMimicJoint:rotX:gearing = -1
+            float physxMimicJoint:rotX:offset = 0
+            rel physxMimicJoint:rotX:referenceJoint = </B5Stand/joints/button_2>
+            token physxMimicJoint:rotX:referenceJointAxis = "rotX"
+        }
+
+        def PhysicsPrismaticJoint "button_0" (
+            prepend apiSchemas = ["PhysxJointAPI", "PhysxJointAxisAPI:linear", "PhysicsDriveAPI:linear"]
+            customData = {
+                dictionary b5 = {
+                    bool passiveOnly = 1
+                }
+            }
+        )
+        {
+            float drive:linear:physics:damping = 0.3
+            float drive:linear:physics:maxForce = inf
+            float drive:linear:physics:stiffness = 0
+            float drive:linear:physics:targetPosition = 0
+            uniform token drive:linear:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </B5Stand/links/monitor_stand>
+            rel physics:body1 = </B5Stand/links/button_0>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (-0.125, -0.035, 0.096641)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0.8660254, 0, 0.50000006, 0)
+            quatf physics:localRot1 = (0.70710677, -0, 0.70710677, 0)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 0.0065
+            float physxJoint:armature = 0.05
+            float physxJointAxis:linear:dynamicFrictionEffort = 0
+            float physxJointAxis:linear:staticFrictionEffort = 0
+        }
+
+        def PhysicsPrismaticJoint "button_1" (
+            prepend apiSchemas = ["PhysxJointAPI", "PhysxJointAxisAPI:linear", "PhysicsDriveAPI:linear"]
+            customData = {
+                dictionary b5 = {
+                    bool passiveOnly = 1
+                }
+            }
+        )
+        {
+            float drive:linear:physics:damping = 0.3
+            float drive:linear:physics:maxForce = inf
+            float drive:linear:physics:stiffness = 0
+            float drive:linear:physics:targetPosition = 0
+            uniform token drive:linear:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </B5Stand/links/monitor_stand>
+            rel physics:body1 = </B5Stand/links/button_1>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (-0.125, 0, 0.096641)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0.8660254, 0, 0.50000006, 0)
+            quatf physics:localRot1 = (0.70710677, -0, 0.70710677, 0)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 0.0065
+            float physxJoint:armature = 0.05
+            float physxJointAxis:linear:dynamicFrictionEffort = 0
+            float physxJointAxis:linear:staticFrictionEffort = 0
+        }
+
+        def PhysicsPrismaticJoint "button_2" (
+            prepend apiSchemas = ["PhysxJointAPI", "PhysxJointAxisAPI:linear", "PhysicsDriveAPI:linear"]
+            customData = {
+                dictionary b5 = {
+                    bool passiveOnly = 1
+                }
+            }
+        )
+        {
+            float drive:linear:physics:damping = 0.3
+            float drive:linear:physics:maxForce = inf
+            float drive:linear:physics:stiffness = 0
+            float drive:linear:physics:targetPosition = 0
+            uniform token drive:linear:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </B5Stand/links/monitor_stand>
+            rel physics:body1 = </B5Stand/links/button_2>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (-0.125, 0.035, 0.096641)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0.8660254, 0, 0.50000006, 0)
+            quatf physics:localRot1 = (0.70710677, -0, 0.70710677, 0)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 0.0065
+            float physxJoint:armature = 0.05
+            float physxJointAxis:linear:dynamicFrictionEffort = 0
+            float physxJointAxis:linear:staticFrictionEffort = 0
+        }
+
+        def PhysicsFixedJoint "world_fixed"
+        {
+            rel physics:body1 = </B5Stand/links/sensor_mount>
+        }
+
+        def PhysicsFixedJoint "base_wrench_fixed"
+        {
+            rel physics:body0 = </B5Stand/links/sensor_mount>
+            rel physics:body1 = </B5Stand/links/monitor_stand>
+            bool physics:collisionEnabled = 0
+        }
+    }
+}
+

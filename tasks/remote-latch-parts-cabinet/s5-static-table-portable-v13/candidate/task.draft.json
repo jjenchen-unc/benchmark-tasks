@@ -1,0 +1,22 @@
+{
+  "title": "Retrieve a parts box from a remote-release tool cabinet",
+  "category": "Impact on jobs",
+  "keywords": [
+    "cabinet",
+    "remote release",
+    "paddle",
+    "retrieval",
+    "safety"
+  ],
+  "instruction": "Open cabinet A's right door and put the blue parts box behind it upright on the table outside the cabinet; let go and leave it stable for20seconds. Do not slam any door or sustain wrist overload.",
+  "context": "Maintenance access to a parts cabinet with side paddle release: release the rotary latch, swing its door clear, then extract a loose box without damaging the enclosure.",
+  "setup": "Two fixed grey rigid steel-like cabinets360W x180D x500H mm, each with two176W x478H x12D mm hinged door panels, round pull shafts30mm diameter and40mm stand-off with44mm end caps; two sprung side paddles; two loose50x50x60mm .31kg tabbed parts boxes per cabinet. Cabinet front centres(.25,-.29,.7475)m and(.33,.30,.7475)m, both yaw0. Cabinet A negativeY, blue target behind its right door. Inventory.json gives every primitive, pose, mass/material estimate and spring. Right YAM base(0,-.305,1.10)m on120x120x352.5mm support; left(-.08,-.50,1.00)m on120x120x252.5mm support. Both upright and fixed. Table top.7475m. Fixed source42 physical properties for every harness seed.",
+  "scoring": "Draft numeric rubric: persistent0 for any knob/frame impact>0.25m/s or untared wristforce>80N continuously0.1s. Otherwise0.25 if target rear-paddle release occurred and rightdoor angle>=7degrees;0.5 if target box centre height777.5+/-4mm, uprightwithin15degrees, combined linear/angular speednorm<=.05, centre outside cabinet exclusion rectangle localx(-.02,.20)m and abs(localy)<.20m, complete box/tab envelope over table, physical tablecontact, and no robotcontact;1.0 once all box conditions hold continuously20s. Remaining outcomes0. Final score, never best. Floor/offtable/held/moving box cannot fullscore. Credit channel remains disabled in this preparation until actual runtime validation.",
+  "run_limit": "3646 genuine14D absolute jointtarget actions,182.3s at20Hz;2ms physical substeps; source historical control budget preserved.",
+  "reset_notes": "Use object_jitter=0. Any Inspect/harness episode seed restores identical source42 physical case: all doorsstage2 latched near0angle, paddles0, boxes original floor positions, right robot stockREADY,left joints[0,.3,2.4,-.5,0,0],fingersopen, zero velocities; clear mechanism/evaluator histories at reset only. Passive settling0.5s then start clock. No seed42-only rejection or observation of hidden map.",
+  "fidelity": "New USD/PhysX realization, unvalidated. Primitive geometry and relative object arrangement preserved by translation(+.15,0,-.0525)m. Source hidden rotary latch uses a disclosed conditional hinge-limit mechanism, passive springs and spring slides; no cable geometry, fracture or deformable gasket. YAM27/7Nm TOTALdrive caps include gravity via passive drive targetoffset, per-finger40N retained under SDK50N ceiling. Source Panda80/12Nm is stronger; actual YAM feasibility must be proven. Robot supports, regrasp and lateral table setdown adaptation documented; clearance unverified.",
+  "scores": "Unverified: no actual Arena reference fullgoal run or Dream-1 model trial. Diagnostic score is not model evidence.",
+  "media": null,
+  "draft": true,
+  "rule_version": "robocurve-official-v2.1"
+}

@@ -1,0 +1,19 @@
+{
+  "at": "2026-11-10T22:07:17.747817+00:00",
+  "reviewer": "ROOT",
+  "actual_demo_score": 1,
+  "source_frames_reviewed": [
+    0,
+    500,
+    1500,
+    2100,
+    2433
+  ],
+  "setup_reviewed": true,
+  "no_team_identity_in_viewed_media": true,
+  "observed_motion": "Remote paddle/door operation followed by extraction, release and stable blue box visible in left wrist; top view covers both cabinets; parked right wrist often sees table.",
+  "limitations": "Native320x176 RTX views are visibly grainy; wrist views have occlusion. Composite only scales/layouts actual views and adds static final-result metadata. No clean-render or photorealism claim.",
+  "demo_sha256": "1e0d31cb0735f6c1d4a7f0b253a0e1928d2ba2222c0c328c8d3b4aea8e4d531d",
+  "setup_sha256": "be8678d772efd41d71bebe9a493f22213af70fb08982463d76d15e0482fd7f95",
+  "full_media_decode_and_frame_count_already_verified": true
+}

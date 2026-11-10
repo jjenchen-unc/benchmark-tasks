@@ -1,0 +1,20 @@
+{
+  "title": "Release a cabinet remote latch and retrieve a parts box",
+  "category": "Impact on jobs",
+  "keywords": [
+    "cabinet",
+    "remote release",
+    "paddle",
+    "retrieval",
+    "safety"
+  ],
+  "instruction": "Open cabinet A's right door and put the blue parts box behind it upright on the table outside the cabinet; let go and leave it stable for20seconds. Do not slam any door or sustain wrist overload.",
+  "context": "Maintenance access to a parts cabinet with side paddle release: release the rotary latch, swing its door clear, then extract a loose box without damaging the enclosure.",
+  "setup": "Two fixed grey rigid steel-like cabinets360W x180D x500H mm, each with two176W x478H x12D mm hinged door panels, round pull shafts30mm diameter and40mm stand-off with44mm end caps; two sprung side paddles; two loose50x50x60mm .31kg tabbed parts boxes per cabinet. Cabinet front centres(.25,-.29,.7475)m and(.33,.30,.7475)m, both yaw0. Cabinet A negativeY, blue target behind its right door. candidate/inventory.json gives every primitive, pose, mass/material estimate and spring. Right YAM base(0,-.305,1.10)m on120x120x352.5mm support; left(-.08,-.50,1.00)m on120x120x252.5mm support. Both upright and fixed. Table top.7475m. Fixed source42 physical properties for every harness seed.",
+  "scoring": "Permanent0 for any door knob/frame impact>0.25m/s or untared wrist force>80N continuously0.1s. Otherwise0.25 if target rear-paddle release occurred and A-right door>=7degrees. 0.5 if the blue target box centre is777.5+/-4mm high, upright within15degrees, combined linear/angular speed norm<=.05, outside the cabinet exclusion rectangle: not(-.02<x-.25<.20 and |y+.29|<.20), all coordinates in metres, full box/tab envelope inside tabletop x[-.19,.91]m/y[-.65,.65]m, actual table contact and no robot contact. 1.0 after all box conditions continuously20s. Loss of any condition resets the hold; all other outcomes0. Current final score, never best.",
+  "run_limit": "3,646 genuine14D absolute joint-target control steps (182.3seconds at20Hz); physics samples every2ms.",
+  "reset_notes": "Fixed source42 case for every harness seed; object_jitter=0. Restore doors stage2 latched, paddles and boxes at source poses, both arms READY with fingers open, zero velocities; passive settling precedes clearing evaluator histories. The demo commands left parking through real actions. No consumables.",
+  "fidelity": "Rigid primitive PhysX geometry/contact; estimated masses, friction and springs. Conditional hinge limits model remote cable latch release/recatch; no cable/claw geometry, fracture or deformable gasket. Fixed elevated YAM supports;27/7Nm total motor caps include gravity,40N fingers. State-aware scripted demo uses genuine robot actions. Simulation review, not physical-hardware calibration.",
+  "scores": "Dream-1 run: 0.0 (3,646 controls; 904 requests, one continuous session). Scripted demo: 1.0 (2,433 controls; 20.04s released hold).",
+  "media": "M-DUV2VL"
+}

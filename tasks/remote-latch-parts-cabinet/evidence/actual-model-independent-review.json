@@ -1,0 +1,41 @@
+{
+  "at": "2026-11-10T22:24:47.519745+00:00",
+  "status": "ACTUAL_DREAM_MODEL_AND_ALL_UNC_RAW_BACKUP_MEMBERS_INDEPENDENTLY_VERIFIED",
+  "score": 0.0,
+  "controls": 3646,
+  "physics_samples": 91150,
+  "history": {
+    "score": 0.0,
+    "diagnostic_score": 0.0,
+    "missing_runtime_validation": [],
+    "hold_s": 0.0,
+    "time_s": 182.30000000014235,
+    "samples": 91150,
+    "failure": null,
+    "max_force_n": [
+      9.524627685546875,
+      34.56047821044922
+    ],
+    "max_impact_m_s": 0.0
+  },
+  "one_continuous_session": true,
+  "requests": 904,
+  "API_or_evaluation_error": false,
+  "max_tcp_fk_error_m": 4.694051859721938e-07,
+  "source_fingerprint": "ca48132421be0524f8821491dd535bcf3f0418ef3957ed023e94aa330347e0b6",
+  "immutable_runtime_source_files_exact": 80,
+  "raw_NPY_files": 10941,
+  "raw_frames_per_camera": {
+    "top_cam": 3647,
+    "left_cam": 3647,
+    "right_cam": 3647
+  },
+  "all_archive_members_verified": 11053,
+  "archive_bytes": 685697863,
+  "archive_sha256": "8359c29769f9072faa305af05d08246e3fa6d3ccd2d104996fc0bda1d0305953",
+  "all_raw_payload_SHA_and_shape_verified": true,
+  "model_record_sha256": "a048c9a940dbbee2e0e98b9883c6e51933e9d4ea42125a357a48f4e9565b9f92",
+  "model_summary_sha256": "136553b7e818f6f1f6c4b52fe14e7061a4107c1e7514f22b9e44b5d9a865fff7",
+  "old_scores_transferred": false,
+  "submission_ready": false
+}

@@ -1,0 +1,114 @@
+{
+  "at": "2026-11-10T21:57:04.407317+00:00",
+  "status": "ACTUAL_CREDITED_DEMO_FULL_GOAL_VERIFIED",
+  "score": 1.0,
+  "controls": 2433,
+  "samples": 60825,
+  "hold_s": 20.03999999999977,
+  "simulated_seconds": 121.64999999989789,
+  "history": {
+    "score": 1.0,
+    "diagnostic_score": 1.0,
+    "missing_runtime_validation": [],
+    "hold_s": 20.03999999999977,
+    "time_s": 121.64999999989789,
+    "samples": 60825,
+    "failure": null,
+    "max_force_n": [
+      15.12299919128418,
+      45.92495346069336
+    ],
+    "max_impact_m_s": 0.0
+  },
+  "source_fingerprint": "ca48132421be0524f8821491dd535bcf3f0418ef3957ed023e94aa330347e0b6",
+  "entry_sha256": "950a569eb4261196640fad8d91e5a93fe2b5eac338c3d1fd04b3f3dd0b29e5e8",
+  "review_sha256": "f18b132c9ba098c4c437580ed4f7c481bdf4b05cd233bd26fe0a45618b9442ad",
+  "max_tcp_fk_error_m": 4.87034156758161e-07,
+  "contact_counts": {
+    "table_contact": 10379,
+    "robot_contact": 1684
+  },
+  "actual_hardware": {
+    "left": {
+      "names": [
+        "joint1",
+        "joint2",
+        "joint3",
+        "joint4",
+        "joint5",
+        "joint6",
+        "joint7",
+        "joint8"
+      ],
+      "forces": [
+        27.0,
+        27.0,
+        27.0,
+        7.0,
+        7.0,
+        7.0,
+        40.0,
+        40.0
+      ],
+      "stiffness": [
+        80.0,
+        80.0,
+        80.0,
+        10.0,
+        10.0,
+        10.0,
+        5000.0,
+        5000.0
+      ],
+      "total_effort_enabled": true
+    },
+    "right": {
+      "names": [
+        "joint1",
+        "joint2",
+        "joint3",
+        "joint4",
+        "joint5",
+        "joint6",
+        "joint7",
+        "joint8"
+      ],
+      "forces": [
+        27.0,
+        27.0,
+        27.0,
+        7.0,
+        7.0,
+        7.0,
+        40.0,
+        40.0
+      ],
+      "stiffness": [
+        80.0,
+        80.0,
+        80.0,
+        10.0,
+        10.0,
+        10.0,
+        5000.0,
+        5000.0
+      ],
+      "total_effort_enabled": true
+    }
+  },
+  "frames_per_camera": 2434,
+  "historical_scores_transferred": false,
+  "model_evidence": false,
+  "evidence_sha256": {
+    "launcher.json": "011a8e486cce58f44e58d702f7ca27ebb96ae43d8874f2079e942b9a04c53cc9",
+    "result.json": "4f2cd429eee1e5362b61a2d62a78c811ccdf5684f120879c87482b8c89b3d00d",
+    "physics.jsonl": "d8628fd63683edcf5587f7da2e1a9d20ea0e8da94d33ac78ebe856697eaa034d",
+    "journal.jsonl": "966a3c88c9d6b4b0f5bccad3839ab85b50119141d4e7dd029f83d943221f88d5",
+    "robot-actions.jsonl": "4fe3928d526df5d77b18e7287a6d0bce71dcba421ac1f741bbf504e2d47e45ee",
+    "actual-hardware.json": "976318601c75ee3d3fe4e85cc0e559555b919f1d9f33607d7d6c46b350d4049e",
+    "media-finalization.json": "8c0f12d451f17302cd1519f42a649c509d5c5432f913055d9bcb8c4ac220639b",
+    "top_cam.mp4": "0baa8e43c7bd7f685744b8bc2c915e2a6ee7f3dec797d361126a08e61345628c",
+    "left_cam.mp4": "fa37ae8cc7978f574a9d02a9a2e00bf2f152dd93310dd42ee0bfc5f987c7f4aa",
+    "right_cam.mp4": "709d6477895d0dfca323becb6538c610fd76c9472de1b72b0b49db1990352a23"
+  }
+}

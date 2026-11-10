@@ -1,0 +1,22 @@
+{
+  "observed_container_metadata": {
+    "isaacsim": "6.1.0.0",
+    "isaaclab": "17.0.2",
+    "isaaclab-arena": "0.3.0",
+    "yam-arena": "0.1.0",
+    "inspect-robots": "1.0.0",
+    "inspect-robots-yam": "0.38.0",
+    "numpy": "2.3.1",
+    "torch": "2.11.0+cu128",
+    "usd-core": null
+  },
+  "container_image_sha256": "75c6afd86ec4007f663ca2e8647df8ab94d2d678815a72fc428db98733c789ad",
+  "native_static_extraction": {
+    "python": "3.10.21",
+    "numpy": "2.0.2",
+    "scipy": "1.13.1",
+    "mujoco": "3.3.7"
+  },
+  "sdk_checkout_reference": "bd62771e60320433893bd1d2df0fc79b5ddcd6d1",
+  "qualification": "Recorded versions, no dependency installation or SDK mutation. Metadata Arena0.3.0 differs from intended0.3.1 docs; foundation must record actual behavior."
+}

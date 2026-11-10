@@ -1,0 +1,8 @@
+# Preserve the verified frozen runtime bytes, including known terminal blank lines.
+s5-static-table-portable-v13/candidate/assets/A_box_L.usda whitespace=-blank-at-eof
+s5-static-table-portable-v13/candidate/assets/A_box_R.usda whitespace=-blank-at-eof
+s5-static-table-portable-v13/candidate/assets/B_box_L.usda whitespace=-blank-at-eof
+s5-static-table-portable-v13/candidate/assets/B_box_R.usda whitespace=-blank-at-eof
+s5-static-table-portable-v13/candidate/assets/cab_A.usda whitespace=-blank-at-eof
+s5-static-table-portable-v13/candidate/assets/cab_B.usda whitespace=-blank-at-eof
+s5-static-table-portable-v13/candidate/s5_contacts.py whitespace=-blank-at-eof

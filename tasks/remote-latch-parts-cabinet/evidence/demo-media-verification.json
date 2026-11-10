@@ -1,0 +1,24 @@
+{
+  "status": "ACTUAL_DEMO_COMPOSITE_DECODE_VERIFIED_PENDING_VISUAL_REVIEW",
+  "frames": 2434,
+  "fps": 20,
+  "size": [
+    1280,
+    720
+  ],
+  "codec": "h264",
+  "duration_s": 121.7,
+  "layout": "Three actual synchronized views plus static final-result panel; no trimmed, repeated or fabricated camera frames",
+  "result_panel_score_is_final_score": true,
+  "files": {
+    "demo.mp4": {
+      "bytes": 38313347,
+      "sha256": "1e0d31cb0735f6c1d4a7f0b253a0e1928d2ba2222c0c328c8d3b4aea8e4d531d"
+    },
+    "setup.png": {
+      "bytes": 1515817,
+      "sha256": "be8678d772efd41d71bebe9a493f22213af70fb08982463d76d15e0482fd7f95"
+    }
+  },
+  "native_review_sha256": "03ebdfcfea54a5b92421e20d3d3021d51954cb0ed6c1133759edc064753d5fac"
+}

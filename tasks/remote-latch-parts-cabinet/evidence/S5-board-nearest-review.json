@@ -1,0 +1,70 @@
+{
+  "at": "2026-11-10T21:17:12.888455+00:00",
+  "board_retrieved_at": "2026-11-10T21:01:07.313220+00:00",
+  "board_rows": 1497,
+  "authenticated_expected_team": true,
+  "selected_keyword_candidates": 55,
+  "near_records_reviewed": [
+    {
+      "id": "TK-HFBF5J",
+      "title": "Open a panel held shut by a spring plunger",
+      "instruction": "Open the teal panel on the grey cabinet so that it stands open 37 degrees or more. A spring plunger locks it: pulling its red knob draws the pin back.",
+      "scoring": "At the end of the run, measure the panel's opening angle at the hinge with a protractor. As a check with a tape, the panel's free edge stands out from its closed position by 26 cm x sine of the angle. 1.0: open 37 degrees or more (free edge 156 mm or more out). 0.5: at least 7 but under 37 degrees (32 to 156 mm): the strike has swung clear of the pin. 0.25: at least 2 but under 7 degrees (9 to 32 mm): the pin is out of the strike's bore but the panel is barely open. 0: under 2 degrees (still latched). Score 0 regardless if the cabinet moved more than 5 mm from its marked outline, or, checked by eye and by hand after the run, any part of the panel, its hinges, the strike, the plunger or its bracket is bent, has come loose or has come off. Which hand does what, the arms' path and when the knob is let go are not scored. If the tape and the protractor disagree, the protractor decides. Possible scores: 0, 0.25, 0.5, 1.0.",
+      "status": "pending"
+    },
+    {
+      "id": "TK-J2B4RH",
+      "title": "Open the cabinet, take the multimeter out and then close it",
+      "instruction": "Open the cabinet door by its handle with your left gripper. With your right gripper, take out the multimeter, set it on the bench to the right of the cabinet and move that arm back. Close the door with your left gripper until the catch holds it, then move the left arm back to where it started.",
+      "scoring": "Four steps, 0.25 each, judged from the video. (1) Door opened by its handle: the door is open at least 45 degrees while a gripper holds its handle; counts once reached. (2) Multimeter taken out: a gripper holds the multimeter wholly outside the cabinet; counts once reached. (3) Multimeter on the bench: at the end it rests on the table outside the cabinet (its lowest point within 4 mm of the table) and no gripper holds it. (4) Door shut and caught: at the end, with step 2 done, the door is shut past its catch (under 0.8 degrees), no gripper holds the handle, and the cabinet stands within 2 cm and 5 degrees of where it stood. Full score 1.0, ending the run, when all four hold, both arms are back where they started (within 3 cm) holding nothing, and the cabinet and the multimeter have been still (under 1 cm/s) for 1 s. 0 overall if at the end the cabinet or the multimeter has fallen off the table or the cabinet is tipped more than 20 degrees.",
+      "status": "pending"
+    },
+    {
+      "id": "TK-YRMGNB",
+      "title": "Keep a cabinet key turned with one hand while the other pulls the drawer open",
+      "instruction": "Turn the key in the drawer's lock a quarter turn clockwise and keep it turned with one hand while the other pulls the drawer open by its handle; once the drawer is on its way out, let go of the key.",
+      "scoring": "Judged at the end of the trial. 1.0: the drawer pulled out at least 5 cm and the key let go (turned back to within 10 degrees of upright); 0.5: the drawer out at least 1 cm; 0.25: the key turned far enough to draw the bolt (60 degrees) at some point; else 0.0. The trial ends at the run limit, or once the full score has held for 1 s with the drawer and the key still.",
+      "status": "pending"
+    },
+    {
+      "id": "TK-DSGGLD",
+      "title": "Hold a spring-return drawer open while retrieving an enclosed block",
+      "instruction": "Pull the drawer fully open and keep it open while you take the white block out and put it on the green shelf, then let the drawer close.",
+      "scoring": "Score: 0.25 when the drawer is opened >= 9.0 cm (cyan lamp lit) for >= 1.0 s; 0.50 when the white block is grasped and lifted >= 3.0 cm clear of the drawer floor; 0.75 when the block rests on the green shelf; 1.00 when the drawer is closed (< 0.5 cm) afterwards with both arms clear and holds for 20 control steps (1.0 s at 20 Hz). Zero-gates: allowing the drawer to close (< 3.0 cm out) while the block is still within 6.0 cm behind the cabinet front face triggers a PINCH fault, latching score to 0.0; dropping the block off the table drops score to 0.0.",
+      "status": "pending"
+    },
+    {
+      "id": "TK-HQMFVH",
+      "title": "Open a locker whose door a tipped case is leaning on, and take the case out upright",
+      "instruction": "Take the blue case out of the locker and stand it upright on the green mat.",
+      "scoring": "Lean is the angle of the case's long edges from vertical. Tipped: at any time in the trial the case leaned more than 45 degrees (see the video); it is marked this way up, so laying it down counts too. Standing: lean at most 5 degrees, its lowest corner within 1.5 mm of the surface under it, still. 1.0: the case was never tipped and stands with its whole footprint on the green mat. 0.5: never tipped, and it stands outside the locker (wholly in front of the door's shut position) on the table, or partly on the mat. 0 otherwise: tipped at any time (even if later stood up), still in the locker, lying or leaning, held up off a surface, or moving. The trial ends at 1.0 once the 1.0 condition has held for 1 s; otherwise it scores the condition at the last step.",
+      "status": "pending"
+    },
+    {
+      "id": "TK-EU2J3R",
+      "title": "Close and bolt a double-door enclosure whose astragal forces the leaf order",
+      "instruction": "Close the blue-grey enclosure's two doors and throw the door bolt.",
+      "scoring": "Hinge angles; for a tape measure, a leaf's free-edge gap from its closed line is 118 mm x sin(angle), about 2 mm per degree. 1.0: both leaves within 1.0 degree of closed (free edge within 2 mm of its closed line) and the bolt raised at least 10 mm of its 15 mm travel (its rounded tip at least 4 mm inside the 12 mm tall keeper bore), with both grippers at least 30 mm from each leaf's and the bolt's bounding box, hinge speeds below 0.05 rad/s and bolt speed below 0.010 m/s, all continuously for 1 s. 0.75: the same closed and bolted geometry while held, moving, or before the 1 s has passed. 0.5: both leaves within 1.0 degree of closed, bolt raised less than 10 mm. 0.25: passive leaf within 1.0 degree of closed and bolt raised at least 10 mm, active leaf more than 1.0 degree open. Otherwise 0, including the untouched start, a passive leaf more than 1.0 degree open, and a raised bolt on an open passive leaf. Sticky 0 for the rest of the trial, even after the doors are later closed correctly: the passive leaf 4.5 to 8 degrees open (free edge about 9 to 16 mm out) while the active leaf is within 1.0 degree of closed, for at least 0.25 s, i.e. the passive leaf forced against the front of a shut astragal (contact at 6.46 degrees). Passing through the band for less than 0.25 s, or with the active leaf more than 1 degree open, does not count, and a passive leaf ajar up to 2.9 degrees behind the shut astragal is not a violation. Online, speeds are joint-value changes between 20 Hz steps; offline static layouts use reported velocities and assume release. Success: score 1.0 held a further 1 s.",
+      "status": "pending"
+    },
+    {
+      "id": "TK-H2VFXU",
+      "title": "Open a drawer held shut by a bar",
+      "instruction": "Open the top drawer.",
+      "scoring": "At the end, with a ruler: the top drawer's opening is how far its front has come out past the cabinet's front. 1.0 if the top drawer is open at least 18 cm (in the simulation the trial ends with 1.0 once it is open at least 18 cm and moving under 2 cm/s for 0.5 s). Otherwise 0.5 if the bar is out of both sleeves (no part of it inside either sleeve), else 0. Score 0 if a sleeve, the bar or a handle is bent or broken, or the cabinet has moved. The other drawers and where the bar ends up are not scored. Possible scores: 0, 0.5, 1.0.",
+      "status": "pending"
+    }
+  ],
+  "existing_primitives": [
+    "cabinet open/retrieve/close",
+    "hold spring plunger while opening panel",
+    "keep key turned while pulling drawer",
+    "hold spring-return drawer while retrieving object",
+    "open enclosure leaf order/bolt"
+  ],
+  "target_distinction_under_review": "separate mapped sidepaddle actuates rotary latch with passive spring/two-stage recatch, then door clearance and released partsbox placement; not genericretrieval or twohandunlatching",
+  "six_benchmark_comparison_pending": true,
+  "official_novelty_or_ownership_verdict": false,
+  "fresh_before_publication_required": true,
+  "board_sha256": "0734e1dda1d8631bf1bab54ab72d6683047a3ee046289a551b9dcff8d4c89b1c"
+}

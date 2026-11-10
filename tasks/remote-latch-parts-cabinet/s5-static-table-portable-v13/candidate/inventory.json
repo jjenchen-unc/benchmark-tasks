@@ -1,0 +1,1554 @@
+{
+  "units": "m,kg,N,s,radians",
+  "frame": "station xforward yleft zup; cabinets face -X; A worldnegativeY, worked by rightYAM; B positiveY",
+  "scene_transform": [
+    0.15,
+    0,
+    -0.0525
+  ],
+  "robot_bases": {
+    "left": [
+      -0.08,
+      -0.5,
+      1.0
+    ],
+    "right": [
+      0.0,
+      -0.305,
+      1.1
+    ]
+  },
+  "robot_supports": [
+    {
+      "name": "left_s5_support",
+      "material": "rigid steel support estimate",
+      "fixed": true,
+      "center": [
+        -0.08,
+        -0.5,
+        0.87375
+      ],
+      "size": [
+        0.12,
+        0.12,
+        0.25249999999999995
+      ]
+    },
+    {
+      "name": "right_s5_support",
+      "material": "rigid steel support estimate",
+      "fixed": true,
+      "center": [
+        0.0,
+        -0.305,
+        0.9237500000000001
+      ],
+      "size": [
+        0.12,
+        0.12,
+        0.35250000000000004
+      ]
+    }
+  ],
+  "material_model": {
+    "cabinet": "grey steel-like rigid shell; visual wall thickness and lumped mass are source approximations",
+    "knobs": "steel-like rigid cylinders",
+    "paddles": "dark plastic handle on sprung slide",
+    "boxes": "rigid cardboard/plastic parts box proxy",
+    "friction_static": 1.1,
+    "friction_dynamic": 1.1,
+    "restitution": 0,
+    "contact_offset_m": 0.00025
+  },
+  "bodies": [
+    {
+      "name": "cab_A",
+      "parent": null,
+      "world_pos": [
+        0.1,
+        -0.29,
+        0.8
+      ],
+      "geoms": [
+        {
+          "name": "A_back",
+          "kind": "box",
+          "pos": [
+            0.175,
+            0.0,
+            0.25
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.005,
+            0.18,
+            0.25
+          ],
+          "mass": 0.0,
+          "rgba": [
+            0.62,
+            0.64,
+            0.66,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        },
+        {
+          "name": "A_side_l",
+          "kind": "box",
+          "pos": [
+            0.09,
+            0.175,
+            0.25
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.09,
+            0.005,
+            0.25
+          ],
+          "mass": 0.0,
+          "rgba": [
+            0.62,
+            0.64,
+            0.66,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        },
+        {
+          "name": "A_side_r",
+          "kind": "box",
+          "pos": [
+            0.09,
+            -0.175,
+            0.25
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.09,
+            0.005,
+            0.25
+          ],
+          "mass": 0.0,
+          "rgba": [
+            0.62,
+            0.64,
+            0.66,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        },
+        {
+          "name": "A_top",
+          "kind": "box",
+          "pos": [
+            0.09,
+            0.0,
+            0.495
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.09,
+            0.18,
+            0.005
+          ],
+          "mass": 0.0,
+          "rgba": [
+            0.62,
+            0.64,
+            0.66,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        },
+        {
+          "name": "A_bottom",
+          "kind": "box",
+          "pos": [
+            0.09,
+            0.0,
+            0.005
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.09,
+            0.18,
+            0.005
+          ],
+          "mass": 0.0,
+          "rgba": [
+            0.62,
+            0.64,
+            0.66,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        },
+        {
+          "name": "A_divider",
+          "kind": "box",
+          "pos": [
+            0.09,
+            0.0,
+            0.05
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.09,
+            0.004,
+            0.04
+          ],
+          "mass": 0.0,
+          "rgba": [
+            0.62,
+            0.64,
+            0.66,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        },
+        {
+          "name": "A_pocket1",
+          "kind": "box",
+          "pos": [
+            0.045,
+            0.181,
+            0.45
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.022,
+            0.001,
+            0.016
+          ],
+          "mass": 0.0,
+          "rgba": [
+            0.25,
+            0.25,
+            0.27,
+            1.0
+          ],
+          "collision": false,
+          "friction": 1.1
+        },
+        {
+          "name": "A_pocket2",
+          "kind": "box",
+          "pos": [
+            0.11,
+            0.181,
+            0.45
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.022,
+            0.001,
+            0.016
+          ],
+          "mass": 0.0,
+          "rgba": [
+            0.25,
+            0.25,
+            0.27,
+            1.0
+          ],
+          "collision": false,
+          "friction": 1.1
+        }
+      ],
+      "joints": [],
+      "free": false
+    },
+    {
+      "name": "A_paddle1",
+      "parent": "cab_A",
+      "world_pos": [
+        0.14500000000000002,
+        -0.10999999999999999,
+        1.25
+      ],
+      "geoms": [
+        {
+          "name": "A_paddle1_tab",
+          "kind": "box",
+          "pos": [
+            0.0,
+            0.026,
+            0.0
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.014,
+            0.022,
+            0.006
+          ],
+          "mass": 0.05,
+          "rgba": [
+            0.1,
+            0.1,
+            0.11,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        }
+      ],
+      "joints": [
+        {
+          "name": "A_paddle1_slide",
+          "kind": "slide",
+          "axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "range": [
+            0.0,
+            0.012
+          ],
+          "stiffness": 500.0,
+          "springref": -0.004,
+          "damping": 3.0,
+          "armature": 0.02,
+          "frictionloss": 0.0
+        }
+      ],
+      "free": false
+    },
+    {
+      "name": "A_paddle2",
+      "parent": "cab_A",
+      "world_pos": [
+        0.21000000000000002,
+        -0.10999999999999999,
+        1.25
+      ],
+      "geoms": [
+        {
+          "name": "A_paddle2_tab",
+          "kind": "box",
+          "pos": [
+            0.0,
+            0.026,
+            0.0
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.014,
+            0.022,
+            0.006
+          ],
+          "mass": 0.05,
+          "rgba": [
+            0.1,
+            0.1,
+            0.11,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        }
+      ],
+      "joints": [
+        {
+          "name": "A_paddle2_slide",
+          "kind": "slide",
+          "axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "range": [
+            0.0,
+            0.012
+          ],
+          "stiffness": 500.0,
+          "springref": -0.004,
+          "damping": 3.0,
+          "armature": 0.02,
+          "frictionloss": 0.0
+        }
+      ],
+      "free": false
+    },
+    {
+      "name": "A_door_L",
+      "parent": "cab_A",
+      "world_pos": [
+        0.094,
+        -0.11199999999999999,
+        0.8
+      ],
+      "geoms": [
+        {
+          "name": "A_door_L_panel",
+          "kind": "box",
+          "pos": [
+            0.0,
+            -0.088,
+            0.251
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.006,
+            0.088,
+            0.239
+          ],
+          "mass": 0.75,
+          "rgba": [
+            0.62,
+            0.64,
+            0.66,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        },
+        {
+          "name": "A_door_L_knob",
+          "kind": "cylinder",
+          "pos": [
+            -0.026000000000000002,
+            -0.136,
+            0.455
+          ],
+          "quat_wxyz": [
+            0.7071068,
+            0.0,
+            0.7071068,
+            0.0
+          ],
+          "size": [
+            0.015,
+            0.02
+          ],
+          "mass": 0.05,
+          "rgba": [
+            0.8,
+            0.8,
+            0.82,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        },
+        {
+          "name": "A_door_L_cap",
+          "kind": "cylinder",
+          "pos": [
+            -0.049,
+            -0.136,
+            0.455
+          ],
+          "quat_wxyz": [
+            0.7071068,
+            0.0,
+            0.7071068,
+            0.0
+          ],
+          "size": [
+            0.022,
+            0.003
+          ],
+          "mass": 0.01,
+          "rgba": [
+            0.8,
+            0.8,
+            0.82,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        }
+      ],
+      "joints": [
+        {
+          "name": "A_hinge_L",
+          "kind": "hinge",
+          "axis": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "range": [
+            -0.002617993877991494,
+            0.002617993877991494
+          ],
+          "stiffness": 0.0,
+          "springref": 0.0,
+          "damping": 0.15,
+          "armature": 0.01,
+          "frictionloss": 0.08
+        }
+      ],
+      "free": false
+    },
+    {
+      "name": "A_door_R",
+      "parent": "cab_A",
+      "world_pos": [
+        0.094,
+        -0.46799999999999997,
+        0.8
+      ],
+      "geoms": [
+        {
+          "name": "A_door_R_panel",
+          "kind": "box",
+          "pos": [
+            0.0,
+            0.088,
+            0.251
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.006,
+            0.088,
+            0.239
+          ],
+          "mass": 0.75,
+          "rgba": [
+            0.62,
+            0.64,
+            0.66,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        },
+        {
+          "name": "A_door_R_knob",
+          "kind": "cylinder",
+          "pos": [
+            -0.026000000000000002,
+            0.136,
+            0.455
+          ],
+          "quat_wxyz": [
+            0.7071068,
+            0.0,
+            0.7071068,
+            0.0
+          ],
+          "size": [
+            0.015,
+            0.02
+          ],
+          "mass": 0.05,
+          "rgba": [
+            0.8,
+            0.8,
+            0.82,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        },
+        {
+          "name": "A_door_R_cap",
+          "kind": "cylinder",
+          "pos": [
+            -0.049,
+            0.136,
+            0.455
+          ],
+          "quat_wxyz": [
+            0.7071068,
+            0.0,
+            0.7071068,
+            0.0
+          ],
+          "size": [
+            0.022,
+            0.003
+          ],
+          "mass": 0.01,
+          "rgba": [
+            0.8,
+            0.8,
+            0.82,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        }
+      ],
+      "joints": [
+        {
+          "name": "A_hinge_R",
+          "kind": "hinge",
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "range": [
+            -0.002617993877991494,
+            0.002617993877991494
+          ],
+          "stiffness": 0.0,
+          "springref": 0.0,
+          "damping": 0.15,
+          "armature": 0.01,
+          "frictionloss": 0.08
+        }
+      ],
+      "free": false
+    },
+    {
+      "name": "A_box_L",
+      "parent": null,
+      "world_pos": [
+        0.165,
+        -0.202,
+        0.8405
+      ],
+      "geoms": [
+        {
+          "name": "A_box_L_geom",
+          "kind": "box",
+          "pos": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.025,
+            0.025,
+            0.03
+          ],
+          "mass": 0.3,
+          "rgba": [
+            0.85,
+            0.55,
+            0.15,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        },
+        {
+          "name": "A_box_L_tab",
+          "kind": "box",
+          "pos": [
+            -0.0435,
+            0.0,
+            0.0
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.0185,
+            0.01,
+            0.022
+          ],
+          "mass": 0.01,
+          "rgba": [
+            0.85,
+            0.55,
+            0.15,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        }
+      ],
+      "joints": [],
+      "free": true
+    },
+    {
+      "name": "A_box_R",
+      "parent": null,
+      "world_pos": [
+        0.165,
+        -0.378,
+        0.8405
+      ],
+      "geoms": [
+        {
+          "name": "A_box_R_geom",
+          "kind": "box",
+          "pos": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.025,
+            0.025,
+            0.03
+          ],
+          "mass": 0.3,
+          "rgba": [
+            0.2,
+            0.5,
+            0.75,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        },
+        {
+          "name": "A_box_R_tab",
+          "kind": "box",
+          "pos": [
+            -0.0435,
+            0.0,
+            0.0
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.0185,
+            0.01,
+            0.022
+          ],
+          "mass": 0.01,
+          "rgba": [
+            0.2,
+            0.5,
+            0.75,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        }
+      ],
+      "joints": [],
+      "free": true
+    },
+    {
+      "name": "cab_B",
+      "parent": null,
+      "world_pos": [
+        0.18,
+        0.3,
+        0.8
+      ],
+      "geoms": [
+        {
+          "name": "B_back",
+          "kind": "box",
+          "pos": [
+            0.175,
+            0.0,
+            0.25
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.005,
+            0.18,
+            0.25
+          ],
+          "mass": 0.0,
+          "rgba": [
+            0.62,
+            0.64,
+            0.66,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        },
+        {
+          "name": "B_side_l",
+          "kind": "box",
+          "pos": [
+            0.09,
+            0.175,
+            0.25
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.09,
+            0.005,
+            0.25
+          ],
+          "mass": 0.0,
+          "rgba": [
+            0.62,
+            0.64,
+            0.66,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        },
+        {
+          "name": "B_side_r",
+          "kind": "box",
+          "pos": [
+            0.09,
+            -0.175,
+            0.25
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.09,
+            0.005,
+            0.25
+          ],
+          "mass": 0.0,
+          "rgba": [
+            0.62,
+            0.64,
+            0.66,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        },
+        {
+          "name": "B_top",
+          "kind": "box",
+          "pos": [
+            0.09,
+            0.0,
+            0.495
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.09,
+            0.18,
+            0.005
+          ],
+          "mass": 0.0,
+          "rgba": [
+            0.62,
+            0.64,
+            0.66,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        },
+        {
+          "name": "B_bottom",
+          "kind": "box",
+          "pos": [
+            0.09,
+            0.0,
+            0.005
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.09,
+            0.18,
+            0.005
+          ],
+          "mass": 0.0,
+          "rgba": [
+            0.62,
+            0.64,
+            0.66,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        },
+        {
+          "name": "B_divider",
+          "kind": "box",
+          "pos": [
+            0.09,
+            0.0,
+            0.05
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.09,
+            0.004,
+            0.04
+          ],
+          "mass": 0.0,
+          "rgba": [
+            0.62,
+            0.64,
+            0.66,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        },
+        {
+          "name": "B_pocket1",
+          "kind": "box",
+          "pos": [
+            0.045,
+            -0.181,
+            0.45
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.022,
+            0.001,
+            0.016
+          ],
+          "mass": 0.0,
+          "rgba": [
+            0.25,
+            0.25,
+            0.27,
+            1.0
+          ],
+          "collision": false,
+          "friction": 1.1
+        },
+        {
+          "name": "B_pocket2",
+          "kind": "box",
+          "pos": [
+            0.11,
+            -0.181,
+            0.45
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.022,
+            0.001,
+            0.016
+          ],
+          "mass": 0.0,
+          "rgba": [
+            0.25,
+            0.25,
+            0.27,
+            1.0
+          ],
+          "collision": false,
+          "friction": 1.1
+        }
+      ],
+      "joints": [],
+      "free": false
+    },
+    {
+      "name": "B_paddle1",
+      "parent": "cab_B",
+      "world_pos": [
+        0.22499999999999998,
+        0.12,
+        1.25
+      ],
+      "geoms": [
+        {
+          "name": "B_paddle1_tab",
+          "kind": "box",
+          "pos": [
+            0.0,
+            -0.026,
+            0.0
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.014,
+            0.022,
+            0.006
+          ],
+          "mass": 0.05,
+          "rgba": [
+            0.1,
+            0.1,
+            0.11,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        }
+      ],
+      "joints": [
+        {
+          "name": "B_paddle1_slide",
+          "kind": "slide",
+          "axis": [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          "range": [
+            0.0,
+            0.012
+          ],
+          "stiffness": 500.0,
+          "springref": -0.004,
+          "damping": 3.0,
+          "armature": 0.02,
+          "frictionloss": 0.0
+        }
+      ],
+      "free": false
+    },
+    {
+      "name": "B_paddle2",
+      "parent": "cab_B",
+      "world_pos": [
+        0.29,
+        0.12,
+        1.25
+      ],
+      "geoms": [
+        {
+          "name": "B_paddle2_tab",
+          "kind": "box",
+          "pos": [
+            0.0,
+            -0.026,
+            0.0
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.014,
+            0.022,
+            0.006
+          ],
+          "mass": 0.05,
+          "rgba": [
+            0.1,
+            0.1,
+            0.11,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        }
+      ],
+      "joints": [
+        {
+          "name": "B_paddle2_slide",
+          "kind": "slide",
+          "axis": [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          "range": [
+            0.0,
+            0.012
+          ],
+          "stiffness": 1000.0,
+          "springref": -0.004,
+          "damping": 3.0,
+          "armature": 0.02,
+          "frictionloss": 0.0
+        }
+      ],
+      "free": false
+    },
+    {
+      "name": "B_door_L",
+      "parent": "cab_B",
+      "world_pos": [
+        0.174,
+        0.478,
+        0.8
+      ],
+      "geoms": [
+        {
+          "name": "B_door_L_panel",
+          "kind": "box",
+          "pos": [
+            0.0,
+            -0.088,
+            0.251
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.006,
+            0.088,
+            0.239
+          ],
+          "mass": 0.75,
+          "rgba": [
+            0.62,
+            0.64,
+            0.66,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        },
+        {
+          "name": "B_door_L_knob",
+          "kind": "cylinder",
+          "pos": [
+            -0.026000000000000002,
+            -0.136,
+            0.455
+          ],
+          "quat_wxyz": [
+            0.7071068,
+            0.0,
+            0.7071068,
+            0.0
+          ],
+          "size": [
+            0.015,
+            0.02
+          ],
+          "mass": 0.05,
+          "rgba": [
+            0.8,
+            0.8,
+            0.82,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        },
+        {
+          "name": "B_door_L_cap",
+          "kind": "cylinder",
+          "pos": [
+            -0.049,
+            -0.136,
+            0.455
+          ],
+          "quat_wxyz": [
+            0.7071068,
+            0.0,
+            0.7071068,
+            0.0
+          ],
+          "size": [
+            0.022,
+            0.003
+          ],
+          "mass": 0.01,
+          "rgba": [
+            0.8,
+            0.8,
+            0.82,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        }
+      ],
+      "joints": [
+        {
+          "name": "B_hinge_L",
+          "kind": "hinge",
+          "axis": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "range": [
+            -0.002617993877991494,
+            0.002617993877991494
+          ],
+          "stiffness": 0.0,
+          "springref": 0.0,
+          "damping": 0.15,
+          "armature": 0.01,
+          "frictionloss": 0.08
+        }
+      ],
+      "free": false
+    },
+    {
+      "name": "B_door_R",
+      "parent": "cab_B",
+      "world_pos": [
+        0.174,
+        0.122,
+        0.8
+      ],
+      "geoms": [
+        {
+          "name": "B_door_R_panel",
+          "kind": "box",
+          "pos": [
+            0.0,
+            0.088,
+            0.251
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.006,
+            0.088,
+            0.239
+          ],
+          "mass": 0.75,
+          "rgba": [
+            0.62,
+            0.64,
+            0.66,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        },
+        {
+          "name": "B_door_R_knob",
+          "kind": "cylinder",
+          "pos": [
+            -0.026000000000000002,
+            0.136,
+            0.455
+          ],
+          "quat_wxyz": [
+            0.7071068,
+            0.0,
+            0.7071068,
+            0.0
+          ],
+          "size": [
+            0.015,
+            0.02
+          ],
+          "mass": 0.05,
+          "rgba": [
+            0.8,
+            0.8,
+            0.82,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        },
+        {
+          "name": "B_door_R_cap",
+          "kind": "cylinder",
+          "pos": [
+            -0.049,
+            0.136,
+            0.455
+          ],
+          "quat_wxyz": [
+            0.7071068,
+            0.0,
+            0.7071068,
+            0.0
+          ],
+          "size": [
+            0.022,
+            0.003
+          ],
+          "mass": 0.01,
+          "rgba": [
+            0.8,
+            0.8,
+            0.82,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        }
+      ],
+      "joints": [
+        {
+          "name": "B_hinge_R",
+          "kind": "hinge",
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "range": [
+            -0.002617993877991494,
+            0.002617993877991494
+          ],
+          "stiffness": 0.0,
+          "springref": 0.0,
+          "damping": 0.15,
+          "armature": 0.01,
+          "frictionloss": 0.08
+        }
+      ],
+      "free": false
+    },
+    {
+      "name": "B_box_L",
+      "parent": null,
+      "world_pos": [
+        0.245,
+        0.388,
+        0.8405
+      ],
+      "geoms": [
+        {
+          "name": "B_box_L_geom",
+          "kind": "box",
+          "pos": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.025,
+            0.025,
+            0.03
+          ],
+          "mass": 0.3,
+          "rgba": [
+            0.85,
+            0.55,
+            0.15,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        },
+        {
+          "name": "B_box_L_tab",
+          "kind": "box",
+          "pos": [
+            -0.0435,
+            0.0,
+            0.0
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.0185,
+            0.01,
+            0.022
+          ],
+          "mass": 0.01,
+          "rgba": [
+            0.85,
+            0.55,
+            0.15,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        }
+      ],
+      "joints": [],
+      "free": true
+    },
+    {
+      "name": "B_box_R",
+      "parent": null,
+      "world_pos": [
+        0.245,
+        0.212,
+        0.8405
+      ],
+      "geoms": [
+        {
+          "name": "B_box_R_geom",
+          "kind": "box",
+          "pos": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.025,
+            0.025,
+            0.03
+          ],
+          "mass": 0.3,
+          "rgba": [
+            0.2,
+            0.5,
+            0.75,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        },
+        {
+          "name": "B_box_R_tab",
+          "kind": "box",
+          "pos": [
+            -0.0435,
+            0.0,
+            0.0
+          ],
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            0.0185,
+            0.01,
+            0.022
+          ],
+          "mass": 0.01,
+          "rgba": [
+            0.2,
+            0.5,
+            0.75,
+            1.0
+          ],
+          "collision": true,
+          "friction": 1.1
+        }
+      ],
+      "joints": [],
+      "free": true
+    }
+  ],
+  "poses": "body world_pos + scene_transform; geoms have body-local poses, quaternionswxyz, box sizesHALF extents, cylinders radius/halfheight",
+  "station_furniture": "SDK station table1.10x1.30x0.06m, centre(.36,0,.7175), top.7475m; original cameras/stand/lights/floor retained; all are unvalidated clearance obstacles",
+  "passive_cables": "conditional hinge upper limits emulate hidden rotary claw; no cable geometry, no physical fracture simulation; passive gasket/kick/detent torque functions match archived source algebra"
+}

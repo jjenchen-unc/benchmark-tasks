@@ -1,0 +1,36 @@
+<body name="cab_A" pos="0.1 -0.29 0.8" quat="1.000000 0 0 0.000000">
+<geom name="A_back" type="box" pos="0.175 0 0.25" size="0.005 0.18 0.25" rgba=".62 .64 .66 1"/>
+<geom name="A_side_l" type="box" pos="0.09 0.175 0.25" size="0.09 0.005 0.25" rgba=".62 .64 .66 1"/>
+<geom name="A_side_r" type="box" pos="0.09 -0.175 0.25" size="0.09 0.005 0.25" rgba=".62 .64 .66 1"/>
+<geom name="A_top" type="box" pos="0.09 0 0.495" size="0.09 0.18 0.005" rgba=".62 .64 .66 1"/>
+<geom name="A_bottom" type="box" pos="0.09 0 0.005" size="0.09 0.18 0.005" rgba=".62 .64 .66 1"/>
+<geom name="A_divider" type="box" pos="0.09 0 0.05" size="0.09 .004 .04" rgba=".62 .64 .66 1"/>
+<geom name="A_pocket1" type="box" pos="0.045 0.181 0.45" size=".022 .001 .016" rgba=".25 .25 .27 1" contype="0" conaffinity="0" mass="0"/>
+<geom name="A_pocket2" type="box" pos="0.11 0.181 0.45" size=".022 .001 .016" rgba=".25 .25 .27 1" contype="0" conaffinity="0" mass="0"/>
+<body name="A_paddle1" pos="0.045 0.18 0.45">
+<joint name="A_paddle1_slide" type="slide" axis="0 1 0" range="0 0.012" stiffness="500.0" springref="-0.004" damping="3" armature=".02"/>
+<geom name="A_paddle1_tab" type="box" pos="0 0.026 0" size=".014 .022 .006" mass=".05" rgba=".10 .10 .11 1"/>
+</body>
+<body name="A_paddle2" pos="0.11 0.18 0.45">
+<joint name="A_paddle2_slide" type="slide" axis="0 1 0" range="0 0.012" stiffness="500.0" springref="-0.004" damping="3" armature=".02"/>
+<geom name="A_paddle2_tab" type="box" pos="0 0.026 0" size=".014 .022 .006" mass=".05" rgba=".10 .10 .11 1"/>
+</body>
+<body name="A_door_L" pos="-0.006 0.178 0">
+<joint name="A_hinge_L" type="hinge" axis="0 0 -1" range="-0.002617993877991494 0.002617993877991494" damping="0.15" frictionloss="0.08" armature=".01" solreflimit=".004 1"/>
+<geom name="A_door_L_panel" type="box" pos="0 -0.088 0.251" size="0.006 0.088 0.239" mass="0.75" rgba=".62 .64 .66 1"/>
+<geom name="A_door_L_knob" type="cylinder" pos="-0.026000000000000002 -0.136 0.455" quat=".7071068 0 .7071068 0" size=".015 0.02" mass=".05" rgba=".80 .80 .82 1"/>
+<geom name="A_door_L_cap" type="cylinder" pos="-0.049 -0.136 0.455" quat=".7071068 0 .7071068 0" size=".022 .003" mass=".01" rgba=".80 .80 .82 1"/>
+</body>
+<body name="A_door_R" pos="-0.006 -0.178 0">
+<joint name="A_hinge_R" type="hinge" axis="0 0 1" range="-0.002617993877991494 0.002617993877991494" damping="0.15" frictionloss="0.08" armature=".01" solreflimit=".004 1"/>
+<geom name="A_door_R_panel" type="box" pos="0 0.088 0.251" size="0.006 0.088 0.239" mass="0.75" rgba=".62 .64 .66 1"/>
+<geom name="A_door_R_knob" type="cylinder" pos="-0.026000000000000002 0.136 0.455" quat=".7071068 0 .7071068 0" size=".015 0.02" mass=".05" rgba=".80 .80 .82 1"/>
+<geom name="A_door_R_cap" type="cylinder" pos="-0.049 0.136 0.455" quat=".7071068 0 .7071068 0" size=".022 .003" mass=".01" rgba=".80 .80 .82 1"/>
+</body>
+</body>
+<body name="A_box_L" pos="0.16500 -0.20200 0.84050" quat="1.000000 0 0 0.000000"><freejoint name="A_box_L_joint"/>
+<geom name="A_box_L_geom" type="box" size="0.025 0.025 0.03" mass="0.3" rgba=".85 .55 .15 1"/>
+<geom name="A_box_L_tab" type="box" pos="-0.0435 0 0" size="0.0185 0.01 0.022" mass=".01" rgba=".85 .55 .15 1"/></body>
+<body name="A_box_R" pos="0.16500 -0.37800 0.84050" quat="1.000000 0 0 0.000000"><freejoint name="A_box_R_joint"/>
+<geom name="A_box_R_geom" type="box" size="0.025 0.025 0.03" mass="0.3" rgba=".20 .50 .75 1"/>
+<geom name="A_box_R_tab" type="box" pos="-0.0435 0 0" size="0.0185 0.01 0.022" mass=".01" rgba=".20 .50 .75 1"/></body>

@@ -1,0 +1,35 @@
+{
+  "status": "ACTUAL_MODEL_COMPOSITE_AND_ALL_NATIVE_VIDEOS_DECODE_VERIFIED_PENDING_VISUAL_REVIEW",
+  "frames": 3647,
+  "fps": 20,
+  "size": [
+    1280,
+    720
+  ],
+  "codec": "h264",
+  "duration_s": 182.35,
+  "score": 0.0,
+  "controls": 3646,
+  "native_views": {
+    "top_cam.mp4": {
+      "frames": 3647,
+      "sha256": "f00f67d8e4af958f75b9aa21b0838579ed37ee3006005f0a05498e3577f0bd5d"
+    },
+    "left_cam.mp4": {
+      "frames": 3647,
+      "sha256": "af8e98496731d8c21be6fd8982686d7dc9a03976deb11ed66fd010c870823910"
+    },
+    "right_cam.mp4": {
+      "frames": 3647,
+      "sha256": "abbb257e75f583712e6f0f89ee88e38f1a1633a7dfdd0a5b4092bd3541fda7a9"
+    }
+  },
+  "layout": "Three actual synchronized observations plus static final-result panel; no trimmed/repeated/fabricated camera frames",
+  "files": {
+    "model_run.mp4": {
+      "bytes": 9519846,
+      "sha256": "27c861f88bc105e32636423035b8a5e62d5e1ed4d09c4006c296e5c66737d91c"
+    }
+  },
+  "actual_model_review_sha256": "e8f868c4e6d4893c232109419c10f4f4ded0c6a13ea4b9573b7a40f0eb7a1b36"
+}

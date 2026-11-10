@@ -1,0 +1,170 @@
+{
+  "asset": "S5-v13-frozen-physical-review.tgz",
+  "bytes": 50050668,
+  "sha256": "36da215d9317404b93a513dc04398555020fcd89cde334e82b02ea403f48087c",
+  "members": {
+    "physical-review": {
+      "type": "directory",
+      "bytes": 0
+    },
+    "physical-review/ROOT-REVIEW-UNAPPROVED.json": {
+      "type": "file",
+      "bytes": 10775,
+      "sha256": "e2b51db55c0ee384d70528ee880a1e1d4abb0681cf1aa518099d3cbf79db64f7"
+    },
+    "physical-review/ROOT-REVIEW.json": {
+      "type": "file",
+      "bytes": 17266,
+      "sha256": "f18b132c9ba098c4c437580ed4f7c481bdf4b05cd233bd26fe0a45618b9442ad"
+    },
+    "physical-review/proofs": {
+      "type": "directory",
+      "bytes": 0
+    },
+    "physical-review/proofs/fixture.json": {
+      "type": "file",
+      "bytes": 28962,
+      "sha256": "ccd8b62933cd0e5194f2cdaa2ba1bf7f066a9170abefbbff9b6ba67f0c27fe30"
+    },
+    "physical-review/proofs/left-park-path.json": {
+      "type": "file",
+      "bytes": 78753,
+      "sha256": "bea3b8c035127a2decf11b60ae7b4763e13e5d4c14955f7ed26c66a652e47975"
+    },
+    "physical-review/proofs/left-park-supports.json": {
+      "type": "file",
+      "bytes": 11163,
+      "sha256": "a1fb3de885b506c3885e0e898545b23263600a705f6abdc548ac4d1d604293e3"
+    },
+    "physical-review/proofs/native-review.json": {
+      "type": "file",
+      "bytes": 11253,
+      "sha256": "416db76283b378cca94767acfc74f23009340c52a4a53864d147df3d56aa3b7e"
+    },
+    "physical-review/proofs/s5_contacts.py": {
+      "type": "file",
+      "bytes": 3526,
+      "sha256": "c77a3c634691e03c2a2f94d05f3a38f2f9ecbf5ca151ae30d1a0e192ad2b4ec9"
+    },
+    "physical-review/proofs/s5_kit.py": {
+      "type": "file",
+      "bytes": 8602,
+      "sha256": "988e7ea162e4494eba6fead402e1674f8d6ef334da75e1a02595da349b1cfa56"
+    },
+    "physical-review/proofs/s5_motor.py": {
+      "type": "file",
+      "bytes": 2596,
+      "sha256": "63f5a304687079f2a801f0beb87fb88a14f5e9a0352cde054377bfe71524b2ea"
+    },
+    "physical-review/proofs/s5_physics.py": {
+      "type": "file",
+      "bytes": 6282,
+      "sha256": "d3351be24fd230375285e51bbc760cefc997dbd73851a3ae8a05d6a395bc95d6"
+    },
+    "physical-review/proofs/s5_rules.py": {
+      "type": "file",
+      "bytes": 3521,
+      "sha256": "1e2a27d86f0bca1f4c16a3acde8ef117f161ccd3ac7adc2e43771a4deb5adb00"
+    },
+    "physical-review/proofs/table-contact-diagnostic.json": {
+      "type": "file",
+      "bytes": 121341,
+      "sha256": "aaa4633dc2cd73a33fa9b86d4437be9b3e84b265eb8f64f158cdb00d26c3f928"
+    },
+    "physical-review/proofs/task.py": {
+      "type": "file",
+      "bytes": 1427,
+      "sha256": "590a85a944ac7a0a193710dcddba452bf38c5b5b9114aaafa69ec21a8eedae61"
+    },
+    "physical-review/proofs/telemetry.py": {
+      "type": "file",
+      "bytes": 3145,
+      "sha256": "5101c0d5b2238ba6256d0d9fc6f715bda1b38d81b173600ee0ca07e50af1a0ea"
+    },
+    "physical-review/replay": {
+      "type": "directory",
+      "bytes": 0
+    },
+    "physical-review/replay/journal.jsonl": {
+      "type": "file",
+      "bytes": 27543635,
+      "sha256": "5b1b1576bb2db257ecc91c2cc01f92f9f2ad015506fc58aca71e12d93baf74af"
+    },
+    "physical-review/replay/launcher.json": {
+      "type": "file",
+      "bytes": 17131,
+      "sha256": "52905eefb28d1e3102929307688059e720b811f3dcce9427029905eec42ec783"
+    },
+    "physical-review/replay/left_cam-encoder.log": {
+      "type": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "physical-review/replay/left_cam.mp4": {
+      "type": "file",
+      "bytes": 4908641,
+      "sha256": "48a9c79d31019c14028e6cf2010e0818f112a225c451ba1084c2921871908b0f"
+    },
+    "physical-review/replay/left_cam.png": {
+      "type": "file",
+      "bytes": 153048,
+      "sha256": "dcfa5fc007109be19f1fdef0cd873cb53d2aefa1dbc02d306e6153d160bd399f"
+    },
+    "physical-review/replay/media-finalization.json": {
+      "type": "file",
+      "bytes": 404,
+      "sha256": "b0435dc3283f7ab37ec16362ecda1db3932644660c751a53df750c9bc2a2fa03"
+    },
+    "physical-review/replay/physics.jsonl": {
+      "type": "file",
+      "bytes": 94656717,
+      "sha256": "aad4372df857ba4adeff77de7a5248a2811a7a2b46104788c28f50adb700b28f"
+    },
+    "physical-review/replay/pre-actions.jsonl": {
+      "type": "file",
+      "bytes": 27534879,
+      "sha256": "b97b21c695c9c5a2d109c869dd3746efa99c31cee9fed165ce61ee5ecd3aa8b6"
+    },
+    "physical-review/replay/result.json": {
+      "type": "file",
+      "bytes": 10351,
+      "sha256": "ba64d066e63652dee23f14ab352b96950a6015580e7f938faf69d130778b724e"
+    },
+    "physical-review/replay/right_cam-encoder.log": {
+      "type": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "physical-review/replay/right_cam.mp4": {
+      "type": "file",
+      "bytes": 10063120,
+      "sha256": "d3e9119dd57251aff19c93f9b5722707849645b4da3d5aaa27ee2573045fa4be"
+    },
+    "physical-review/replay/right_cam.png": {
+      "type": "file",
+      "bytes": 152410,
+      "sha256": "a3f17585c24fddc53ca17830eb7c2e0868242ef5cd0bef4236dc41bca69940f9"
+    },
+    "physical-review/replay/robot-actions.jsonl": {
+      "type": "file",
+      "bytes": 56626059,
+      "sha256": "b2d4f41f0b81da3e09a7366b17ecea9b29a025331490ad771afe983bf983ba0c"
+    },
+    "physical-review/replay/top_cam-encoder.log": {
+      "type": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "physical-review/replay/top_cam.mp4": {
+      "type": "file",
+      "bytes": 10145732,
+      "sha256": "4a0a939e56949e8429d7199e8334a04c43dd922a018610fb896706888579a445"
+    },
+    "physical-review/replay/top_cam.png": {
+      "type": "file",
+      "bytes": 155491,
+      "sha256": "444df88a994abfff48aab7778afda114297c79b23f5454a547b3f90e84f299d5"
+    }
+  },
+  "receipt_sha256": "f18b132c9ba098c4c437580ed4f7c481bdf4b05cd233bd26fe0a45618b9442ad"
+}

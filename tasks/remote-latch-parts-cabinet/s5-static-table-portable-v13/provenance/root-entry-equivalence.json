@@ -1,0 +1,15 @@
+{
+  "actual_guard": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-s5-terminal-route-v9-20261110-0955/guard-checks.json",
+  "actual_guard_sha256": "354ed91e995303751a8d3505ca06727c3b0ae79f9d9bb52091021b157c832ede",
+  "actual_isolated_entry_pass": true,
+  "after_guard_changes": [
+    "README.md",
+    "contact-route.json",
+    "snapshot-manifest.json",
+    "sourcehashes.json"
+  ],
+  "runtime_waypoints_unchanged_after_guard": true,
+  "code_exact_after_guard": true,
+  "metadata_only_no_repeated_escape_suite": true,
+  "final_fingerprint": "61a58f55d1f8bdeae48582d8960a31fc83d7779da203d3cefffef688f4075537"
+}

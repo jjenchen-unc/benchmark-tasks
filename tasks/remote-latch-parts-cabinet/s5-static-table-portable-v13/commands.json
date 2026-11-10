@@ -1,0 +1,59 @@
+{
+  "commands": {
+    "replay": [
+      "/opt/IsaacLab-Arena/.venv/bin/python",
+      "-B",
+      "-I",
+      "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-fullportable-v10-20261110-1441/run_phase.py",
+      "replay",
+      "--out",
+      "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-fullportable-v10-20261110-1441/work/fresh-replay"
+    ],
+    "setup": [
+      "/opt/IsaacLab-Arena/.venv/bin/python",
+      "-B",
+      "-I",
+      "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-fullportable-v10-20261110-1441/run_phase.py",
+      "setup",
+      "--out",
+      "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-fullportable-v10-20261110-1441/work/fresh-setup"
+    ],
+    "model": [
+      "/opt/IsaacLab-Arena/.venv/bin/python",
+      "-B",
+      "-I",
+      "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-fullportable-v10-20261110-1441/run_phase.py",
+      "model",
+      "--out",
+      "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-fullportable-v10-20261110-1441/work/fresh-model",
+      "--review",
+      "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-fullportable-v10-20261110-1441/work/physical-review/ROOT-REVIEW-APPROVED.json"
+    ],
+    "preflight": [
+      "/opt/IsaacLab-Arena/.venv/bin/python",
+      "-B",
+      "-I",
+      "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-fullportable-v10-20261110-1441/run_phase.py",
+      "replay",
+      "--preflight-only",
+      "--out",
+      "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-fullportable-v10-20261110-1441/work/fresh-replay"
+    ],
+    "unapproved_review_form": [
+      "/opt/IsaacLab-Arena/.venv/bin/python",
+      "-B",
+      "-I",
+      "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-fullportable-v10-20261110-1441/receipt_builder.py",
+      "--replay",
+      "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-fullportable-v10-20261110-1441/work/fresh-replay",
+      "--out",
+      "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-fullportable-v10-20261110-1441/work/physical-review"
+    ]
+  },
+  "SERVER_wrapper": [
+    "containers/unc/run.sh",
+    "--gpu"
+  ],
+  "execution_authorized_by_this_bundle": false,
+  "relocation": "Replace only package prefix and existing SDK Python path; no native source edits"
+}

@@ -1,0 +1,23 @@
+{
+  "board_snapshot_at": "2026-11-10T21:01:07.313UTC",
+  "reviewed_full_instruction_setup_scoring": true,
+  "additional_nearest": [
+    {
+      "id": "TK-PGHBYS",
+      "overlap": "Remote release followed by controlled door motion; spring-related physical hazard.",
+      "difference": "Its release disconnects a stalled opener from a gravity-loaded vertical garage door requiring support before release and controlled lowering. S5 instead identifies a remote side paddle mapped to one rotary-latched hinged cabinet door, opens that door, retrieves cargo and leaves it supported without hands20s. Generic remote actuation or no-slam door motion alone is not a novelty claim."
+    },
+    {
+      "id": "TK-KAH5TE",
+      "overlap": "Remote release and autonomous articulated fixture motion.",
+      "difference": "Its scored operation installs a split cable guide and checks sleeve/plug clearance during spring-driven drawer travel. S5 installs no component and instead operates an existing mapped cabinet latch to retrieve cargo."
+    },
+    {
+      "id": "TK-WCDPBG",
+      "overlap": "Release latch before extracting designated stored object and setting it down; wrong-neighbor considerations.",
+      "difference": "Its handle directly unlatches/ejects a2.1kg drawout relay requiring weight support and protected-case constraints. S5 has an indirect actuator-to-door mapping, a separately grasped hinged door and loose cargo behind it. Generic extraction after release is already represented."
+    }
+  ],
+  "no_official_novelty_or_ownership_verdict": true,
+  "fresh_board_required_before_publication": true
+}

@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-10T22:08:52.081140+00:00",
+  "status": "LIVE_PUBLIC_URL_SAFE_CACHE_RECEIPT_AND_TAMPER_REJECTION_PASS",
+  "public_asset_url": "https://github.com/jjenchen-unc/benchmark-tasks/releases/download/s5-review-20261110/S5-v13-frozen-physical-review.tgz",
+  "archive_bytes": 50050668,
+  "archive_sha256": "36da215d9317404b93a513dc04398555020fcd89cde334e82b02ea403f48087c",
+  "all_safe_archive_members_and_payload_hashes_verified": true,
+  "exact_frozen_source_and_approved_receipt_verified": true,
+  "changed_cached_proof_rejected": true,
+  "changed_file_restored_and_validated": true,
+  "source_tree_unchanged": true,
+  "simulator_initializations": 0,
+  "model_calls": 0
+}

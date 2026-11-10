@@ -1,0 +1,479 @@
+{
+  "guard_sha256": "51908364094823be1cde8030041b626f38c54e5822c6db2d9678b4c2fad0c1d8",
+  "exact_python": "/opt/IsaacLab-Arena/.venv/bin/python",
+  "checks": [
+    {
+      "name": "normal",
+      "argv": [
+        "/opt/IsaacLab-Arena/.venv/bin/python",
+        "-B",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/import_audit.py",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/normal/audit.jsonl",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/normal/driver.py"
+      ],
+      "returncode": 0,
+      "expected": 0,
+      "passed": true,
+      "events": [
+        {
+          "event": "guard_installed",
+          "pid": 3557518,
+          "target": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/normal/driver.py"
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "name": "direct",
+      "argv": [
+        "/opt/IsaacLab-Arena/.venv/bin/python",
+        "-B",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/import_audit.py",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/direct/audit.jsonl",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/direct/driver.py"
+      ],
+      "returncode": 86,
+      "expected": 86,
+      "passed": true,
+      "events": [
+        {
+          "event": "guard_installed",
+          "pid": 3557519,
+          "target": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/direct/driver.py"
+        },
+        {
+          "event": "sdk_boundary",
+          "pid": 3557519,
+          "constructed_tasks": [],
+          "module": "isaaclab.app",
+          "telemetry_path": null,
+          "numeric_path": null,
+          "isolated": 0,
+          "target": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/direct/driver.py"
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "name": "cleanup",
+      "argv": [
+        "/opt/IsaacLab-Arena/.venv/bin/python",
+        "-B",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/import_audit.py",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/cleanup/audit.jsonl",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/cleanup/driver.py"
+      ],
+      "returncode": 86,
+      "expected": 86,
+      "passed": true,
+      "events": [
+        {
+          "event": "guard_installed",
+          "pid": 3557526,
+          "target": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/cleanup/driver.py"
+        },
+        {
+          "event": "sdk_boundary",
+          "pid": 3557526,
+          "constructed_tasks": [],
+          "module": "isaaclab",
+          "telemetry_path": null,
+          "numeric_path": null,
+          "isolated": 0,
+          "target": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/cleanup/driver.py"
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "name": "execv",
+      "argv": [
+        "/opt/IsaacLab-Arena/.venv/bin/python",
+        "-B",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/import_audit.py",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/execv/audit.jsonl",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/execv/driver.py"
+      ],
+      "returncode": 87,
+      "expected": 87,
+      "passed": true,
+      "events": [
+        {
+          "event": "guard_installed",
+          "pid": 3557532,
+          "target": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/execv/driver.py"
+        },
+        {
+          "event": "blocked_process_escape",
+          "pid": 3557532,
+          "kind": "os.exec"
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "name": "execve",
+      "argv": [
+        "/opt/IsaacLab-Arena/.venv/bin/python",
+        "-B",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/import_audit.py",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/execve/audit.jsonl",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/execve/driver.py"
+      ],
+      "returncode": 87,
+      "expected": 87,
+      "passed": true,
+      "events": [
+        {
+          "event": "guard_installed",
+          "pid": 3557537,
+          "target": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/execve/driver.py"
+        },
+        {
+          "event": "blocked_process_escape",
+          "pid": 3557537,
+          "kind": "os.exec"
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "name": "Popen",
+      "argv": [
+        "/opt/IsaacLab-Arena/.venv/bin/python",
+        "-B",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/import_audit.py",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/Popen/audit.jsonl",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/Popen/driver.py"
+      ],
+      "returncode": 1,
+      "expected": 1,
+      "passed": true,
+      "events": [
+        {
+          "event": "guard_installed",
+          "pid": 3557540,
+          "target": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/Popen/driver.py"
+        },
+        {
+          "event": "guard_installed",
+          "pid": 3557543,
+          "target": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/Popen/child.py"
+        },
+        {
+          "event": "sdk_boundary",
+          "pid": 3557543,
+          "constructed_tasks": [],
+          "module": "isaaclab.app",
+          "telemetry_path": null,
+          "numeric_path": null,
+          "isolated": 0,
+          "target": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/Popen/child.py"
+        }
+      ],
+      "stderr": "Traceback (most recent call last):\n  File \"/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/import_audit.py\", line 45, in <module>\n    runpy.run_path(target,run_name='__main__')\n  File \"<frozen runpy>\", line 287, in run_path\n  File \"<frozen runpy>\", line 98, in _run_module_code\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/Popen/driver.py\", line 1, in <module>\n    import subprocess,sys;subprocess.run([sys.executable,\"-B\",__file__.replace(\"driver.py\",\"child.py\")],check=True)\n                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/python/cpython-3.12.16-linux-x86_64-gnu/lib/python3.12/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['/opt/IsaacLab-Arena/.venv/bin/python', '-B', '/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/import_audit.py', '/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/Popen/audit.jsonl', '/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/Popen/child.py']' returned non-zero exit status 86.\n"
+    },
+    {
+      "name": "Popen_I",
+      "argv": [
+        "/opt/IsaacLab-Arena/.venv/bin/python",
+        "-B",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/import_audit.py",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/Popen_I/audit.jsonl",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/Popen_I/driver.py"
+      ],
+      "returncode": 1,
+      "expected": 1,
+      "passed": true,
+      "events": [
+        {
+          "event": "guard_installed",
+          "pid": 3557547,
+          "target": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/Popen_I/driver.py"
+        },
+        {
+          "event": "guard_installed",
+          "pid": 3557551,
+          "target": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/Popen_I/child.py"
+        },
+        {
+          "event": "sdk_boundary",
+          "pid": 3557551,
+          "constructed_tasks": [],
+          "module": "isaaclab.app",
+          "telemetry_path": null,
+          "numeric_path": null,
+          "isolated": 1,
+          "target": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/Popen_I/child.py"
+        }
+      ],
+      "stderr": "Traceback (most recent call last):\n  File \"/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/import_audit.py\", line 45, in <module>\n    runpy.run_path(target,run_name='__main__')\n  File \"<frozen runpy>\", line 287, in run_path\n  File \"<frozen runpy>\", line 98, in _run_module_code\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/Popen_I/driver.py\", line 1, in <module>\n    import subprocess,sys;subprocess.run([sys.executable,\"-I\",\"-B\",__file__.replace(\"driver.py\",\"child.py\")],check=True)\n                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/python/cpython-3.12.16-linux-x86_64-gnu/lib/python3.12/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['/opt/IsaacLab-Arena/.venv/bin/python', '-I', '-B', '/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/import_audit.py', '/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/Popen_I/audit.jsonl', '/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/Popen_I/child.py']' returned non-zero exit status 86.\n"
+    },
+    {
+      "name": "Popen_shell_escape",
+      "argv": [
+        "/opt/IsaacLab-Arena/.venv/bin/python",
+        "-B",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/import_audit.py",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/Popen_shell_escape/audit.jsonl",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/Popen_shell_escape/driver.py"
+      ],
+      "returncode": 87,
+      "expected": 87,
+      "passed": true,
+      "events": [
+        {
+          "event": "guard_installed",
+          "pid": 3557554,
+          "target": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/Popen_shell_escape/driver.py"
+        },
+        {
+          "event": "blocked_process_escape",
+          "pid": 3557554,
+          "kind": "subprocess.Popen"
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "name": "Popen_raw",
+      "argv": [
+        "/opt/IsaacLab-Arena/.venv/bin/python",
+        "-B",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/import_audit.py",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/Popen_raw/audit.jsonl",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/Popen_raw/driver.py"
+      ],
+      "returncode": 87,
+      "expected": 87,
+      "passed": true,
+      "events": [
+        {
+          "event": "guard_installed",
+          "pid": 3557556,
+          "target": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/Popen_raw/driver.py"
+        },
+        {
+          "event": "blocked_process_escape",
+          "pid": 3557556,
+          "kind": "subprocess.Popen"
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "name": "os_system",
+      "argv": [
+        "/opt/IsaacLab-Arena/.venv/bin/python",
+        "-B",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/import_audit.py",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/os_system/audit.jsonl",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/os_system/driver.py"
+      ],
+      "returncode": 87,
+      "expected": 87,
+      "passed": true,
+      "events": [
+        {
+          "event": "guard_installed",
+          "pid": 3557559,
+          "target": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/os_system/driver.py"
+        },
+        {
+          "event": "blocked_process_escape",
+          "pid": 3557559,
+          "kind": "os.system"
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "name": "posix_spawn",
+      "argv": [
+        "/opt/IsaacLab-Arena/.venv/bin/python",
+        "-B",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/import_audit.py",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/posix_spawn/audit.jsonl",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/posix_spawn/driver.py"
+      ],
+      "returncode": 87,
+      "expected": 87,
+      "passed": true,
+      "events": [
+        {
+          "event": "guard_installed",
+          "pid": 3557563,
+          "target": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/posix_spawn/driver.py"
+        },
+        {
+          "event": "blocked_process_escape",
+          "pid": 3557563,
+          "kind": "os.posix_spawn"
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "name": "fork",
+      "argv": [
+        "/opt/IsaacLab-Arena/.venv/bin/python",
+        "-B",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/import_audit.py",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/fork/audit.jsonl",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/fork/driver.py"
+      ],
+      "returncode": 87,
+      "expected": 87,
+      "passed": true,
+      "events": [
+        {
+          "event": "guard_installed",
+          "pid": 3557565,
+          "target": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/fork/driver.py"
+        },
+        {
+          "event": "blocked_process_escape",
+          "pid": 3557565,
+          "kind": "os.fork"
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "name": "isolated_old_path",
+      "argv": [
+        "/opt/IsaacLab-Arena/.venv/bin/python",
+        "-I",
+        "-B",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/import_audit.py",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/isolated_old_path/audit.jsonl",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/isolated_old_path/driver.py"
+      ],
+      "returncode": 1,
+      "expected": 1,
+      "passed": true,
+      "events": [
+        {
+          "event": "guard_installed",
+          "pid": 3557568,
+          "target": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/isolated_old_path/driver.py"
+        }
+      ],
+      "stderr": "Traceback (most recent call last):\n  File \"/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/import_audit.py\", line 45, in <module>\n    runpy.run_path(target,run_name='__main__')\n  File \"<frozen runpy>\", line 287, in run_path\n  File \"<frozen runpy>\", line 98, in _run_module_code\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/isolated_old_path/driver.py\", line 1, in <module>\n    import local_probe;import isaaclab.app\n    ^^^^^^^^^^^^^^^^^^\nModuleNotFoundError: No module named 'local_probe'\n"
+    },
+    {
+      "name": "isolated_explicit_path",
+      "argv": [
+        "/opt/IsaacLab-Arena/.venv/bin/python",
+        "-I",
+        "-B",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/import_audit.py",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/isolated_explicit_path/audit.jsonl",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/isolated_explicit_path/driver.py"
+      ],
+      "returncode": 86,
+      "expected": 86,
+      "passed": true,
+      "events": [
+        {
+          "event": "guard_installed",
+          "pid": 3557571,
+          "target": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/isolated_explicit_path/driver.py"
+        },
+        {
+          "event": "sdk_boundary",
+          "pid": 3557571,
+          "constructed_tasks": [],
+          "module": "isaaclab.app",
+          "telemetry_path": null,
+          "numeric_path": null,
+          "isolated": 1,
+          "target": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/isolated_explicit_path/driver.py"
+        }
+      ],
+      "stderr": ""
+    },
+    {
+      "name": "old_launcher",
+      "argv": [
+        "/opt/IsaacLab-Arena/.venv/bin/python",
+        "-I",
+        "-B",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/import_audit.py",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/old_launcher/audit.jsonl",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-actual-paddle-repair-20261110-0355/launch.py",
+        "--mode",
+        "reference",
+        "--out",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-clear-approach-bridge-v7-20261110-0820/guard-checks-final/old_launcher/trial"
+      ],
+      "returncode": 86,
+      "passed": true,
+      "events": [
+        {
+          "event": "guard_installed",
+          "pid": 3557574,
+          "target": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-actual-paddle-repair-20261110-0355/launch.py"
+        },
+        {
+          "event": "sdk_boundary",
+          "pid": 3557574,
+          "constructed_tasks": [],
+          "module": "isaaclab.app",
+          "telemetry_path": null,
+          "numeric_path": null,
+          "isolated": 1,
+          "target": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s5-actual-paddle-repair-20261110-0355/launch.py"
+        }
+      ],
+      "stderr": "",
+      "executed_source_hashes_sha256": "9fbc7a214c033e6eb746fab00f2e5213abedac23dabd2aafcfa92568c6286792"
+    },
+    {
+      "name": "chosen_launcher",
+      "argv": [
+        "/opt/IsaacLab-Arena/.venv/bin/python",
+        "-I",
+        "-B",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-s5-terminal-route-v9-20261110-0955/import_audit.py",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-s5-terminal-route-v9-20261110-0955/guard-checks-final/chosen_root_v9/audit.jsonl",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-s5-terminal-route-v9-20261110-0955/launch.py",
+        "--mode",
+        "reference",
+        "--out",
+        "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-s5-terminal-route-v9-20261110-0955/guard-checks-final/chosen_root_v9/trial"
+      ],
+      "returncode": 86,
+      "passed": true,
+      "events": [
+        {
+          "event": "guard_installed",
+          "pid": 3833906,
+          "target": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-s5-terminal-route-v9-20261110-0955/launch.py"
+        },
+        {
+          "event": "sdk_boundary",
+          "pid": 3833906,
+          "constructed_tasks": [
+            {
+              "name": "task",
+              "objects": 8
+            }
+          ],
+          "module": "isaaclab.app",
+          "telemetry_path": null,
+          "numeric_path": null,
+          "isolated": 1,
+          "target": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-s5-terminal-route-v9-20261110-0955/launch.py"
+        }
+      ],
+      "stderr": "",
+      "executed_source_hashes_sha256": "3a12d91071504ee496830322febf7618ec1800007a5561f9c3c9e4e07671301f"
+    }
+  ],
+  "all_pass": true,
+  "count": 16,
+  "simulation_starts": 0,
+  "isolated_semantics_preserved": true,
+  "final_input_fingerprint": "09d638c479018fa9873d0ba22f26e7b8c4c5482d2f5a1c8ecc5f44498e4293f0"
+}

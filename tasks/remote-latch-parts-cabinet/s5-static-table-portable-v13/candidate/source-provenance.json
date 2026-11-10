@@ -1,0 +1,28 @@
+{
+  "native_readonly": "ports/packages/S5_remote_release--remote_access_restore",
+  "scene_sha256": "d991488bd6acdeaa940461012ba52cf8cf16f66b20598f463b68a62a38f9d504",
+  "source_executed_without_build": true,
+  "native_builds": 0,
+  "physics_steps": 0,
+  "source_variants_preserved": [
+    "RR-T1",
+    "RR-T2",
+    "RR-T3",
+    "RR-T4",
+    "RR-T5",
+    "A_left_A"
+  ],
+  "actual_arena_variant_implemented": "RR-T1 fixedphysicalcase42",
+  "task_count": 1,
+  "generated_assets": "USD authored from exact archived cabinet_xml output; no Panda meshes/native runtime import in Arena",
+  "helpers_derived_from": [
+    "verified B5 Contacts/body_paths/rot_xyzw",
+    "verified D3 totalmotor adapter"
+  ],
+  "source_bug_repair": "archived box_on_table accepts x10m at tabletop height with zero velocity; new fullpredicate requires footprint+actual tablecontact",
+  "source_notice_files": [
+    "source/ASSETS.md",
+    "source/PROVENANCE.json",
+    "source/DEVIATIONS.md"
+  ]
+}

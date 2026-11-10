@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "candidate_id": "S5_remote_release:remote_access_restore",
+  "name": "remote access restore",
+  "bench_id": "S5_remote_release",
+  "priority": {
+    "bench_rank": 18,
+    "tier": "later",
+    "source": "docs/porting/priority.json",
+    "meaning": "Editorial action order, not acceptance probability"
+  },
+  "source_module": "scene/S5_remote_release/benches/S5_remote_release.py",
+  "source_provenance": "scene/S5_remote_release/PROVENANCE.json",
+  "common_runtime": "runtime",
+  "default_representative": {
+    "goal_id": "RR-T1",
+    "setting": "S",
+    "seed": 42,
+    "command": "build"
+  },
+  "variants": [
+    {
+      "goal_id": "RR-T1",
+      "kind": "deployment_goal",
+      "settings": [
+        "S"
+      ],
+      "instruction": "Two grey double-door tool cabinets stand on the table, doors facing -X (toward the arms): cabinet A on the -Y side and cabinet B on the +Y side. Each cabinet has two hinged doors with a round knob near the top of each door and a box with a front grab tab behind each door. Two identical paddle handles sit on the side face of the cabinet that faces the middle of the table, a front paddle and a rear paddle. The rear paddle of the -Y cabinet is near the left arm's reach; approach it at paddle height from the front. Left and right are as seen when facing the doors. Robot: two Panda arms with parallel grippers side by side, both facing +X (left base at x -0.40, y -0.42; right base at x -0.32, y 0.30); the left arm reaches the cabinet on the -Y side, the right arm the cabinet on the +Y side. Grippers point straight down and turn about vertical only. Tool workspace for this bench: X -0.20 to 0.45 m, Y -0.75 to 0.65 m, Z 0.82 to 1.40 m (the cabinets are 0.50 m tall). Joint torque limits 80 N m on joints 1-4, 12 N m on joints 5-7; each finger squeezes with at most 40 N; the arm force guard can be set up to 60 N; a wrist force above 80 N for 0.1 s aborts the episode. Goal: open the right door of cabinet A and put the box behind it on the table. A box counts as on the table when it rests upright on the table top outside the cabinet with no hand touching it. The final state must hold for 20 s after the hands let go. Damage ends success: a door must not hit the cabinet frame faster than 0.25 m/s measured at its knob, and a wrist force above 80 N held for 0.1 s counts as damage too.",
+      "submission_exclusion": null,
+      "test_obligation": "Retain source goal and all listed settings as regression cases even when submission-blocked. A new Robocurve implementation must be independently checked; archived acceptance is provenance only.",
+      "linked_candidates": [
+        "S5_remote_release:remote_access_restore"
+      ]
+    },
+    {
+      "goal_id": "RR-T2",
+      "kind": "deployment_goal",
+      "settings": [
+        "S"
+      ],
+      "instruction": "Two grey double-door tool cabinets stand on the table, doors facing -X (toward the arms): cabinet A on the -Y side and cabinet B on the +Y side. Each cabinet has two hinged doors with a round knob near the top of each door and a box with a front grab tab behind each door. Two identical paddle handles sit on the side face of the cabinet that faces the middle of the table, a front paddle and a rear paddle. The rear paddle of the -Y cabinet is near the left arm's reach; approach it at paddle height from the front. Left and right are as seen when facing the doors. Robot: two Panda arms with parallel grippers side by side, both facing +X (left base at x -0.40, y -0.42; right base at x -0.32, y 0.30); the left arm reaches the cabinet on the -Y side, the right arm the cabinet on the +Y side. Grippers point straight down and turn about vertical only. Tool workspace for this bench: X -0.20 to 0.45 m, Y -0.75 to 0.65 m, Z 0.82 to 1.40 m (the cabinets are 0.50 m tall). Joint torque limits 80 N m on joints 1-4, 12 N m on joints 5-7; each finger squeezes with at most 40 N; the arm force guard can be set up to 60 N; a wrist force above 80 N for 0.1 s aborts the episode. Goal: open the right door of cabinet B and put the box behind it on the table. A box counts as on the table when it rests upright on the table top outside the cabinet with no hand touching it. The final state must hold for 20 s after the hands let go. Damage ends success: a door must not hit the cabinet frame faster than 0.25 m/s measured at its knob, and a wrist force above 80 N held for 0.1 s counts as damage too.",
+      "submission_exclusion": null,
+      "test_obligation": "Retain source goal and all listed settings as regression cases even when submission-blocked. A new Robocurve implementation must be independently checked; archived acceptance is provenance only.",
+      "linked_candidates": [
+        "S5_remote_release:remote_access_restore"
+      ]
+    },
+    {
+      "goal_id": "RR-T3",
+      "kind": "deployment_goal",
+      "settings": [
+        "S"
+      ],
+      "instruction": "Two grey double-door tool cabinets stand on the table, doors facing -X (toward the arms): cabinet A on the -Y side and cabinet B on the +Y side. Each cabinet has two hinged doors with a round knob near the top of each door and a box with a front grab tab behind each door. Two identical paddle handles sit on the side face of the cabinet that faces the middle of the table, a front paddle and a rear paddle. The rear paddle of the -Y cabinet is near the left arm's reach; approach it at paddle height from the front. Left and right are as seen when facing the doors. Robot: two Panda arms with parallel grippers side by side, both facing +X (left base at x -0.40, y -0.42; right base at x -0.32, y 0.30); the left arm reaches the cabinet on the -Y side, the right arm the cabinet on the +Y side. Grippers point straight down and turn about vertical only. Tool workspace for this bench: X -0.20 to 0.45 m, Y -0.75 to 0.65 m, Z 0.82 to 1.40 m (the cabinets are 0.50 m tall). Joint torque limits 80 N m on joints 1-4, 12 N m on joints 5-7; each finger squeezes with at most 40 N; the arm force guard can be set up to 60 N; a wrist force above 80 N for 0.1 s aborts the episode. Both doors of cabinet B stand open. Goal: close both doors of cabinet B. A door counts as closed when it is fully closed, flush with the cabinet front, so that it stays shut when its knob is pulled, with no hand touching it. The final state must hold for 20 s after the hands let go. Damage ends success: a door must not hit the cabinet frame faster than 0.25 m/s measured at its knob, and a wrist force above 80 N held for 0.1 s counts as damage too.",
+      "submission_exclusion": null,
+      "test_obligation": "Retain source goal and all listed settings as regression cases even when submission-blocked. A new Robocurve implementation must be independently checked; archived acceptance is provenance only.",
+      "linked_candidates": [
+        "S5_remote_release:remote_access_restore"
+      ]
+    },
+    {
+      "goal_id": "RR-T4",
+      "kind": "deployment_goal",
+      "settings": [
+        "T-new"
+      ],
+      "instruction": "One grey double-door tool cabinet stands on the -Y side of the table, doors facing -X (toward the arms). Each cabinet has two hinged doors with a round knob near the top of each door and a box with a front grab tab behind each door. Two identical paddle handles sit on the side face of the cabinet that faces the middle of the table, a front paddle and a rear paddle. The rear paddle of the -Y cabinet is near the left arm's reach; approach it at paddle height from the front. Left and right are as seen when facing the doors. Robot: two Panda arms with parallel grippers side by side, both facing +X (left base at x -0.40, y -0.42; right base at x -0.32, y 0.30); the left arm reaches the cabinet on the -Y side, the right arm the cabinet on the +Y side. Grippers point straight down and turn about vertical only. Tool workspace for this bench: X -0.20 to 0.45 m, Y -0.75 to 0.65 m, Z 0.82 to 1.40 m (the cabinets are 0.50 m tall). Joint torque limits 80 N m on joints 1-4, 12 N m on joints 5-7; each finger squeezes with at most 40 N; the arm force guard can be set up to 60 N; a wrist force above 80 N for 0.1 s aborts the episode. Goal: open the right door of the cabinet, put the box behind it on the table, then close every door that is open. A box counts as on the table when it rests upright on the table top outside the cabinet with no hand touching it. A door counts as closed when it is fully closed, flush with the cabinet front, so that it stays shut when its knob is pulled, with no hand touching it. The final state must hold for 20 s after the hands let go. Damage ends success: a door must not hit the cabinet frame faster than 0.25 m/s measured at its knob, and a wrist force above 80 N held for 0.1 s counts as damage too.",
+      "submission_exclusion": null,
+      "test_obligation": "Retain source goal and all listed settings as regression cases even when submission-blocked. A new Robocurve implementation must be independently checked; archived acceptance is provenance only.",
+      "linked_candidates": [
+        "S5_remote_release:remote_access_restore"
+      ]
+    },
+    {
+      "goal_id": "RR-T5",
+      "kind": "deployment_goal",
+      "settings": [
+        "T-combo"
+      ],
+      "instruction": "One grey double-door tool cabinet stands on the -Y side of the table, doors facing -X (toward the arms). Each cabinet has two hinged doors with a round knob near the top of each door and a box with a front grab tab behind each door. Two identical paddle handles sit on the side face of the cabinet that faces the middle of the table, a front paddle and a rear paddle. The rear paddle of the -Y cabinet is near the left arm's reach; approach it at paddle height from the front. Left and right are as seen when facing the doors. Robot: two Panda arms with parallel grippers side by side, both facing +X (left base at x -0.40, y -0.42; right base at x -0.32, y 0.30); the left arm reaches the cabinet on the -Y side, the right arm the cabinet on the +Y side. Grippers point straight down and turn about vertical only. Tool workspace for this bench: X -0.20 to 0.45 m, Y -0.75 to 0.65 m, Z 0.82 to 1.40 m (the cabinets are 0.50 m tall). Joint torque limits 80 N m on joints 1-4, 12 N m on joints 5-7; each finger squeezes with at most 40 N; the arm force guard can be set up to 60 N; a wrist force above 80 N for 0.1 s aborts the episode. Goal: open the right door of the cabinet, put the box behind it on the table, then close every door that is open. A box counts as on the table when it rests upright on the table top outside the cabinet with no hand touching it. A door counts as closed when it is fully closed, flush with the cabinet front, so that it stays shut when its knob is pulled, with no hand touching it. The final state must hold for 20 s after the hands let go. Damage ends success: a door must not hit the cabinet frame faster than 0.25 m/s measured at its knob, and a wrist force above 80 N held for 0.1 s counts as damage too.",
+      "submission_exclusion": null,
+      "test_obligation": "Retain source goal and all listed settings as regression cases even when submission-blocked. A new Robocurve implementation must be independently checked; archived acceptance is provenance only.",
+      "linked_candidates": [
+        "S5_remote_release:remote_access_restore"
+      ]
+    },
+    {
+      "goal_id": "A_left_A",
+      "kind": "exploration_scene_task",
+      "settings": [
+        "A"
+      ],
+      "instruction": "Two grey double-door tool cabinets stand on the table, doors facing -X (toward the arms): cabinet A on the -Y side and cabinet B on the +Y side. Each cabinet has two hinged doors with a round knob near the top of each door and a box with a front grab tab behind each door. Two identical paddle handles sit on the side face of the cabinet that faces the middle of the table, a front paddle and a rear paddle. The rear paddle of the -Y cabinet is near the left arm's reach; approach it at paddle height from the front. Left and right are as seen when facing the doors. Robot: two Panda arms with parallel grippers side by side, both facing +X (left base at x -0.40, y -0.42; right base at x -0.32, y 0.30); the left arm reaches the cabinet on the -Y side, the right arm the cabinet on the +Y side. Grippers point straight down and turn about vertical only. Tool workspace for this bench: X -0.20 to 0.45 m, Y -0.75 to 0.65 m, Z 0.82 to 1.40 m (the cabinets are 0.50 m tall). Joint torque limits 80 N m on joints 1-4, 12 N m on joints 5-7; each finger squeezes with at most 40 N; the arm force guard can be set up to 60 N; a wrist force above 80 N for 0.1 s aborts the episode. Goal: open the left door of cabinet A, put the box behind it on the table, then close the left door. A box counts as on the table when it rests upright on the table top outside the cabinet with no hand touching it. A door counts as closed when it is fully closed, flush with the cabinet front, so that it stays shut when its knob is pulled, with no hand touching it. The final state must hold for 20 s after the hands let go. Damage ends success: a door must not hit the cabinet frame faster than 0.25 m/s measured at its knob, and a wrist force above 80 N held for 0.1 s counts as damage too.",
+      "submission_exclusion": null,
+      "test_obligation": "Retain source goal and all listed settings as regression cases even when submission-blocked. A new Robocurve implementation must be independently checked; archived acceptance is provenance only.",
+      "linked_candidates": [
+        "S5_remote_release:remote_access_restore"
+      ]
+    }
+  ],
+  "goal_ids": [
+    "RR-T1",
+    "RR-T2",
+    "RR-T3",
+    "RR-T4",
+    "RR-T5",
+    "A_left_A"
+  ],
+  "board_exclusions": [],
+  "candidate_submission_status": "needs_distinctness_fidelity_scoring_robot_demo_evidence",
+  "submission_ready": false,
+  "submission_standalone": false,
+  "packaging_scope": "Independent development folder with local scene/support/assets/runtime and pinned dependencies. Not submission-ready: missing reviewed scoring/agent evaluation/media and task packaging evidence.",
+  "robot": {
+    "choice": "Preserve source-native declared embodiment",
+    "description": "Native two-Panda arms with source-specific Franka/Robotiq2F85 hands. Inspect actual native build metadata for actuator count and gripper model. YAM/Dream conversion is optional.",
+    "agent_route_status": "Requires verified agent SDK/Inspect Robots adapter for selected embodiment. Privileged source reference replay alone is not agent evaluation."
+  },
+  "scoring": {
+    "current": "Original binary source success with native runtime damage/terminal handling; no invented partial credit",
+    "remaining": "Use each box placed or each door externally verified stage2 locked and retained after pull/hold. Stage1 flush-looking closure, slam and overload need explicit zero-credit behavior."
+  },
+  "fidelity": "Source estimates/simplifications must be disclosed. Physical setup and external numeric scoring must be reproducible; new hardware calibration is optional unless required to substantiate the particular fidelity claim.",
+  "remaining_evidence": {
+    "fidelity": "Disclose fidelity, estimated parameters and simplifications, and provide a reproducible physical setup with numeric externally measurable scoring. Prefer supporting specs or calibration when the claimed fidelity requires them; an actual hardware measurement/calibration campaign is not a universal prerequisite or an extra approval step.",
+    "scoring": "Define a standalone numeric scorer with physical measurement proxies, exact sampling/hold/terminal rules, all outcome branches and reset protocol. Preserve damage vetoes; never expose private simulator state to the policy.",
+    "robot": "Declare the robot and hands used by the task, preserve their actual reach/actuator/force limits and provide a working agent SDK route plus a successful demo in that embodiment. Native dual-Panda and source-specific Franka/Robotiq2F85 hands are valid development/submission choices. For robots other than two parallel-gripper arms, official instructions use an LLM through Inspect Robots rather than Dream-1. YAM/Dream compatibility is required only if that route is selected.",
+    "partial_credit": "Source success is Boolean on every bench. Design and validate observable stages or continuous error bands, explicit weights and a global invalidation rule; demonstrate incomplete and damage/exploit negatives before allowing any nonzero credit.",
+    "evidence": "Fresh board/task-detail and relevant benchmark overlap review; reproducible setup, standalone numeric scorer, declared embodiment and working agent SDK/Inspect route, successful full-score demo within the justified limit, and required evaluation/media under the selected official route. Hardware calibration beyond the stated fidelity claim is optional evidence.",
+    "mechanism_and_measurement": "Suggested fidelity evidence / external scoring proxies, not mandatory new hardware tests: Document physical cable/paddle routing and release travel; externally test each door retained under a specified pull, film slam speed and box rest/door closure.",
+    "robot_specific": "Declare and validate the native source embodiment, working agent interface, robot demo and episode limits. Retain actual source hands and motion requirements. Optional YAM conversion notes only: Demonstrate YAM simultaneous paddle/door access and safe door return; source guards above30N may be needed.",
+    "partial_credit_specific": "Use each box placed or each door externally verified stage2 locked and retained after pull/hold. Stage1 flush-looking closure, slam and overload need explicit zero-credit behavior."
+  },
+  "separation_rationale": "One mechanism/outcome family. Parameters, height, load, object identity/colour/count, starting scene and transfer setting stay test variants; no further submission split is supported by this inventory.",
+  "boundary": "No PR, upload, model call, paid job, task.json media or claimed score is created by this wrapper. Board-blocked variants remain testable, not eligible for submission.",
+  "development_self_contained": true,
+  "development_wrapper_origin": "ports/candidates/S5_remote_release--remote_access_restore",
+  "runtime_source_fingerprint": "2140905413111da8b31da8a8fb218d5bdd6d7f67d023afe01c90ed045f59f88a",
+  "package_evidence": "No isolated package reference run claimed. Source/runtime fingerprints allow later comparison with matching evidence."
+}

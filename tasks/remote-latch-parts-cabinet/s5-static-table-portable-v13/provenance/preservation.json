@@ -1,0 +1,21 @@
+{
+  "checks": {
+    "all_native_internal_fixture_data_exact": true,
+    "s5_physics.py_byte_exact": true,
+    "s5_rules.py_byte_exact": true,
+    "s5_motor.py_byte_exact": true,
+    "s5_contacts.py_byte_exact": true,
+    "paddle_feedback.py_byte_exact": true,
+    "telemetry.py_byte_exact": true,
+    "foundation.py_byte_exact": true,
+    "native_sources_assets_exact": true,
+    "original_right_prefix_AST_exact": true
+  },
+  "all_pass": true,
+  "allowed_changes": [
+    "left upright mount/pedestal/init joints",
+    "active-arm controller selection",
+    "new finite robot joint waypoints"
+  ],
+  "physical_score_transferred": false
+}

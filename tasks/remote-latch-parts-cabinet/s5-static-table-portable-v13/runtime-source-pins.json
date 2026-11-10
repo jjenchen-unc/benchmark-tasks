@@ -1,0 +1,26 @@
+{
+  "inspect-robots": {
+    "version": "1.0.0",
+    "sha256": {
+      "inspect_robots/cli.py": "b0e81b9657e19c444f9bf7a64c911fc8b4226aa775f01ec3c8728277c39c3dcf",
+      "inspect_robots/scene.py": "b91ce79275e6a6e72155685d371550105952fb61532bc8ec445bf6007886ac23",
+      "inspect_robots/session.py": "7d7f0f9bf91fe959c4d1059189b830c99976915e11dc61d0e13bcf807c1ce2dd",
+      "inspect_robots/types.py": "32cac1a8a677fc0668d890804e9fa5a8651188a734c280a5c1dbd896e70cbd23"
+    }
+  },
+  "inspect-robots-dream": {
+    "version": "0.1.0",
+    "sha256": {
+      "inspect_robots_dream/session.py": "e79ff8c14d658ba8d239bbd2892624d492b8648656c9cf063ddc031a45c6713c"
+    }
+  },
+  "yam-arena": {
+    "version": "0.1.0",
+    "sha256": {
+      "yam_arena/actions.py": "ad100980fdf19521922e3e269ea353f61ae6c6eb5502ea9795be7c3d492d1c43",
+      "yam_arena/inspect_embodiment.py": "1b0cbbcdf98b7385e4d213e88bd59c296639bb7031c80e8d73efdce0eabcc4c6",
+      "yam_arena/scene.py": "7c4081aa811b2839f908d533e12885dac7a0aaed62ff8da59e36995b50b87809",
+      "yam_arena/task_file.py": "a10aa40c22998538916fc8703b6f63416db8385d973bd2b43b66e302a9ef0f70"
+    }
+  }
+}

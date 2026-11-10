@@ -1,0 +1,1 @@
+User authorized task publishing from the user-provided original project in the current assignment. Original native/robot notices and source headers remain preserved verbatim. This authorization does not assert a newly discovered upstream license or clear unidentified third-party material. No publication performed.

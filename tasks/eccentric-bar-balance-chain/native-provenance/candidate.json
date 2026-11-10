@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "candidate_id": "B4_bars:offset_stack",
+  "name": "offset stack",
+  "bench_id": "B4_bars",
+  "priority": {
+    "bench_rank": 24,
+    "tier": "later",
+    "source": "docs/porting/priority.json",
+    "meaning": "Editorial action order, not acceptance probability"
+  },
+  "source_module": "scene/B4_bars/benches/B4_bars.py",
+  "source_provenance": "scene/B4_bars/PROVENANCE.json",
+  "common_runtime": "runtime",
+  "default_representative": {
+    "goal_id": "stack_ABC",
+    "setting": "S",
+    "seed": 42,
+    "command": "build"
+  },
+  "variants": [
+    {
+      "goal_id": "stack_ABC",
+      "kind": "deployment_goal",
+      "settings": [
+        "S",
+        "T-new"
+      ],
+      "instruction": "Three bars lie on the table side by side, each along the X axis: orange bar A, blue bar B and purple bar C. They look the same apart from colour: 320 mm long aluminium square tube, 50 x 50 mm, with a black cap on the end that points to -X. Colours only identify the bars. A small steel point pedestal stands on the table (flat top 28 mm along the bars by 30 mm, 160 mm high). Robot: two Panda arms with parallel grippers (jaw opening 0-90 mm); grippers point straight down and turn about the vertical. Joint torque limits 80 N m on joints 1-4, 12 N m on joints 5-7. Each finger squeezes with at most 40 N. Arm motions stop when the wrist force exceeds the force guard (30 N by default, settable up to 60 N); a wrist force above 80 N for 0.1 s aborts the episode. Tool reach box: X -300..350 mm, Y -400..400 mm, Z 825..1180 mm (table top at Z 800 mm); the arms start at about Z 1260 mm, above the reach box. The robot senses joint angles, jaw openings, wrist force/torque and finger forces. Goal: stack the bars on the support from bottom to top in the order A, B, C (bar A on the support, bar B on bar A, bar C on bar B), each lying along the one below. Each bar must lie across the support with its long axis along the X axis (within 10 deg, either end first) and level within 3.4 deg, lie flat, be still (below 25 mm/s), and touch only the support or bar directly below it and the bar directly above it; nothing else (no table, no robot). Let go and keep both hands off; the arrangement must stay like this for 20 s.",
+      "submission_exclusion": null,
+      "test_obligation": "Retain source goal and all listed settings as regression cases even when submission-blocked. A new Robocurve implementation must be independently checked; archived acceptance is provenance only.",
+      "linked_candidates": [
+        "B4_bars:offset_stack"
+      ]
+    },
+    {
+      "goal_id": "stack_CBA",
+      "kind": "deployment_goal",
+      "settings": [
+        "S",
+        "T-new"
+      ],
+      "instruction": "Three bars lie on the table side by side, each along the X axis: orange bar A, blue bar B and purple bar C. They look the same apart from colour: 320 mm long aluminium square tube, 50 x 50 mm, with a black cap on the end that points to -X. Colours only identify the bars. A steel ridge pedestal stands on the table (flat top 40 mm wide along the bars by 100 mm, 160 mm high). Robot: two Panda arms with parallel grippers (jaw opening 0-90 mm); grippers point straight down and turn about the vertical. Joint torque limits 80 N m on joints 1-4, 12 N m on joints 5-7. Each finger squeezes with at most 40 N. Arm motions stop when the wrist force exceeds the force guard (30 N by default, settable up to 60 N); a wrist force above 80 N for 0.1 s aborts the episode. Tool reach box: X -300..350 mm, Y -400..400 mm, Z 825..1180 mm (table top at Z 800 mm); the arms start at about Z 1260 mm, above the reach box. The robot senses joint angles, jaw openings, wrist force/torque and finger forces. Goal: stack the bars on the support from bottom to top in the order C, B, A (bar C on the support, bar B on bar C, bar A on bar B), each lying along the one below. Each bar must lie across the support with its long axis along the X axis (within 10 deg, either end first) and level within 3.4 deg, lie flat, be still (below 25 mm/s), and touch only the support or bar directly below it and the bar directly above it; nothing else (no table, no robot). Let go and keep both hands off; the arrangement must stay like this for 20 s.",
+      "submission_exclusion": null,
+      "test_obligation": "Retain source goal and all listed settings as regression cases even when submission-blocked. A new Robocurve implementation must be independently checked; archived acceptance is provenance only.",
+      "linked_candidates": [
+        "B4_bars:offset_stack"
+      ]
+    },
+    {
+      "goal_id": "A_stack_pedestal",
+      "kind": "exploration_scene_task",
+      "settings": [
+        "A"
+      ],
+      "instruction": "Three bars lie on the table side by side, each along the X axis: orange bar A, blue bar B and purple bar C. They look the same apart from colour: 320 mm long aluminium square tube, 50 x 50 mm, with a black cap on the end that points to -X. Colours only identify the bars. A steel riser block stands on the table (a 2-4-6 block on its 2 x 4 in face: top 51 mm along the bars by 102 mm, 152 mm high). Robot: two Panda arms with parallel grippers (jaw opening 0-90 mm); grippers point straight down and turn about the vertical. Joint torque limits 80 N m on joints 1-4, 12 N m on joints 5-7. Each finger squeezes with at most 40 N. Arm motions stop when the wrist force exceeds the force guard (30 N by default, settable up to 60 N); a wrist force above 80 N for 0.1 s aborts the episode. Tool reach box: X -300..350 mm, Y -400..400 mm, Z 825..1180 mm (table top at Z 800 mm); the arms start at about Z 1260 mm, above the reach box. The robot senses joint angles, jaw openings, wrist force/torque and finger forces. Goal: stack the bars on the support from bottom to top in the order A, B, C (bar A on the support, bar B on bar A, bar C on bar B), each lying along the one below. Each bar must lie across the support with its long axis along the X axis (within 10 deg, either end first) and level within 3.4 deg, lie flat, be still (below 25 mm/s), and touch only the support or bar directly below it and the bar directly above it; nothing else (no table, no robot). Let go and keep both hands off; the arrangement must stay like this for 20 s.",
+      "submission_exclusion": null,
+      "test_obligation": "Retain source goal and all listed settings as regression cases even when submission-blocked. A new Robocurve implementation must be independently checked; archived acceptance is provenance only.",
+      "linked_candidates": [
+        "B4_bars:offset_stack"
+      ]
+    }
+  ],
+  "goal_ids": [
+    "stack_ABC",
+    "stack_CBA",
+    "A_stack_pedestal"
+  ],
+  "board_exclusions": [],
+  "candidate_submission_status": "needs_distinctness_fidelity_scoring_robot_demo_evidence",
+  "submission_ready": false,
+  "submission_standalone": false,
+  "packaging_scope": "Independent development folder with local scene/support/assets/runtime and pinned dependencies. Not submission-ready: missing reviewed scoring/agent evaluation/media and task packaging evidence.",
+  "robot": {
+    "choice": "Preserve source-native declared embodiment",
+    "description": "Native two-Panda arms with source-specific Franka/Robotiq2F85 hands. Inspect actual native build metadata for actuator count and gripper model. YAM/Dream conversion is optional.",
+    "agent_route_status": "Requires verified agent SDK/Inspect Robots adapter for selected embodiment. Privileged source reference replay alone is not agent evaluation."
+  },
+  "scoring": {
+    "current": "Prefix-hold partial credit k/3 (scoring/partial_credit.py) over the unchanged source predicate; robot contact resets all stages; 1.0 == source success",
+    "remaining": "Use independently supported correctly ordered bars or contact-chain segments after release, numeric pose/drift bounds and timed stability. Table/robot bracing invalidates all credit."
+  },
+  "fidelity": "Source estimates/simplifications must be disclosed. Physical setup and external numeric scoring must be reproducible; new hardware calibration is optional unless required to substantiate the particular fidelity claim.",
+  "remaining_evidence": {
+    "fidelity": "Disclose fidelity, estimated parameters and simplifications, and provide a reproducible physical setup with numeric externally measurable scoring. Prefer supporting specs or calibration when the claimed fidelity requires them; an actual hardware measurement/calibration campaign is not a universal prerequisite or an extra approval step.",
+    "scoring": "Define a standalone numeric scorer with physical measurement proxies, exact sampling/hold/terminal rules, all outcome branches and reset protocol. Preserve damage vetoes; never expose private simulator state to the policy.",
+    "robot": "Declare the robot and hands used by the task, preserve their actual reach/actuator/force limits and provide a working agent SDK route plus a successful demo in that embodiment. Native dual-Panda and source-specific Franka/Robotiq2F85 hands are valid development/submission choices. For robots other than two parallel-gripper arms, official instructions use an LLM through Inspect Robots rather than Dream-1. YAM/Dream compatibility is required only if that route is selected.",
+    "partial_credit": "Source success is Boolean on every bench. Design and validate observable stages or continuous error bands, explicit weights and a global invalidation rule; demonstrate incomplete and damage/exploit negatives before allowing any nonzero credit.",
+    "evidence": "Fresh board/task-detail and relevant benchmark overlap review; reproducible setup, standalone numeric scorer, declared embodiment and working agent SDK/Inspect route, successful full-score demo within the justified limit, and required evaluation/media under the selected official route. Hardware calibration beyond the stated fidelity claim is optional evidence.",
+    "mechanism_and_measurement": "Suggested fidelity evidence / external scoring proxies, not mandatory new hardware tests: Measure bar centre of mass, support widths/friction and masses; video/contact-clearance views establish no table/robot bracing, stack order, pose, stillness and20s support.",
+    "robot_specific": "Declare and validate the native source embodiment, working agent interface, robot demo and episode limits. Retain actual source hands and motion requirements. Optional YAM conversion notes only: Check YAM reach and finger/long-bar collisions for offset placements; single-bar group duplicate-blocked.",
+    "partial_credit_specific": "Use independently supported correctly ordered bars or contact-chain segments after release, numeric pose/drift bounds and timed stability. Table/robot bracing invalidates all credit."
+  },
+  "separation_rationale": "Single-body balancing differs from a multi-body offset stack/contact chain. Bar identity, stack order and support dimensions merge; single-body family is blocked.",
+  "boundary": "No PR, upload, model call, paid job, task.json media or claimed score is created by this wrapper. Board-blocked variants remain testable, not eligible for submission.",
+  "development_self_contained": true,
+  "development_wrapper_origin": "ports/candidates/B4_bars--offset_stack",
+  "runtime_source_fingerprint": "3bebe6d8e0f6d3055eb9d53a475a1ba34b482c66e700c6161e063dbaab9f3882",
+  "package_evidence": "Wave-13 public scripted controller runs and matched negatives: artifacts/continuation/server-round3/wave-13/B4_bars (development evidence, not a model run)."
+}

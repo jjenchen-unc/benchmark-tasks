@@ -1,0 +1,143 @@
+{
+  "actual_input_sha256": {
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-b4-support-b7-spring-full-20261110-0615/B4-full-ABC-support-v3/job-43744/trial/physics.jsonl": "251ee7dbafe10579e489dc2fe9f0ee1765aafdfad2ee9e498c253824baac4e7d",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-b4-support-b7-spring-full-20261110-0615/B4-full-ABC-support-v3/job-43744/trial/result.json": "aeb3f0073bd2db3b2833dc9f196d4d5bfd184dceb6d303b93bcfe0f27515233e",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-b4-support-b7-spring-full-20261110-0615/B4-full-ABC-support-v3/job-43744/trial/robot-actions.jsonl": "9f401e2f6d83225274b8eed0463aed043c4c75be8074e02c8482fa32b6674a5e",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-b4-support-b7-spring-full-20261110-0615/B4-full-ABC-support-v3/job-43744/trial/source/README.md": "25da792f3299d3b4d0647f436391ca8edbd9da9b3d2d2fa5f06bd511d46c7444",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-b4-support-b7-spring-full-20261110-0615/B4-full-ABC-support-v3/job-43744/trial/source/SOURCE_ASSETS.md": "0e229a3166a6b99509755880ae5ac2ec856a18b82396579f12cf0a33c7bf5ffb",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-b4-support-b7-spring-full-20261110-0615/B4-full-ABC-support-v3/job-43744/trial/source/candidate-manifest.json": "25d882831dff67e2440cc09e166ae531df5d4730636d0c6ed6db34dc4cb203e6",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-b4-support-b7-spring-full-20261110-0615/B4-full-ABC-support-v3/job-43744/trial/source/checks.py": "0acf1eb5a0bc5878e0d1fe065bc6358413f55d0c9730fd2de2a47706785a50b3",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-b4-support-b7-spring-full-20261110-0615/B4-full-ABC-support-v3/job-43744/trial/source/contact_paths.py": "404e1ca4c9003518371b5b32ad846e986d59b4fc5afde12b70c06aa1192e87f2",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-b4-support-b7-spring-full-20261110-0615/B4-full-ABC-support-v3/job-43744/trial/source/contacts.py": "ec2ae5f6f403068b66fce8af1739e5095963c760d168848754ff46e08d447c14",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-b4-support-b7-spring-full-20261110-0615/B4-full-ABC-support-v3/job-43744/trial/source/contract.py": "39f24aab70bde5480b8b40af05a4a265a2f66efde94cbcb1e47c6125d6f7c2d9",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-b4-support-b7-spring-full-20261110-0615/B4-full-ABC-support-v3/job-43744/trial/source/dependencies.json": "6274409cd09d1a5ae74bffaa13d9c91fa8db38987a3dca6b6730d0a897532579",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-b4-support-b7-spring-full-20261110-0615/B4-full-ABC-support-v3/job-43744/trial/source/external-sourcehashes.json": "40e9ec86e8276c80a8fbaa2f1f72d995f32077512ed5ca49e0d7a72fc3c0b2ec",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-b4-support-b7-spring-full-20261110-0615/B4-full-ABC-support-v3/job-43744/trial/source/fixture.py": "3b8e7830b6d3db90f54fa809ecef8948d353081717827e2d18c36ec3efb7c4cc",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-b4-support-b7-spring-full-20261110-0615/B4-full-ABC-support-v3/job-43744/trial/source/ik_check.py": "0ea1c23ca08c1fe21287274c4c0ec239c0b4d7fa540aae8dec7eafa7ad0be834",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-b4-support-b7-spring-full-20261110-0615/B4-full-ABC-support-v3/job-43744/trial/source/inventory.json": "1d0ea9306202e3a2eb080fe562117a25416e33c382cb50b7e719f47ba25d4406",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-b4-support-b7-spring-full-20261110-0615/B4-full-ABC-support-v3/job-43744/trial/source/kit.py": "71195dfac3d0cb6d0def844082383092b2eb850497ca4b554f088b19cf184119",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-b4-support-b7-spring-full-20261110-0615/B4-full-ABC-support-v3/job-43744/trial/source/motor_adapter.py": "baecae18720a90c3f54e51adc3b875cd1105bf4cfa6c24db77da68181411575a",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-b4-support-b7-spring-full-20261110-0615/B4-full-ABC-support-v3/job-43744/trial/source/observer.py": "1ed6cd629bb7eca450ce8fcba1f2a3c1cd166a84a9e810a7bc1884015f4ed597",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-b4-support-b7-spring-full-20261110-0615/B4-full-ABC-support-v3/job-43744/trial/source/probe.py": "871eb0e1d32214a3d2bb8a5e72af77930770381c9e907465492466c91cc61dba",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-b4-support-b7-spring-full-20261110-0615/B4-full-ABC-support-v3/job-43744/trial/source/reference.py": "f95ed9bec62cf2314eaee6aa0b92afcd4fa507ca8043debd38f9d4acc1331104",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-b4-support-b7-spring-full-20261110-0615/B4-full-ABC-support-v3/job-43744/trial/source/source-provenance.json": "094fa478ce381b2d0c8d0fa0a719f629dc3b15e9169451ddb25a71d767f4838b",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-b4-support-b7-spring-full-20261110-0615/B4-full-ABC-support-v3/job-43744/trial/source/strict_json.py": "67ac58344cea06aa221b196ad431cd64d52aaa8c65ae7c35400247fc410058b9",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-b4-support-b7-spring-full-20261110-0615/B4-full-ABC-support-v3/job-43744/trial/source/task.draft.json": "36ed025d13b691115f5f9e483f34e95cd982c8f400f3d0a90b58251c735914ad",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-b4-support-b7-spring-full-20261110-0615/B4-full-ABC-support-v3/job-43744/trial/source/task.py": "dacad515699b6877e5767fd4ff7b760ae1d7f6e17629fa3b672bd9c7e614ed49",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-b4-support-b7-spring-full-20261110-0615/B4-full-ABC-support-v3/job-43744/trial/sourcehashes.json": "ee34ccd7b6b7768f95554a47334f32f465fc1cc6cf2629a18c083da560e101f9",
+    "/mnt/bum/jjenchen/robocurve/ports/packages/B4_bars--offset_stack/scene/B4_bars/benches/B4_bars.py": "8e3e46c581d9e0d8dc2aca26099a41a0223f71c34a6d37baee4db420ad083300",
+    "/mnt/bum/jjenchen/robocurve/ports/packages/B4_bars--offset_stack/scoring/partial_credit.py": "02c0eaf38684b2683c2c60009ed31bc25a5e143076b3dc24e12fa0c9d9312c51"
+  },
+  "actual_job_id": 43744,
+  "analysis_sha256": {
+    "crosscheck-result.json": "d5aaeec79e190df90d58dec072a84e4fd529b4164c8326cdfce5e3fbb5fc5917",
+    "crosscheck.py": "5fddf2d58d437340bae0be9ca54264dfd90c7662ec44db42f05a4cbb235266a2",
+    "replay-result.json": "b00ebce5138f6c7dd88d7eb5b8db83e15c30d9208d4cc7af2ce78c17b0805881",
+    "replay.py": "24dcb2ef4f458ca68438d47a1e5ba9152b1c58d13298028c0a83afd436ea3abc",
+    "source-audit.json": "311389bfa2e0dc51439d89aab71b928385ce9b874a461d4eb2b807b80b50d75a",
+    "source_audit.py": "8e5a385962fdd271349691cccd8391cfbbc57a14e4f74901a8f7e53c84394448"
+  },
+  "calibration": {
+    "abort_load_n": 120,
+    "does_not_certify_nonfinger_positive_load": true,
+    "genuine_reference_unchanged": true,
+    "known_loads_per_side": 6,
+    "load_n": 10,
+    "script": "calibration.py",
+    "status": "UNSUBMITTED"
+  },
+  "candidate_channel_findings": {
+    "bar_pose_velocity": "native predicate scipy-rotation replay identical; independent final20s pose finite differences and orientation pass; direct bar raw tensor cross-check pending",
+    "contact_pairs": "29 owner filters/bar, actual finite pedestal and adjacent bar points; count/start overflow checked by consumed reader but not independently journalled",
+    "motor_limits": "actual both robots all8 drive readbacks at every control27/7/40; G/K source inside drive cap",
+    "nonfinger_link_force": "normal+friction upper bound intentional conservative proxy; all actual recorded proxy0; positive contact-load calibration absent",
+    "physics_clock": "source-bound actual 36025 ticks,25/control,2ms; independently replayed",
+    "workspace_contact": "source-bound measured raw gripper transform/TCP+installedFK and all flags agree; contact ownership shares contact_pairs finding",
+    "wrist_force": "raw processed gripper norm matches to1.61e-6N; known load/sign/basis and80N100ms abort pending"
+  },
+  "installed_source_sha256": {
+    "/opt/IsaacLab-Arena/.venv/lib/python3.12/site-packages/isaacsim/extscache/omni.physics.tensors-110.3.2+110.3.0.lx64.r.cp312.u7f4/omni/physics/tensors/api.py": {
+      "sha256": "1ba654210857a63b98236512e5f225723c3eb1dee64e867eaa4fade0578ccb7b",
+      "size": 383305
+    },
+    "/opt/IsaacLab-Arena/submodules/IsaacLab/source/isaaclab/isaaclab/assets/articulation/articulation_data.py": {
+      "sha256": "a8eb697f17fa17e6ef7cc262f148dc6d567e176a76585ef723e89bd45a109a18",
+      "size": 826
+    },
+    "/opt/IsaacLab-Arena/submodules/IsaacLab/source/isaaclab/isaaclab/assets/rigid_object/rigid_object_data.py": {
+      "sha256": "78bba819b435219dd2025245fc3171ccfeddee86e989f69e5de24a44b7e59f7f",
+      "size": 819
+    },
+    "/opt/IsaacLab-Arena/submodules/IsaacLab/source/isaaclab/isaaclab/sensors/joint_wrench/joint_wrench_sensor.py": {
+      "sha256": "af4e08a2895d32761e64db1f8492085534e6dba775360dada9ad4cb751dbd6d6",
+      "size": 1652
+    },
+    "/opt/IsaacLab-Arena/submodules/IsaacLab/source/isaaclab/isaaclab/sensors/joint_wrench/joint_wrench_sensor_data.py": {
+      "sha256": "7eb9b670ef5c126bf3b0363e13b46ce6d5af2023d6efc47ed3d686f36566068d",
+      "size": 1259
+    },
+    "/opt/IsaacLab-Arena/submodules/IsaacLab/source/isaaclab_newton/isaaclab_newton/assets/articulation/articulation_data.py": {
+      "sha256": "8754007e77972ecd510a2446932735d99183fd7121fbae52082244c94736a77a",
+      "size": 135261
+    },
+    "/opt/IsaacLab-Arena/submodules/IsaacLab/source/isaaclab_newton/isaaclab_newton/assets/rigid_object/rigid_object_data.py": {
+      "sha256": "8bbad9209537352ed58751231a36a49d119be4cf7e882bcdb0452e8e7406b755",
+      "size": 72096
+    },
+    "/opt/IsaacLab-Arena/submodules/IsaacLab/source/isaaclab_newton/isaaclab_newton/sensors/joint_wrench/joint_wrench_sensor.py": {
+      "sha256": "57fd54f7d2f55b07c0058d3561c8b09d34788bb74682681963214c5e03f7ec43",
+      "size": 9009
+    },
+    "/opt/IsaacLab-Arena/submodules/IsaacLab/source/isaaclab_newton/isaaclab_newton/sensors/joint_wrench/joint_wrench_sensor_data.py": {
+      "sha256": "4f8bc07222c5a5be03e53504444ffb3485a3eafbdb48ed9275546b97d3098346",
+      "size": 2508
+    },
+    "/opt/IsaacLab-Arena/submodules/IsaacLab/source/isaaclab_ov/isaaclab_ov/assets/articulation/articulation_data.py": {
+      "sha256": "4944024b5731c81837696e8b332edc31c439232cbbeb0d2bdaadd11c099f46a8",
+      "size": 123003
+    },
+    "/opt/IsaacLab-Arena/submodules/IsaacLab/source/isaaclab_ov/isaaclab_ov/assets/rigid_object/rigid_object_data.py": {
+      "sha256": "7727bce1f0ef0969925c16c0a26ea5516420f6591f8336bdedb949f842943d7e",
+      "size": 58010
+    },
+    "/opt/IsaacLab-Arena/submodules/IsaacLab/source/isaaclab_ov/isaaclab_ov/sensors/joint_wrench/joint_wrench_sensor.py": {
+      "sha256": "f6b7460e7c9e06dc6e9e89a6bf1abb4833a7ec16fb311fbd3411e432ee7a8017",
+      "size": 12605
+    },
+    "/opt/IsaacLab-Arena/submodules/IsaacLab/source/isaaclab_ov/isaaclab_ov/sensors/joint_wrench/joint_wrench_sensor_data.py": {
+      "sha256": "d15a9b88d2bd2b863278bac24c3b40f4d83f61ff5a73d6e6bc68f891cbebaa6c",
+      "size": 2497
+    },
+    "/opt/IsaacLab-Arena/submodules/IsaacLab/source/isaaclab_physx/isaaclab_physx/assets/articulation/articulation_data.py": {
+      "sha256": "9f25446dff165278af62147c50d5153cc1a1236ccc308cb83a316892cdeb54bf",
+      "size": 111298
+    },
+    "/opt/IsaacLab-Arena/submodules/IsaacLab/source/isaaclab_physx/isaaclab_physx/assets/rigid_object/rigid_object_data.py": {
+      "sha256": "6e03c85172da8712bdebc6e19c89cea7868afb02f9e96259c82a281cca4270b4",
+      "size": 52954
+    },
+    "/opt/IsaacLab-Arena/submodules/IsaacLab/source/isaaclab_physx/isaaclab_physx/sensors/joint_wrench/joint_wrench_sensor.py": {
+      "sha256": "ea3d40e4b42bc0373eb7eed2afbf86d166d719ff40ed625ebfd481d4254f643b",
+      "size": 11019
+    },
+    "/opt/IsaacLab-Arena/submodules/IsaacLab/source/isaaclab_physx/isaaclab_physx/sensors/joint_wrench/joint_wrench_sensor_data.py": {
+      "sha256": "32b168096dc384587e2962b8e09caccba1d76bb8e40459073b262843b6511937",
+      "size": 2495
+    },
+    "/opt/yam-arena/yam_arena/constants.py": {
+      "sha256": "8c44cc2e96ac491255211f2e0b807dda4c1f7547db5a6c62b809764ef69ca2c2",
+      "size": 5564
+    },
+    "/opt/yam-arena/yam_arena/task_file.py": {
+      "sha256": "a10aa40c22998538916fc8703b6f63416db8385d973bd2b43b66e302a9ef0f70",
+      "size": 10722
+    }
+  },
+  "promotion_authority": "ROOT only",
+  "public_score": 0,
+  "runtime_VALIDATED_unchanged": true,
+  "schema_version": 1,
+  "self_hash_schema": "sha256 canonical JSON excluding self_sha256; enclosing candidate manifest hashes complete binding bytes",
+  "self_sha256": "cfdbfe5ec0e296516a19f391c2b8d0689ee7201306866d1d9ab52a060b580669",
+  "unit": "B4_actual_fullgoal_validation"
+}

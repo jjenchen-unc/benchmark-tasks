@@ -1,0 +1,29 @@
+{
+  "scope": "CPU cross-check of recorded actual transforms; finite differences include 2ms float32 jitter, not independent sensor calibration",
+  "actual_joint_fk_max_tcp_translation_error_m": 4.582105682825311e-07,
+  "raw_body_transform_tcp_max_error_m": 1.3015745535397695e-07,
+  "final20s_fd_6d_velocity": {
+    "A": {
+      "max": 0.001440352951758121,
+      "p99": 0.0012310901681454242,
+      "p50": 0.0006616662817418679
+    },
+    "B": {
+      "max": 0.00234587752020754,
+      "p99": 0.0019228658539745442,
+      "p50": 0.0008968704707575502
+    },
+    "C": {
+      "max": 0.0026446713014071227,
+      "p99": 0.0021361137025692483,
+      "p50": 0.0009440739177873001
+    }
+  },
+  "final20s_support_contact_point_max_surface_error_m": 3.099441525655777e-08,
+  "final20s_support_points": 40000,
+  "final20s_bar_pair_surface_excess_m": 4.048513995749681e-05,
+  "final20s_bar_pair_point_body_checks": 320000,
+  "final20s_min_orientation_predicate_margin": 0.0017994597890123032,
+  "simulation_initialized": false,
+  "physical_new_run": false
+}

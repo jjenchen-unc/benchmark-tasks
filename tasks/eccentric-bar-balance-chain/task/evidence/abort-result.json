@@ -1,0 +1,135 @@
+{
+  "mode": "evaluator",
+  "model_calls": 0,
+  "physics_verified": false,
+  "fullgoal_verified": false,
+  "media_verified": false,
+  "score_claim": null,
+  "checks": {
+    "pure_task_constructed": true,
+    "supported_base_poses": true,
+    "14D_state": true,
+    "initial_bar_layout": true,
+    "rgb": true,
+    "actual_wrist_abort": true,
+    "step_after_termination_guard": true
+  },
+  "error": null,
+  "live_selections": {
+    "bar_body_paths": {
+      "A": "/World/envs/env_0/bar_A",
+      "B": "/World/envs/env_0/bar_B",
+      "C": "/World/envs/env_0/bar_C"
+    },
+    "actual_robot_body_paths": [
+      "/World/envs/env_0/LeftArm/Geometry/base",
+      "/World/envs/env_0/LeftArm/Geometry/base/link1",
+      "/World/envs/env_0/LeftArm/Geometry/base/link1/link2",
+      "/World/envs/env_0/LeftArm/Geometry/base/link1/link2/link3",
+      "/World/envs/env_0/LeftArm/Geometry/base/link1/link2/link3/link4",
+      "/World/envs/env_0/LeftArm/Geometry/base/link1/link2/link3/link4/link5",
+      "/World/envs/env_0/LeftArm/Geometry/base/link1/link2/link3/link4/link5/gripper",
+      "/World/envs/env_0/LeftArm/Geometry/base/link1/link2/link3/link4/link5/gripper/tip_left",
+      "/World/envs/env_0/LeftArm/Geometry/base/link1/link2/link3/link4/link5/gripper/tip_right",
+      "/World/envs/env_0/RightArm/Geometry/base",
+      "/World/envs/env_0/RightArm/Geometry/base/link1",
+      "/World/envs/env_0/RightArm/Geometry/base/link1/link2",
+      "/World/envs/env_0/RightArm/Geometry/base/link1/link2/link3",
+      "/World/envs/env_0/RightArm/Geometry/base/link1/link2/link3/link4",
+      "/World/envs/env_0/RightArm/Geometry/base/link1/link2/link3/link4/link5",
+      "/World/envs/env_0/RightArm/Geometry/base/link1/link2/link3/link4/link5/gripper",
+      "/World/envs/env_0/RightArm/Geometry/base/link1/link2/link3/link4/link5/gripper/tip_left",
+      "/World/envs/env_0/RightArm/Geometry/base/link1/link2/link3/link4/link5/gripper/tip_right"
+    ],
+    "external_collider_roots": [
+      "/World/envs/env_0/camera_housing/geometry/mesh",
+      "/World/envs/env_0/floor/geometry/mesh",
+      "/World/envs/env_0/left_mount_riser/geometry/mesh",
+      "/World/envs/env_0/right_mount_riser/geometry/mesh",
+      "/World/envs/env_0/stand_arm/geometry/mesh",
+      "/World/envs/env_0/stand_foot/geometry/mesh",
+      "/World/envs/env_0/stand_mast/geometry/mesh",
+      "/World/envs/env_0/support/geometry/mesh",
+      "/World/envs/env_0/table/geometry/mesh"
+    ]
+  },
+  "cameras": {
+    "top_cam": {
+      "shape": [
+        176,
+        320,
+        3
+      ],
+      "std": 71.550043816712
+    },
+    "left_cam": {
+      "shape": [
+        176,
+        320,
+        3
+      ],
+      "std": 50.96570310488682
+    },
+    "right_cam": {
+      "shape": [
+        176,
+        320,
+        3
+      ],
+      "std": 52.32104914481578
+    }
+  },
+  "termination_reason": "wrist_force_abort",
+  "evaluator_only": true,
+  "status": {
+    "score": 0.0,
+    "diagnostic_ungated_score": 0.0,
+    "missing_runtime_validation": [
+      "bar_pose_velocity",
+      "contact_pairs",
+      "motor_limits",
+      "nonfinger_link_force",
+      "physics_clock",
+      "workspace_contact",
+      "wrist_force"
+    ],
+    "failure": "wrist_force_abort",
+    "hold_s": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "max_hold_s": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "samples": 75,
+    "time_s": 0.1500000000000001,
+    "force_guard": true,
+    "measurement_error": null,
+    "controls": 3,
+    "actual_motor_limits": {
+      "left": {
+        "joint1": 27.0,
+        "joint2": 27.0,
+        "joint3": 27.0,
+        "joint4": 7.0,
+        "joint5": 7.0,
+        "joint6": 7.0,
+        "joint7": 40.0,
+        "joint8": 40.0
+      },
+      "right": {
+        "joint1": 27.0,
+        "joint2": 27.0,
+        "joint3": 27.0,
+        "joint4": 7.0,
+        "joint5": 7.0,
+        "joint6": 7.0,
+        "joint7": 40.0,
+        "joint8": 40.0
+      }
+    }
+  }
+}

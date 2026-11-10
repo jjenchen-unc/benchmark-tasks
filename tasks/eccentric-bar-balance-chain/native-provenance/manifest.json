@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "candidate_id": "B4_bars:offset_stack",
+  "bench_id": "B4_bars",
+  "package_fingerprint": "ae6e2d53e80eba2eb1c6265b7cd2b966ec7a110f2f8fbd95eeda9afca8c33d8a",
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "cfcc70ac46b9843d7c254814097d866384a58e34aa06d96f7d7f1d5b95c2fc58",
+      "bytes": 5323
+    },
+    {
+      "path": "candidate.json",
+      "sha256": "14f3d3b8f1333fa51398560276709a9bc134494f28ba8af5bd6c540bd9e92c51",
+      "bytes": 11546
+    },
+    {
+      "path": "demo/public_stack.py",
+      "sha256": "d14474f5d67d58078a4cc8edcb1769fe21899a789697a864e63491877efd7d51",
+      "bytes": 9275
+    },
+    {
+      "path": "requirements-sdk.txt",
+      "sha256": "0283b958fbf24bea9a780a21ca7e50e346f0688de195f7f016b442f18be157db",
+      "bytes": 42
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "482578ab68cdb9e5c50d369aec6b10392c88ead28e9022a1720185d022cac616",
+      "bytes": 58
+    },
+    {
+      "path": "run.sh",
+      "sha256": "53dd8c8d18cbf1527aa26f4c19413e252ccf758c6def66bc088d9109501aad55",
+      "bytes": 2968
+    },
+    {
+      "path": "runtime/robocurve_native/__init__.py",
+      "sha256": "7fa7dd1340bf7574e7f5a279f0e15c10efd2fe8491bdf253139a9488289fe55a",
+      "bytes": 75
+    },
+    {
+      "path": "runtime/robocurve_native/__main__.py",
+      "sha256": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279",
+      "bytes": 30
+    },
+    {
+      "path": "runtime/robocurve_native/cli.py",
+      "sha256": "a928a296d270d28fe952ff65532b05460edc03aa844e547efc82e216b4c1e54d",
+      "bytes": 5406
+    },
+    {
+      "path": "runtime/robocurve_native/inspect_adapter.py",
+      "sha256": "04117f1fe9a43188337e3a73606d995bd8fae376980c6f71cf6ddd2594f644c0",
+      "bytes": 8424
+    },
+    {
+      "path": "runtime/robocurve_native/motion.py",
+      "sha256": "d22e5137d446fbb126aaf43ee47baa1a67995a19a368cf5805caa3fb2bb34c92",
+      "bytes": 23829
+    },
+    {
+      "path": "runtime/robocurve_native/task.py",
+      "sha256": "0055cac7dcb423b20360480fb3a919cce37eeb16e5b5ba2550f8fdfad5615a03",
+      "bytes": 12758
+    },
+    {
+      "path": "scene/B4_bars/ASSETS.md",
+      "sha256": "0e229a3166a6b99509755880ae5ac2ec856a18b82396579f12cf0a33c7bf5ffb",
+      "bytes": 3092
+    },
+    {
+      "path": "scene/B4_bars/DEVIATIONS.md",
+      "sha256": "da35c63c7a1f1e971decb04508a249b872294c00e9ce3a9bca3ffe9b869b5449",
+      "bytes": 16094
+    },
+    {
+      "path": "scene/B4_bars/PROVENANCE.json",
+      "sha256": "877a030281a6a42c8631761d5848869199c58a741ea3a54d9e1c1261e96e17bd",
+      "bytes": 2663
+    },
+    {
+      "path": "scene/B4_bars/REVIEW.md",
+      "sha256": "8ae8b3e22bae1debd1c3b216f64f9c166aedddb1498de9603d96642b358e5751",
+      "bytes": 8602
+    },
+    {
+      "path": "scene/B4_bars/SUMMARY.md",
+      "sha256": "1f386792092ec049af89afba4e5b8602ed0293df5b0318b76cee41240524b6ec",
+      "bytes": 1980
+    },
+    {
+      "path": "scene/B4_bars/benches/B4_bars.py",
+      "sha256": "8e3e46c581d9e0d8dc2aca26099a41a0223f71c34a6d37baee4db420ad083300",
+      "bytes": 24079
+    },
+    {
+      "path": "scene/B4_bars/native_support/dual_arm_demo/__init__.py",
+      "sha256": "cb07c2e41ff3cfa6fe8f7ffde688a4bdafadebcea05b5eb2940982b8853ee7bb",
+      "bytes": 48
+    },
+    {
+      "path": "scene/B4_bars/native_support/dual_arm_demo/end_effectors.py",
+      "sha256": "c4b8e8c385f69a87a68a259fd455fcf3a8882da31c497dd17ab06b557ae0c36e",
+      "bytes": 6492
+    },
+    {
+      "path": "scene/B4_bars/native_support/dual_arm_demo/env.py",
+      "sha256": "2078f2285ada97ee0c4358bff8bd99b6e05df098ffacfc5d886b186cdf98c31e",
+      "bytes": 16901
+    },
+    {
+      "path": "scene/B4_bars/native_support/portable_demo/__init__.py",
+      "sha256": "cb07c2e41ff3cfa6fe8f7ffde688a4bdafadebcea05b5eb2940982b8853ee7bb",
+      "bytes": 48
+    },
+    {
+      "path": "scene/B4_bars/native_support/portable_demo/env.py",
+      "sha256": "5ede849359b458946d4167f0402f50068e8f6077ef34e6ff66469cf1f0436321",
+      "bytes": 15588
+    },
+    {
+      "path": "scoring/partial_credit.py",
+      "sha256": "02c0eaf38684b2683c2c60009ed31bc25a5e143076b3dc24e12fa0c9d9312c51",
+      "bytes": 4620
+    },
+    {
+      "path": "task-draft.json",
+      "sha256": "1d1db0264fe8fe2fbdc09a16143e5ae1e9f3a9c2ba38cad85577afccc20f591a",
+      "bytes": 6017
+    }
+  ],
+  "excludes": [
+    "manifest.json self hash",
+    "generated caches/pyc"
+  ],
+  "source_scene_fingerprint": "db85e1080a68a15db2d84eab93e86695ddb3b275f1a518b2b2f18da32c2916b6",
+  "source_runtime_fingerprint": "3bebe6d8e0f6d3055eb9d53a475a1ba34b482c66e700c6161e063dbaab9f3882",
+  "runtime_files": [
+    {
+      "path": "__init__.py",
+      "sha256": "7fa7dd1340bf7574e7f5a279f0e15c10efd2fe8491bdf253139a9488289fe55a",
+      "bytes": 75
+    },
+    {
+      "path": "__main__.py",
+      "sha256": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279",
+      "bytes": 30
+    },
+    {
+      "path": "cli.py",
+      "sha256": "a928a296d270d28fe952ff65532b05460edc03aa844e547efc82e216b4c1e54d",
+      "bytes": 5406
+    },
+    {
+      "path": "inspect_adapter.py",
+      "sha256": "04117f1fe9a43188337e3a73606d995bd8fae376980c6f71cf6ddd2594f644c0",
+      "bytes": 8424
+    },
+    {
+      "path": "motion.py",
+      "sha256": "d22e5137d446fbb126aaf43ee47baa1a67995a19a368cf5805caa3fb2bb34c92",
+      "bytes": 23829
+    },
+    {
+      "path": "task.py",
+      "sha256": "0055cac7dcb423b20360480fb3a919cce37eeb16e5b5ba2550f8fdfad5615a03",
+      "bytes": 12758
+    }
+  ],
+  "evidence_scope": "Packaging hashes; wave-13 public scripted-controller runs on these hashes are in artifacts/continuation/server-round3/wave-13/B4_bars (development evidence, not a model run)"
+}

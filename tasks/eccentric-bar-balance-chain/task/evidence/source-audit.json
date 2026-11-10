@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "checks": {
+    "unchanged_reference.py": true,
+    "unchanged_contract.py": true,
+    "unchanged_fixture.py": true,
+    "unchanged_observer.py": true,
+    "unchanged_kit.py": true,
+    "unchanged_motor_adapter.py": true,
+    "unchanged_contacts.py": true,
+    "unchanged_contact_paths.py": true,
+    "unchanged_strict_json.py": true,
+    "unchanged_task.py": true,
+    "sole_robot_step": true,
+    "no_object_state_effort_score_timer_write_calls": true,
+    "calibration_import_separate": true,
+    "G_inside_drive_not_external_effort": true,
+    "native_1896_budget": true,
+    "numeric_values_remain_numbers": true,
+    "reject_nan": true,
+    "reject_inf": true,
+    "reject_unknown": true
+  },
+  "evidence_type": "CPU static/synthetic",
+  "physical_proof": false
+}

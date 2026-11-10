@@ -1,0 +1,34 @@
+{
+  "python": "3.12.16",
+  "versions": {
+    "isaacsim": "6.1.0.0",
+    "isaaclab": "17.0.2",
+    "isaaclab_arena": "0.3.0",
+    "inspect-robots": "1.0.0",
+    "inspect-robots-yam": "0.38.0",
+    "inspect-robots-agent": "0.30.0",
+    "inspect-robots-dream": "0.1.0",
+    "torch": "2.11.0+cu128",
+    "numpy": "2.3.1",
+    "scipy": "1.17.0"
+  },
+  "sources": {
+    "arena": {
+      "root": "/opt/IsaacLab-Arena",
+      "head": "c7edf3a9d5d8276565208f72422f8f8a0806d6cf"
+    },
+    "yam": {
+      "root": "/opt/yam-arena",
+      "head": "0059d02a1a91bc6834c1d0846022891df0c78730"
+    }
+  },
+  "yam_runtime_file_sha256": {
+    "yam_arena/robot.py": "e20e595e65c611d7c444d9825524aed2e7ecec840bf6c31cbb0898a79a457c94",
+    "yam_arena/station.py": "1db9cd37b5b4d833eb2a1263336a901e15846a1b602fab8fa3c58869eb2c83f6",
+    "yam_arena/inspect_embodiment.py": "1b0cbbcdf98b7385e4d213e88bd59c296639bb7031c80e8d73efdce0eabcc4c6",
+    "yam_arena/urdf.py": "a3eb2548cb3e45c3e1d3af346a8c8a9e75a966d6048d1d6b78b34257c2c97430"
+  },
+  "yam_commit": "0059d02a1a91bc6834c1d0846022891df0c78730",
+  "arena_commit": "c7edf3a9d5d8276565208f72422f8f8a0806d6cf",
+  "scope": "Pinnedexistingruntime; finalbatch verifies actualversions. No installation/image/host changes."
+}

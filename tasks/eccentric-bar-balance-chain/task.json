@@ -1,0 +1,19 @@
+{
+  "category": "Other",
+  "context": "Handling unevenly weighted stock requires supporting its actual load, not its geometric centre. Each sealed bar has a different eccentric mass, so adding the next bar changes the balance of every lower interface. The task tests building a released load-bearing chain of these bars on one narrow support.",
+  "fidelity": "Rigid boxes represent aluminium tubes with sealed steel weights; native eccentric COM and diagonal inertia retained. Friction is estimated; no crushing or damage model. Fixed steel pedestal/risers and elevated YAM mounts. Arms have27/7Nm gravity-inclusive total limits and40N finger drives. Nonfinger load uses a conservative normal-plus-friction bound; calibration covers fixed42/S, not hardware or all variants.",
+  "instruction": "Stack orange A, blue B, purple C in that bottom-to-top order on the steel\npoint pedestal. Bars are320 x50 x50mm with sealed eccentric steel weights;\nblack caps mark -X. Long axes along X within10deg, level within0.06rad,\nsix-component velocity norm below0.025; contact only adjacent required bars\nand pedestal; no robot contact with ANY bar. Release for20continuous seconds\nat episode end. Partial credit1/3 or2/3 for an independently valid ordered\nprefix. No damage flag is invented; toppling costs time. Wrist30N/20ms stops\nmotion;80N/100ms aborts.1896 controls at20Hz. Fixed physical case seed42/S;\nharness seeds identify episodes and never expose hidden mass to Dream1.",
+  "keywords": [
+    "balance",
+    "eccentric centre of mass",
+    "ordered stacking",
+    "release"
+  ],
+  "reset_notes": "Restore all free bars using Arena reset, fixed-case physical properties/layout independent of harness episode IDs, object_jitter=0. No consumed parts.",
+  "run_limit": "1896 genuine14D YAM control steps at20Hz (94.8 simulated seconds).",
+  "scores": "Dream-1: 0 (1896/1896 control steps); scripted action replay:1.0 (1441 steps,25.198s released hold).",
+  "scoring": "At episode end, choose the longest ordered prefix A, AB or ABC that currently satisfies all conditions continuously for20s; score1/3,2/3 or1 respectively, otherwise0. Required contacts: A-pedestal, B-A, C-B; each scored bar may touch only its required adjacent bars/support. Any robot contact on ANY bar resets every hold. Each long axis must be level within0.06rad and along either X direction within10deg; a square cross-section face must be level within0.06rad. The Euclidean norm of the six numerical linear(m/s) and angular(rad/s) velocity components must be<0.025. Wrist>80N for100ms, robot-bar contact with the contacting arm TCP outside the disclosed workspace, or invalid measurements makes the whole trial0. Wrist>30N for20ms or nonfinger load>50N averaged20ms freezes arm motion until the guard clears. Task code gives exact tests; all other outcomes score0.",
+  "setup": "Coordinates in metres: x forward from the arm bases, y left, z up. Oak-look station table 1.10 x1.30 x0.06, centre(0.36,0,0.7175), top0.7475. Three aluminium-tube bars with sealed steel weights and black plastic caps, each320 x50 x50mm, long axes initially along+x: orange A at(0.25,-0.45,0.7725),666.439g; blue B at(0.25,-0.34,0.7725),777.470g; purple C at(0.25,-0.23,0.7725),682.144g. Black caps mark each local-x end. Fixed steel pedestal28 x30 x160mm at(0.25,0.03,0.8275), top0.9075. Two YAM six-joint arms with parallel40N finger drives, root origins(0,+/-0.305,0.97), on fixed steel risers140 x140 x213mm centred(0,+/-0.305,0.854). No other loose objects. Full eccentric COM/inertia, materials, camera/furniture and fixed layout are specified in README and task/inventory.json.",
+  "title": "Build an ordered balance chain with three eccentric bars",
+  "media": "M-6PJMWX"
+}

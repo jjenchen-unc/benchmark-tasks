@@ -1,0 +1,32 @@
+{
+  "static_interpreter": {
+    "python": "3.12.14",
+    "numpy": "2.0.2",
+    "pillow": "13.0.0",
+    "inspect-robots": "1.0.0"
+  },
+  "sdk_kinematics_source": {
+    "repository": "kairosiann/yam-isaac-lab-arena",
+    "revision": "bd62771e60320433893bd1d2df0fc79b5ddcd6d1",
+    "method": "PYTHONPATH readonly checkout; actual SDK IK/URDF, no physics imports"
+  },
+  "target_runtime": {
+    "isaacsim": "6.1.0.0",
+    "isaaclab": "3.0",
+    "arena": "0.3.1",
+    "container_image_sha256": "75c6afd86ec4007f663ca2e8647df8ab94d2d678815a72fc428db98733c789ad",
+    "configured_launchable_yam_pin": "0059d02a1a91bc6834c1d0846022891df0c78730",
+    "installed_runtime_versions_verified_this_unit": false
+  },
+  "native_design_only": {
+    "mujoco": "3.3.7",
+    "numpy": "2.0.2",
+    "scipy": "1.13.1"
+  },
+  "runtime_does_not_import": [
+    "mujoco",
+    "native packages",
+    "Panda or robosuite assets"
+  ],
+  "installation_performed": false
+}

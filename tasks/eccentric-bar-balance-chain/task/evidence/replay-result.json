@@ -1,0 +1,78 @@
+{
+  "evidence_type": "CPU independent replay of actual physical run; conditional on recorded measurement semantics",
+  "native_complete_extracted_ast_sha256": "d30f316eb61cd2aa7b6fe8aa93db03cd4794d3f93186ba2176dee5dd84376a50",
+  "native_full_hold_s": 25.197999999996913,
+  "native_partial": {
+    "partial_score": 1.0,
+    "stages_held": 3,
+    "stage_count": 3,
+    "stage_hold_s": [
+      0.0,
+      0.0,
+      25.198
+    ],
+    "stage_max_hold_s": [
+      7.562,
+      7.326,
+      25.198
+    ],
+    "hold_required_s": 20.0,
+    "robot_contact_physics_steps": 13353,
+    "rule": "prefix-hold k/N; any robot-bar contact resets every stage; evaluator only"
+  },
+  "history_mismatch_samples": 0,
+  "samples": 36025,
+  "controls": 1441,
+  "seconds": 72.05,
+  "substeps_per_control": 25,
+  "dt_s": 0.002,
+  "source_unchanged": true,
+  "max_wrist_n": [
+    6.793787956237793,
+    22.546463012695312
+  ],
+  "wrist_raw_norm_max_error_n": 1.6068139068181608e-06,
+  "wrist_abort_seen": false,
+  "force_guard_seen": false,
+  "max_nonfinger_20ms_proxy_n": 0.0,
+  "workspace_flag_mismatches": 0,
+  "finite_difference_linear_velocity_error_mps": {
+    "max": 0.1474304860920333,
+    "p50": 0.00046392985438723183,
+    "p99": 0.0036297105657886195
+  },
+  "contact_point_outside_bar_obb_m": {
+    "max": 0.0018009572324251787,
+    "p99": 0.0008058987382218757
+  },
+  "contact_observations": {
+    "A:other": 11024,
+    "B:other": 45846,
+    "C:other": 77817,
+    "A:robot": 99477,
+    "A:support": 118332,
+    "B:robot": 75360,
+    "A:B": 83354,
+    "B:A": 83354,
+    "C:robot": 87089,
+    "B:C": 51485,
+    "C:B": 51485
+  },
+  "final20s_max_native_velocity_norm": {
+    "A": 0.018410307875356472,
+    "B": 0.007155897099744346,
+    "C": 0.011558964013534425
+  },
+  "filter_cardinalities": {
+    "A": 29,
+    "B": 29,
+    "C": 29
+  },
+  "unresolved": [
+    "bar raw transforms are not independently logged; finite differences are cross-check only",
+    "contact tensor raw counts/start/friction/overflow are not logged; installed source and successful runtime checks support them, not independent retrospective proof",
+    "paired wrist and nonfinger known-load behavior remains uncalibrated"
+  ],
+  "public_score": 0,
+  "fullgoal_verified": false
+}

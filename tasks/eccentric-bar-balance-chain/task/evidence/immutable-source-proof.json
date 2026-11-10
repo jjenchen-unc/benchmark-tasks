@@ -1,0 +1,15 @@
+{
+  "byte_exact_actual43744": {
+    "contact_paths.py": "404e1ca4c9003518371b5b32ad846e986d59b4fc5afde12b70c06aa1192e87f2",
+    "contacts.py": "ec2ae5f6f403068b66fce8af1739e5095963c760d168848754ff46e08d447c14",
+    "fixture.py": "3b8e7830b6d3db90f54fa809ecef8948d353081717827e2d18c36ec3efb7c4cc",
+    "kit.py": "71195dfac3d0cb6d0def844082383092b2eb850497ca4b554f088b19cf184119",
+    "motor_adapter.py": "baecae18720a90c3f54e51adc3b875cd1105bf4cfa6c24db77da68181411575a",
+    "observer.py": "1ed6cd629bb7eca450ce8fcba1f2a3c1cd166a84a9e810a7bc1884015f4ed597",
+    "reference.py": "f95ed9bec62cf2314eaee6aa0b92afcd4fa507ca8043debd38f9d4acc1331104",
+    "strict_json.py": "67ac58344cea06aa221b196ad431cd64d52aaa8c65ae7c35400247fc410058b9"
+  },
+  "contract_math_ast_exact_except_receipt_lookup": true,
+  "genuine_controller_direct_state_writes": false,
+  "native_provenance_preserved": true
+}

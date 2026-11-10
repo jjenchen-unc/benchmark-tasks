@@ -1,0 +1,508 @@
+#usda 1.0
+(
+    defaultPrim = "Asset"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "Asset" (
+    prepend apiSchemas = ["PhysicsArticulationRootAPI", "PhysxArticulationAPI"]
+)
+{
+    bool physxArticulation:enabledSelfCollisions = 1
+    int physxArticulation:solverPositionIterationCount = 64
+    quatd xformOp:orient = (1, 0, 0, 0)
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+    def Xform "stand" (
+        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI", "PhysxRigidBodyAPI"]
+    )
+    {
+        point3f physics:centerOfMass = (0, 0, 0)
+        float3 physics:diagonalInertia = (0.01, 0.01, 0.01)
+        float physics:mass = 2
+        float physxRigidBody:maxDepenetrationVelocity = 0.5
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+        def Cube "g_0_stand_plate_C" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/m_stand_C_0> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            float physxCollision:contactOffset = 0.00005
+            float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.24, 0.28, 0.3)]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.12, 0.11, 0.016)
+            double3 xformOp:translate = (0, 0, -0.008)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cylinder "g_1_stand_bolt_C_m0_045_m0_037" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            double height = 0.004
+            rel material:binding:physics = </Asset/materials/m_stand_C_1> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            float physxCollision:contactOffset = 0.00005
+            float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.16, 0.18, 0.2)]
+            double radius = 0.005
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (-0.045, -0.037, 0.002)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Cylinder "g_2_stand_bolt_C_m0_045_p0_037" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            double height = 0.004
+            rel material:binding:physics = </Asset/materials/m_stand_C_2> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            float physxCollision:contactOffset = 0.00005
+            float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.16, 0.18, 0.2)]
+            double radius = 0.005
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (-0.045, 0.037, 0.002)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Cylinder "g_3_stand_bolt_C_p0_045_m0_037" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            double height = 0.004
+            rel material:binding:physics = </Asset/materials/m_stand_C_3> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            float physxCollision:contactOffset = 0.00005
+            float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.16, 0.18, 0.2)]
+            double radius = 0.005
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.045, -0.037, 0.002)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Cylinder "g_4_stand_bolt_C_p0_045_p0_037" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            double height = 0.004
+            rel material:binding:physics = </Asset/materials/m_stand_C_4> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            float physxCollision:contactOffset = 0.00005
+            float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.16, 0.18, 0.2)]
+            double radius = 0.005
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.045, 0.037, 0.002)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Cylinder "g_5_post_C" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            double height = 0.085
+            rel material:binding:physics = </Asset/materials/m_stand_C_5> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            float physxCollision:contactOffset = 0.00005
+            float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.17, 0.65, 0.66)]
+            double radius = 0.0155
+            quatd xformOp:orient = (1, -0, 0, 0)
+            double3 xformOp:translate = (0, 0, 0.0425)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Cylinder "g_6_pin_C_p" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            double height = 0.013000000000000001
+            rel material:binding:physics = </Asset/materials/m_stand_C_6> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            float physxCollision:contactOffset = 0.00005
+            float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.65, 0.68, 0.7)]
+            double radius = 0.003
+            quatd xformOp:orient = (0.7071067811865475, -0, -0.7071067811865475, 0)
+            double3 xformOp:translate = (-0.018500000000000003, 0, 0.07)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Cylinder "g_7_pin_C_n" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            double height = 0.013000000000000001
+            rel material:binding:physics = </Asset/materials/m_stand_C_7> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            float physxCollision:contactOffset = 0.00005
+            float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.65, 0.68, 0.7)]
+            double radius = 0.003
+            quatd xformOp:orient = (0.7071067811865475, -0, 0.7071067811865475, 0)
+            double3 xformOp:translate = (0.018500000000000003, 0, 0.07)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Cube "g_8_stand_tab_C"
+        {
+            color3f[] primvars:displayColor = [(0.65, 0.2, 0.85)]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.016, 0.016, 0.001)
+            double3 xformOp:translate = (-0.05, -0.045, 0.0005)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def "materials"
+    {
+        def Material "m_stand_C_0" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.8
+            float physics:restitution = 0
+            float physics:staticFriction = 0.8
+        }
+
+        def Material "m_stand_C_1" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.8
+            float physics:restitution = 0
+            float physics:staticFriction = 0.8
+        }
+
+        def Material "m_stand_C_2" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.8
+            float physics:restitution = 0
+            float physics:staticFriction = 0.8
+        }
+
+        def Material "m_stand_C_3" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.8
+            float physics:restitution = 0
+            float physics:staticFriction = 0.8
+        }
+
+        def Material "m_stand_C_4" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.8
+            float physics:restitution = 0
+            float physics:staticFriction = 0.8
+        }
+
+        def Material "m_stand_C_5" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.12
+            float physics:restitution = 0
+            float physics:staticFriction = 0.12
+        }
+
+        def Material "m_stand_C_6" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.12
+            float physics:restitution = 0
+            float physics:staticFriction = 0.12
+        }
+
+        def Material "m_stand_C_7" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.12
+            float physics:restitution = 0
+            float physics:staticFriction = 0.12
+        }
+
+        def Material "m_tray_floor_0" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.8
+            float physics:restitution = 0
+            float physics:staticFriction = 0.8
+        }
+
+        def Material "m_tray_walls_0" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.8
+            float physics:restitution = 0
+            float physics:staticFriction = 0.8
+        }
+
+        def Material "m_tray_walls_1" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.8
+            float physics:restitution = 0
+            float physics:staticFriction = 0.8
+        }
+
+        def Material "m_tray_walls_2" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.8
+            float physics:restitution = 0
+            float physics:staticFriction = 0.8
+        }
+
+        def Material "m_tray_walls_3" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.8
+            float physics:restitution = 0
+            float physics:staticFriction = 0.8
+        }
+
+        def Material "m_plunger_C_0" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.1
+            float physics:restitution = 0
+            float physics:staticFriction = 0.1
+        }
+    }
+
+    def Xform "tray_floor" (
+        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI", "PhysxRigidBodyAPI"]
+    )
+    {
+        point3f physics:centerOfMass = (0, 0, 0)
+        float3 physics:diagonalInertia = (0.001, 0.001, 0.001)
+        float physics:mass = 0.2
+        float physxRigidBody:maxDepenetrationVelocity = 0.5
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:translate = (0, 0.38, -0.015999999999999903)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+        def Cube "g_0_tray_floor" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/m_tray_floor_0> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            float physxCollision:contactOffset = 0.00005
+            float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.2, 0.62, 0.3)]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.208, 0.158, 0.012)
+            double3 xformOp:translate = (0, 0, 0.006)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def PhysicsFixedJoint "fixed_tray_floor"
+    {
+        rel physics:body0 = </Asset/stand>
+        rel physics:body1 = </Asset/tray_floor>
+        bool physics:collisionEnabled = 0
+        point3f physics:localPos0 = (0, 0.38, -0.016)
+        point3f physics:localPos1 = (0, 0, 0)
+    }
+
+    def Xform "tray_walls" (
+        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI", "PhysxRigidBodyAPI"]
+    )
+    {
+        point3f physics:centerOfMass = (0, 0, 0)
+        float3 physics:diagonalInertia = (0.001, 0.001, 0.001)
+        float physics:mass = 0.2
+        float physxRigidBody:maxDepenetrationVelocity = 0.5
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:translate = (0, 0.38, -0.015999999999999903)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+        def Cube "g_0_tray_wall_xm1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/m_tray_walls_0> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            float physxCollision:contactOffset = 0.00005
+            float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.18, 0.55, 0.27)]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.004, 0.158, 0.028)
+            double3 xformOp:translate = (-0.102, 0, 0.026)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "g_1_tray_wall_xp1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/m_tray_walls_1> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            float physxCollision:contactOffset = 0.00005
+            float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.18, 0.55, 0.27)]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.004, 0.158, 0.028)
+            double3 xformOp:translate = (0.102, 0, 0.026)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "g_2_tray_wall_ym1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/m_tray_walls_2> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            float physxCollision:contactOffset = 0.00005
+            float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.18, 0.55, 0.27)]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.2, 0.004, 0.028)
+            double3 xformOp:translate = (0, -0.077, 0.026)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "g_3_tray_wall_yp1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/m_tray_walls_3> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            float physxCollision:contactOffset = 0.00005
+            float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.18, 0.55, 0.27)]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.2, 0.004, 0.028)
+            double3 xformOp:translate = (0, 0.077, 0.026)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def PhysicsFixedJoint "fixed_tray_walls"
+    {
+        rel physics:body0 = </Asset/stand>
+        rel physics:body1 = </Asset/tray_walls>
+        bool physics:collisionEnabled = 0
+        point3f physics:localPos0 = (0, 0.38, -0.016)
+        point3f physics:localPos1 = (0, 0, 0)
+    }
+
+    def Xform "plunger" (
+        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI", "PhysxRigidBodyAPI"]
+    )
+    {
+        point3f physics:centerOfMass = (0, 0, -0.0033)
+        float3 physics:diagonalInertia = (0.00000187775, 0.00000187775, 8.5e-7)
+        float physics:mass = 0.025
+        float physxRigidBody:maxDepenetrationVelocity = 0.5
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:translate = (0, 0, 0.118)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+        def Cylinder "g_0_plunger_pad_C" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            double height = 0.006
+            rel material:binding:physics = </Asset/materials/m_plunger_C_0> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            float physxCollision:contactOffset = 0.00005
+            float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.18, 0.2, 0.22)]
+            double radius = 0.009
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Cylinder "g_1_plunger_stem_C"
+        {
+            uniform token axis = "Z"
+            double height = 0.027
+            color3f[] primvars:displayColor = [(0.62, 0.64, 0.66)]
+            double radius = 0.004
+            quatd xformOp:orient = (0, 1, 0, 0)
+            double3 xformOp:translate = (0, 0, -0.0165)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+    }
+
+    def PhysicsFixedJoint "world_fixed"
+    {
+        rel physics:body1 = </Asset/stand>
+    }
+
+    def PhysicsPrismaticJoint "plunger_slide_C" (
+        prepend apiSchemas = ["PhysxJointAPI", "PhysicsDriveAPI:linear"]
+    )
+    {
+        float drive:linear:physics:damping = 1.5
+        float drive:linear:physics:maxForce = inf
+        float drive:linear:physics:stiffness = 308.9
+        float drive:linear:physics:targetPosition = 0
+        uniform token drive:linear:physics:type = "force"
+        uniform token physics:axis = "Z"
+        rel physics:body0 = </Asset/stand>
+        rel physics:body1 = </Asset/plunger>
+        bool physics:collisionEnabled = 0
+        point3f physics:localPos0 = (0, 0, 0.118)
+        point3f physics:localPos1 = (0, 0, 0)
+        float physics:lowerLimit = -0.032
+        float physics:upperLimit = 0
+        float physxJoint:armature = 0.001
+    }
+}

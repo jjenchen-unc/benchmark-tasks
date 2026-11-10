@@ -1,0 +1,5 @@
+{
+  "physics_AST_unchanged": true,
+  "only_change": "accept Inspect derived reset seed while compiled physical fixture42 remains constant",
+  "native_variants_preserved": true
+}

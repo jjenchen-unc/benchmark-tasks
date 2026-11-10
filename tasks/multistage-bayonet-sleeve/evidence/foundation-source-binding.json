@@ -1,0 +1,19 @@
+{
+  "source_unchanged": true,
+  "before_after_parent_equal": true,
+  "actual_core_bytes_match": {
+    "fixture.json": true,
+    "fixture.xml": true,
+    "native_source.py": true,
+    "source_geometry.py": true,
+    "coupling-fixture.usda": true,
+    "coupling-sleeve.usda": true,
+    "kit.py": true,
+    "scoring.py": true,
+    "observer.py": true,
+    "contacts.py": true,
+    "motor_limits.py": true,
+    "step_guard.py": true,
+    "task.py": true
+  }
+}

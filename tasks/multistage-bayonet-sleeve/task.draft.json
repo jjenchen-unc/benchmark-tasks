@@ -1,0 +1,18 @@
+{
+  "category": "Impact on jobs",
+  "context": "Servicing a captive mechanical coupling requires following its spring-loaded internal release track through multiple axial levels and a rotational reversal before extracting the sleeve. This custom unpowered fixture tests constrained disassembly and recovery of the loose part.",
+  "fidelity": "Custom rigid primitive two-pin multistage bore track; original dimensions, clearances and release stages retained. Seed42 spring308.9N/m,1.5Ns/m damping; estimated material/contact values, no fracture or plasticity. YAM uses actual27/7Nm total gravity-inclusive arms and40N fingers. See FIDELITY.md.",
+  "instruction": "Take the purple sleeve with three white bars off its fixed shaft and put it in the green tray. Leave the shaft clear and the sleeve resting wholly inside the tray without robot contact for20seconds.",
+  "keywords": [
+    "mechanical servicing",
+    "bayonet",
+    "multistage release"
+  ],
+  "reset_notes": "SDK reset restores seated sleeve and plunger preload15mm, both arms READY/open; settling earns no hold. No consumables.",
+  "run_limit": "6,000 control steps at 20 Hz (300 simulated seconds).",
+  "scores": "Dream-1: 0.0 (6,000 actions, completed time limit); scripted demonstration: 1.0 (1,490 actions, 26.85 s final hold).",
+  "scoring": "0.5 for current whole-sleeve tray containment, physical floor support, shaft clear, no robot contact and speeds below20mm/s and0.10rad/s;1.0 after this state holds uninterrupted20s; otherwise0. A wrist force>80N continuously100ms, invalid measurements or episode failure veto all credit. Final full-score condition exactly preserves source.",
+  "setup": "Fixed station table top0.7475m. Bolted120x110x16mm plate at(.28,.02),31mm diameter85mm high post with two opposed6mm pins at70mm,250g metal58mm diameter80mm sleeve with purple band and three white cap bars, and fixed green tray inner200x150mm at(.28,.40),12mm floor top above table and28mm walls. Two six-joint YAM arms with40N fingers on150mm physical pedestal extensions; bases(0,+/-.305,.90)m. Complete dimensions and coordinates: setup-inventory.json / fixture.json.",
+  "title": "Remove a multistage bayonet sleeve",
+  "media": "M-Y682WB"
+}

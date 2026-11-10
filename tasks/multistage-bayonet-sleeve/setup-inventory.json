@@ -1,0 +1,99 @@
+{
+  "units": "metres, kilograms, seconds, newtons",
+  "frame": "station x forward, y left, z up",
+  "seed": 42,
+  "uniform_translation_native_to_arena": [
+    0.23,
+    0.14,
+    -0.0525
+  ],
+  "rotation_wxyz": [
+    1,
+    0,
+    0,
+    0
+  ],
+  "table_top": 0.7475,
+  "robot_bases": {
+    "left": [
+      0,
+      0.305,
+      0.9
+    ],
+    "right": [
+      0,
+      -0.305,
+      0.9
+    ]
+  },
+  "pedestal_extensions": {
+    "size": [
+      0.14,
+      0.14,
+      0.15
+    ],
+    "centres": [
+      [
+        0,
+        0.305,
+        0.825
+      ],
+      [
+        0,
+        -0.305,
+        0.825
+      ]
+    ],
+    "material": "fixed metal supports"
+  },
+  "objects": [
+    {
+      "name": "stand_C",
+      "world_origin": [
+        0.28,
+        0.020000000000000018,
+        0.7635
+      ],
+      "parent": null,
+      "primitives": 9,
+      "material": "bolted metal plate/steel shaft and pins",
+      "geometry": "fixture.json and fixture.xml exact per-primitive dimensions, colours and friction"
+    },
+    {
+      "name": "plunger_C",
+      "world_origin": [
+        0.28,
+        0.020000000000000018,
+        0.8815
+      ],
+      "parent": "stand_C",
+      "primitives": 2,
+      "material": "steel spring plunger",
+      "geometry": "fixture.json and fixture.xml exact per-primitive dimensions, colours and friction"
+    },
+    {
+      "name": "sleeve_C",
+      "world_origin": [
+        0.28,
+        0.020000000000000018,
+        0.7955
+      ],
+      "parent": null,
+      "primitives": 290,
+      "material": "estimated aluminium sleeve/greased metal track",
+      "geometry": "fixture.json and fixture.xml exact per-primitive dimensions, colours and friction"
+    },
+    {
+      "name": "tray",
+      "world_origin": [
+        0.28,
+        0.4,
+        0.7475
+      ],
+      "parent": null,
+      "primitives": 5,
+      "material": "plastic",
+      "geometry": "fixture.json and fixture.xml exact per-primitive dimensions, colours and friction"
+    }
+  ]
+}

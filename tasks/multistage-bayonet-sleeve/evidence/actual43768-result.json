@@ -1,0 +1,319 @@
+{
+  "mode": "foundation",
+  "model_calls": 0,
+  "runtime_completed": true,
+  "full_goal_demonstrated": false,
+  "frozen_source": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/b7-actual-fullgoal-validation-20261110-0710/focused-runs/job-43768/source",
+  "driver_check_override": true,
+  "instruction": "Take the purple sleeve with three white bars off its fixed shaft and put it in the green tray. Leave the shaft clear and the sleeve resting wholly inside the tray without robot contact for20seconds.",
+  "kind": "EVALUATOR_ONLY focused spring slope and low-load wrist magnitude",
+  "calibration_promoted": false,
+  "runtime_source_hashes": {
+    "fixture.json": "8e739f142f34736ec659c80bc25620b561526b2ac7f51fb6ddb204372a297b21",
+    "fixture.xml": "07ceb65f420fddbe16153c5c510a0f7a51f79fddb4e84dac8f5c01d5c399feeb",
+    "native_source.py": "cb73e69bf23e8df0fa4deee1bf8cfdd77843df3cd8e7d241c9fb6dcc6a7abb46",
+    "source_geometry.py": "a995c2d764f80ca9ed5e752b135b3a47e9d6dd6c865fddbe2196339197f80775",
+    "coupling-fixture.usda": "d6d550178af1001bc30c15d16029924787fd8d384b4f66d0fc54cb5bb0005725",
+    "coupling-sleeve.usda": "166c7ab612303423158d0ffa80bfe6718fb4f12133a4bb2d0459b47870a2fcd1",
+    "kit.py": "85b47aae136f501a1801d0ee0da526f81540da8d49c55042091a75926d78ddef",
+    "scoring.py": "23468761d59ec55d3920feadf72717145f9e5b15abcec896a8a71f8a4573d371",
+    "observer.py": "956b40753364c3abdce24273fda8019408e175a4cd34e8e45c0e9acbf8382feb",
+    "contacts.py": "a6041d218790309a60abcf4e77d46589cb5b9f18ab6d654f2d2c16b12c15cbc5",
+    "motor_limits.py": "bfd1c83e63fb70f9cae5db11eb7e8eef2f2037cc2ae80b37d7087c793132b050",
+    "step_guard.py": "472656c1ef603cabce9fb24702ea4d8dd2f5fdfc7e32c6727358b8a59d72c167",
+    "task.py": "b98aa8e50256b5ac05d9b856bd893338634fdbfafaff3356c775171e1f91e932"
+  },
+  "checks": {
+    "plunger_spring": true,
+    "wrist_force": true
+  },
+  "spring": [
+    {
+      "applied_down_N": 0.0,
+      "mean_q_m": -0.0007939489441923797,
+      "span_q_m": 0.0,
+      "post_contact": false,
+      "expected_delta_q_m": -0.0,
+      "delta_error_m": 0.0
+    },
+    {
+      "applied_down_N": 2.0,
+      "mean_q_m": -0.007268540561199188,
+      "span_q_m": 0.0,
+      "post_contact": false,
+      "expected_delta_q_m": -0.006474587245063127,
+      "delta_error_m": -4.371943681212576e-09
+    },
+    {
+      "applied_down_N": 6.0,
+      "mean_q_m": -0.020217591896653175,
+      "span_q_m": 0.0,
+      "post_contact": false,
+      "expected_delta_q_m": -0.019423761735189383,
+      "delta_error_m": 1.1878272858714678e-07
+    }
+  ],
+  "wrist": [
+    {
+      "world_force_N": [
+        -20.0,
+        0.0,
+        0.0
+      ],
+      "baseline_vector": [
+        2.6198386512987783e-05,
+        -5.607139253616333,
+        -3.836019444465637
+      ],
+      "loaded_vector": [
+        0.00040809588972479105,
+        -18.558186531066895,
+        10.087111663818359
+      ],
+      "delta_norm_N": 19.015341321866163,
+      "steady_span_N": 0.00015598318369361544,
+      "passed": true
+    },
+    {
+      "world_force_N": [
+        20.0,
+        0.0,
+        0.0
+      ],
+      "baseline_vector": [
+        -1.6901297340154996e-05,
+        -5.598710536956787,
+        -3.843261170387268
+      ],
+      "loaded_vector": [
+        -0.0005253813840681687,
+        3.8805667638778685,
+        -20.762878608703613
+      ],
+      "delta_norm_N": 19.39407519485396,
+      "steady_span_N": 0.0001632696370938079,
+      "passed": true
+    },
+    {
+      "world_force_N": [
+        0.0,
+        -20.0,
+        0.0
+      ],
+      "baseline_vector": [
+        -1.8446113699610578e-05,
+        -5.617135143280029,
+        -3.825543737411499
+      ],
+      "loaded_vector": [
+        -19.215072059631346,
+        -4.9800506114959715,
+        -7.216220426559448
+      ],
+      "delta_norm_N": 19.522316729356877,
+      "steady_span_N": 0.018664109937638576,
+      "passed": true
+    },
+    {
+      "world_force_N": [
+        0.0,
+        20.0,
+        0.0
+      ],
+      "baseline_vector": [
+        0.01223952283617109,
+        -5.6142364025115965,
+        -3.8256017923355103
+      ],
+      "loaded_vector": [
+        19.21645030975342,
+        -4.97358922958374,
+        -7.227057313919067
+      ],
+      "delta_norm_N": 19.513637293283907,
+      "steady_span_N": 0.03444789426333284,
+      "passed": true
+    },
+    {
+      "world_force_N": [
+        0.0,
+        0.0,
+        -20.0
+      ],
+      "baseline_vector": [
+        -0.012056318949908018,
+        -5.614854764938355,
+        -3.824696397781372
+      ],
+      "loaded_vector": [
+        -0.04535516425967216,
+        -16.66388931274414,
+        -20.98137855529785
+      ],
+      "delta_norm_N": 20.40671497095378,
+      "steady_span_N": 0.0004910450490288196,
+      "passed": true
+    },
+    {
+      "world_force_N": [
+        0.0,
+        0.0,
+        20.0
+      ],
+      "baseline_vector": [
+        -0.008290685713291168,
+        -5.577991580963134,
+        -3.8782559394836427
+      ],
+      "loaded_vector": [
+        0.004806588217616081,
+        12.987971973419189,
+        2.3912051916122437
+      ],
+      "delta_norm_N": 19.595951549122567,
+      "steady_span_N": 0.00015113681696961756,
+      "passed": true
+    }
+  ],
+  "controls": 510,
+  "all_checks_passed": true,
+  "terminal_status": {
+    "score": 0.0,
+    "diagnostic_score": 0.0,
+    "source_binary_success": false,
+    "hold_s": 0.0,
+    "peak_hold_s": 0.0,
+    "eligible": false,
+    "failure": null,
+    "physics_samples": 12750,
+    "peak_wrist_force_N": [
+      6.793754577636719,
+      29.429405212402344
+    ],
+    "damage": {},
+    "calibration_verified": false,
+    "unverified_channels": [
+      "motor_limits",
+      "plunger_spring",
+      "pose_velocity",
+      "release_track",
+      "sleeve_post_contact",
+      "sleeve_robot_contact",
+      "substeps",
+      "tray_floor_contact",
+      "wrist_force"
+    ],
+    "measurement_error": null,
+    "motor_tables": {
+      "left": {
+        "joint1": 27.0,
+        "joint2": 27.0,
+        "joint3": 27.0,
+        "joint4": 7.0,
+        "joint5": 7.0,
+        "joint6": 7.0,
+        "joint7": 40.0,
+        "joint8": 40.0
+      },
+      "right": {
+        "joint1": 27.0,
+        "joint2": 27.0,
+        "joint3": 27.0,
+        "joint4": 7.0,
+        "joint5": 7.0,
+        "joint6": 7.0,
+        "joint7": 40.0,
+        "joint8": 40.0
+      }
+    },
+    "physics_device": "cpu",
+    "calibration_receipt_verified": false
+  },
+  "actual_sdk_sources": {
+    "yam_arena.ik": {
+      "path": "/opt/yam-arena/yam_arena/ik.py",
+      "sha256": "8aa655c736ee1e542698d8b50edc6670d550966a378d083700ff3c3150308cec"
+    },
+    "yam_arena.urdf": {
+      "path": "/opt/yam-arena/yam_arena/urdf.py",
+      "sha256": "a3eb2548cb3e45c3e1d3af346a8c8a9e75a966d6048d1d6b78b34257c2c97430"
+    },
+    "yam_arena.constants": {
+      "path": "/opt/yam-arena/yam_arena/constants.py",
+      "sha256": "8c44cc2e96ac491255211f2e0b807dda4c1f7547db5a6c62b809764ef69ca2c2"
+    },
+    "yam_arena.actions": {
+      "path": "/opt/yam-arena/yam_arena/actions.py",
+      "sha256": "ad100980fdf19521922e3e269ea353f61ae6c6eb5502ea9795be7c3d492d1c43"
+    },
+    "yam_arena.robot": {
+      "path": "/opt/yam-arena/yam_arena/robot.py",
+      "sha256": "e20e595e65c611d7c444d9825524aed2e7ecec840bf6c31cbb0898a79a457c94"
+    },
+    "yam_arena.inspect_embodiment": {
+      "path": "/opt/yam-arena/yam_arena/inspect_embodiment.py",
+      "sha256": "1b0cbbcdf98b7385e4d213e88bd59c296639bb7031c80e8d73efdce0eabcc4c6"
+    },
+    "yam_arena.task_file": {
+      "path": "/opt/yam-arena/yam_arena/task_file.py",
+      "sha256": "a10aa40c22998538916fc8703b6f63416db8385d973bd2b43b66e302a9ef0f70"
+    },
+    "yam_arena.scene": {
+      "path": "/opt/yam-arena/yam_arena/scene.py",
+      "sha256": "7c4081aa811b2839f908d533e12885dac7a0aaed62ff8da59e36995b50b87809"
+    }
+  },
+  "source_unchanged": true,
+  "source_sha256": {
+    "FIDELITY.md": "429330d79202f785afc0ebf76fb1e43794838bc9a5d83a787dea0cdf83a68f34",
+    "README.md": "ca0993b10776855e4def1486f5a31e21d63bcf6c297eeb7d7daef006b96c086f",
+    "THIRD_PARTY_NOTICES.md": "ca6ad3de1dc72b189a2bf93d891d42a18d7367bcc55283e3acd556f22f005c2b",
+    "build_usd.py": "ed560fe2f31a780908f369542c4317ae7c6ea40074ccc4aec44562cfb76c8b23",
+    "compile_fixture.py": "e0d0f3233b4ab2c48488f0abdfa631bb9b4d51e44c1c0c61eabd8a6e4b1365a8",
+    "contacts.py": "a6041d218790309a60abcf4e77d46589cb5b9f18ab6d654f2d2c16b12c15cbc5",
+    "coupling-fixture.usda": "d6d550178af1001bc30c15d16029924787fd8d384b4f66d0fc54cb5bb0005725",
+    "coupling-sleeve.usda": "166c7ab612303423158d0ffa80bfe6718fb4f12133a4bb2d0459b47870a2fcd1",
+    "driver.py": "c0ffa0280de7868094132b1a940fdcc877e1bb7adfed33561ae6510d94d79371",
+    "fixture.json": "8e739f142f34736ec659c80bc25620b561526b2ac7f51fb6ddb204372a297b21",
+    "fixture.xml": "07ceb65f420fddbe16153c5c510a0f7a51f79fddb4e84dac8f5c01d5c399feeb",
+    "foundation-launch.sh": "81f90c5234a87ea384bcd4dee469acd3e381e12702d3ae6d6c35af6f77f348b0",
+    "foundation.py": "5f75f83eac77e257e2bc84438a6bede88c53b10bf08be454f3f2e65ece996925",
+    "kinematics.py": "28647278118e9011fe61fd2919b28451f6809dff097b579aa7a192c9df5c60e2",
+    "kit.py": "85b47aae136f501a1801d0ee0da526f81540da8d49c55042091a75926d78ddef",
+    "manifest.json": "7a071e452fbd45baecb076598b4196d24753bb4d6ae3931307fe7b404f0d8651",
+    "motor_limits.py": "bfd1c83e63fb70f9cae5db11eb7e8eef2f2037cc2ae80b37d7087c793132b050",
+    "native-ASSETS.md": "8cdff5ad14a3babe25995cd60ba8f5d92ad37bbd72f9c82923c1b18ddf9dd301",
+    "native-DEVIATIONS.md": "c6a70e90e09572ccb1b280faa087baef6f13724519b930cfb45a95ca9d6762b3",
+    "native-PROVENANCE.json": "08b6eb992c15db48625e4e823519dd886f3a67a7f669cccbd85f1265ffab695a",
+    "native_source.py": "cb73e69bf23e8df0fa4deee1bf8cfdd77843df3cd8e7d241c9fb6dcc6a7abb46",
+    "numeric.py": "608815a35e25e14fdfc0924e551e34a59ccee4305d9c4c3ee799688ac31d35fa",
+    "observer.py": "956b40753364c3abdce24273fda8019408e175a4cd34e8e45c0e9acbf8382feb",
+    "reference.py": "33f59b01d4d4a8e49037241149d7d2b5a0b131277f8bb1b6363c384d3fc59ece",
+    "scoring.py": "23468761d59ec55d3920feadf72717145f9e5b15abcec896a8a71f8a4573d371",
+    "setup-inventory.json": "1c7dd37f58040b2a0b756834415f967024a58dbe970a55236615de81043a454a",
+    "source-provenance.json": "532e1c1a07ef434aaba876c54b8860ce2dcdd73bf4555aa72b5a68dc0bf38b45",
+    "source_geometry.py": "a995c2d764f80ca9ed5e752b135b3a47e9d6dd6c865fddbe2196339197f80775",
+    "spring_ff.py": "d344496c2751699e452ae5676673d73bdbf3d2965b0f2a14ee3730e4f5cddc7e",
+    "step_guard.py": "472656c1ef603cabce9fb24702ea4d8dd2f5fdfc7e32c6727358b8a59d72c167",
+    "task.draft.json": "cd2fd4d61ff4f9e8eedb6a7877cf84722da845c1f6db2efabeabb534555a252c",
+    "task.py": "b98aa8e50256b5ac05d9b856bd893338634fdbfafaff3356c775171e1f91e932",
+    "verify_static.py": "af9e775074e1a29b372db220beed10dd7c2603ccb25af1113145d5b3f0934b9f",
+    "verify_usd.py": "853a6913cf434f89aafcbbb0a4d1d129b46cbcb91966a78e02d8ef3d8aa4998d"
+  },
+  "consumed_source": {
+    "driver": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/b7-actual-fullgoal-validation-20261110-0710/focused-runs/job-43768/source/driver.py",
+    "__main__": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/b7-actual-fullgoal-validation-20261110-0710/focused-runs/job-43768/source/driver.py",
+    "numeric": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/b7-actual-fullgoal-validation-20261110-0710/focused-runs/job-43768/source/numeric.py",
+    "__mp_main__": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/b7-actual-fullgoal-validation-20261110-0710/focused-runs/job-43768/source/driver.py",
+    "step_guard": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/b7-actual-fullgoal-validation-20261110-0710/focused-runs/job-43768/source/step_guard.py",
+    "source_geometry": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/b7-actual-fullgoal-validation-20261110-0710/focused-runs/job-43768/source/source_geometry.py",
+    "scoring": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/b7-actual-fullgoal-validation-20261110-0710/focused-runs/job-43768/source/scoring.py",
+    "contacts": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/b7-actual-fullgoal-validation-20261110-0710/focused-runs/job-43768/source/contacts.py",
+    "kit": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/b7-actual-fullgoal-validation-20261110-0710/focused-runs/job-43768/source/kit.py",
+    "motor_limits": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/b7-actual-fullgoal-validation-20261110-0710/focused-runs/job-43768/source/motor_limits.py",
+    "observer": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/b7-actual-fullgoal-validation-20261110-0710/focused-runs/job-43768/source/observer.py",
+    "foundation": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/b7-actual-fullgoal-validation-20261110-0710/focused-runs/job-43768/source/foundation.py",
+    "executed_task_entrypoint": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/b7-actual-fullgoal-validation-20261110-0710/focused-runs/job-43768/source/task.py"
+  },
+  "foreign_local_modules": {}
+}

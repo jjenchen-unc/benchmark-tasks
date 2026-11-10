@@ -1,0 +1,101 @@
+{
+  "at_UTC": "2026-11-10T20:30:40.157764+00:00",
+  "status": "PASS_SAVED_RAW_REVIEW",
+  "actual_controls": 3870,
+  "physics_samples_independently_rederived": 96750,
+  "physics_dt": 0.002,
+  "all_history_scores_and_guard_counters_match": true,
+  "native_raw_score": 0.0,
+  "public_model_score": 0.0,
+  "final_native_hold_s": 0.0,
+  "final_measurement": {
+    "nut_backoff_deg": -8.099087011385121e-28,
+    "arm_open_deg": -0.0,
+    "latch_rounded": false,
+    "arm_free": false,
+    "contact_free": true
+  },
+  "release_first_s": null,
+  "nut_rounded_samples": 0,
+  "peak_wrist_n": [
+    7.595052242279053,
+    8.03466796875
+  ],
+  "peak_20ms_nonfinger_guard_n": 0.0,
+  "peak_tool_nut_torque_nm": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "tool_nut_contact_physics_samples": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "robot_tool_contact_control_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "actual_joint_angle_measurements_match_raw_q": true,
+  "all_raw8_FK_limits_and_both_arm_sensors_valid": {
+    "left": [
+      4.422165017504795e-07,
+      1.0492602474421797e-06
+    ],
+    "right": [
+      4.001990808087848e-07,
+      1.158060689755555e-06
+    ]
+  },
+  "max_wrist_force_rederivation_error_n": 5.064186030523388e-07,
+  "max_tool_nut_torque_rederivation_error_nm": 0.0,
+  "max_head_fixed_mount_drift_m": 0.0,
+  "nonfinger_net_force_below_recorded_non_cancelled_bound_max_excess_n": 0.0,
+  "right_target_max_delta_from_first": 2.170800023841858,
+  "every_pre_action_matches_previous_observation": true,
+  "every_action_is_same_genuine14D_before_and_after_step": true,
+  "final_tool_positions_delta_from_reset_m": {
+    "w12": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "w1_2": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "w13": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "w14": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "wadj": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "physics_state_writes_only_in_reset": [
+    "reset_mechanisms"
+  ],
+  "drive_cap_proof": "Actual v11 right-prefix read both8-DOF caps27/27/27/7/7/7/40/40 before this run on identical frozen hardware/config; runtime adapter also asserts total arm caps. No hardware-metrology claim.",
+  "review_model_calls": 0,
+  "review_simulation_starts": 0,
+  "actual_model_steps": 3870,
+  "actual_request_count": 960,
+  "actual_sessions": 1,
+  "channel_approval_written": false
+}

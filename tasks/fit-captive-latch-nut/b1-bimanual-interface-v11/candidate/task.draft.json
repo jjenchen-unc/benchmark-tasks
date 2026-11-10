@@ -1,0 +1,24 @@
+{
+  "title": "Fit a wrench, release a captive latch nut and open its arm",
+  "category": "Impact on jobs",
+  "keywords": [
+    "tool fit",
+    "wrench",
+    "maintenance",
+    "damage avoidance",
+    "latch"
+  ],
+  "instruction": "Select and fit a wrench from the rack to the unmarked captive nut, loosen it, and swing the arm to its open stop. Return the tools and keep both hands and every tool off the nut and arm for the final 20 seconds. Do not round the nut.",
+  "context": "Maintenance requires distinguishing nearly equal metric and imperial tool fits before applying torque. A loose or forced wrench can round a service fastener before a mechanism is safely released.",
+  "setup": "Fixed source S/42 physical case. Dual YAM station, left arm active and right parked, no robot mount changes. Source task geometry transformed by yaw180deg and translation(0.40,0.10,-0.0525)m. Tabletop z0.7475m. Five separate steel open-end tools: 12mm,1/2in,13mm,14mm and preset adjustable; jaws+0.05mm on fixed tools, adjustable opening13.546mm,160/200mm nominal lengths,5mm thickness. Jaw centres world(0.30,0.50/0.45/0.40/0.35/0.30,0.785)m, handles point+x. Rack has ten steel blocks. Captive steel nut12.70mm AF,6.8mm tall, on22mm square pillar, bearing face world(0.28,0.12,0.8375)m; size not marked. Yellow paint mark. Steel swing arm80mm lever with12mm diameter black knob, vertical pivot at(0.28,0.12,0.833)m; starts toward-y, stop at90deg toward-x. See physical-inventory.json for every primitive, exact poses, masses, friction and collision exclusions.",
+  "scoring": "1.0: nut backed off>=60deg, arm released and opened>=85deg, no hand/tool touching arm or nut, all continuously for final20s. 0.5: same released nut and no contact for20s, any arm angle. 0 otherwise. Rounding at any time, invalid measurement, safety termination or out-of-bounds tool vetoes credit. The passive clamp frees only after source strict>60deg. Score at end, never best-so-far. All runtime credit remains disabled until actual channel calibration.",
+  "run_limit": "3,870 genuine14D joint/gripper actions (193.5 simulated seconds at20Hz;2ms physics).",
+  "reset_notes": "Reset restores the same source42 physical layout and properties, all five free wrench poses, nut turn/slip and arm to zero, locks, appearance, damage and timing. Harness-derived seed values identify episodes; they are accepted without randomizing this declared fixed case. Replace damaged real nut before a real trial; no simulated damage carries across reset.",
+  "fidelity": "Rigid primitive contacts and generated convex hex. Nut breakaway0.3524Nm until>2deg, then0.03Nm running, damping0.0005; torque scale approximately1/100 of real service hardware. Captive nut has no thread translation. Oversized/forced tool contact torque for10ms opens a slip joint and permanently vetoes damage; no material deformation mesh. Arm clamping is a passive angle-triggered joint limit. Adjustable worm is visual only. Exact task-relative geometry is retained; robot changes from native Panda80/12Nm to YAM TOTAL27/7Nm including gravity with40N fingers. Robot force guards are stricter terminal guards in this port. Native down/yaw motion interface becomes official14D YAM joints; teacher uses top grasps. Physics, loaded feasibility, runtime sensors, final Dream1 and media remain unverified.",
+  "scores": "Dream-1: not run; genuine YAM reference: not run. Historical native1.0 is design evidence only.",
+  "media": null,
+  "status": "development draft only; runtime scoring gated; not a submission",
+  "representative_goal": "W1_latch_release",
+  "other_native_goals": "A_seat_tighten,W2_mixed_flange,W3_clamp_tighten,W4_thumb_bolt_aluminium remain preserved in readonly native packages; no additional submission/task count claimed.",
+  "rubric_version": "robocurve-official-v2.1"
+}

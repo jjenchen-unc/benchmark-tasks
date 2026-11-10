@@ -1,0 +1,25 @@
+{
+  "at_UTC": "2026-11-10T20:27:52.679573+00:00",
+  "status": "PASS_ACTUAL_STORED_MEDIA_REVIEW",
+  "actual_phase": "NEW credited v11 demo, public 1.0; not historical v9 public 0.0",
+  "reviewed_camera_views": [
+    "top_cam",
+    "left_cam",
+    "right_cam"
+  ],
+  "sample_indices": [
+    0,
+    1035,
+    2069
+  ],
+  "decoded_all_frames": 2070,
+  "overhead": "Entire table, left/right robot, tool rack and fixture are present. Fixture is small at native 320x176. Initial/middle/final views show left-arm tool manipulation and subsequent retreat; no overlay or synthetic frame.",
+  "left_wrist": "Actual tool-rack and fixture close views with intermittent arm occlusion; final frame shows opened green arm.",
+  "right_wrist": "Mostly table and right gripper edge because teacher parks this arm; limited task information. Native camera extrinsics preserved and not claimed as extra evidence.",
+  "limitations": [
+    "Overhead fixture occupies few pixels; left wrist supplies closer view.",
+    "Right-wrist stream is weak for this left-arm authored task."
+  ],
+  "media_source": "credited-demo original encoded streams, all full-frame decode PASS",
+  "submission_ready_without_model_review": false
+}

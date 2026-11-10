@@ -1,0 +1,326 @@
+#usda 1.0
+(
+    defaultPrim = "Wrench"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "Wrench" (
+    prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+)
+{
+    point3f physics:centerOfMass = (-0.0016934016, -0.07237343, 0)
+    float3 physics:diagonalInertia = (0.000015478867, 0.0010201127, 0.0010344548)
+    float physics:mass = 0.244
+    quatf physics:principalAxes = (0.69905365, 0, 0, 0.71506923)
+    bool physxRigidBody:enableCCD = 1
+    quatf xformOp:orient = (1, 0, 0, 0)
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+    def Cube "wadj_jawm" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+    )
+    {
+        rel material:binding = </Wrench/wadj_jawm_material>
+        rel material:binding:physics = </Wrench/wadj_jawm_material> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        float physxCollision:contactOffset = 0.0001
+        float physxCollision:restOffset = 0
+        color3f[] primvars:displayColor = [(0.72, 0.73, 0.76)]
+        double size = 2
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (0.0055, 0.00932079, 0.0025)
+        double3 xformOp:translate = (-0.012273, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Material "wadj_jawm_material" (
+        prepend apiSchemas = ["PhysicsMaterialAPI"]
+    )
+    {
+        token outputs:surface.connect = </Wrench/wadj_jawm_material/Shader.outputs:surface>
+        float physics:dynamicFriction = 0.2
+        float physics:restitution = 0
+        float physics:staticFriction = 0.2
+
+        def Shader "Shader"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            color3f inputs:diffuseColor = (0.72, 0.73, 0.76)
+            float inputs:roughness = 0.65
+            token outputs:surface
+        }
+    }
+
+    def Cube "wadj_flarem" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+    )
+    {
+        rel material:binding = </Wrench/wadj_flarem_material>
+        rel material:binding:physics = </Wrench/wadj_flarem_material> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        float physxCollision:contactOffset = 0.0001
+        float physxCollision:restOffset = 0
+        color3f[] primvars:displayColor = [(0.72, 0.73, 0.76)]
+        double size = 2
+        quatf xformOp:orient = (0.9914449, 0, 0, 0.130526)
+        float3 xformOp:scale = (0.0055, 0.002, 0.0025)
+        double3 xformOp:translate = (-0.0126032, 0.00982913, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Material "wadj_flarem_material" (
+        prepend apiSchemas = ["PhysicsMaterialAPI"]
+    )
+    {
+        token outputs:surface.connect = </Wrench/wadj_flarem_material/Shader.outputs:surface>
+        float physics:dynamicFriction = 0.2
+        float physics:restitution = 0
+        float physics:staticFriction = 0.2
+
+        def Shader "Shader"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            color3f inputs:diffuseColor = (0.72, 0.73, 0.76)
+            float inputs:roughness = 0.65
+            token outputs:surface
+        }
+    }
+
+    def Cube "wadj_jawp" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+    )
+    {
+        rel material:binding = </Wrench/wadj_jawp_material>
+        rel material:binding:physics = </Wrench/wadj_jawp_material> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        float physxCollision:contactOffset = 0.0001
+        float physxCollision:restOffset = 0
+        color3f[] primvars:displayColor = [(0.72, 0.73, 0.76)]
+        double size = 2
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (0.0055, 0.00932079, 0.0025)
+        double3 xformOp:translate = (0.012273, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Material "wadj_jawp_material" (
+        prepend apiSchemas = ["PhysicsMaterialAPI"]
+    )
+    {
+        token outputs:surface.connect = </Wrench/wadj_jawp_material/Shader.outputs:surface>
+        float physics:dynamicFriction = 0.2
+        float physics:restitution = 0
+        float physics:staticFriction = 0.2
+
+        def Shader "Shader"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            color3f inputs:diffuseColor = (0.72, 0.73, 0.76)
+            float inputs:roughness = 0.65
+            token outputs:surface
+        }
+    }
+
+    def Cube "wadj_flarep" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+    )
+    {
+        rel material:binding = </Wrench/wadj_flarep_material>
+        rel material:binding:physics = </Wrench/wadj_flarep_material> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        float physxCollision:contactOffset = 0.0001
+        float physxCollision:restOffset = 0
+        color3f[] primvars:displayColor = [(0.72, 0.73, 0.76)]
+        double size = 2
+        quatf xformOp:orient = (0.9914449, 0, 0, -0.130526)
+        float3 xformOp:scale = (0.0055, 0.002, 0.0025)
+        double3 xformOp:translate = (0.0126032, 0.00982913, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Material "wadj_flarep_material" (
+        prepend apiSchemas = ["PhysicsMaterialAPI"]
+    )
+    {
+        token outputs:surface.connect = </Wrench/wadj_flarep_material/Shader.outputs:surface>
+        float physics:dynamicFriction = 0.2
+        float physics:restitution = 0
+        float physics:staticFriction = 0.2
+
+        def Shader "Shader"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            color3f inputs:diffuseColor = (0.72, 0.73, 0.76)
+            float inputs:roughness = 0.65
+            token outputs:surface
+        }
+    }
+
+    def Cube "wadj_throat" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+    )
+    {
+        rel material:binding = </Wrench/wadj_throat_material>
+        rel material:binding:physics = </Wrench/wadj_throat_material> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        float physxCollision:contactOffset = 0.0001
+        float physxCollision:restOffset = 0
+        color3f[] primvars:displayColor = [(0.72, 0.73, 0.76)]
+        double size = 2
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (0.017773, 0.002, 0.0025)
+        double3 xformOp:translate = (0, -0.0113208, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Material "wadj_throat_material" (
+        prepend apiSchemas = ["PhysicsMaterialAPI"]
+    )
+    {
+        token outputs:surface.connect = </Wrench/wadj_throat_material/Shader.outputs:surface>
+        float physics:dynamicFriction = 0.2
+        float physics:restitution = 0
+        float physics:staticFriction = 0.2
+
+        def Shader "Shader"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            color3f inputs:diffuseColor = (0.72, 0.73, 0.76)
+            float inputs:roughness = 0.65
+            token outputs:surface
+        }
+    }
+
+    def Cube "wadj_handle" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+    )
+    {
+        rel material:binding = </Wrench/wadj_handle_material>
+        rel material:binding:physics = </Wrench/wadj_handle_material> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        float physxCollision:contactOffset = 0.0001
+        float physxCollision:restOffset = 0
+        color3f[] primvars:displayColor = [(0.72, 0.73, 0.76)]
+        double size = 2
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (0.006, 0.0933396, 0.0025)
+        double3 xformOp:translate = (0, -0.10666, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Material "wadj_handle_material" (
+        prepend apiSchemas = ["PhysicsMaterialAPI"]
+    )
+    {
+        token outputs:surface.connect = </Wrench/wadj_handle_material/Shader.outputs:surface>
+        float physics:dynamicFriction = 1
+        float physics:restitution = 0
+        float physics:staticFriction = 1
+
+        def Shader "Shader"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            color3f inputs:diffuseColor = (0.72, 0.73, 0.76)
+            float inputs:roughness = 0.65
+            token outputs:surface
+        }
+    }
+
+    def Cube "wadj_housing" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+    )
+    {
+        rel material:binding = </Wrench/wadj_housing_material>
+        rel material:binding:physics = </Wrench/wadj_housing_material> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        float physxCollision:contactOffset = 0.0001
+        float physxCollision:restOffset = 0
+        color3f[] primvars:displayColor = [(0.6, 0.6, 0.64)]
+        double size = 2
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (0.006, 0.006, 0.0035)
+        double3 xformOp:translate = (-0.013773, -0.0173208, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Material "wadj_housing_material" (
+        prepend apiSchemas = ["PhysicsMaterialAPI"]
+    )
+    {
+        token outputs:surface.connect = </Wrench/wadj_housing_material/Shader.outputs:surface>
+        float physics:dynamicFriction = 0.2
+        float physics:restitution = 0
+        float physics:staticFriction = 0.2
+
+        def Shader "Shader"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            color3f inputs:diffuseColor = (0.6, 0.6, 0.64)
+            float inputs:roughness = 0.65
+            token outputs:surface
+        }
+    }
+
+    def Cylinder "wadj_worm" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        double height = 0.002
+        rel material:binding = </Wrench/wadj_worm_material>
+        color3f[] primvars:displayColor = [(0.5, 0.5, 0.55)]
+        double radius = 0.004
+        quatf xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:translate = (-0.013773, -0.0173208, 0.0045)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+    }
+
+    def Material "wadj_worm_material"
+    {
+        token outputs:surface.connect = </Wrench/wadj_worm_material/Shader.outputs:surface>
+
+        def Shader "Shader"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            color3f inputs:diffuseColor = (0.5, 0.5, 0.55)
+            float inputs:roughness = 0.65
+            token outputs:surface
+        }
+    }
+
+    def Cube "wadj_stamp" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Wrench/wadj_stamp_material>
+        color3f[] primvars:displayColor = [(0.3, 0.3, 0.3)]
+        double size = 2
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (0.005, 0.012, 0.0002)
+        double3 xformOp:translate = (0, -0.05, 0.0027)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Material "wadj_stamp_material"
+    {
+        token outputs:surface.connect = </Wrench/wadj_stamp_material/Shader.outputs:surface>
+
+        def Shader "Shader"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            color3f inputs:diffuseColor = (0.3, 0.3, 0.3)
+            float inputs:roughness = 0.65
+            token outputs:surface
+        }
+    }
+}
+

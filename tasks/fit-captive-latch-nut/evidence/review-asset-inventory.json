@@ -1,0 +1,213 @@
+{
+  "status": "PASS_FROZEN_RELEASE_ASSET",
+  "asset": "B1-v11-frozen-physical-review.tgz",
+  "bytes": 31661990,
+  "sha256": "e3daabf3dd197026704a4cefb213d5a777657cc6a36b75adc18d65bdbb44f45b",
+  "intended_url": "https://github.com/jjenchen-unc/benchmark-tasks/releases/download/b1-review-20261110/B1-v11-frozen-physical-review.tgz",
+  "published": true,
+  "raw_bytes": 174305201,
+  "files": 33,
+  "members": {
+    "credit-review": {
+      "type": "directory",
+      "bytes": 0
+    },
+    "credit-review/ROOT-APPROVED.json": {
+      "type": "file",
+      "bytes": 18078,
+      "sha256": "6f8affee6b081e12f989b319e719176e6cedb1054e0da8048451183e93eccb28"
+    },
+    "credit-review/ROOT-REVIEW-UNAPPROVED.json": {
+      "type": "file",
+      "bytes": 10553,
+      "sha256": "73c1ff5f0e2c5669fda5e1ab7e78380da2b3264e4613f62047e77fbc7a10aba7"
+    },
+    "credit-review/proofs": {
+      "type": "directory",
+      "bytes": 0
+    },
+    "credit-review/proofs/B1-v11-interface-proposal.json": {
+      "type": "file",
+      "bytes": 3018,
+      "sha256": "973b947ab32ac587d0c3e54dae5aeacc6413dbd70bca0e7fd0b9d9c0010b8b4e"
+    },
+    "credit-review/proofs/B1-v9-blind-media-review.json": {
+      "type": "file",
+      "bytes": 1610,
+      "sha256": "5b8255215c67914cd865d931d781cf103b858cb56f4d6338b05225d27d17f329"
+    },
+    "credit-review/proofs/B1-v9-full-raw-review.json": {
+      "type": "file",
+      "bytes": 2379,
+      "sha256": "b69f62078962461b8df2f96e81791d1e04a04add0643664d8d6f68acf24d7aec"
+    },
+    "credit-review/proofs/B1-v9-physical-replay-full-backup-receipt.json": {
+      "type": "file",
+      "bytes": 295,
+      "sha256": "3ff38a21297ebf07939eaa6abcfb98bb6ed09fc87dc7c9ee7484ab8ce4c3a0cd"
+    },
+    "credit-review/proofs/ROOT-v10-verifier-derivation.json": {
+      "type": "file",
+      "bytes": 983,
+      "sha256": "c33482ad6e4278627fb226d56ce71666479a1bc3ed1e7a5f23351b0a8ac389a1"
+    },
+    "credit-review/proofs/ROOT-v11-interface-derivation.json": {
+      "type": "file",
+      "bytes": 1989,
+      "sha256": "63fbdee027c17185aaa3999239c06f938234b5daafd76fc115495f17f33ba8e3"
+    },
+    "credit-review/proofs/current-source-binding.json": {
+      "type": "file",
+      "bytes": 8982,
+      "sha256": "5b1f41ae4ae9d700591b46389cc87e1e7692cf2da4069eafa685a36872ca84ae"
+    },
+    "credit-review/proofs/prefix-result.json": {
+      "type": "file",
+      "bytes": 18359,
+      "sha256": "c165177e6fc727c27395815883127c5e434e9f49f6ead66153e1814c7a3503b4"
+    },
+    "credit-review/proofs/reset-verification.json": {
+      "type": "file",
+      "bytes": 1412,
+      "sha256": "d008965f97b1c18766f0bf090a57fd85076c8efd3c9ecc091e80aa5dcff5dbca"
+    },
+    "credit-review/proofs/source": {
+      "type": "directory",
+      "bytes": 0
+    },
+    "credit-review/proofs/source/contacts.py": {
+      "type": "file",
+      "bytes": 2148,
+      "sha256": "3fc7c5f73931ac2d8726a9428aaa14078f88a60a36b0ad3286d93251fb37ac15"
+    },
+    "credit-review/proofs/source/fixture.json": {
+      "type": "file",
+      "bytes": 41087,
+      "sha256": "dacd07d5c3be4544101d1cb3ecf8b38804a19bf28a0727cb4941c9e89e0bb05f"
+    },
+    "credit-review/proofs/source/history.py": {
+      "type": "file",
+      "bytes": 4902,
+      "sha256": "e453060722a776f3c2acf129dcab3b45c0cf361347cb8661970f44ba1f4e23fa"
+    },
+    "credit-review/proofs/source/kit.py": {
+      "type": "file",
+      "bytes": 8055,
+      "sha256": "d470e62b49261273e465f2f8dda3c990fd1fb61d18f15dbbd3ec164f65b3293b"
+    },
+    "credit-review/proofs/source/motor_limits.py": {
+      "type": "file",
+      "bytes": 2539,
+      "sha256": "af6eb33db21889e24cae3467d98b3f0cb82cd2dca9dadf5d83e69f7181757a8b"
+    },
+    "credit-review/proofs/source/physics.py": {
+      "type": "file",
+      "bytes": 8160,
+      "sha256": "f7d56a036e12b39c4263baa99633ce5cb93e18bfbaaaa95ab15260a43eefb826"
+    },
+    "credit-review/proofs/v11-CPU-checks.json": {
+      "type": "file",
+      "bytes": 3033,
+      "sha256": "c41071d74246a77cc303fd95662b8052c17dd6f6b6e9919440fb137f3f134c6e"
+    },
+    "credit-review/proofs/v11-right-prefix-actual.json": {
+      "type": "file",
+      "bytes": 18359,
+      "sha256": "c165177e6fc727c27395815883127c5e434e9f49f6ead66153e1814c7a3503b4"
+    },
+    "credit-review/replay": {
+      "type": "directory",
+      "bytes": 0
+    },
+    "credit-review/replay/journal.jsonl": {
+      "type": "file",
+      "bytes": 86306493,
+      "sha256": "e8dbde746c562f1f7a01252299fd728c0f9c1ed6c9c0deb7e7209c7197694380"
+    },
+    "credit-review/replay/launcher.json": {
+      "type": "file",
+      "bytes": 16265,
+      "sha256": "d0abe704baa09e16a5283f402852b3ce0f04dfb79fb74e2a847cee5581d56bac"
+    },
+    "credit-review/replay/left_cam-encoder.log": {
+      "type": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "credit-review/replay/left_cam.mp4": {
+      "type": "file",
+      "bytes": 857070,
+      "sha256": "2e61c42c9470f09ed9d276d8f6c44f0ec86461f79b07cc3896016e2a9bfdd05d"
+    },
+    "credit-review/replay/left_cam.png": {
+      "type": "file",
+      "bytes": 30748,
+      "sha256": "1a42689858401de911617ec734de5cc5824b4f022329b1c62679d9420c1af574"
+    },
+    "credit-review/replay/media-finalization.json": {
+      "type": "file",
+      "bytes": 399,
+      "sha256": "47f2a017c70f9b0b38a7b26305baf4955ff1a4b8612eff82975ed2ac9fbd2212"
+    },
+    "credit-review/replay/pre-actions.jsonl": {
+      "type": "file",
+      "bytes": 86268762,
+      "sha256": "11eccb85d231e3bbd0e7d08c246fafc0452009791a85e964edcd81241e67a9e5"
+    },
+    "credit-review/replay/result.json": {
+      "type": "file",
+      "bytes": 10980,
+      "sha256": "217e210323c54c9a0c763101f6a8e52a4ad29be4f5e79ca7e0c7b9d0ae213f7c"
+    },
+    "credit-review/replay/right_cam-encoder.log": {
+      "type": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "credit-review/replay/right_cam.mp4": {
+      "type": "file",
+      "bytes": 184352,
+      "sha256": "444f64e5493bfafae5ca1015118cd233ba8323c7ad99b45c0419b75ecf17a577"
+    },
+    "credit-review/replay/right_cam.png": {
+      "type": "file",
+      "bytes": 22888,
+      "sha256": "fb1ecb75ddc96266d11f04560037721afdbb4d5b885feae534a51e8b6db518f8"
+    },
+    "credit-review/replay/top_cam-encoder.log": {
+      "type": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "credit-review/replay/top_cam.mp4": {
+      "type": "file",
+      "bytes": 403661,
+      "sha256": "2e9b5c762c0f98ae136c22378946a58ea9d13116c2969fa8ec5fdfc5e028264e"
+    },
+    "credit-review/replay/top_cam.png": {
+      "type": "file",
+      "bytes": 47642,
+      "sha256": "4ff1adb5d9831144bf25e14585b16f6bb012ffa7a76e80315ad42633cd91c317"
+    }
+  },
+  "secret_scan": {
+    "status": "PASS",
+    "patterns": [
+      "DreamKey",
+      "OpenAIKey",
+      "AuthorizationBearer"
+    ],
+    "hits": 0
+  },
+  "session_scan": {
+    "status": "PASS",
+    "session_id_or_session_sha256_fields": 0
+  },
+  "file_types": "regular files and directories only; no links/devices",
+  "core_manifest_fingerprint": "0d5b3276c7873feb72cea378e91eb0c166ebce7d32ec24a722fad1cbc41e072d",
+  "receipt_sha256": "6f8affee6b081e12f989b319e719176e6cedb1054e0da8048451183e93eccb28",
+  "at_UTC": "2026-11-10T20:31:46.747203+00:00",
+  "live_url": "https://github.com/jjenchen-unc/benchmark-tasks/releases/download/b1-review-20261110/B1-v11-frozen-physical-review.tgz",
+  "github_asset_id": 732872529,
+  "github_release_id": 440883910
+}

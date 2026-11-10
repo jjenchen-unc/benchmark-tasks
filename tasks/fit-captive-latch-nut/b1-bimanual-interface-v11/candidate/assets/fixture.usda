@@ -1,0 +1,1052 @@
+#usda 1.0
+(
+    defaultPrim = "Wrench"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "Wrench" (
+    prepend apiSchemas = ["PhysicsArticulationRootAPI", "PhysxArticulationAPI"]
+)
+{
+    bool physxArticulation:enabledSelfCollisions = 1
+    quatf xformOp:orient = (1, 0, 0, 0)
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+    def "links"
+    {
+        def Xform "base" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            float physics:mass = 0.000001
+            quatf xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Xform "fixed_fixture" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0.042410772, -0.24494621, 0.82297456)
+            float3 physics:diagonalInertia = (0.0011273219, 0.0041347547, 0.0051537235)
+            float physics:mass = 0.22305778
+            quatf physics:principalAxes = (-0.565994, -0.030367268, -0.020583665, 0.82359266)
+            bool physxRigidBody:enableCCD = 1
+            quatf xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cube "rack_w12_h" (
+                prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding = </Wrench/links/fixed_fixture/rack_w12_h_material>
+                rel material:binding:physics = </Wrench/links/fixed_fixture/rack_w12_h_material> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Wrench/links/fixed_fixture/latch_stud>,
+                    </Wrench/links/fixed_fixture/arm_stop>,
+                    </Wrench/links/latch_turn/latch_core>,
+                    </Wrench/links/latch_head/latch_mark>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.22, 0.29, 0.33)]
+                double size = 2
+                quatf xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.008, 0.016, 0.0175)
+                double3 xformOp:translate = (0.1, -0.4, 0.8175)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Material "rack_w12_h_material" (
+                prepend apiSchemas = ["PhysicsMaterialAPI"]
+            )
+            {
+                token outputs:surface.connect = </Wrench/links/fixed_fixture/rack_w12_h_material/Shader.outputs:surface>
+                float physics:dynamicFriction = 1
+                float physics:restitution = 0
+                float physics:staticFriction = 1
+
+                def Shader "Shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.22, 0.29, 0.33)
+                    float inputs:roughness = 0.65
+                    token outputs:surface
+                }
+            }
+
+            def Cube "rack_w12_t" (
+                prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding = </Wrench/links/fixed_fixture/rack_w12_t_material>
+                rel material:binding:physics = </Wrench/links/fixed_fixture/rack_w12_t_material> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Wrench/links/fixed_fixture/latch_stud>,
+                    </Wrench/links/fixed_fixture/arm_stop>,
+                    </Wrench/links/latch_turn/latch_core>,
+                    </Wrench/links/latch_head/latch_mark>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.22, 0.29, 0.33)]
+                double size = 2
+                quatf xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.008, 0.016, 0.0175)
+                double3 xformOp:translate = (-0.055, -0.4, 0.8175)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Material "rack_w12_t_material" (
+                prepend apiSchemas = ["PhysicsMaterialAPI"]
+            )
+            {
+                token outputs:surface.connect = </Wrench/links/fixed_fixture/rack_w12_t_material/Shader.outputs:surface>
+                float physics:dynamicFriction = 1
+                float physics:restitution = 0
+                float physics:staticFriction = 1
+
+                def Shader "Shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.22, 0.29, 0.33)
+                    float inputs:roughness = 0.65
+                    token outputs:surface
+                }
+            }
+
+            def Cube "rack_w1_2_h" (
+                prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding = </Wrench/links/fixed_fixture/rack_w1_2_h_material>
+                rel material:binding:physics = </Wrench/links/fixed_fixture/rack_w1_2_h_material> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Wrench/links/fixed_fixture/latch_stud>,
+                    </Wrench/links/fixed_fixture/arm_stop>,
+                    </Wrench/links/latch_turn/latch_core>,
+                    </Wrench/links/latch_head/latch_mark>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.22, 0.29, 0.33)]
+                double size = 2
+                quatf xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.008, 0.016, 0.0175)
+                double3 xformOp:translate = (0.1, -0.35, 0.8175)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Material "rack_w1_2_h_material" (
+                prepend apiSchemas = ["PhysicsMaterialAPI"]
+            )
+            {
+                token outputs:surface.connect = </Wrench/links/fixed_fixture/rack_w1_2_h_material/Shader.outputs:surface>
+                float physics:dynamicFriction = 1
+                float physics:restitution = 0
+                float physics:staticFriction = 1
+
+                def Shader "Shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.22, 0.29, 0.33)
+                    float inputs:roughness = 0.65
+                    token outputs:surface
+                }
+            }
+
+            def Cube "rack_w1_2_t" (
+                prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding = </Wrench/links/fixed_fixture/rack_w1_2_t_material>
+                rel material:binding:physics = </Wrench/links/fixed_fixture/rack_w1_2_t_material> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Wrench/links/fixed_fixture/latch_stud>,
+                    </Wrench/links/fixed_fixture/arm_stop>,
+                    </Wrench/links/latch_turn/latch_core>,
+                    </Wrench/links/latch_head/latch_mark>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.22, 0.29, 0.33)]
+                double size = 2
+                quatf xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.008, 0.016, 0.0175)
+                double3 xformOp:translate = (-0.055, -0.35, 0.8175)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Material "rack_w1_2_t_material" (
+                prepend apiSchemas = ["PhysicsMaterialAPI"]
+            )
+            {
+                token outputs:surface.connect = </Wrench/links/fixed_fixture/rack_w1_2_t_material/Shader.outputs:surface>
+                float physics:dynamicFriction = 1
+                float physics:restitution = 0
+                float physics:staticFriction = 1
+
+                def Shader "Shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.22, 0.29, 0.33)
+                    float inputs:roughness = 0.65
+                    token outputs:surface
+                }
+            }
+
+            def Cube "rack_w13_h" (
+                prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding = </Wrench/links/fixed_fixture/rack_w13_h_material>
+                rel material:binding:physics = </Wrench/links/fixed_fixture/rack_w13_h_material> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Wrench/links/fixed_fixture/latch_stud>,
+                    </Wrench/links/fixed_fixture/arm_stop>,
+                    </Wrench/links/latch_turn/latch_core>,
+                    </Wrench/links/latch_head/latch_mark>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.22, 0.29, 0.33)]
+                double size = 2
+                quatf xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.008, 0.016, 0.0175)
+                double3 xformOp:translate = (0.1, -0.3, 0.8175)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Material "rack_w13_h_material" (
+                prepend apiSchemas = ["PhysicsMaterialAPI"]
+            )
+            {
+                token outputs:surface.connect = </Wrench/links/fixed_fixture/rack_w13_h_material/Shader.outputs:surface>
+                float physics:dynamicFriction = 1
+                float physics:restitution = 0
+                float physics:staticFriction = 1
+
+                def Shader "Shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.22, 0.29, 0.33)
+                    float inputs:roughness = 0.65
+                    token outputs:surface
+                }
+            }
+
+            def Cube "rack_w13_t" (
+                prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding = </Wrench/links/fixed_fixture/rack_w13_t_material>
+                rel material:binding:physics = </Wrench/links/fixed_fixture/rack_w13_t_material> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Wrench/links/fixed_fixture/latch_stud>,
+                    </Wrench/links/fixed_fixture/arm_stop>,
+                    </Wrench/links/latch_turn/latch_core>,
+                    </Wrench/links/latch_head/latch_mark>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.22, 0.29, 0.33)]
+                double size = 2
+                quatf xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.008, 0.016, 0.0175)
+                double3 xformOp:translate = (-0.055, -0.3, 0.8175)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Material "rack_w13_t_material" (
+                prepend apiSchemas = ["PhysicsMaterialAPI"]
+            )
+            {
+                token outputs:surface.connect = </Wrench/links/fixed_fixture/rack_w13_t_material/Shader.outputs:surface>
+                float physics:dynamicFriction = 1
+                float physics:restitution = 0
+                float physics:staticFriction = 1
+
+                def Shader "Shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.22, 0.29, 0.33)
+                    float inputs:roughness = 0.65
+                    token outputs:surface
+                }
+            }
+
+            def Cube "rack_w14_h" (
+                prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding = </Wrench/links/fixed_fixture/rack_w14_h_material>
+                rel material:binding:physics = </Wrench/links/fixed_fixture/rack_w14_h_material> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Wrench/links/fixed_fixture/latch_stud>,
+                    </Wrench/links/fixed_fixture/arm_stop>,
+                    </Wrench/links/latch_turn/latch_core>,
+                    </Wrench/links/latch_head/latch_mark>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.22, 0.29, 0.33)]
+                double size = 2
+                quatf xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.008, 0.016, 0.0175)
+                double3 xformOp:translate = (0.1, -0.25, 0.8175)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Material "rack_w14_h_material" (
+                prepend apiSchemas = ["PhysicsMaterialAPI"]
+            )
+            {
+                token outputs:surface.connect = </Wrench/links/fixed_fixture/rack_w14_h_material/Shader.outputs:surface>
+                float physics:dynamicFriction = 1
+                float physics:restitution = 0
+                float physics:staticFriction = 1
+
+                def Shader "Shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.22, 0.29, 0.33)
+                    float inputs:roughness = 0.65
+                    token outputs:surface
+                }
+            }
+
+            def Cube "rack_w14_t" (
+                prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding = </Wrench/links/fixed_fixture/rack_w14_t_material>
+                rel material:binding:physics = </Wrench/links/fixed_fixture/rack_w14_t_material> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Wrench/links/fixed_fixture/latch_stud>,
+                    </Wrench/links/fixed_fixture/arm_stop>,
+                    </Wrench/links/latch_turn/latch_core>,
+                    </Wrench/links/latch_head/latch_mark>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.22, 0.29, 0.33)]
+                double size = 2
+                quatf xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.008, 0.016, 0.0175)
+                double3 xformOp:translate = (-0.055, -0.25, 0.8175)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Material "rack_w14_t_material" (
+                prepend apiSchemas = ["PhysicsMaterialAPI"]
+            )
+            {
+                token outputs:surface.connect = </Wrench/links/fixed_fixture/rack_w14_t_material/Shader.outputs:surface>
+                float physics:dynamicFriction = 1
+                float physics:restitution = 0
+                float physics:staticFriction = 1
+
+                def Shader "Shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.22, 0.29, 0.33)
+                    float inputs:roughness = 0.65
+                    token outputs:surface
+                }
+            }
+
+            def Cube "rack_wadj_h" (
+                prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding = </Wrench/links/fixed_fixture/rack_wadj_h_material>
+                rel material:binding:physics = </Wrench/links/fixed_fixture/rack_wadj_h_material> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Wrench/links/fixed_fixture/latch_stud>,
+                    </Wrench/links/fixed_fixture/arm_stop>,
+                    </Wrench/links/latch_turn/latch_core>,
+                    </Wrench/links/latch_head/latch_mark>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.22, 0.29, 0.33)]
+                double size = 2
+                quatf xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.008, 0.016, 0.0175)
+                double3 xformOp:translate = (0.1, -0.2, 0.8175)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Material "rack_wadj_h_material" (
+                prepend apiSchemas = ["PhysicsMaterialAPI"]
+            )
+            {
+                token outputs:surface.connect = </Wrench/links/fixed_fixture/rack_wadj_h_material/Shader.outputs:surface>
+                float physics:dynamicFriction = 1
+                float physics:restitution = 0
+                float physics:staticFriction = 1
+
+                def Shader "Shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.22, 0.29, 0.33)
+                    float inputs:roughness = 0.65
+                    token outputs:surface
+                }
+            }
+
+            def Cube "rack_wadj_t" (
+                prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding = </Wrench/links/fixed_fixture/rack_wadj_t_material>
+                rel material:binding:physics = </Wrench/links/fixed_fixture/rack_wadj_t_material> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Wrench/links/fixed_fixture/latch_stud>,
+                    </Wrench/links/fixed_fixture/arm_stop>,
+                    </Wrench/links/latch_turn/latch_core>,
+                    </Wrench/links/latch_head/latch_mark>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.22, 0.29, 0.33)]
+                double size = 2
+                quatf xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.008, 0.016, 0.0175)
+                double3 xformOp:translate = (-0.055, -0.2, 0.8175)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Material "rack_wadj_t_material" (
+                prepend apiSchemas = ["PhysicsMaterialAPI"]
+            )
+            {
+                token outputs:surface.connect = </Wrench/links/fixed_fixture/rack_wadj_t_material/Shader.outputs:surface>
+                float physics:dynamicFriction = 1
+                float physics:restitution = 0
+                float physics:staticFriction = 1
+
+                def Shader "Shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.22, 0.29, 0.33)
+                    float inputs:roughness = 0.65
+                    token outputs:surface
+                }
+            }
+
+            def Cube "latch_pillar" (
+                prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding = </Wrench/links/fixed_fixture/latch_pillar_material>
+                rel material:binding:physics = </Wrench/links/fixed_fixture/latch_pillar_material> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Wrench/links/fixed_fixture/latch_stud>,
+                    </Wrench/links/fixed_fixture/arm_stop>,
+                    </Wrench/links/latch_turn/latch_core>,
+                    </Wrench/links/latch_head/latch_mark>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.33, 0.36, 0.4)]
+                double size = 2
+                quatf xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.011, 0.011, 0.042)
+                double3 xformOp:translate = (0.12, -0.02, 0.842)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Material "latch_pillar_material" (
+                prepend apiSchemas = ["PhysicsMaterialAPI"]
+            )
+            {
+                token outputs:surface.connect = </Wrench/links/fixed_fixture/latch_pillar_material/Shader.outputs:surface>
+                float physics:dynamicFriction = 1
+                float physics:restitution = 0
+                float physics:staticFriction = 1
+
+                def Shader "Shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.33, 0.36, 0.4)
+                    float inputs:roughness = 0.65
+                    token outputs:surface
+                }
+            }
+
+            def Cylinder "latch_washer" (
+                prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.006
+                rel material:binding = </Wrench/links/fixed_fixture/latch_washer_material>
+                rel material:binding:physics = </Wrench/links/fixed_fixture/latch_washer_material> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Wrench/links/fixed_fixture/latch_stud>,
+                    </Wrench/links/fixed_fixture/arm_stop>,
+                    </Wrench/links/latch_turn/latch_core>,
+                    </Wrench/links/latch_head/latch_mark>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.7, 0.7, 0.72)]
+                double radius = 0.006
+                quatf xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0.12, -0.02, 0.887)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Material "latch_washer_material" (
+                prepend apiSchemas = ["PhysicsMaterialAPI"]
+            )
+            {
+                token outputs:surface.connect = </Wrench/links/fixed_fixture/latch_washer_material/Shader.outputs:surface>
+                float physics:dynamicFriction = 1
+                float physics:restitution = 0
+                float physics:staticFriction = 1
+
+                def Shader "Shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.7, 0.7, 0.72)
+                    float inputs:roughness = 0.65
+                    token outputs:surface
+                }
+            }
+
+            def Cylinder "latch_stud" (
+                prepend apiSchemas = ["MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.012
+                rel material:binding = </Wrench/links/fixed_fixture/latch_stud_material>
+                rel physics:filteredPairs = [
+                    </Wrench/links/fixed_fixture/rack_w12_h>,
+                    </Wrench/links/fixed_fixture/rack_w12_t>,
+                    </Wrench/links/fixed_fixture/rack_w1_2_h>,
+                    </Wrench/links/fixed_fixture/rack_w1_2_t>,
+                    </Wrench/links/fixed_fixture/rack_w13_h>,
+                    </Wrench/links/fixed_fixture/rack_w13_t>,
+                    </Wrench/links/fixed_fixture/rack_w14_h>,
+                    </Wrench/links/fixed_fixture/rack_w14_t>,
+                    </Wrench/links/fixed_fixture/rack_wadj_h>,
+                    </Wrench/links/fixed_fixture/rack_wadj_t>,
+                    </Wrench/links/fixed_fixture/latch_pillar>,
+                    </Wrench/links/fixed_fixture/latch_washer>,
+                    </Wrench/links/fixed_fixture/arm_stop>,
+                    </Wrench/links/latch_turn/latch_core>,
+                    </Wrench/links/latch_head/latch_hex>,
+                    </Wrench/links/latch_head/latch_mark>,
+                    </Wrench/links/swing_arm/arm_bar>,
+                    </Wrench/links/swing_arm/arm_knob>,
+                ]
+                color3f[] primvars:displayColor = [(0.62, 0.62, 0.64)]
+                double radius = 0.004
+                quatf xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0.12, -0.02, 0.896)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Material "latch_stud_material"
+            {
+                token outputs:surface.connect = </Wrench/links/fixed_fixture/latch_stud_material/Shader.outputs:surface>
+
+                def Shader "Shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.62, 0.62, 0.64)
+                    float inputs:roughness = 0.65
+                    token outputs:surface
+                }
+            }
+
+            def Cube "arm_stop" (
+                prepend apiSchemas = ["MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding = </Wrench/links/fixed_fixture/arm_stop_material>
+                rel physics:filteredPairs = [
+                    </Wrench/links/fixed_fixture/rack_w12_h>,
+                    </Wrench/links/fixed_fixture/rack_w12_t>,
+                    </Wrench/links/fixed_fixture/rack_w1_2_h>,
+                    </Wrench/links/fixed_fixture/rack_w1_2_t>,
+                    </Wrench/links/fixed_fixture/rack_w13_h>,
+                    </Wrench/links/fixed_fixture/rack_w13_t>,
+                    </Wrench/links/fixed_fixture/rack_w14_h>,
+                    </Wrench/links/fixed_fixture/rack_w14_t>,
+                    </Wrench/links/fixed_fixture/rack_wadj_h>,
+                    </Wrench/links/fixed_fixture/rack_wadj_t>,
+                    </Wrench/links/fixed_fixture/latch_pillar>,
+                    </Wrench/links/fixed_fixture/latch_washer>,
+                    </Wrench/links/fixed_fixture/latch_stud>,
+                    </Wrench/links/latch_turn/latch_core>,
+                    </Wrench/links/latch_head/latch_hex>,
+                    </Wrench/links/latch_head/latch_mark>,
+                    </Wrench/links/swing_arm/arm_bar>,
+                    </Wrench/links/swing_arm/arm_knob>,
+                ]
+                color3f[] primvars:displayColor = [(0.3, 0.3, 0.32)]
+                double size = 2
+                quatf xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.004, 0.01, 0.006)
+                double3 xformOp:translate = (0.206, -0.02, 0.8855)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Material "arm_stop_material"
+            {
+                token outputs:surface.connect = </Wrench/links/fixed_fixture/arm_stop_material/Shader.outputs:surface>
+
+                def Shader "Shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.3, 0.3, 0.32)
+                    float inputs:roughness = 0.65
+                    token outputs:surface
+                }
+            }
+        }
+
+        def Xform "latch_base" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0, 0)
+            float3 physics:diagonalInertia = (1e-9, 1e-9, 1e-9)
+            float physics:mass = 0.000001
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            bool physxRigidBody:enableCCD = 1
+            quatf xformOp:orient = (0.96126175, 0, 0, 0.27563718)
+            double3 xformOp:translate = (0.12, -0.02, 0.89)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Xform "latch_turn" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0, 0)
+            float3 physics:diagonalInertia = (2e-9, 2e-9, 2e-9)
+            float physics:mass = 0.005
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            bool physxRigidBody:enableCCD = 1
+            quatf xformOp:orient = (0.96126175, 0, 0, 0.27563718)
+            double3 xformOp:translate = (0.12, -0.02, 0.89)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Sphere "latch_core" (
+                prepend apiSchemas = ["MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding = </Wrench/links/latch_turn/latch_core_material>
+                rel physics:filteredPairs = [
+                    </Wrench/links/fixed_fixture/rack_w12_h>,
+                    </Wrench/links/fixed_fixture/rack_w12_t>,
+                    </Wrench/links/fixed_fixture/rack_w1_2_h>,
+                    </Wrench/links/fixed_fixture/rack_w1_2_t>,
+                    </Wrench/links/fixed_fixture/rack_w13_h>,
+                    </Wrench/links/fixed_fixture/rack_w13_t>,
+                    </Wrench/links/fixed_fixture/rack_w14_h>,
+                    </Wrench/links/fixed_fixture/rack_w14_t>,
+                    </Wrench/links/fixed_fixture/rack_wadj_h>,
+                    </Wrench/links/fixed_fixture/rack_wadj_t>,
+                    </Wrench/links/fixed_fixture/latch_pillar>,
+                    </Wrench/links/fixed_fixture/latch_washer>,
+                    </Wrench/links/fixed_fixture/latch_stud>,
+                    </Wrench/links/fixed_fixture/arm_stop>,
+                    </Wrench/links/latch_head/latch_hex>,
+                    </Wrench/links/latch_head/latch_mark>,
+                    </Wrench/links/swing_arm/arm_bar>,
+                    </Wrench/links/swing_arm/arm_knob>,
+                ]
+                color3f[] primvars:displayColor = [(0.6, 0.6, 0.65)]
+                double radius = 0.001
+                quatf xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Material "latch_core_material"
+            {
+                token outputs:surface.connect = </Wrench/links/latch_turn/latch_core_material/Shader.outputs:surface>
+
+                def Shader "Shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.6, 0.6, 0.65)
+                    float inputs:roughness = 0.65
+                    token outputs:surface
+                }
+            }
+        }
+
+        def Xform "latch_head" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (6.1233063e-19, -1.1974466e-18, 0.0034)
+            float3 physics:diagonalInertia = (9.032414e-8, 9.032416e-8, 1.344083e-7)
+            float physics:mass = 0.006
+            quatf physics:principalAxes = (-0.70710677, 1.4719616e-17, 1.9626155e-17, 0.70710677)
+            bool physxRigidBody:enableCCD = 1
+            quatf xformOp:orient = (0.96126175, 0, 0, 0.27563718)
+            double3 xformOp:translate = (0.12, -0.02, 0.89)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Mesh "latch_hex" (
+                prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                int[] faceVertexCounts = [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+                int[] faceVertexIndices = [3, 2, 1, 3, 0, 5, 3, 1, 0, 3, 5, 4, 10, 3, 4, 10, 9, 3, 7, 0, 1, 7, 6, 0, 11, 5, 0, 11, 0, 6, 11, 4, 5, 11, 10, 4, 8, 9, 10, 8, 6, 7, 8, 11, 6, 8, 10, 11, 8, 2, 3, 8, 3, 9, 8, 1, 2, 8, 7, 1]
+                rel material:binding = </Wrench/links/latch_head/latch_hex_material>
+                rel material:binding:physics = </Wrench/links/latch_head/latch_hex_material> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                uniform token physics:approximation = "convexHull"
+                rel physics:filteredPairs = [
+                    </Wrench/links/latch_turn/latch_core>,
+                    </Wrench/links/latch_head/latch_mark>,
+                    </Wrench/links/fixed_fixture/rack_w12_h>,
+                    </Wrench/links/fixed_fixture/rack_w12_t>,
+                    </Wrench/links/fixed_fixture/rack_w1_2_h>,
+                    </Wrench/links/fixed_fixture/rack_w1_2_t>,
+                    </Wrench/links/fixed_fixture/rack_w13_h>,
+                    </Wrench/links/fixed_fixture/rack_w13_t>,
+                    </Wrench/links/fixed_fixture/rack_w14_h>,
+                    </Wrench/links/fixed_fixture/rack_w14_t>,
+                    </Wrench/links/fixed_fixture/rack_wadj_h>,
+                    </Wrench/links/fixed_fixture/rack_wadj_t>,
+                    </Wrench/links/fixed_fixture/latch_pillar>,
+                    </Wrench/links/fixed_fixture/latch_washer>,
+                    </Wrench/links/fixed_fixture/latch_stud>,
+                    </Wrench/links/fixed_fixture/arm_stop>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                point3f[] points = [(0.00635, 0.00366617, 0), (4.48977e-19, 0.00733235, 0), (-0.00635, 0.00366617, 0), (-0.00635, -0.00366617, 0), (-1.34693e-18, -0.00733235, 0), (0.00635, -0.00366617, 0), (0.00635, 0.00366617, 0.0068), (4.48977e-19, 0.00733235, 0.0068), (-0.00635, 0.00366617, 0.0068), (-0.00635, -0.00366617, 0.0068), (-1.34693e-18, -0.00733235, 0.0068), (0.00635, -0.00366617, 0.0068)]
+                color3f[] primvars:displayColor = [(0.62, 0.6, 0.55)]
+                uniform token subdivisionScheme = "none"
+                quatf xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Material "latch_hex_material" (
+                prepend apiSchemas = ["PhysicsMaterialAPI"]
+            )
+            {
+                token outputs:surface.connect = </Wrench/links/latch_head/latch_hex_material/Shader.outputs:surface>
+                float physics:dynamicFriction = 0.15
+                float physics:restitution = 0
+                float physics:staticFriction = 0.15
+
+                def Shader "Shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.62, 0.6, 0.55)
+                    float inputs:roughness = 0.65
+                    token outputs:surface
+                }
+            }
+
+            def Cube "latch_mark" (
+                prepend apiSchemas = ["MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding = </Wrench/links/latch_head/latch_mark_material>
+                rel physics:filteredPairs = [
+                    </Wrench/links/latch_turn/latch_core>,
+                    </Wrench/links/latch_head/latch_hex>,
+                    </Wrench/links/swing_arm/arm_bar>,
+                    </Wrench/links/swing_arm/arm_knob>,
+                    </Wrench/links/fixed_fixture/rack_w12_h>,
+                    </Wrench/links/fixed_fixture/rack_w12_t>,
+                    </Wrench/links/fixed_fixture/rack_w1_2_h>,
+                    </Wrench/links/fixed_fixture/rack_w1_2_t>,
+                    </Wrench/links/fixed_fixture/rack_w13_h>,
+                    </Wrench/links/fixed_fixture/rack_w13_t>,
+                    </Wrench/links/fixed_fixture/rack_w14_h>,
+                    </Wrench/links/fixed_fixture/rack_w14_t>,
+                    </Wrench/links/fixed_fixture/rack_wadj_h>,
+                    </Wrench/links/fixed_fixture/rack_wadj_t>,
+                    </Wrench/links/fixed_fixture/latch_pillar>,
+                    </Wrench/links/fixed_fixture/latch_washer>,
+                    </Wrench/links/fixed_fixture/latch_stud>,
+                    </Wrench/links/fixed_fixture/arm_stop>,
+                ]
+                color3f[] primvars:displayColor = [(0.95, 0.85, 0.1)]
+                double size = 2
+                quatf xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.0018, 0.0018, 0.0002)
+                double3 xformOp:translate = (0.00381, 0, 0.007)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Material "latch_mark_material"
+            {
+                token outputs:surface.connect = </Wrench/links/latch_head/latch_mark_material/Shader.outputs:surface>
+
+                def Shader "Shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.95, 0.85, 0.1)
+                    float inputs:roughness = 0.65
+                    token outputs:surface
+                }
+            }
+        }
+
+        def Xform "swing_arm" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0.044444446, 0.0022444443)
+            float3 physics:diagonalInertia = (0.0000063908637, 0.00008128412, 0.00008317498)
+            float physics:mass = 0.09
+            quatf physics:principalAxes = (0.47530314, 0.5235331, 0.47530314, 0.5235331)
+            bool physxRigidBody:enableCCD = 1
+            quatf xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.12, -0.02, 0.8855)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cube "arm_bar" (
+                prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding = </Wrench/links/swing_arm/arm_bar_material>
+                rel material:binding:physics = </Wrench/links/swing_arm/arm_bar_material> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Wrench/links/latch_turn/latch_core>,
+                    </Wrench/links/latch_head/latch_mark>,
+                    </Wrench/links/fixed_fixture/rack_w12_h>,
+                    </Wrench/links/fixed_fixture/rack_w12_t>,
+                    </Wrench/links/fixed_fixture/rack_w1_2_h>,
+                    </Wrench/links/fixed_fixture/rack_w1_2_t>,
+                    </Wrench/links/fixed_fixture/rack_w13_h>,
+                    </Wrench/links/fixed_fixture/rack_w13_t>,
+                    </Wrench/links/fixed_fixture/rack_w14_h>,
+                    </Wrench/links/fixed_fixture/rack_w14_t>,
+                    </Wrench/links/fixed_fixture/rack_wadj_h>,
+                    </Wrench/links/fixed_fixture/rack_wadj_t>,
+                    </Wrench/links/fixed_fixture/latch_pillar>,
+                    </Wrench/links/fixed_fixture/latch_washer>,
+                    </Wrench/links/fixed_fixture/latch_stud>,
+                    </Wrench/links/fixed_fixture/arm_stop>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.25, 0.55, 0.35)]
+                double size = 2
+                quatf xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.009, 0.049, 0.0022)
+                double3 xformOp:translate = (0, 0.04, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Material "arm_bar_material" (
+                prepend apiSchemas = ["PhysicsMaterialAPI"]
+            )
+            {
+                token outputs:surface.connect = </Wrench/links/swing_arm/arm_bar_material/Shader.outputs:surface>
+                float physics:dynamicFriction = 1
+                float physics:restitution = 0
+                float physics:staticFriction = 1
+
+                def Shader "Shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.25, 0.55, 0.35)
+                    float inputs:roughness = 0.65
+                    token outputs:surface
+                }
+            }
+
+            def Cylinder "arm_knob" (
+                prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.036
+                rel material:binding = </Wrench/links/swing_arm/arm_knob_material>
+                rel material:binding:physics = </Wrench/links/swing_arm/arm_knob_material> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Wrench/links/latch_turn/latch_core>,
+                    </Wrench/links/latch_head/latch_mark>,
+                    </Wrench/links/fixed_fixture/rack_w12_h>,
+                    </Wrench/links/fixed_fixture/rack_w12_t>,
+                    </Wrench/links/fixed_fixture/rack_w1_2_h>,
+                    </Wrench/links/fixed_fixture/rack_w1_2_t>,
+                    </Wrench/links/fixed_fixture/rack_w13_h>,
+                    </Wrench/links/fixed_fixture/rack_w13_t>,
+                    </Wrench/links/fixed_fixture/rack_w14_h>,
+                    </Wrench/links/fixed_fixture/rack_w14_t>,
+                    </Wrench/links/fixed_fixture/rack_wadj_h>,
+                    </Wrench/links/fixed_fixture/rack_wadj_t>,
+                    </Wrench/links/fixed_fixture/latch_pillar>,
+                    </Wrench/links/fixed_fixture/latch_washer>,
+                    </Wrench/links/fixed_fixture/latch_stud>,
+                    </Wrench/links/fixed_fixture/arm_stop>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.2, 0.2, 0.2)]
+                double radius = 0.006
+                quatf xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0.08, 0.0202)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Material "arm_knob_material" (
+                prepend apiSchemas = ["PhysicsMaterialAPI"]
+            )
+            {
+                token outputs:surface.connect = </Wrench/links/swing_arm/arm_knob_material/Shader.outputs:surface>
+                float physics:dynamicFriction = 1
+                float physics:restitution = 0
+                float physics:staticFriction = 1
+
+                def Shader "Shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.2, 0.2, 0.2)
+                    float inputs:roughness = 0.65
+                    token outputs:surface
+                }
+            }
+        }
+    }
+
+    def "joints"
+    {
+        def PhysicsFixedJoint "world"
+        {
+            rel physics:body1 = </Wrench/links/base>
+        }
+
+        def PhysicsFixedJoint "fixed_fixed_fixture"
+        {
+            rel physics:body0 = </Wrench/links/base>
+            rel physics:body1 = </Wrench/links/fixed_fixture>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0, 0, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+        }
+
+        def PhysicsFixedJoint "fixed_latch_base"
+        {
+            rel physics:body0 = </Wrench/links/base>
+            rel physics:body1 = </Wrench/links/latch_base>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0.12, -0.02, 0.89)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0.96126175, 0, 0, 0.27563718)
+        }
+
+        def PhysicsRevoluteJoint "latch_turn" (
+            prepend apiSchemas = ["PhysicsDriveAPI:angular", "PhysxJointAPI", "PhysxJointAxisAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0.000008726646
+            float drive:angular:physics:maxForce = inf
+            float drive:angular:physics:stiffness = 0
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </Wrench/links/latch_base>
+            rel physics:body1 = </Wrench/links/latch_turn>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0, 0, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0.70710677, 0, -0.70710677, 0)
+            quatf physics:localRot1 = (0.70710677, 0, -0.70710677, 0)
+            float physics:lowerLimit = -57295780
+            float physics:upperLimit = 57295780
+            float physxJoint:armature = 0.001
+            float physxJointAxis:angular:dynamicFrictionEffort = 0.02
+            float physxJointAxis:angular:staticFrictionEffort = 0.02
+        }
+
+        def PhysicsRevoluteJoint "latch_slip" (
+            prepend apiSchemas = ["PhysicsDriveAPI:angular", "PhysxJointAPI", "PhysxJointAxisAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0.0000034906584
+            float drive:angular:physics:maxForce = inf
+            float drive:angular:physics:stiffness = 0
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </Wrench/links/latch_turn>
+            rel physics:body1 = </Wrench/links/latch_head>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0, 0, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0.70710677, 0, -0.70710677, 0)
+            quatf physics:localRot1 = (0.70710677, 0, -0.70710677, 0)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 0
+            float physxJoint:armature = 0.001
+            float physxJointAxis:angular:dynamicFrictionEffort = 0.005
+            float physxJointAxis:angular:staticFrictionEffort = 0.005
+        }
+
+        def PhysicsRevoluteJoint "arm_hinge" (
+            prepend apiSchemas = ["PhysicsDriveAPI:angular", "PhysxJointAPI", "PhysxJointAxisAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0.0008726646
+            float drive:angular:physics:maxForce = inf
+            float drive:angular:physics:stiffness = 0
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </Wrench/links/base>
+            rel physics:body1 = </Wrench/links/swing_arm>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0.12, -0.02, 0.8855)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0.70710677, 0, -0.70710677, 0)
+            quatf physics:localRot1 = (0.70710677, 0, -0.70710677, 0)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 0
+            float physxJoint:armature = 0.001
+            float physxJointAxis:angular:dynamicFrictionEffort = 0.02
+            float physxJointAxis:angular:staticFrictionEffort = 0.02
+        }
+    }
+}
+

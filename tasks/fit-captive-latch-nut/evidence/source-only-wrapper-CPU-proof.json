@@ -1,0 +1,26 @@
+{
+  "status": "PASS_SOURCE_ONLY_REPRO_WRAPPER_CPU",
+  "at_UTC": "2026-11-10T20:34:52.515946+00:00",
+  "source": "/mnt/bum/jjenchen/robocurve/artifacts/continuation/b1-reset-sentinel-verification-20261110/publication-source",
+  "wrapper_sha256": "48e7275d091b43f4c015f58a389d6dc520a24289813038d4406e01802425a567",
+  "pins_sha256": "0f171d4bdf47150257de53ed2171ed00d91a5f7d89e3373c37541242e21ab2b6",
+  "inventory_sha256": "b7809444964108e8a618122ee74c16cbe2a5f0b1426f735e0d98a961dd7b17f2",
+  "source_files_pinned": 78,
+  "source_bytes": 1889657,
+  "asset_bytes": 31661990,
+  "asset_sha256": "e3daabf3dd197026704a4cefb213d5a777657cc6a36b75adc18d65bdbb44f45b",
+  "tests": [
+    "full offline size/SHA/member/source/receipt checks PASS",
+    "cached real raw row tamper rejects",
+    "published scorer source tamper rejects",
+    "restored exact bytes/source and reused cache PASS"
+  ],
+  "core_fingerprint": "0d5b3276c7873feb72cea378e91eb0c166ebce7d32ec24a722fad1cbc41e072d",
+  "helper_semantics": "Actual demo/model helpers copied byteexact; only new stdlib publication/cache wrapper added",
+  "model_entry_sha256": "55cee57d08dd53d52c5fba058c489dd78d94933f23ba4f7c2d8c8baf49764999",
+  "demo_entry_sha256": "e8762f1b0ccd2a2ec894de59e92f29cf86b4f4eb2bb6f514906652afba5daccd",
+  "SDK_imports": 0,
+  "simulation_starts": 0,
+  "model_calls": 0,
+  "release_published": false
+}

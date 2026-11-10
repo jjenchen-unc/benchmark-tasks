@@ -1,0 +1,7 @@
+# Preserve exact generated USD bytes used by actual reviewed physics.
+b1-bimanual-interface-v11/candidate/assets/fixture.usda whitespace=-blank-at-eof
+b1-bimanual-interface-v11/candidate/assets/w12.usda whitespace=-blank-at-eof
+b1-bimanual-interface-v11/candidate/assets/w1_2.usda whitespace=-blank-at-eof
+b1-bimanual-interface-v11/candidate/assets/w13.usda whitespace=-blank-at-eof
+b1-bimanual-interface-v11/candidate/assets/w14.usda whitespace=-blank-at-eof
+b1-bimanual-interface-v11/candidate/assets/wadj.usda whitespace=-blank-at-eof

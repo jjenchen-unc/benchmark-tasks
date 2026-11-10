@@ -1,0 +1,20 @@
+{
+  "title": "Fit a wrench, release a captive latch nut and open its arm",
+  "category": "Impact on jobs",
+  "keywords": [
+    "tool fit",
+    "wrench",
+    "maintenance",
+    "damage avoidance",
+    "latch"
+  ],
+  "instruction": "Select and fit a wrench from the rack to the unmarked captive nut, loosen it, and swing the arm to its open stop. Return the tools and keep both hands and every tool off the nut and arm for the final 20 seconds. Do not round the nut.",
+  "context": "Industrial machinery maintenance requires choosing a close metric/imperial wrench fit before applying torque. A wrong fit can permanently round a captive nut before its passive clamp is safely released. Unlike fixed-wrench pipe-union or ratchet-direction tasks, this combines unmarked tool-fit selection, clearance-sensitive damage and contact-free proof after opening a released arm.",
+  "setup": "Fixed source S/42 physical case. Dual YAM station, actual unchanged default robot bases world(0,+0.305,0.75)m and(0,-0.305,0.75)m, unchanged SDK table/camera stand, teacher uses the left arm; right starts parked, and the model accepts both genuine seven-channel arm/gripper halves, no robot mount changes. Source task geometry transformed by yaw180deg and translation(0.40,0.10,-0.0525)m. Tabletop z0.7475m. Five separate steel open-end tools: 12mm,1/2in,13mm,14mm and preset adjustable; jaws+0.05mm on fixed tools, adjustable opening13.546mm,160/200mm nominal lengths,5mm thickness. Jaw centres world(0.30,0.50/0.45/0.40/0.35/0.30,0.785)m, handles point+x. Rack has ten steel blocks. Captive steel nut12.70mm AF,6.8mm tall, on22mm square pillar, bearing face world(0.28,0.12,0.8375)m; size not marked. Yellow paint mark. Steel swing arm80mm lever with12mm diameter black knob, vertical pivot at(0.28,0.12,0.833)m; starts toward-y, stop at90deg toward-x. See b1-bimanual-interface-v11/candidate/physical-inventory.json for every primitive, exact poses, masses, friction and collision exclusions. Both actual8-DOF actuator cap arrays were measured as27/27/27/7/7/7Nm and40/40N finger efforts. Primitive materials, masses, friction estimates and collision masks are enumerated in that inventory; the ten-block rack is fixed and all five tools are free.",
+  "scoring": "Score the current final state, not best-so-far.1.0: nut backoff>=60deg, arm free/open>=85deg, and no hand/tool touching arm or nut, continuously20s.0.5: released nut and no such contact20s, regardless of arm angle. The passive clamp releases only at strictly>60deg. Any rounding history, invalid measurement, out-of-bounds tool or terminal force guard vetoes credit. Wrist>80N for100ms aborts; wrist>30N for20ms or any nonfinger-link20ms-average load>50N ends the port episode at the reporting boundary. Tool-return is instructed but not separately scored by a rack-pose predicate.",
+  "run_limit": "3870 genuine14D joint/gripper controls at20Hz (193.5 simulated seconds),25 measured2ms physics substeps per control; terminated episodes reject further steps.",
+  "reset_notes": "Reset restores the same source42 physical layout and properties, all five free wrench poses, nut turn/slip and arm to zero, locks, appearance, damage and timing. Harness-derived seed values identify episodes; they are accepted without randomizing this declared fixed case. Replace damaged real nut before a real trial; no simulated damage carries across reset.",
+  "fidelity": "Rigid primitive/convex-hex contacts; no thread translation or deformation mesh. Torque scale~1/100 service hardware; irreversible clearance/torque damage and passive joint-limit release; adjustable worm visual. Panda down/yaw authoring becomes genuine14D YAM, total27/7Nm incl gravity,40N/finger. Port force guards end episodes. Fixed layout; teacher reads simulator state. Simulated sensors/caps checked, no hardware validation. Native320x176 camera occlusion remains.",
+  "scores": "Dream-1:0.0 (3870controls,960requests,onecontinuoussession); genuine14D demo:1.0 (2069controls,51725native samples,20.048s hands-free full hold).",
+  "media": "M-76JUKU"
+}

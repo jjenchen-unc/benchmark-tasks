@@ -1,0 +1,13 @@
+{
+  "status": "PASS_ARCHIVE_SHA_AND_ALL_MEMBERS",
+  "archive": "/mnt/bum/jjenchen/robocurve/artifacts/continuation/brev-final-batch-20261110-1550/B1-v11-first-valid-model-v2-full.tgz",
+  "bytes": 618984910,
+  "sha256": "223c0d94ad6e1fbac45ba07cd43c682705868c7f39f3b5cb68f0543bbd5170bf",
+  "files_verified": 11730,
+  "raw_bytes": 2615116101,
+  "at_UTC": "2026-11-10T20:34:06.615717+00:00",
+  "local_bulk_file_created": false,
+  "model_score": 0.0,
+  "model_steps": 3870,
+  "full_calibration_demo_prior_invalid_source_archive_sha256": "601dd9f209dd1a55b6cada465daa5a1bb69fb678878fb39184fb6e60e9512f2a"
+}

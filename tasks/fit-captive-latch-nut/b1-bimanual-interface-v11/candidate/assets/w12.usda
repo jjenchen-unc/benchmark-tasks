@@ -1,0 +1,434 @@
+#usda 1.0
+(
+    defaultPrim = "Wrench"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "Wrench" (
+    prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+)
+{
+    point3f physics:centerOfMass = (-8.9161365e-20, -0.045977052, 0)
+    float3 physics:diagonalInertia = (0.0000069108833, 0.00031662764, 0.00032306352)
+    float physics:mass = 0.114
+    quatf physics:principalAxes = (-0.70710677, 0, 0, 0.70710677)
+    bool physxRigidBody:enableCCD = 1
+    quatf xformOp:orient = (1, 0, 0, 0)
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+    def Cube "w12_jawm" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+    )
+    {
+        rel material:binding = </Wrench/w12_jawm_material>
+        rel material:binding:physics = </Wrench/w12_jawm_material> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        float physxCollision:contactOffset = 0.0001
+        float physxCollision:restOffset = 0
+        color3f[] primvars:displayColor = [(0.72, 0.73, 0.76)]
+        double size = 2
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (0.0045, 0.00845707, 0.0025)
+        double3 xformOp:translate = (-0.010525, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Material "w12_jawm_material" (
+        prepend apiSchemas = ["PhysicsMaterialAPI"]
+    )
+    {
+        token outputs:surface.connect = </Wrench/w12_jawm_material/Shader.outputs:surface>
+        float physics:dynamicFriction = 0.2
+        float physics:restitution = 0
+        float physics:staticFriction = 0.2
+
+        def Shader "Shader"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            color3f inputs:diffuseColor = (0.72, 0.73, 0.76)
+            float inputs:roughness = 0.65
+            token outputs:surface
+        }
+    }
+
+    def Cube "w12_flarem" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+    )
+    {
+        rel material:binding = </Wrench/w12_flarem_material>
+        rel material:binding:physics = </Wrench/w12_flarem_material> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        float physxCollision:contactOffset = 0.0001
+        float physxCollision:restOffset = 0
+        color3f[] primvars:displayColor = [(0.72, 0.73, 0.76)]
+        double size = 2
+        quatf xformOp:orient = (0.9914449, 0, 0, 0.130526)
+        float3 xformOp:scale = (0.0045, 0.002, 0.0025)
+        double3 xformOp:translate = (-0.0108893, 0.00922424, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Material "w12_flarem_material" (
+        prepend apiSchemas = ["PhysicsMaterialAPI"]
+    )
+    {
+        token outputs:surface.connect = </Wrench/w12_flarem_material/Shader.outputs:surface>
+        float physics:dynamicFriction = 0.2
+        float physics:restitution = 0
+        float physics:staticFriction = 0.2
+
+        def Shader "Shader"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            color3f inputs:diffuseColor = (0.72, 0.73, 0.76)
+            float inputs:roughness = 0.65
+            token outputs:surface
+        }
+    }
+
+    def Cube "w12_jawp" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+    )
+    {
+        rel material:binding = </Wrench/w12_jawp_material>
+        rel material:binding:physics = </Wrench/w12_jawp_material> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        float physxCollision:contactOffset = 0.0001
+        float physxCollision:restOffset = 0
+        color3f[] primvars:displayColor = [(0.72, 0.73, 0.76)]
+        double size = 2
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (0.0045, 0.00845707, 0.0025)
+        double3 xformOp:translate = (0.010525, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Material "w12_jawp_material" (
+        prepend apiSchemas = ["PhysicsMaterialAPI"]
+    )
+    {
+        token outputs:surface.connect = </Wrench/w12_jawp_material/Shader.outputs:surface>
+        float physics:dynamicFriction = 0.2
+        float physics:restitution = 0
+        float physics:staticFriction = 0.2
+
+        def Shader "Shader"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            color3f inputs:diffuseColor = (0.72, 0.73, 0.76)
+            float inputs:roughness = 0.65
+            token outputs:surface
+        }
+    }
+
+    def Cube "w12_flarep" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+    )
+    {
+        rel material:binding = </Wrench/w12_flarep_material>
+        rel material:binding:physics = </Wrench/w12_flarep_material> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        float physxCollision:contactOffset = 0.0001
+        float physxCollision:restOffset = 0
+        color3f[] primvars:displayColor = [(0.72, 0.73, 0.76)]
+        double size = 2
+        quatf xformOp:orient = (0.9914449, 0, 0, -0.130526)
+        float3 xformOp:scale = (0.0045, 0.002, 0.0025)
+        double3 xformOp:translate = (0.0108893, 0.00922424, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Material "w12_flarep_material" (
+        prepend apiSchemas = ["PhysicsMaterialAPI"]
+    )
+    {
+        token outputs:surface.connect = </Wrench/w12_flarep_material/Shader.outputs:surface>
+        float physics:dynamicFriction = 0.2
+        float physics:restitution = 0
+        float physics:staticFriction = 0.2
+
+        def Shader "Shader"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            color3f inputs:diffuseColor = (0.72, 0.73, 0.76)
+            float inputs:roughness = 0.65
+            token outputs:surface
+        }
+    }
+
+    def Cube "w12_throat" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+    )
+    {
+        rel material:binding = </Wrench/w12_throat_material>
+        rel material:binding:physics = </Wrench/w12_throat_material> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        float physxCollision:contactOffset = 0.0001
+        float physxCollision:restOffset = 0
+        color3f[] primvars:displayColor = [(0.72, 0.73, 0.76)]
+        double size = 2
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (0.015025, 0.002, 0.0025)
+        double3 xformOp:translate = (0, -0.0104571, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Material "w12_throat_material" (
+        prepend apiSchemas = ["PhysicsMaterialAPI"]
+    )
+    {
+        token outputs:surface.connect = </Wrench/w12_throat_material/Shader.outputs:surface>
+        float physics:dynamicFriction = 0.2
+        float physics:restitution = 0
+        float physics:staticFriction = 0.2
+
+        def Shader "Shader"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            color3f inputs:diffuseColor = (0.72, 0.73, 0.76)
+            float inputs:roughness = 0.65
+            token outputs:surface
+        }
+    }
+
+    def Cube "w12_handle" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+    )
+    {
+        rel material:binding = </Wrench/w12_handle_material>
+        rel material:binding:physics = </Wrench/w12_handle_material> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        float physxCollision:contactOffset = 0.0001
+        float physxCollision:restOffset = 0
+        color3f[] primvars:displayColor = [(0.72, 0.73, 0.76)]
+        double size = 2
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (0.006, 0.0737715, 0.0025)
+        double3 xformOp:translate = (0, -0.0862285, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Material "w12_handle_material" (
+        prepend apiSchemas = ["PhysicsMaterialAPI"]
+    )
+    {
+        token outputs:surface.connect = </Wrench/w12_handle_material/Shader.outputs:surface>
+        float physics:dynamicFriction = 1
+        float physics:restitution = 0
+        float physics:staticFriction = 1
+
+        def Shader "Shader"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            color3f inputs:diffuseColor = (0.72, 0.73, 0.76)
+            float inputs:roughness = 0.65
+            token outputs:surface
+        }
+    }
+
+    def Cube "w12_stamp" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Wrench/w12_stamp_material>
+        color3f[] primvars:displayColor = [(0.25, 0.25, 0.28)]
+        double size = 2
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (0.005, 0.012, 0.0002)
+        double3 xformOp:translate = (0, -0.05, 0.0027)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Material "w12_stamp_material"
+    {
+        token outputs:surface.connect = </Wrench/w12_stamp_material/Shader.outputs:surface>
+
+        def Shader "Shader"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            color3f inputs:diffuseColor = (0.25, 0.25, 0.28)
+            float inputs:roughness = 0.65
+            token outputs:surface
+        }
+    }
+
+    def Cube "size_0_0_1"
+    {
+        color3f[] primvars:displayColor = [(0.97, 0.97, 0.97)]
+        double size = 1
+        float3 xformOp:scale = (0.00055, 0.00055, 0.00002)
+        double3 xformOp:translate = (-0.0013000000000000002, -0.0487, 0.00292)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "size_0_1_0"
+    {
+        color3f[] primvars:displayColor = [(0.97, 0.97, 0.97)]
+        double size = 1
+        float3 xformOp:scale = (0.00055, 0.00055, 0.00002)
+        double3 xformOp:translate = (-0.0019500000000000001, -0.049350000000000005, 0.00292)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "size_0_1_1"
+    {
+        color3f[] primvars:displayColor = [(0.97, 0.97, 0.97)]
+        double size = 1
+        float3 xformOp:scale = (0.00055, 0.00055, 0.00002)
+        double3 xformOp:translate = (-0.0013000000000000002, -0.049350000000000005, 0.00292)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "size_0_2_1"
+    {
+        color3f[] primvars:displayColor = [(0.97, 0.97, 0.97)]
+        double size = 1
+        float3 xformOp:scale = (0.00055, 0.00055, 0.00002)
+        double3 xformOp:translate = (-0.0013000000000000002, -0.05, 0.00292)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "size_0_3_1"
+    {
+        color3f[] primvars:displayColor = [(0.97, 0.97, 0.97)]
+        double size = 1
+        float3 xformOp:scale = (0.00055, 0.00055, 0.00002)
+        double3 xformOp:translate = (-0.0013000000000000002, -0.05065, 0.00292)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "size_0_4_0"
+    {
+        color3f[] primvars:displayColor = [(0.97, 0.97, 0.97)]
+        double size = 1
+        float3 xformOp:scale = (0.00055, 0.00055, 0.00002)
+        double3 xformOp:translate = (-0.0019500000000000001, -0.051300000000000005, 0.00292)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "size_0_4_1"
+    {
+        color3f[] primvars:displayColor = [(0.97, 0.97, 0.97)]
+        double size = 1
+        float3 xformOp:scale = (0.00055, 0.00055, 0.00002)
+        double3 xformOp:translate = (-0.0013000000000000002, -0.051300000000000005, 0.00292)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "size_0_4_2"
+    {
+        color3f[] primvars:displayColor = [(0.97, 0.97, 0.97)]
+        double size = 1
+        float3 xformOp:scale = (0.00055, 0.00055, 0.00002)
+        double3 xformOp:translate = (-0.0006500000000000002, -0.051300000000000005, 0.00292)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "size_1_0_0"
+    {
+        color3f[] primvars:displayColor = [(0.97, 0.97, 0.97)]
+        double size = 1
+        float3 xformOp:scale = (0.00055, 0.00055, 0.00002)
+        double3 xformOp:translate = (0.0006499999999999995, -0.0487, 0.00292)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "size_1_0_1"
+    {
+        color3f[] primvars:displayColor = [(0.97, 0.97, 0.97)]
+        double size = 1
+        float3 xformOp:scale = (0.00055, 0.00055, 0.00002)
+        double3 xformOp:translate = (0.0013, -0.0487, 0.00292)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "size_1_0_2"
+    {
+        color3f[] primvars:displayColor = [(0.97, 0.97, 0.97)]
+        double size = 1
+        float3 xformOp:scale = (0.00055, 0.00055, 0.00002)
+        double3 xformOp:translate = (0.0019499999999999995, -0.0487, 0.00292)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "size_1_1_2"
+    {
+        color3f[] primvars:displayColor = [(0.97, 0.97, 0.97)]
+        double size = 1
+        float3 xformOp:scale = (0.00055, 0.00055, 0.00002)
+        double3 xformOp:translate = (0.0019499999999999995, -0.049350000000000005, 0.00292)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "size_1_2_0"
+    {
+        color3f[] primvars:displayColor = [(0.97, 0.97, 0.97)]
+        double size = 1
+        float3 xformOp:scale = (0.00055, 0.00055, 0.00002)
+        double3 xformOp:translate = (0.0006499999999999995, -0.05, 0.00292)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "size_1_2_1"
+    {
+        color3f[] primvars:displayColor = [(0.97, 0.97, 0.97)]
+        double size = 1
+        float3 xformOp:scale = (0.00055, 0.00055, 0.00002)
+        double3 xformOp:translate = (0.0013, -0.05, 0.00292)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "size_1_2_2"
+    {
+        color3f[] primvars:displayColor = [(0.97, 0.97, 0.97)]
+        double size = 1
+        float3 xformOp:scale = (0.00055, 0.00055, 0.00002)
+        double3 xformOp:translate = (0.0019499999999999995, -0.05, 0.00292)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "size_1_3_0"
+    {
+        color3f[] primvars:displayColor = [(0.97, 0.97, 0.97)]
+        double size = 1
+        float3 xformOp:scale = (0.00055, 0.00055, 0.00002)
+        double3 xformOp:translate = (0.0006499999999999995, -0.05065, 0.00292)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "size_1_4_0"
+    {
+        color3f[] primvars:displayColor = [(0.97, 0.97, 0.97)]
+        double size = 1
+        float3 xformOp:scale = (0.00055, 0.00055, 0.00002)
+        double3 xformOp:translate = (0.0006499999999999995, -0.051300000000000005, 0.00292)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "size_1_4_1"
+    {
+        color3f[] primvars:displayColor = [(0.97, 0.97, 0.97)]
+        double size = 1
+        float3 xformOp:scale = (0.00055, 0.00055, 0.00002)
+        double3 xformOp:translate = (0.0013, -0.051300000000000005, 0.00292)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "size_1_4_2"
+    {
+        color3f[] primvars:displayColor = [(0.97, 0.97, 0.97)]
+        double size = 1
+        float3 xformOp:scale = (0.00055, 0.00055, 0.00002)
+        double3 xformOp:translate = (0.0019499999999999995, -0.051300000000000005, 0.00292)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+}
+

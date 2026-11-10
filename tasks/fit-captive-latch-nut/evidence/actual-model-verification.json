@@ -1,0 +1,17 @@
+{
+  "status": "ACTUAL_COMPLETED_DREAM_TRIAL_PENDING_ROOT_MEDIA_REVIEW",
+  "score": 0.0,
+  "steps": 3870,
+  "sessions": 1,
+  "request_count": 960,
+  "frames_per_camera": 3871,
+  "source_manifest_sha256": "f74275c97062c289800a7bd532674504d8ce0b584bc1d00c2576966504a6daaa",
+  "summary_sha256": "01394738d6109f168ca206e7ae8117f17ce31a5c154c815f6df394249b9c66b7",
+  "record_sha256": "26548b773d5acbe88a8ab1f6019e5dd418561ee87bfb7be8816db0d3e42b43d3",
+  "media_sha256": {
+    "top_cam.mp4": "b61baf45413e57108ad4b7fccf3bf5f222715a6b0408cbd6203c3d3f91f2f88c",
+    "left_cam.mp4": "637dd09ca102931a3cea62ea4e3d2457bdc2725466a1f3a56128fd8763cd0fa4",
+    "right_cam.mp4": "c0129eea52d858d5f965fb1e7395dd5e119a3e658578869ed55ce02c0d596d02"
+  },
+  "submission_ready": false
+}

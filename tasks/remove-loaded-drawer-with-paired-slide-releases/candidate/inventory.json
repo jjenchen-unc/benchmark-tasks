@@ -1,0 +1,167 @@
+{
+  "units": "metres,kg,N,seconds; size in fixture geoms are half extents for boxes, radius/halfheight for cylinders",
+  "native_table_z": 0.8,
+  "arena_table_z": 0.75,
+  "rigid_transform": {
+    "rotation_z_rad": 3.141592653589793,
+    "translation": [
+      0.42,
+      -0.17,
+      -0.05
+    ]
+  },
+  "robot_bases": "Actual SDK tabletop: (0,+/-0.30,0.75), identity rotation, existing table supports. No robot base adaptation. Robot/furniture clearance unverified.",
+  "root_assets": [
+    {
+      "size": [
+        0.341114143213063,
+        1.02,
+        0.1519999999999999
+      ],
+      "name": "carcasses",
+      "body_ids": [
+        0,
+        1,
+        12
+      ],
+      "native_pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "articulation": false,
+      "fixed": true,
+      "mass": 8.978400000000002
+    },
+    {
+      "size": [
+        0.3020000002528811,
+        0.33,
+        0.10500000000000001
+      ],
+      "name": "drawer_U",
+      "body_ids": [
+        2,
+        3,
+        4
+      ],
+      "native_pos": [
+        0.22,
+        -0.17,
+        0.86
+      ],
+      "articulation": true,
+      "fixed": false,
+      "mass": 0.9140000000000001
+    },
+    {
+      "size": [
+        0.3020000002528811,
+        0.33,
+        0.10500000000000001
+      ],
+      "name": "drawer_L",
+      "body_ids": [
+        5,
+        6,
+        7
+      ],
+      "native_pos": [
+        0.22,
+        0.17,
+        0.86
+      ],
+      "articulation": true,
+      "fixed": false,
+      "mass": 0.8940000000000001
+    },
+    {
+      "size": [
+        0.17,
+        0.056,
+        0.051000000000000004
+      ],
+      "name": "U_box",
+      "body_ids": [
+        8
+      ],
+      "native_pos": [
+        0.22,
+        -0.115,
+        0.8565
+      ],
+      "articulation": false,
+      "fixed": false,
+      "mass": 0.730887
+    },
+    {
+      "size": [
+        0.05,
+        0.05,
+        0.07300000000000001
+      ],
+      "name": "U_jar",
+      "body_ids": [
+        9
+      ],
+      "native_pos": [
+        0.22,
+        -0.225,
+        0.8665
+      ],
+      "articulation": false,
+      "fixed": false,
+      "mass": 0.26
+    },
+    {
+      "size": [
+        0.17,
+        0.056,
+        0.051000000000000004
+      ],
+      "name": "L_box",
+      "body_ids": [
+        10
+      ],
+      "native_pos": [
+        0.22,
+        0.225,
+        0.8565
+      ],
+      "articulation": false,
+      "fixed": false,
+      "mass": 0.966361
+    },
+    {
+      "size": [
+        0.05,
+        0.05,
+        0.07300000000000001
+      ],
+      "name": "L_jar",
+      "body_ids": [
+        11
+      ],
+      "native_pos": [
+        0.22,
+        0.115,
+        0.8665
+      ],
+      "articulation": false,
+      "fixed": false,
+      "mass": 0.26
+    }
+  ],
+  "physical_parameters": {
+    "paddle_left": "up",
+    "paddle_right": "up",
+    "exit_mode": "hook",
+    "box_upper_weight": 7.17,
+    "box_upper_com": "rear",
+    "box_lower_weight": 9.48,
+    "box_lower_com": "rear"
+  },
+  "complete_primitive_material_pose_mass_inventory": "fixture.json:13 source bodies including world,120 geoms of which116 collide; compiled physical mass, COM, diagonal inertia and inertia orientation retained.",
+  "materials": "Wood mu0.5, slide steel mu0.15, tabs/knob mu1.0, glass/feet mu0.6. Source torsional/soft contact properties are NOT fully preserved by Coulomb rigid PhysX material; see fidelity.",
+  "fixed_case_seed_semantics": "Seed42/S frozen physical case; all Inspect reset seeds/episode IDs accepted and mapped to these immutable masses/layout/directions. object_jitter=0 required. No physical parameter is encoded into public observations."
+}

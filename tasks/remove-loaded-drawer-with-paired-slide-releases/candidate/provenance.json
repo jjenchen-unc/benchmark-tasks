@@ -1,0 +1,88 @@
+{
+  "task_geometry": "Generated120source primitives; no third-party textures/meshes and no Panda assets bundled. No new universal asset license blocker invented.",
+  "source_package": "ports/packages/drawers--slide_service",
+  "source_module_sha256": "4d67b88a28e96383046fd8d941922625a85a2c2d1beff331753e7ac01b6d3a28",
+  "immutable_source_copy": "artifacts/submission-readiness/drawers-arena-preparation-20261109/native-source",
+  "upstream_asset_notes_preserved": "SOURCE_ASSETS.md",
+  "native_provenance": {
+    "bench": "drawers",
+    "source_delivery": "tinkerbench_build_28benches_2026-10-31",
+    "source_root": "/home/nagio/gptSpace/robocurve/external/bench28-source",
+    "support_root": "/home/nagio/gptSpace/robocurve/external/bench28-support",
+    "source_access": "read-only snapshot",
+    "files": [
+      {
+        "path": "ASSETS.md",
+        "original_sha256": "6f79cf5c5cc2d569fbb6ce47be55e694c0c4557d40df5cfd7394ec7cc832c6c0",
+        "sha256": "6f79cf5c5cc2d569fbb6ce47be55e694c0c4557d40df5cfd7394ec7cc832c6c0",
+        "rewrites": []
+      },
+      {
+        "path": "SUMMARY.md",
+        "original_sha256": "d5373def053e059d853ceb3cc11e4927112e4f97e1055081bc4052a299693de1",
+        "sha256": "d5373def053e059d853ceb3cc11e4927112e4f97e1055081bc4052a299693de1",
+        "rewrites": []
+      },
+      {
+        "path": "DEVIATIONS.md",
+        "original_sha256": "08814f4f8a85e0ab5e02ca5b597cfcd1a7d118b4eb6bfcd81ed49272c5783f8d",
+        "sha256": "08814f4f8a85e0ab5e02ca5b597cfcd1a7d118b4eb6bfcd81ed49272c5783f8d",
+        "rewrites": []
+      },
+      {
+        "path": "REVIEW.md",
+        "original_sha256": "b1ecda5533f3b8c6ddf5ed2b966a2ce00d0522c50bf5dbb4c95f049ba087357b",
+        "sha256": "b1ecda5533f3b8c6ddf5ed2b966a2ce00d0522c50bf5dbb4c95f049ba087357b",
+        "rewrites": []
+      },
+      {
+        "path": "benches/drawers.py",
+        "original_sha256": "96dcccdf4aaf2e64d709ceb6454e62aba8315e2c2c6661e75f3bfbddaf6d03d5",
+        "sha256": "0c5f798807aff53ffb717a800e2c2ab3b870b5de97287fca90105f3e0f8d60de",
+        "rewrites": [
+          "task-local native_support search path"
+        ]
+      },
+      {
+        "path": "native_support/dual_arm_demo/env.py",
+        "original_sha256": "2078f2285ada97ee0c4358bff8bd99b6e05df098ffacfc5d886b186cdf98c31e",
+        "sha256": "2078f2285ada97ee0c4358bff8bd99b6e05df098ffacfc5d886b186cdf98c31e",
+        "rewrites": []
+      },
+      {
+        "path": "native_support/dual_arm_demo/end_effectors.py",
+        "original_sha256": "c4b8e8c385f69a87a68a259fd455fcf3a8882da31c497dd17ab06b557ae0c36e",
+        "sha256": "c4b8e8c385f69a87a68a259fd455fcf3a8882da31c497dd17ab06b557ae0c36e",
+        "rewrites": []
+      },
+      {
+        "path": "native_support/portable_demo/env.py",
+        "original_sha256": "5ede849359b458946d4167f0402f50068e8f6077ef34e6ff66469cf1f0436321",
+        "sha256": "5ede849359b458946d4167f0402f50068e8f6077ef34e6ff66469cf1f0436321",
+        "rewrites": []
+      }
+    ],
+    "adaptation": "Import/asset paths only; original physics, scoring and robot reference unchanged",
+    "dependencies": {
+      "mujoco": "3.3.7",
+      "numpy": "2.0.2",
+      "scipy": "1.13.1",
+      "robosuite": "1.4.1"
+    },
+    "status": "snapshot only; native validation and Robocurve task packaging required"
+  },
+  "derived_task_local_helpers": [
+    {
+      "source": "ports/arena-submission/b5-monitor/physics_observer.py",
+      "sha256": "45e887bed5f5c156dae83156f39d3875ed57bd36c256b37450e3055de40dc634",
+      "new_file": "contacts.py",
+      "changes": "Only Contacts class extracted / task-local import and flag namespace renamed. Runtime evidence does not transfer."
+    },
+    {
+      "source": "ports/arena-submission/d3-shock-pack/d3_motor_adapter.py",
+      "sha256": "938725b166ede5f90596c5147515010e012a7c069238639709d9002cc8c7fcf6",
+      "new_file": "motor_limits.py",
+      "changes": "Only Contacts class extracted / task-local import and flag namespace renamed. Runtime evidence does not transfer."
+    }
+  ]
+}

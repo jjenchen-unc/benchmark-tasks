@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-10T19:21:48.271614+00:00",
+  "status": "PASS_ACTUAL_PUBLIC_URL_FRESH_CACHE_CPU_PREPARE_AND_MODEL_PREFLIGHT",
+  "public_URL": "https://github.com/jjenchen-unc/benchmark-tasks/releases/download/drawers-review-20261110/Drawers-v21-frozen-model-inputs-and-zero-setup.tgz",
+  "offline_archive_supplied": false,
+  "archive_bytes": 30856983,
+  "archive_sha256": "f5c473b9aafb4a5c754a245cfc9812b10680a56392d3ed81931832b2ae770e19",
+  "all_member_SHA_verified": 156,
+  "submitted_source_and_cached_payload_byteexact": true,
+  "candidate_manifest_sha256": "2e8142990dfbd373b9a30bf0523c06cd90341267514d0e14250416e4d31a827c",
+  "model_calls": 0,
+  "simulator_initializations": 0,
+  "actual_live_model_restart": false
+}

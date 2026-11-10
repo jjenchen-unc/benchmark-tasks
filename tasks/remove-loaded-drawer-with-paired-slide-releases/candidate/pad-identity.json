@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "status": "NUMERIC_DISTAL_REGION_IMPLEMENTED_PENDING_ROOT_AND_FRESH_PHYSICS",
+  "general_mapping_closed": true,
+  "runtime_mapping_implemented": true,
+  "native_excludes_complete_geom": true,
+  "region": "pad-region.json",
+  "approximation": "Clipped union of actual distal convex finger solids; z <= -37.2mm in each independent tip frame. No material/semantic certificate asserted.",
+  "fresh_affected_physical_validation": false
+}

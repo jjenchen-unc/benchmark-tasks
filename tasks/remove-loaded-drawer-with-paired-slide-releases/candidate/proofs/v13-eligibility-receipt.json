@@ -1,0 +1,94 @@
+{
+  "schema": 1,
+  "actual_trial": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-drawers-native-release-review-v10-20261110-1115/Drawers-native-stop-release-v10/job-43894/trial",
+  "terminal_result": {
+    "status": "failed",
+    "error": "RuntimeError('Native stop pass and measured regrasp clearance not reached within180controls')",
+    "first_termination": null,
+    "physics_verified": false,
+    "fullgoal_verified": false,
+    "submission_ready": false
+  },
+  "actual_rows": 630,
+  "actual_controls": 629,
+  "actual_samples": 7548,
+  "actual_physics_s": 31.449999999998536,
+  "last_label": "retained_paddle_pull_179",
+  "source_equivalence": {
+    "drawers_physics.py": true,
+    "drawers_math.py": true,
+    "contacts.py": true,
+    "motor_limits.py": true,
+    "task.py": true,
+    "fixture.json": true
+  },
+  "clock_arithmetic_pass": true,
+  "actual_caps_pass": true,
+  "release_rows": 183,
+  "stop_off_rows": 183,
+  "disarmed_rows": 94,
+  "jar_normal_speed": {
+    "source_math_closed": true,
+    "adapter_sign_defect": false,
+    "formula": "max(0, dot(v_sensor_at_contact-v_filter_at_contact, normal_sensor_to_filter))",
+    "named_order": "sensor U_jar / filter drawer_U; downward normal, negative scalar yields upward force",
+    "evidence": "jar-support-proof.json + installed-source-map.json + test_guard_math.py",
+    "limitations": "Recorded control-rate trace is not a high-speed impact test; analytic tests are CPU synthetic, not physical scores."
+  },
+  "pad_identity": {
+    "sampled_journal_equivalence": true,
+    "general_mapping_closed": false,
+    "active_fingertip_jar_contacts": 0,
+    "no_name_based_sdk_requirement": true,
+    "exemption_enabled": false,
+    "limits": "20Hz journal samples do not include every 240Hz contact; no unobserved substep claim.",
+    "evidence": "pad-surface-map.json"
+  },
+  "motor_total": {
+    "source_algebra_closed": true,
+    "actual_cap_settings_closed": true,
+    "constraint_reaction_is_motor_effort": false,
+    "law": "clip(K*(qtarget-q)+D*(vtarget-v)+G, -L, +L); G/K target offset; zero extra effort",
+    "L_Nm": [
+      27,
+      27,
+      27,
+      7,
+      7,
+      7
+    ],
+    "finger_individual_N": 40,
+    "limits": "Implicit discrete solver drive law retained; no independent measured motor torque reconstructed from constraint reactions."
+  },
+  "stop_masks": {
+    "actual_positive_disarm": true,
+    "actual_positive_release": true,
+    "negative_evidence": "Inherited actual43882 blocked; see inherited evidence map. No broad test repeated.",
+    "fullgoal_is_separate": true,
+    "terminal_geometry": {
+      "last_bump_centre_native_x_m": 0.1851463770866394,
+      "last_bump_rear_x_m": 0.1881463770866394,
+      "disarm_threshold_x_m": 0.22799999999999998,
+      "native_fully_passed": true,
+      "terminal_regrasp_shortfall_mm": 0.18983125686643926,
+      "last_paddles_m": {
+        "drawer_U_paddle_left_j": 0.004942919593304396,
+        "drawer_U_paddle_right_j": 0.004972402937710285
+      },
+      "last_armed": {
+        "slot_U": false,
+        "slot_L": true,
+        "slot_E": true
+      },
+      "last_stop_on": {
+        "slot_U": false,
+        "slot_L": true
+      }
+    }
+  },
+  "runtime_flags_promoted": [],
+  "physical_fullgoal_verified": false,
+  "submission_ready": false,
+  "only_final_brev_remains": false,
+  "cpu_build_wall_s": 1.0513742323964834
+}

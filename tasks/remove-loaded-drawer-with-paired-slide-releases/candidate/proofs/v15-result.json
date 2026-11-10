@@ -1,0 +1,1013 @@
+{
+  "unit": "Drawers_actual_final_clearance_retention",
+  "status": "complete_private_candidate_for_ROOT_review_and_fresh_physical_validation",
+  "candidate": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/drawers-actual-final-clearance-v15-20261110-1240/candidate",
+  "delivery": "/mnt/bum/jjenchen/robocurve/artifacts/continuation/server-drawers-actual-final-clearance-20261110-1240/Drawers_actual_final_clearance_retention",
+  "controller_complete": true,
+  "evidence_kind": "CPU conditional/synthetic plus preserved actual43914 diagnosis; no new physical validation",
+  "physics_verified": false,
+  "fullgoal_verified": false,
+  "submission_ready": false,
+  "model_score": null,
+  "actual_failure": {
+    "kind": "PRESERVED_ACTUAL43914_DIAGNOSIS_NO_NEW_PHYSICS",
+    "controls": 1012,
+    "stages": [
+      {
+        "control": 740,
+        "label": "balance_close",
+        "physics": {
+          "drawer_p": [
+            0.0539229643344879,
+            -0.1705162181914784,
+            0.8555253028869629
+          ],
+          "drawer_R": [
+            [
+              0.9991046190261841,
+              -0.012737744487822056,
+              -0.04034903645515442
+            ],
+            [
+              0.01274701114743948,
+              0.9999189376831055,
+              -2.7601650799624622e-05
+            ],
+            [
+              0.04034610837697983,
+              -0.0004867526004090905,
+              0.9991856217384338
+            ]
+          ],
+          "max_x": 0.19561125623111797,
+          "contents": true,
+          "drawer_touch": true,
+          "wrist": [
+            6.484930515289307,
+            6.27492094039917
+          ],
+          "jar_force": [
+            2.547897959128022,
+            2.5503375828266144
+          ],
+          "jar_speed": [
+            0.0,
+            0.0
+          ],
+          "jar_cos": [
+            0.999186098575592,
+            1.0
+          ],
+          "drop": false,
+          "contact_count": 144,
+          "stop_on": {
+            "slot_U": false,
+            "slot_L": true
+          }
+        },
+        "arms": {
+          "left": {
+            "raw8": [
+              -0.5210433602333069,
+              2.1636734008789062,
+              1.1567118167877197,
+              -0.5680286288261414,
+              0.0027782018296420574,
+              -0.5366213917732239,
+              -0.003988462034612894,
+              -0.0038900075014680624
+            ],
+            "actual_tcp_world_m": [
+              0.3517070504341917,
+              0.12629699995917998,
+              0.8438399623187219
+            ],
+            "command_tcp_world_m": [
+              0.35297022973086534,
+              0.12633336159178407,
+              0.8440940760476339
+            ],
+            "actual_minus_command_m": [
+              -0.0012631792966736333,
+              -3.636163260409275e-05,
+              -0.00025411372891193107
+            ],
+            "actual_tcp_in_drawer_m": [
+              0.01429963699448452,
+              -0.12597227664639324,
+              0.037707113505275586
+            ],
+            "all_links_fk_max_m": 2.144934592919365e-07
+          },
+          "right": {
+            "raw8": [
+              0.5179767608642578,
+              2.1727712154388428,
+              1.1723949909210205,
+              -0.5749794840812683,
+              -0.0026607352774590254,
+              0.5045075416564941,
+              -0.004027544055134058,
+              -0.003854359732940793
+            ],
+            "actual_tcp_world_m": [
+              0.35489047582426025,
+              -0.12572629096017404,
+              0.8436892534526343
+            ],
+            "command_tcp_world_m": [
+              0.3561793996952834,
+              -0.12563257538911932,
+              0.8439712280877493
+            ],
+            "actual_minus_command_m": [
+              -0.0012889238710231399,
+              -9.37155710547255e-05,
+              -0.00028197463511492327
+            ],
+            "actual_tcp_in_drawer_m": [
+              0.014325525165460647,
+              0.12607120769823468,
+              0.03767801926145918
+            ],
+            "all_links_fk_max_m": 1.2266165329515904e-07
+          }
+        }
+      },
+      {
+        "control": 857,
+        "label": "supported_extract_116",
+        "physics": {
+          "drawer_p": [
+            -0.034725891351699845,
+            -0.17117355678230525,
+            0.8412085056304932
+          ],
+          "drawer_R": [
+            [
+              0.9995944499969482,
+              -0.022973936051130295,
+              -0.01683325693011284
+            ],
+            [
+              0.02310822531580925,
+              0.9997024536132812,
+              0.007826975546777248
+            ],
+            [
+              0.01664843037724495,
+              -0.008212787099182606,
+              0.9998276829719543
+            ]
+          ],
+          "max_x": 0.10848048025295252,
+          "contents": true,
+          "drawer_touch": true,
+          "wrist": [
+            16.52181625366211,
+            16.43107032775879
+          ],
+          "jar_force": [
+            2.582536490052007,
+            2.550569459795952
+          ],
+          "jar_speed": [
+            0.000531939152767258,
+            0.0
+          ],
+          "jar_cos": [
+            0.9998278021812439,
+            1.0
+          ],
+          "drop": false,
+          "contact_count": 114,
+          "stop_on": {
+            "slot_U": false,
+            "slot_L": true
+          }
+        },
+        "arms": {
+          "left": {
+            "raw8": [
+              -0.3963378369808197,
+              2.518657922744751,
+              1.7584844827651978,
+              -0.9104706048965454,
+              0.048585932701826096,
+              -0.4232783913612366,
+              -0.003937982954084873,
+              -0.0040449462831020355
+            ],
+            "actual_tcp_world_m": [
+              0.4426118830937173,
+              0.12677428691396944,
+              0.8300056042380171
+            ],
+            "command_tcp_world_m": [
+              0.4699346033365696,
+              0.12634770155569877,
+              0.8440884535174275
+            ],
+            "actual_minus_command_m": [
+              -0.027322720242852316,
+              0.00042658535827067023,
+              -0.014082849279410392
+            ],
+            "actual_tcp_in_drawer_m": [
+              0.009852596245190361,
+              -0.12616029685021565,
+              0.03760342114993702
+            ],
+            "all_links_fk_max_m": 1.8299821655772114e-07
+          },
+          "right": {
+            "raw8": [
+              0.39655420184135437,
+              2.5339927673339844,
+              1.7797833681106567,
+              -0.9077144861221313,
+              -0.04338262230157852,
+              0.3704946041107178,
+              -0.004125767387449741,
+              -0.0037606616970151663
+            ],
+            "actual_tcp_world_m": [
+              0.4476981397164005,
+              -0.12549039697553302,
+              0.8277646320020644
+            ],
+            "command_tcp_world_m": [
+              0.4731416326247171,
+              -0.12564775542822768,
+              0.8439653838629604
+            ],
+            "actual_minus_command_m": [
+              -0.0254434929083166,
+              0.00015735845269465587,
+              -0.01620075186089598
+            ],
+            "actual_tcp_in_drawer_m": [
+              0.010560482838188438,
+              0.12616458255635699,
+              0.03742292284832074
+            ],
+            "all_links_fk_max_m": 2.214236890786994e-07
+          }
+        }
+      },
+      {
+        "control": 897,
+        "label": "carry",
+        "physics": {
+          "drawer_p": [
+            -0.022778795957565323,
+            -0.17144320877734573,
+            0.8415255427360535
+          ],
+          "drawer_R": [
+            [
+              0.9998940229415894,
+              -0.012381528504192829,
+              -0.0076264990493655205
+            ],
+            [
+              0.012449572794139385,
+              0.9998822212219238,
+              0.008940096944570541
+            ],
+            [
+              0.007514910772442818,
+              -0.00903409905731678,
+              0.9999309778213501
+            ]
+          ],
+          "max_x": 0.11896472023983122,
+          "contents": true,
+          "drawer_touch": true,
+          "wrist": [
+            16.367063522338867,
+            16.226043701171875
+          ],
+          "jar_force": [
+            2.5463388543576,
+            2.550714612007141
+          ],
+          "jar_speed": [
+            0.0002072783427373431,
+            0.0
+          ],
+          "jar_cos": [
+            0.9999310374259949,
+            1.0
+          ],
+          "drop": false,
+          "contact_count": 116,
+          "stop_on": {
+            "slot_U": false,
+            "slot_L": true
+          }
+        },
+        "arms": {
+          "left": {
+            "raw8": [
+              -0.42456185817718506,
+              2.416872262954712,
+              1.5700701475143433,
+              -0.7498597502708435,
+              0.0038463338278234005,
+              -0.43893963098526,
+              -0.003941460978239775,
+              -0.003942142240703106
+            ],
+            "actual_tcp_world_m": [
+              0.4311577259235071,
+              0.1269845622040215,
+              0.8311960937135531
+            ],
+            "command_tcp_world_m": [
+              0.43789569396269745,
+              0.12560295867765195,
+              0.8527513382333649
+            ],
+            "actual_minus_command_m": [
+              -0.006737968039190356,
+              0.0013816035263695403,
+              -0.021555244519811834
+            ],
+            "actual_tcp_in_drawer_m": [
+              0.010355022899969792,
+              -0.12602884161653613,
+              0.03845683287988847
+            ],
+            "all_links_fk_max_m": 8.528797535178156e-08
+          },
+          "right": {
+            "raw8": [
+              0.4195622503757477,
+              2.436068058013916,
+              1.5933964252471924,
+              -0.7578828930854797,
+              -0.020102791488170624,
+              0.402717649936676,
+              -0.004117808770388365,
+              -0.0037723027635365725
+            ],
+            "actual_tcp_world_m": [
+              0.433602283890763,
+              -0.1251578586770892,
+              0.8282865514623948
+            ],
+            "command_tcp_world_m": [
+              0.4429828193963081,
+              -0.12666110860467222,
+              0.8505105715303265
+            ],
+            "actual_minus_command_m": [
+              -0.009380535505545129,
+              0.0015032499275830224,
+              -0.02222402006793167
+            ],
+            "actual_tcp_in_drawer_m": [
+              0.011027924472620186,
+              0.12614043469540218,
+              0.037820312557204507
+            ],
+            "all_links_fk_max_m": 1.9401776335530245e-07
+          }
+        }
+      },
+      {
+        "control": 927,
+        "label": "set_down",
+        "physics": {
+          "drawer_p": [
+            -0.02072899222373964,
+            -0.17181794166564943,
+            0.8350000262260437
+          ],
+          "drawer_R": [
+            [
+              0.9999046325683594,
+              -0.013812242075800896,
+              -3.872151239647792e-07
+            ],
+            [
+              0.013812242075800896,
+              0.9999046325683594,
+              -3.247731683586608e-08
+            ],
+            [
+              3.8762678400416917e-07,
+              2.7125908630409867e-08,
+              1.0
+            ]
+          ],
+          "max_x": 0.12121899455379095,
+          "contents": true,
+          "drawer_touch": true,
+          "wrist": [
+            5.2418694496154785,
+            6.156012058258057
+          ],
+          "jar_force": [
+            2.561741314828396,
+            2.5514274537563324
+          ],
+          "jar_speed": [
+            0.0,
+            0.0
+          ],
+          "jar_cos": [
+            1.0,
+            1.0
+          ],
+          "drop": false,
+          "contact_count": 138,
+          "stop_on": {
+            "slot_U": false,
+            "slot_L": true
+          }
+        },
+        "arms": {
+          "left": {
+            "raw8": [
+              -0.42564254999160767,
+              2.4187934398651123,
+              1.5343656539916992,
+              -0.7012019157409668,
+              0.005202981177717447,
+              -0.4431063234806061,
+              -0.004195401910692453,
+              -0.003696409286931157
+            ],
+            "actual_tcp_world_m": [
+              0.4285682675322763,
+              0.12740918786751051,
+              0.8230687308627578
+            ],
+            "command_tcp_world_m": [
+              0.43115845420378873,
+              0.1269842316651024,
+              0.8021993425547989
+            ],
+            "actual_minus_command_m": [
+              -0.002590186671512451,
+              0.00042495620240812215,
+              0.020869388307958925
+            ],
+            "actual_tcp_in_drawer_m": [
+              0.010424883015690565,
+              -0.1257472347278817,
+              0.03806870400676426
+            ],
+            "all_links_fk_max_m": 1.5652940451020558e-07
+          },
+          "right": {
+            "raw8": [
+              0.42983943223953247,
+              2.4306631088256836,
+              1.5545580387115479,
+              -0.7078057527542114,
+              -0.00485127093270421,
+              0.4124687910079956,
+              -0.003948326222598553,
+              -0.003929534461349249
+            ],
+            "actual_tcp_world_m": [
+              0.4312539297194857,
+              -0.12431363967215808,
+              0.8223840134847111
+            ],
+            "command_tcp_world_m": [
+              0.4336029091606641,
+              -0.1251575737031316,
+              0.7992897401548599
+            ],
+            "actual_minus_command_m": [
+              -0.0023489794411784004,
+              0.0008439340309735199,
+              0.023094273329851256
+            ],
+            "actual_tcp_in_drawer_m": [
+              0.011216333317754406,
+              0.12598868164992907,
+              0.0373839794933646
+            ],
+            "all_links_fk_max_m": 1.8454994656276462e-07
+          }
+        }
+      },
+      {
+        "control": 947,
+        "label": "release",
+        "physics": {
+          "drawer_p": [
+            -0.020731257200241104,
+            -0.17181798241101207,
+            0.8350000262260437
+          ],
+          "drawer_R": [
+            [
+              0.9999046325683594,
+              -0.013815907761454582,
+              -2.3861878162279027e-07
+            ],
+            [
+              0.013815907761454582,
+              0.9999046325683594,
+              2.8154587994322355e-08
+            ],
+            [
+              2.382070221074173e-07,
+              -3.144863569559675e-08,
+              1.0
+            ]
+          ],
+          "max_x": 0.12121724980079499,
+          "contents": true,
+          "drawer_touch": false,
+          "wrist": [
+            6.781946182250977,
+            6.796665191650391
+          ],
+          "jar_force": [
+            2.55098669975996,
+            2.5510277450084686
+          ],
+          "jar_speed": [
+            4.024984950290847e-05,
+            0.0
+          ],
+          "jar_cos": [
+            1.0,
+            1.0
+          ],
+          "drop": false,
+          "contact_count": 112,
+          "stop_on": {
+            "slot_U": false,
+            "slot_L": true
+          }
+        },
+        "arms": {
+          "left": {
+            "raw8": [
+              -0.4273335337638855,
+              2.4642655849456787,
+              1.52529776096344,
+              -0.6315443515777588,
+              0.005696872714906931,
+              -0.4306241571903229,
+              -0.023459093645215034,
+              -0.023457776755094528
+            ],
+            "actual_tcp_world_m": [
+              0.43084187470045593,
+              0.1255087224171305,
+              0.8030932771978827
+            ],
+            "command_tcp_world_m": [
+              0.43115845420378873,
+              0.1269842316651024,
+              0.8021993425547989
+            ],
+            "actual_minus_command_m": [
+              -0.0003165795033328034,
+              -0.001475509247971879,
+              0.0008939346430838491
+            ],
+            "actual_tcp_in_drawer_m": [
+              0.008179543829844486,
+              -0.12381557530336919,
+              0.018093245129584778
+            ],
+            "all_links_fk_max_m": 1.7524851731643272e-07
+          },
+          "right": {
+            "raw8": [
+              0.42659392952919006,
+              2.484577178955078,
+              1.5437146425247192,
+              -0.6310310959815979,
+              -0.0031428392976522446,
+              0.42346158623695374,
+              -0.023457137867808342,
+              -0.02345980331301689
+            ],
+            "actual_tcp_world_m": [
+              0.4335806725782639,
+              -0.1250709808732483,
+              0.7985135094884597
+            ],
+            "command_tcp_world_m": [
+              0.4336029091606641,
+              -0.1251575737031316,
+              0.7992897401548599
+            ],
+            "actual_minus_command_m": [
+              -2.223658240019244e-05,
+              8.659282988329742e-05,
+              -0.0007762306664002017
+            ],
+            "actual_tcp_in_drawer_m": [
+              0.008902992120775626,
+              0.1267780699671701,
+              0.013513485128658662
+            ],
+            "all_links_fk_max_m": 2.0036054896605445e-07
+          }
+        }
+      },
+      {
+        "control": 987,
+        "label": "retreat",
+        "physics": {
+          "drawer_p": [
+            -0.020731257200241104,
+            -0.17181798217818142,
+            0.8350000262260437
+          ],
+          "drawer_R": [
+            [
+              0.9999046325683594,
+              -0.013815907761454582,
+              -2.3861878162279027e-07
+            ],
+            [
+              0.013815907761454582,
+              0.9999046325683594,
+              2.8154587994322355e-08
+            ],
+            [
+              2.382070221074173e-07,
+              -3.144863569559675e-08,
+              1.0
+            ]
+          ],
+          "max_x": 0.12121724980079499,
+          "contents": true,
+          "drawer_touch": false,
+          "wrist": [
+            6.76708984375,
+            6.708122730255127
+          ],
+          "jar_force": [
+            2.5515188365243375,
+            2.5507704615592957
+          ],
+          "jar_speed": [
+            0.0,
+            0.0
+          ],
+          "jar_cos": [
+            1.0,
+            1.0
+          ],
+          "drop": false,
+          "contact_count": 112,
+          "stop_on": {
+            "slot_U": false,
+            "slot_L": true
+          }
+        },
+        "arms": {
+          "left": {
+            "raw8": [
+              -0.4275471866130829,
+              2.2927968502044678,
+              1.5764981508255005,
+              -0.8507061004638672,
+              0.002634953008964658,
+              -0.4306241571903229,
+              -0.023476289585232735,
+              -0.023473631590604782
+            ],
+            "actual_tcp_world_m": [
+              0.43163122108240837,
+              0.12562137596695044,
+              0.8824220362275136
+            ],
+            "command_tcp_world_m": [
+              0.4308356744777696,
+              0.1255115631866229,
+              0.8830869029717527
+            ],
+            "actual_minus_command_m": [
+              0.0007955466046387638,
+              0.0001098127803275395,
+              -0.0006648667442391565
+            ],
+            "actual_tcp_in_drawer_m": [
+              0.007388735208226545,
+              -0.12391731530049419,
+              0.09742200434439681
+            ],
+            "all_links_fk_max_m": 6.868737315807775e-08
+          },
+          "right": {
+            "raw8": [
+              0.42659369111061096,
+              2.3095755577087402,
+              1.588547945022583,
+              -0.8424750566482544,
+              -0.0030662582721561193,
+              0.42346158623695374,
+              -0.023474594578146935,
+              -0.023475442081689835
+            ],
+            "actual_tcp_world_m": [
+              0.43504409750114714,
+              -0.12441993275360907,
+              0.8784129330234962
+            ],
+            "command_tcp_world_m": [
+              0.4335746269176765,
+              -0.12507373793952262,
+              0.878507303215836
+            ],
+            "actual_minus_command_m": [
+              0.0014694705834706334,
+              0.0006538051859135419,
+              -9.437019233982102e-05
+            ],
+            "actual_tcp_in_drawer_m": [
+              0.007430730969586436,
+              0.12614729973453195,
+              0.09341290899456588
+            ],
+            "all_links_fk_max_m": 1.7421088176621278e-07
+          }
+        }
+      },
+      {
+        "control": 1012,
+        "label": "final_hands_off",
+        "physics": {
+          "drawer_p": [
+            -0.020731257200241104,
+            -0.17181798054836692,
+            0.8350000262260437
+          ],
+          "drawer_R": [
+            [
+              0.9999046325683594,
+              -0.013815907761454582,
+              -2.3861878162279027e-07
+            ],
+            [
+              0.013815907761454582,
+              0.9999046325683594,
+              2.8154587994322355e-08
+            ],
+            [
+              2.382070221074173e-07,
+              -3.144863569559675e-08,
+              1.0
+            ]
+          ],
+          "max_x": 0.12121724980079499,
+          "contents": true,
+          "drawer_touch": false,
+          "wrist": [
+            6.793747425079346,
+            6.793751239776611
+          ],
+          "jar_force": [
+            2.5503661792026833,
+            2.550820454955101
+          ],
+          "jar_speed": [
+            0.0,
+            0.0
+          ],
+          "jar_cos": [
+            1.0,
+            1.0
+          ],
+          "drop": false,
+          "contact_count": 112,
+          "stop_on": {
+            "slot_U": false,
+            "slot_L": true
+          }
+        },
+        "arms": {
+          "left": {
+            "raw8": [
+              -0.42755070328712463,
+              2.2926535606384277,
+              1.5786913633346558,
+              -0.85359126329422,
+              0.002607150236144662,
+              -0.4306241571903229,
+              -0.02347543276846409,
+              -0.023474527522921562
+            ],
+            "actual_tcp_world_m": [
+              0.4317303574156558,
+              0.12557976458423187,
+              0.8829706744162319
+            ],
+            "command_tcp_world_m": [
+              0.4308356744777696,
+              0.1255115631866229,
+              0.8830869029717527
+            ],
+            "actual_minus_command_m": [
+              0.0008946829378861931,
+              6.820139760896349e-05,
+              -0.00011622855552084754
+            ],
+            "actual_tcp_in_drawer_m": [
+              0.007290183336554169,
+              -0.12387433987462335,
+              0.09797064255794241
+            ],
+            "all_links_fk_max_m": 1.2872981409136963e-07
+          },
+          "right": {
+            "raw8": [
+              0.42662063241004944,
+              2.3096635341644287,
+              1.5897597074508667,
+              -0.8463833928108215,
+              -0.0030297378543764353,
+              0.42346158623695374,
+              -0.02347446419298649,
+              -0.023475563153624535
+            ],
+            "actual_tcp_world_m": [
+              0.43455929128441007,
+              -0.12463458000524005,
+              0.8786446584762762
+            ],
+            "command_tcp_world_m": [
+              0.4335746269176765,
+              -0.12507373793952262,
+              0.878507303215836
+            ],
+            "actual_minus_command_m": [
+              0.0009846643667335564,
+              0.00043915793428256356,
+              0.0001373552604401196
+            ],
+            "actual_tcp_in_drawer_m": [
+              0.007918456530910827,
+              0.12635522684088668,
+              0.0936446343377052
+            ],
+            "all_links_fk_max_m": 1.5838700131200861e-07
+          }
+        }
+      }
+    ],
+    "final_native_conditions": {
+      "contents": true,
+      "no_drop": true,
+      "no_drawer_touch": true,
+      "centre_negative": true,
+      "z": true,
+      "level": true,
+      "clear": false
+    },
+    "final_clearance_excess_m": 0.0012172498007949895,
+    "carry_native_x_change_m": 0.011947095394134521,
+    "setdown_native_x_change_m": 0.0020498037338256836,
+    "release_native_x_change_m": -2.2649765014648438e-06,
+    "fk_max_m": 2.214236890786994e-07,
+    "object_pose_coverage": "Journal stores actual drawer pose and native contents/damage predicates; individual box/jar poses are absent, so their relative retention cannot be independently reconstructed.",
+    "interpretation": "Measured loaded command compliance and set-down displacement dominate; release drift is negligible. Clearance feedback must use actual native bound and preserve commanded grasp preload."
+  },
+  "repair": "Measured native-extent feedback with frozen commanded grasp frame; up to50mm/120controls per stage; quiet10controls at<=.105; correction trigger>.100; after carry and after table setdown. Require measured native table pose before release and read native1s hold at completion.",
+  "changed_files": [
+    "binding_foundation.py",
+    "reference.py"
+  ],
+  "task_physics_mount_geometry_thresholds_scorer_caps_unchanged": true,
+  "native_budget_controls": 3586,
+  "native_hold_s": 1.0,
+  "cpu_checks": {
+    "kind": "CPU_CONDITIONAL_NOT_PHYSICAL",
+    "checks": {
+      "prefix897_exact": true,
+      "only_controller_and_readonly_telemetry": true,
+      "conditional_complete": true,
+      "native3586_budget": true,
+      "native2degree_commands": true,
+      "native_hold25": true,
+      "stuck_aborts_before_release": true,
+      "missing_native_hold_rejected": true,
+      "no_task_state_writes": true,
+      "strict_numeric_bool_telemetry": true
+    },
+    "controls": 1044,
+    "prefix_controls": 897,
+    "changed_suffix_controls": 147,
+    "worstcase_bound_controls": 1252,
+    "maximum_requested_tool_tilt_deg": 1.717231796935493,
+    "changed_files": [
+      "binding_foundation.py",
+      "reference.py"
+    ],
+    "conditional_wall_s": 11.070981418713927,
+    "synthetic_final_drawer_world_m": [
+      0.46255312207065347,
+      -1.9403490592595496e-06,
+      0.785
+    ]
+  },
+  "geometry": {
+    "suffix_controls": 147,
+    "loaded_boundary_states": 36,
+    "unintended_overlaps": 0,
+    "intended_base_support_records": 2196,
+    "all_fingers_retained_contents": {
+      "left": {
+        "control": 118,
+        "label": "release",
+        "pair": [
+          "tip_right#3",
+          "U_jar/U_jar/U_jar_lid"
+        ],
+        "signed_separation_bound_m": 0.008529408144917094
+      },
+      "right": {
+        "control": 118,
+        "label": "release",
+        "pair": [
+          "tip_left#15",
+          "U_box/U_box/U_box_g"
+        ],
+        "signed_separation_bound_m": 0.012701467036682568
+      }
+    },
+    "interarm": {
+      "pair": [
+        "link4#0",
+        "link4#0"
+      ],
+      "signed_separation_bound_m": 0.1198997075772566,
+      "control": 0,
+      "label": "loaded_boundary_0.0"
+    },
+    "limitations": [
+      "ideal tracking of genuine controller commands; not measured robot response",
+      "drawer follows ideal rigid-grasp evaluator; all other dynamic task parts initially fixed; no dynamics or force proof",
+      "independent fingers use actual public-target contract; no finger response prediction",
+      "robot self collisions remain disabled as original SDK config; historical initial self audit retained",
+      "all discrete path controls checked; not continuous swept volume",
+      "ideal retained rigid contents; actual grasp, jar damage and dynamics unproved",
+      "all finger/content geometry included; original task jar contact limits unchanged",
+      "conservative jar primitives; full discrete controller samples, no swept-volume proof"
+    ]
+  },
+  "chosen_launcher": {
+    "status": "CPU_BOUNDARY_REACHED",
+    "isolated": true,
+    "artificial_path_injection": false,
+    "persistent_guard": true,
+    "constructed_names": [
+      "carcasses",
+      "drawer_U",
+      "drawer_L",
+      "U_box",
+      "U_jar",
+      "L_box",
+      "L_jar"
+    ],
+    "wall_s": 0.617917482
+  },
+  "measured_cpu_wall_s": {
+    "conditional": 11.070981418713927,
+    "geometry": 55.85727068036795,
+    "contents": 5.3242184314876795
+  },
+  "native_runtime_channels_promoted": [],
+  "request": {
+    "path": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/drawers-actual-final-clearance-v15-20261110-1240/GPU_REQUEST_UNSUBMITTED.sbatch",
+    "submitted": false,
+    "gpu": 1,
+    "cpu": 4,
+    "ram_gb": 32,
+    "minutes": 30,
+    "process_bound_s": 1740,
+    "canonical_chdir": "/mnt/bum/jjenchen/robocurve",
+    "runner": "containers/unc/run.sh --gpu",
+    "process_only_driver_override": true,
+    "estimated_wall_s": [
+      450,
+      1200
+    ],
+    "estimate_source": "Inherited whole-trial estimate; not V15 physical measurement"
+  },
+  "remaining": [
+    "ROOT review and one fresh complete physical trial, including correction response, actual grasp/contents, native bounds and1s hands-off hold",
+    "Official final model/media verification unproven"
+  ],
+  "brev_operations": 0,
+  "gpu_runs": 0,
+  "slurm_submissions": 0,
+  "simulator_initializations": 0,
+  "model_or_API_calls": 0,
+  "subagents": 0
+}

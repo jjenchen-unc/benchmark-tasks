@@ -1,0 +1,328 @@
+#usda 1.0
+(
+    defaultPrim = "Asset"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "Asset"
+{
+    quatd xformOp:orient = (1, 0, 0, 0)
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+    def Xform "L_jar" (
+        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        point3f physics:centerOfMass = (0, 0, 0.0013076923)
+        float3 physics:diagonalInertia = (0.00012667122, 0.00012667122, 0.000081005)
+        float physics:mass = 0.26
+        quatf physics:principalAxes = (1, 0, 0, 0)
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+        def Cylinder "L_jar_g" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            double height = 0.06
+            rel material:binding:physics = </Asset/materials/mu_0_6> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.75, 0.88, 0.95)]
+            float[] primvars:displayOpacity = [0.55]
+            double radius = 0.025
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Sphere "L_jar_foot0" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_6> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.75, 0.88, 0.95)]
+            float[] primvars:displayOpacity = [0]
+            double radius = 0.0015
+            token visibility = "invisible"
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.0235, 0, -0.0335)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Sphere "L_jar_foot1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_6> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.75, 0.88, 0.95)]
+            float[] primvars:displayOpacity = [0]
+            double radius = 0.0015
+            token visibility = "invisible"
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.0203516, 0.01175, -0.0335)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Sphere "L_jar_foot2" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_6> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.75, 0.88, 0.95)]
+            float[] primvars:displayOpacity = [0]
+            double radius = 0.0015
+            token visibility = "invisible"
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.01175, 0.0203516, -0.0335)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Sphere "L_jar_foot3" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_6> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.75, 0.88, 0.95)]
+            float[] primvars:displayOpacity = [0]
+            double radius = 0.0015
+            token visibility = "invisible"
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (1.43896e-18, 0.0235, -0.0335)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Sphere "L_jar_foot4" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_6> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.75, 0.88, 0.95)]
+            float[] primvars:displayOpacity = [0]
+            double radius = 0.0015
+            token visibility = "invisible"
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (-0.01175, 0.0203516, -0.0335)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Sphere "L_jar_foot5" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_6> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.75, 0.88, 0.95)]
+            float[] primvars:displayOpacity = [0]
+            double radius = 0.0015
+            token visibility = "invisible"
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (-0.0203516, 0.01175, -0.0335)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Sphere "L_jar_foot6" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_6> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.75, 0.88, 0.95)]
+            float[] primvars:displayOpacity = [0]
+            double radius = 0.0015
+            token visibility = "invisible"
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (-0.0235, 2.87792e-18, -0.0335)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Sphere "L_jar_foot7" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_6> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.75, 0.88, 0.95)]
+            float[] primvars:displayOpacity = [0]
+            double radius = 0.0015
+            token visibility = "invisible"
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (-0.0203516, -0.01175, -0.0335)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Sphere "L_jar_foot8" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_6> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.75, 0.88, 0.95)]
+            float[] primvars:displayOpacity = [0]
+            double radius = 0.0015
+            token visibility = "invisible"
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (-0.01175, -0.0203516, -0.0335)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Sphere "L_jar_foot9" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_6> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.75, 0.88, 0.95)]
+            float[] primvars:displayOpacity = [0]
+            double radius = 0.0015
+            token visibility = "invisible"
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (-4.31688e-18, -0.0235, -0.0335)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Sphere "L_jar_foot10" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_6> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.75, 0.88, 0.95)]
+            float[] primvars:displayOpacity = [0]
+            double radius = 0.0015
+            token visibility = "invisible"
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.01175, -0.0203516, -0.0335)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Sphere "L_jar_foot11" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_6> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.75, 0.88, 0.95)]
+            float[] primvars:displayOpacity = [0]
+            double radius = 0.0015
+            token visibility = "invisible"
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.0203516, -0.01175, -0.0335)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Cylinder "L_jar_ring"
+        {
+            uniform token axis = "Z"
+            double height = 0.004
+            color3f[] primvars:displayColor = [(0.75, 0.88, 0.95)]
+            float[] primvars:displayOpacity = [0.55]
+            double radius = 0.0235
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0, 0, -0.032)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Cylinder "L_jar_lid" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            double height = 0.008
+            rel material:binding:physics = </Asset/materials/mu_1_0> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.75, 0.65, 0.2)]
+            float[] primvars:displayOpacity = [1]
+            double radius = 0.024
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0, 0, 0.034)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+    }
+
+    def "materials"
+    {
+        def Material "mu_0_6" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.6
+            float physics:restitution = 0
+            float physics:staticFriction = 0.6
+        }
+
+        def Material "mu_1_0" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1
+            float physics:restitution = 0
+            float physics:staticFriction = 1
+        }
+    }
+}
+

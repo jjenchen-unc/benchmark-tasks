@@ -1,0 +1,438 @@
+#usda 1.0
+(
+    defaultPrim = "Asset"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "Asset" (
+    prepend apiSchemas = ["PhysicsArticulationRootAPI"]
+)
+{
+    quatd xformOp:orient = (1, 0, 0, 0)
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+    def Xform "drawer_U" (
+        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        point3f physics:centerOfMass = (-0.019924486, 4.3417707e-19, -0.0059782607)
+        float3 physics:diagonalInertia = (0.013842582, 0.008910314, 0.0059525273)
+        float physics:mass = 0.874
+        quatf physics:principalAxes = (0.51999015, 0.51999015, -0.47917664, 0.47917664)
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+        def Cube "drawer_U_bottom" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_5> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.66, 0.52, 0.38)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.2, 0.26, 0.006)
+            double3 xformOp:translate = (0, 0, -0.032)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "drawer_U_end_minus_1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_5> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.66, 0.52, 0.38)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.008, 0.244, 0.07)
+            double3 xformOp:translate = (-0.096, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "drawer_U_end1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_5> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.66, 0.52, 0.38)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.008, 0.244, 0.07)
+            double3 xformOp:translate = (0.096, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "drawer_U_side_minus_1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_5> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.66, 0.52, 0.38)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.2, 0.008, 0.07)
+            double3 xformOp:translate = (0, -0.126, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "drawer_U_side1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_5> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.66, 0.52, 0.38)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.2, 0.008, 0.07)
+            double3 xformOp:translate = (0, 0.126, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "drawer_U_front" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_5> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.66, 0.52, 0.38)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.01, 0.33, 0.105)
+            double3 xformOp:translate = (-0.105, 0, 0.0175)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cylinder "drawer_U_neck" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            double height = 0.028
+            rel material:binding:physics = </Asset/materials/mu_1_0> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double radius = 0.005
+            quatd xformOp:orient = (0.7071067811865475, 0, 0.7071067811865475, 0)
+            double3 xformOp:translate = (-0.124, 0, 0.005)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Cylinder "drawer_U_knob" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            double height = 0.024
+            rel material:binding:physics = </Asset/materials/mu_1_0> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.08, 0.08, 0.09)]
+            float[] primvars:displayOpacity = [1]
+            double radius = 0.012
+            quatd xformOp:orient = (0.7071067811865475, 0, 0.7071067811865475, 0)
+            double3 xformOp:translate = (-0.15, 0, 0.005)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Cube "drawer_U_runner_minus_1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.234, 0.012, 0.012)
+            double3 xformOp:translate = (0.017, -0.136, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cylinder "drawer_U_nose_minus_1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            double height = 0.012
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double radius = 0.006
+            quatd xformOp:orient = (0.7071067811865475, 0.7071067811865475, 0, 0)
+            double3 xformOp:translate = (0.134, -0.136, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Cube "drawer_U_bump_minus_1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.1, 0.1, 0.8)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.006, 0.008, 0.008)
+            double3 xformOp:translate = (0.13, -0.136, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "drawer_U_runner1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.234, 0.012, 0.012)
+            double3 xformOp:translate = (0.017, 0.136, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cylinder "drawer_U_nose1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            double height = 0.012
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double radius = 0.006
+            quatd xformOp:orient = (0.7071067811865475, 0.7071067811865475, 0, 0)
+            double3 xformOp:translate = (0.134, 0.136, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Cube "drawer_U_bump1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.1, 0.1, 0.8)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.006, 0.008, 0.008)
+            double3 xformOp:translate = (0.13, 0.136, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def "materials"
+    {
+        def Material "mu_0_5" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.5
+            float physics:restitution = 0
+            float physics:staticFriction = 0.5
+        }
+
+        def Material "mu_1_0" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1
+            float physics:restitution = 0
+            float physics:staticFriction = 1
+        }
+
+        def Material "mu_0_15" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.15
+            float physics:restitution = 0
+            float physics:staticFriction = 0.15
+        }
+    }
+
+    def Xform "drawer_U_paddle_left" (
+        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        point3f physics:centerOfMass = (0, 0, 0)
+        float3 physics:diagonalInertia = (0.00000174, 0.0000032066666, 0.0000019466668)
+        float physics:mass = 0.02
+        quatf physics:principalAxes = (1, 0, 0, 0)
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:translate = (-0.068, -0.126, 0.051)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+        def Cube "drawer_U_tab_left" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_1_0> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.85, 0.15, 0.1)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.032, 0.012, 0.03)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def "joints"
+    {
+        def PhysicsPrismaticJoint "drawer_U_paddle_left_j" (
+            prepend apiSchemas = ["PhysicsDriveAPI:linear"]
+        )
+        {
+            float drive:linear:physics:damping = 2
+            float drive:linear:physics:maxForce = inf
+            float drive:linear:physics:stiffness = 700
+            float drive:linear:physics:targetPosition = 0
+            uniform token drive:linear:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </Asset/drawer_U>
+            rel physics:body1 = </Asset/drawer_U_paddle_left>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (-0.068, -0.126, 0.051)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0.70710677, 0, -0.70710677, 0)
+            quatf physics:localRot1 = (0.70710677, 0, -0.70710677, 0)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 0.006
+        }
+
+        def PhysicsPrismaticJoint "drawer_U_paddle_right_j" (
+            prepend apiSchemas = ["PhysicsDriveAPI:linear"]
+        )
+        {
+            float drive:linear:physics:damping = 2
+            float drive:linear:physics:maxForce = inf
+            float drive:linear:physics:stiffness = 700
+            float drive:linear:physics:targetPosition = 0
+            uniform token drive:linear:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </Asset/drawer_U>
+            rel physics:body1 = </Asset/drawer_U_paddle_right>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (-0.068, 0.126, 0.051)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0.70710677, 0, -0.70710677, 0)
+            quatf physics:localRot1 = (0.70710677, 0, -0.70710677, 0)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 0.006
+        }
+    }
+
+    def Xform "drawer_U_paddle_right" (
+        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        point3f physics:centerOfMass = (0, 0, 0)
+        float3 physics:diagonalInertia = (0.00000174, 0.0000032066666, 0.0000019466668)
+        float physics:mass = 0.02
+        quatf physics:principalAxes = (1, 0, 0, 0)
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:translate = (-0.068, 0.126, 0.051)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+        def Cube "drawer_U_tab_right" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_1_0> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.85, 0.15, 0.1)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.032, 0.012, 0.03)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+}
+

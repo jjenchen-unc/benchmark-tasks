@@ -1,0 +1,19 @@
+{
+  "title": "Remove a loaded drawer using paired slide releases",
+  "category": "Impact on jobs",
+  "keywords": [
+    "bimanual",
+    "slide disconnect",
+    "fragile contents",
+    "loaded drawer"
+  ],
+  "instruction": "Take the red-tab drawer completely out of the chest and set it level on the table. Keep its sealed box inside and both jars intact. The target jar may stand upright on the table outside cabinets. Release the drawer for one second.",
+  "context": "Furniture service requires releasing both slides and controlling a loaded drawer without breaking fragile contents.",
+  "setup": "World coordinates in metres, Z up; fixed DR-T1/S physical case42. Two YAM six-axis arms with parallel grippers start at the shipped ready targets, bases(0.05,+/-0.30,0.93), identity rotation. Each has a rigid steel floor post80x220x920mm at(-0.15,+/-0.30,0.46) and beam280x220x20mm at(-0.05,+/-0.30,0.92); mount.json gives exact fixtures. Nominal tabletop Z=0.75. Two wooden carcasses with fixed steel runners/channels/hooks and one empty adjacent slot; two free drawer assemblies302x330x105mm including runners and release tabs, at(0.20,0,0.81)/(0.20,-0.34,0.81), masses0.914/0.894kg. The red spring-loaded paired disconnect tabs mark the target; orange pinch plates are retained. Each drawer carries one170x56x51mm blue ballasted box, masses0.730887/0.966361kg, and one50mm-diameter73mm-tall sealed jar,0.26kg each. Wood friction0.5, slide steel0.15, tabs/knobs1.0, glass/feet0.6; these are simulation estimates. Native fixture geometry is Rz(pi) then translation(0.42,-0.17,-0.05)m. Complete120-primitive dimensions, poses, masses,COM/inertia and materials are shipped in fixture.json/inventory.json; the actual robot mounts are specified above and in mount.json.",
+  "scoring": "Global zero on either jar damage (non-pad force>15N, normal closing speed>0.3m/s, tilt>30deg), out-of-bounds object/drop, or wrist force>80N continuously for0.1s. Otherwise0.25 when every actual target-drawer part, runner noses/tails and tabs included, has native maxX<0.12m, box inside, target jar in drawer or upright on table and not touched.0.5 additionally native centreZ within6mm of0.835m, native centreX+0.1<0.10m and every part in front of every cabinet face.1.0 additionally tilt<3deg and no drawer-hand contact for1s. Score the current state at termination or the3586-action limit; earlier progress cannot override an invalid current state.",
+  "run_limit": "3586 genuine14D robot actions at20Hz (179.3s); reject further steps after termination",
+  "reset_notes": "Restore all free bodies, velocities, paddle/lever positions, springs and stop masks; reset damage/hold/safety/clock/score history. All seed values accepted for this single immutable physical case; harness seed is not physical randomization.",
+  "fidelity": "Rigid USD/PhysX geometric approximation of paired slide releases and a loaded drawer; no hardware validation, fracture or liquid simulation. Native fixture dynamics/scorer retained. Genuine14D YAM joint API replaces Panda XYZ+yaw; total motor PD+gravity caps27/27/27/7/7/7Nm,40N/finger. Jar contact exemptions use measured moving distal-pad solids. Soft-foot/torsional-friction approximations remain. Fixed layout; scripted demo reads simulator state.",
+  "scores": "Dream-1:0.00 (3586controls,onecontinuoussession,889requests); genuine14D demo:1.0 (1043controls,1.041667s releasedhold).",
+  "media": "M-SFG6CG"
+}

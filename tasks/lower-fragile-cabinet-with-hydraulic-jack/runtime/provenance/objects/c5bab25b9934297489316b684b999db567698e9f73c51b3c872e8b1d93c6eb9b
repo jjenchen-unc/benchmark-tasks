@@ -1,0 +1,112 @@
+# Robocurve
+
+Robocurve 任務開發、驗證與提交的獨立專案。與 TinkerBench 分開管理程式、
+執行環境、文件和進度；移植任務只保留必要的來源紀錄，不依賴原專案匯入。
+
+本 repo 延續 `robocurve/benchmark-tasks` fork 的 Git 歷史與 remotes。
+提交沿用既有 GitHub fork；每個任務使用獨立分支與 PR。
+
+| 路徑 | 用途 |
+| --- | --- |
+| `tasks/` | 任務程式與提交資料；每個 PR 只提交一個任務 |
+| `scripts/` | 開發工具、依賴準備與 UNC 測試入口 |
+| `tools/` | 上游媒體上傳工具及已記錄的提交指令 |
+| `config/dependencies.json` | 外部原始碼 URL、參考版本及 launchable 安裝版本 |
+| `config/runtimes.json` | Robocurve 執行環境位置與狀態 |
+| `external/` | 外部 SDK checkouts，Git 忽略，可重新取得 |
+| `docs/agent/STATE.md` | 最新進度、證據位置、限制與下一步 |
+| `docs/agent/SUBMISSION_WORKFLOW.md` | 已驗證提交流程；沿用規則快取，只刷新會變動的關卡 |
+| `docs/robocurve/SUBMISSION_GUIDE.md` | 保存的上游提交說明 |
+
+## 開發入口
+
+本機：`/home/nagio/gptSpace/robocurve`。
+UNC：`oprime:/mnt/bum/jjenchen/robocurve`。
+
+```bash
+cd /home/nagio/gptSpace/robocurve
+python scripts/bootstrap_dependencies.py
+```
+
+外部依賴維持自己的上游歷史；不把它們的程式或 `.git` 納入本 repo。
+參考 checkout 版本與 launchable 指定版本分開記錄，安裝時以指定版本為準。
+
+原本的 `benchmark-tasks`、`YAM-inspect-Isaac` 和 `yam-isaac-lab-arena`
+工作區路徑保留為相容 symlink；實際檔案都在本專案下。
+
+## 目前狀態
+
+28 個來源 bench 已在 UNC 建立獨立原生開發套件，依 task board 重疊排序。
+涵蓋 121 個 deployment goals，與探索目標整併成 39 個暫定候選家族；
+載入／影像、腳本示範、agent 介面與投稿資格分別驗證。
+最新數量、結果與執行指令見 [28-bench 開發入口](docs/porting/README.md)
+及 [驗證進度](docs/porting/STATUS.md)。原生雙 Panda 介面保留，YAM 移植另計。
+
+Detent-latch bottle 的獨立 MuJoCo 參考版已達 scripted score 1.0，
+並通過重播與 Inspect Robots 驗證。YAM／PhysX 移植也已在官方 Brev
+launchable 通過完整 Inspect Robots CLI scripted trial：1.0 分、405 步、
+20.25 秒模擬時間。逐步量測獨立重算同樣是 1.0；三個相機影片已解碼驗證。
+這是固定場景的 nominal 驗證，尚未做 robustness／construct audit。
+Dream-1 已完成修正後的連續 session 重測：0.0 分、2,400 步／120 秒；
+每段改用 4 個動作，592 次請求維持同一個 session，零過期、零重試。
+逐步量測重算一致，無試跑錯誤。手臂有靠近瓶子，但扣環與蓋子未打開。
+851 步有 guard 修改，尚未隔離其餘介面影響。原先 48 動作一段、49 次過期
+的結果另行保留。報告與新影片位於 `artifacts/dream-evaluation/dream1-bottle-continuous4-20261108/`。
+已完成 task board 查重、24 項測試、跳過安全環的接觸測試與提交套件獨立驗證。
+另補上離開桌面即失分的判定，既有 demo／模型量測重算仍為 1.0／0.0；
+幾何、物理與控制器不變。素材已上傳為 `M-ANXZMU`。
+提交 PR：[robocurve/benchmark-tasks #1087](https://github.com/robocurve/benchmark-tasks/pull/1087)，官方已接收為 **TK-4D4BN7**，等待審查。
+
+第二個 spring-return bottle 使用同一瓶身外觀，改成安全環持續回彈，
+需要一手保持解鎖、另一手按開關。腳本示範 **1.0 分、309 步／15.45 秒**；
+放開安全環、支撐瓶身後再按開關的對照是 **0.0 分**，按鈕確實轉動而瓶蓋仍關閉。
+Dream-1 完整評估 **0.0 分、2,400 步／120 秒**，592 次請求保持同一 session、
+零過期／重試。28 項檢查通過，獨立 task 資料夾可載入並重算所有結果。
+素材 **M-CAT8J6**，提交 [PR #1114](https://github.com/robocurve/benchmark-tasks/pull/1114)，
+官方已接收為 **TK-QJVJ8U**，等待審查。
+重現指令與限制見 [第二個任務 README](tasks/spring-return-bottle/README.md)；
+結果與影片在 `artifacts/spring-return-submission/`。沒有新增側向握柄。
+
+Brev 的來源位於 `/home/ubuntu/robocurve/tasks/detent-latch-bottle/`，
+執行環境為 `/data/IsaacLab-Arena/.venv/`。本機已安裝並登入 Brev CLI；
+instance 是 `yam-eval-launchable-89ba7b`。重現指令、評分與限制見
+[任務 README](tasks/detent-latch-bottle/README.md)。
+
+UNC 的完整 Apptainer 容器已跑通：28 項 CPU 檢查通過，CUDA／Vulkan
+只使用 Slurm 分配的 GPU，三個相機有正常 RGB，開瓶示範達 **1.0 分、
+308 步／15.4 秒**。來源與已提交版本一致；這是單一固定場景驗證。
+已驗證的 megatron 舊驅動需單一程序的版本檢查覆寫，畫面較有雜訊；
+正式模型／媒體驗證仍保留官方環境。之後修改 task 程式可直接掛載執行，
+不用重裝 SDK。重現指令見 [UNC 容器指南](containers/unc/README.md)，
+結果見 `artifacts/unc-container/validation.json`。
+
+Brev 已依使用者要求停止，CLI 確認 **STOPPED**。停止期間不收運算費，
+保留磁碟仍可能計費；目前沒有新的 Dream-1 評估執行中。
+
+舊的原生最小渲染 probe 入口仍保留：
+
+```bash
+# 從本機啟動 UNC 的短程 GPU probe；需要可用的 Slurm GPU 資源。
+python scripts/run_unc_probe.py
+```
+
+既有 UNC probe venv 保留在已驗證的位置，避免搬動破壞絕對路徑。
+新 native venv 應建立在此專案的 `.venv-native/`，目前尚未安裝：
+
+```bash
+python3.12 -m venv .venv-native
+.venv-native/bin/python -m pip install -r tasks/detent-latch-bottle/requirements.txt
+cd tasks/detent-latch-bottle
+../../.venv-native/bin/python -m unittest -v test_task
+```
+
+## 提交
+
+依照 [上游指南](docs/robocurve/SUBMISSION_GUIDE.md) 和 [AGENTS.md](AGENTS.md)。
+開發文件、外部依賴及環境管理檔案不應混進單一任務的提交：
+
+```bash
+git add tasks/<task-name>
+```
+
+實際 token 只由執行環境提供。影片、快取、日誌和 venv 不進 Git。

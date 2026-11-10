@@ -1,0 +1,59 @@
+{
+  "kind": "ACTUAL_DREAM_INDEPENDENT_PHYSICS_MEDIA_VERIFICATION",
+  "at": "2026-11-10T18:36:10.161101+00:00",
+  "native_fingerprint": "ed2331a70682e377504783bff75714668f7bae4f46caccd2074e2540a8d13ccc",
+  "actual_helper_sha256": "829775074232e82fa8c2dd88c444a5295ef460a181c5ba681dd3a3392b36fc97",
+  "score": 0.0,
+  "controls": 3210,
+  "active_physics_samples": 80250,
+  "settling_physics_samples": 250,
+  "recomputed_native_history": {
+    "score": 0.0,
+    "diagnostic_candidate_score": 0.0,
+    "gate": null,
+    "missing_channels": [],
+    "failure": null,
+    "hold_s": 0.0,
+    "landing_speed_m_s": null,
+    "max_jack_descent_m": 0.0,
+    "physics_s": 160.50000000003826,
+    "physics_samples": 80250,
+    "peak_glass_N": 0.0
+  },
+  "before_after_action_pairs": 3210,
+  "reset_count": 1,
+  "streams": {
+    "top_cam": {
+      "sha256": "2a3a27d8165f9ef8d8340e5d36be68fbe91e7ffe601bf074dd769f5837ad50d9",
+      "bytes": 365330,
+      "decoded_frames": 3211,
+      "fps": 20.0,
+      "size": [
+        320,
+        176
+      ]
+    },
+    "left_cam": {
+      "sha256": "d67e9d9a230491d35adde2749112dad8b250fac9a4a48ced4e7b58cb72abb821",
+      "bytes": 901249,
+      "decoded_frames": 3211,
+      "fps": 20.0,
+      "size": [
+        320,
+        176
+      ]
+    },
+    "right_cam": {
+      "sha256": "1eaf61e24bdbb19490c5b115ae9f3db8bcc700ae579043a0d65e27bf13fc5b8c",
+      "bytes": 573349,
+      "decoded_frames": 3211,
+      "fps": 20.0,
+      "size": [
+        320,
+        176
+      ]
+    }
+  },
+  "source_unchanged": true,
+  "method": "Independent streaming native History recomputation, exact action/journal/status correspondence, full three-camera H264 decode. No model or simulator launched."
+}

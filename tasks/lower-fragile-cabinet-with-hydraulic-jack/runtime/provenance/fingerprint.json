@@ -1,0 +1,11 @@
+{
+  "sha256": "2d5e794a48870dd55cd58bb0c0c50a43f479dd66095902c967e612d66bb7590a",
+  "native_copy_byte_exact": false,
+  "changes": [
+    "mount.py: upright opposite-side right base on steel plate",
+    "kit.py: robot initial transform only",
+    "task.py: fixed physical mount plate only",
+    "reference.py: opposing jaw branch, raised TCP, bounded command subdivision"
+  ],
+  "physics_changed": false
+}

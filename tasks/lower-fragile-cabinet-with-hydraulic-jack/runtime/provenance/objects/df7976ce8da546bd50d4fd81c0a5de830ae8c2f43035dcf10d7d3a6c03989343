@@ -1,0 +1,20 @@
+{
+  "title": "Lower a fragile cabinet with a hydraulic release valve",
+  "category": "Impact on jobs",
+  "keywords": [
+    "hydraulic jack",
+    "controlled lowering",
+    "fragile load"
+  ],
+  "instruction": "Use the red hydraulic jack to lower the raised glass display cabinet onto the steel rails. Land at no more than25mm/s, keep every glass-panel contact at15N or below, then let go and leave the cabinet resting on the rails for3s.",
+  "context": "Controlled release of a supported fragile load requires regulating a load-dependent hydraulic valve and preserving the load through contact transfer.",
+  "setup": "Fixed nominal instance. Standard two-arm YAM station, table top0.7475m; arm bases unchanged. Two fixed primitive bottle jacks: red at(0.17,-0.15), blue at(0.17,0.15)m. Their120x100mm bases rest on the table; cylinder diameters66/80mm, pad110x110x15mm. Two900x30x30mm steel rails centered at x0.085/0.255,y-0.15m, tops0.8825m, with source12mm upstands and three supports each. Free walnut/glass cabinet210x210x386mm maximum envelope starts on red ram50mm above rail top at plinth origin(0.17,-0.15,0.9325)m. Full geometry, exact masses, materials, poses, parameters and ornament inventory in physical-inventory.json and fixture.json.",
+  "scoring": "End score with permanent safety invalidation:0 for glass normal contact>15N, any rail landing>25mm/s, cabinet tilt>10deg, cabinet underside40mm below rails, nonfinite measurement, or force guard termination. Otherwise0.25 for >=10mm hands-off jack-carried descent with matching oil flow;0.5 for >=30mm.0.75 for gentle jack-mediated rail landing with no robot contact;1.0 after that resting hands-off rail condition continuously holds3s with cabinet linear speed<=1mm/s and angular speed<=1degree/s. Every other outcome0. All runtime credit remains0 while actual backend channels are unvalidated; diagnostic candidate score is not task/model evidence.",
+  "run_limit": "3210 genuine14D joint_pos actions at20Hz;160.5s;500Hz physics.",
+  "reset_notes": "Reset restores both jack joints and the freely moving cabinet. All Inspect harness seeds route to the same explicitly fixed seed42 physical instance; require object_jitter=0. No exact42-only rejection. No consumables.",
+  "fidelity": "Primitive rigid-body PhysX scene. Native geometry preserved by a single rigid translation(+0.12,-0.30,-0.0525)m. Conditional hydraulic oil target uses measured pump/valve motion and pad force; no real fluid. Ram force drive K200000N/m,D400Ns/m approximates native stiff equality; source pump load resistance uses smoothed Coulomb approximation. Geometry and estimates derive from the source task, whose product values were approximate. Glass damage is a force-history veto, not fracture. Contact-point panel attribution is conservative near frame boundaries. Backend physics, clearance, mechanism force fidelity and robot feasibility remain unverified. YAM27/7Nm total including gravity and40N fingers retained; native larger Panda torque capability is not claimed.",
+  "scores": "Dream-1: not run. Genuine YAM reference: not run. Native historical success is design evidence only.",
+  "media": null,
+  "draft": true,
+  "submission_ready": false
+}

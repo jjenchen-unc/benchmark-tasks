@@ -1,0 +1,15 @@
+from pathlib import Path
+import json,hashlib
+R=Path(__file__).resolve().parent
+m=json.loads((R/'consumed-sourceSHA.json').read_text());fail=[]
+for n,h in m.items():
+ p=Path(n)
+ if not p.is_file() or hashlib.sha256(p.read_bytes()).hexdigest()!=h:fail.append(n)
+# All JSONs parse strictly; explicit ownership paths and integer budget/resources.
+def bad(x):raise ValueError('non-finite JSON '+x)
+for p in R.rglob('*.json'):json.loads(p.read_text(),parse_constant=bad)
+x=json.loads((R/'result.json').read_text());assert x['owned_root']==str(R) and type(x['native_budget_controls']) is int and x['native_budget_controls']==3210
+assert x['resources']==dict(gpu=1,cpu=4,ram_gb=32,wall_minutes=30)
+assert x['full_goal_verified'] is False and x['simulation_starts']==0
+out={'pass':not fail,'files':len(m),'mismatches':fail,'strict_JSON':True,'ownership_numeric_types':True,'evidence':'CPU hash/source verification only'}
+(R/'frozen-verification.json').write_text(json.dumps(out,indent=2,allow_nan=False)+'\n');print(json.dumps(out));assert not fail

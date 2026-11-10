@@ -1,0 +1,12 @@
+import sys,json,math
+from pathlib import Path
+R=Path(__file__).resolve().parent;sys.path.insert(0,str(R));import geometry as G
+import numpy as np
+from yam_arena import ik,station
+F=json.loads((R/'candidate/fixture.json').read_text());out=[]
+for yaw in [0,math.pi/2,-math.pi/2,math.pi]:
+ c,s=math.cos(yaw),math.sin(yaw);rot=np.array([[-c,-s,0],[-s,c,0],[0,0,-1.]])
+ for j2,j3 in [(.1,.5),(.1,2.5),(.8,.5),(.8,2.5),(1.5,.5),(1.5,2.5)]:
+  q,e,r=ik.solve([.38,-.15,.8225],ik.matrix_to_quat_xyzw(rot),q_init=[-.8,j2,j3,-.6,0,0],base_pos=station.BASES['left'],iters=300)
+  a=G.audit(np.r_[q,[-.04695]*2],F,side='left');row=dict(yaw=yaw,q=q.tolist(),e=e,r=r,worst=a[:2]);out.append(row);print(row,flush=True)
+(R/'left-branches.json').write_text(json.dumps(out,indent=2,allow_nan=False))

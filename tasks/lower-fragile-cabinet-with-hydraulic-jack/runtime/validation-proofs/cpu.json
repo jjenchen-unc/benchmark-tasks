@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "checks": {
+    "duplicate": true,
+    "nan": true,
+    "overflow": true,
+    "numeric_bool": true,
+    "unknown_json": true,
+    "missing_review": true,
+    "unapproved_review": true,
+    "synthetic_complete_protocol": true,
+    "short_native_hold": true,
+    "bool_controls": true,
+    "sample_gap": true,
+    "recomputed_history_mismatch": true,
+    "uncredited_replay_promoted": true,
+    "bool_score": true,
+    "bool_physical_force": true,
+    "actual_model_missing_review": true,
+    "no_provider_or_sdk_import": true,
+    "actual_taskfile_double_load": true,
+    "task_helper_origin": true,
+    "status_adapter_idempotent": true,
+    "fixed_physical_seed": true,
+    "native_channel_contract": true
+  },
+  "wall_s": 1.102433456107974,
+  "evidence_class": "CPU_SYNTHETIC protocol and conditional actual TaskFile API; no physical review or credit",
+  "simulation_starts": 0,
+  "model_calls": 0
+}

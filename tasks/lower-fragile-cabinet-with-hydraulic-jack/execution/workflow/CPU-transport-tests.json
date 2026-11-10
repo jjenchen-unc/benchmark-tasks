@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "checks": {
+    "exact_native_instruction_policy_budget_scene_argv": true,
+    "checked_reset_unchanged_AST": true,
+    "checked_step_unchanged_AST": true,
+    "transient_uses_official_handler_and_records": true,
+    "expired_session_not_recovered": true,
+    "nonretryable_error_not_recovered": true,
+    "two_attempts_same_session_accepted_no_episode_restart": true,
+    "changed_session_rejected": true,
+    "missing_session_rejected": true,
+    "boolean_attempt_rejected": true,
+    "zero_attempt_rejected": true,
+    "actual_executable_helper_sha_declared": true,
+    "original_bundle_model_helper_retained": true
+  },
+  "test_count": 13,
+  "simulation_starts": 0,
+  "model_calls": 0
+}

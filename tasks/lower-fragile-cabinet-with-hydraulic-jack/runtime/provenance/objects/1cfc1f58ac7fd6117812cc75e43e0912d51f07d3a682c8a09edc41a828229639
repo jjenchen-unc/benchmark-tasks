@@ -1,0 +1,236 @@
+# Robocurve project decisions
+
+## 2026-11-07: One development repository and preserved submission fork
+
+- Scope: Robocurve conversion, dependencies, environment probes and handoff.
+- User explicitly distinguishes Robocurve from TinkerBench. Keep their code,
+  environments, maintained documentation and agent state separate. Only retain
+  necessary provenance for the standalone bottle adaptation. Do not move or
+  manage TinkerBench inside this repository.
+- The canonical local repository is `/home/nagio/gptSpace/robocurve`, renamed
+  from benchmark-tasks with its Git history, branch, remotes and local work intact.
+- Keep the fork's upstream task layout. Submit one task directory per PR; do not
+  include project infrastructure or external dependencies in a task submission.
+- External source checkouts live in ignored `external/`. Track their URLs and
+  exact revisions in `config/dependencies.json`; bootstrap them explicitly.
+  Record the launchable's install pins separately from reference checkout pins.
+- Keep installed virtual environments at their verified physical locations.
+  `config/runtimes.json` identifies them; moving a venv can break its absolute paths.
+- UNC's unified source root is `/mnt/bum/jjenchen/robocurve`. Previous run folders
+  remain evidence/runtime locations. Root scripts provide the current entry points.
+- Evidence: clean upstream dependency checkouts were verified before moving;
+  original fork branch was lamp-task, with only untracked local work. No commit,
+  remote publication or upstream PR is part of this organization change.
+
+## 2026-11-08: UNC development container with frozen benchmark tasks
+
+- User authorized moving development to a UNC container and stopping the Brev
+  instance while preserving its disk. Brev STOPPED was verified by CLI. Official
+  documentation says no compute charges while stopped; storage remains billable.
+- Use user-local, unprivileged Apptainer because this account cannot access the
+  Docker socket. Do not change host drivers, system services or Docker groups.
+- Container setup/launch source lives under containers/unc; generated tools,
+  images, caches and logs live under ignored artifacts/unc-container. Request GPU
+  resources through Slurm. Bind task source for development; keep submitted task
+  files and pending PR heads unchanged.
+- Validation target is the same pinned YAM/Arena stack and the known1.0scripted
+  bottle reference. A working shell/render alone is insufficient for full success.
+
+## 2026-11-08: Native snapshots for the28-bench test-ready build
+
+- Preserve the source dual7DOFPanda/Franka/Robotiq robots and MuJoCo3.3.7 for
+  first-stage development. Native robot controls have source-specific dimensions;
+  public pose actions are14D. Do not relabel these as YAM/Dream compatible.
+- All218 scene/settings load/step/render and190 full source reference replays
+  passed on UNC CPUs. A source reference is privileged; it does not demonstrate
+  full goal solvability through the new public pose controller or a model.
+-39 provisional semantic candidate families retain all149 named goals/190pairs,
+  including overlap-excluded regression variants. Candidate family names do not
+  establish independent acceptable submissions. Independent packages keep their
+  own scene/runtime/dependency closure;39 isolated builds passed after final
+  Robotiq state/action metre correction. No placeholder PRs or fabricated scores.
+- Original TinkerBench is read-only. Existing two pending bottle PRs stay frozen.
+  YAM conversion and official model/media/submission gates are later work.
+- Evidence: docs/porting/STATUS.md, reference-audit.md, submission-plan.json and
+  artifacts/porting/package-validation-metric-gap/,robotiq-gap-fix.json.
+
+## 2026-11-09: Native scripted evidence is separate from submission model evidence
+
+- Scope: publication of the native dual-Panda candidate tasks. Preserve native
+  development evidence; do not infer a model-route exception from non-YAM status.
+- Current upstream AGENTS requires Dream-1 video for two parallel-gripper arms,
+  with an Inspect LLM alternative stated for other robots. Dual Panda fits the
+  former morphology. A native Inspect script or ordinary LLM run alone does not
+  establish compliance with that requirement.
+- Dream's public adapter binds to YAM `joint_pos`, six joints plus gripper per
+  arm, YAM labels and station cameras. Native Panda's fourteen EEF pose/jaw
+  coordinates have different semantics. Renaming fields is not a valid bridge.
+- Publication is authorized by the latest user request, but the three selected
+  native candidates currently lack actual compliant model evidence and retain
+  scorer/construct/novelty gaps. No incomplete placeholder or mislabeled video
+  was published. Once eligible, no redundant publication permission is needed.
+- Evidence: upstream AGENTS fetched2026-11-09, kairosiann/inspect-robots-dream
+  policy.py and _station.py; artifacts/submission-prep/round1/publication-preflight.json;
+  docs/porting/BREV_VALIDATION.md and docs/porting/INSPECT.md.
+
+## 2026-11-09: Official-rule judge policy, separate development and submission
+
+- Scope: all new server-side task judgments and automatic repair routing.
+- Authority: authenticated Final stage guide/checklist/FAQ read2026-11-09 and
+  upstreamAGENTS pinned7df8bd8ad8cb19df51718e5ff46d4d610a9da6f1.
+  Five official task criteria govern; all blocker findings map to rule IDs.
+- Approximate/conditional/constraint mechanisms are not invalid by method alone;
+  concrete discrepancies and unintended nonzero credit remain defects.
+  Team physical testing is explicitly optional. No universal calibration,
+  multiseed or fullcontact-model requirement is added.
+- Scripted feasibility demonstrations may use simulator-state planning if
+  disclosed and executed via genuine robot controls with matching hardware,
+  task/scorer and actual limits. Direct goal/object/score manipulation is not
+  proof. Model evidence stays separate and follows declared observations.
+- Development advancement differs from submission readiness. Missing required
+  model/media/metadata/runtime items prevent publishing but don't automatically
+  trigger task-physics repairs. Model score0 is allowed with a fullscore demo.
+- Expected submission simulation route is Arena+Inspect perFAQ ('should run
+  through'); report deviations accurately. Dual parallel-gripper arms still
+  require realDream1, otherembodiments InspectLLM. No nonYAM-only exemption.
+- Implementation: official-v2.1 shared registry/prompts/schemas/validator;
+ 43offline checks and9live synthetic cases passed. Four actual unchanged-source re-assessments
+  completed; each advances to verification/integration, none is submissionready. Old judgments and their source snapshots remain.
+- Evidence: docs/judge/OFFICIAL_RUBRIC.md, agents/judge/policy/, artifacts/
+  judge-policy/official-v2/, continuation/server-round3/policy-v2-smoke/.
+
+## 2026-11-09: B5 monitor uses calibrated CPU PhysX with GPU RTX cameras
+
+- Scope: only the B5 monitor Arena port in ports/arena-submission/b5-monitor.
+- GPU PhysX43220 measures correct gravity/horizontal load but about4N for a20N
+  upward height-subtree load. Direct-root and downward load diagnostics43229
+  distinguish the failing path. Isolated solver velocity8->0 trial43233 does not
+  fix it and is not retained. No upstream cause is claimed as established.
+- Official supported embodiment device=cpu, with allocated GPU RTX cameras,
+  passes all10 identical known-load checks in43245, including20N upward force
+  and its moment. Geometry/masses/springs/locks/goal/robot/limits are unchanged.
+- Require device=cpu at B5 reset/observer initialization. Five calibrated channels
+  are recorded; contact/lock channels remain unvalidated and gate all credit.
+  Positive contact/lock tests, genuine robot fullscore, model/media and final
+  package/ownership remain required. This is not a project-wide GPU prohibition.
+- Evidence: artifacts/submission-readiness/b5-arena-preparation-20261109/
+  cpu-physics-43245/probe/result.json and cpu-physics-registration.json; installed
+  yam_arena.inspect_embodiment explicitly supports the device parameter.
+
+## 2026-11-09: Experimental B5 fixture orientation and physical foot frame
+
+- Scope: isolated side-controls-candidate underB5readiness artifacts. Initial
+  yaw90 givesrightarm access tocontrols andleftarm topanel. Canonical/previous
+  pedestal remainpreserved; same81shapes,9DOF,3mimics,box,130mm/90degree/20s,
+  1428actions andguards. Not retained or score/model-equivalent bydefault.
+- Actual43350 reaches84.8mm thenrightlink2/risingpanel contact andfootveto.
+  NewCPU43357/43359/43379 componentIK/forearm/table checks pass chosenroutes;
+  they areplanning, not physicalsuccess.
+- Sourcefoot rectangle(.14,.11) belongs tofixture. Historyaccepts validated
+  properyawrotation, mapsworldmeasuredF/M intophysicalfootframe, preserves
+  thresholds/coupledfriction. Existingcanonicalcodeunchanged. Geometricpose
+  alreadyyaw-invariant.72pose+20wrench cases andbothswappedaxis counterexamples
+  pass. Newactualknownload/foundation43361 passes24/24, including20Nup/moment
+  andactual80N100msabort. Newcontact/lock channelsremaingated pendingproof.
+- NativeB5fingerceiling40N (portable_demo/env.py:92) explicitlypreserved instead
+  ofSDKdefault50.43375actualjointtablesconfirmbothhands40; scriptedclamp~24N/pad.
+  Prior43361knownloads usedempty50Nfingers; scopeevidence accurately andverify
+  final40Nsource/hardware beforeeligibility. SDK27/7inclgravityaudit unresolved.
+- Actual43375 Hrelocks130.150mm/Pwithdraws5.615mm, no taskveto; shortleverpush
+  stalls. A newcontrolleruseslongerlever+measured4Nnormalforcefeedback andmust
+  completeactualfullgoal/replay/Inspect/model/media/package/currentownership.
+  No robotcontrollerwritesfixture/effort/score/timer states; evaluatordiagnostics
+  remain separate. No source/goal/score relaxation or oldscoretransfer.
+
+## 2026-11-09: D3 global-compliance candidate for Arena integration
+
+- Scope: the experimental D3 Arena integration under
+  artifacts/submission-readiness/d3-arena-preparation-20261109. Native packages
+  and pending submissions remain unchanged. This is not final submission readiness.
+- Native D3 explicitly uses a trilinear top with shared centred-probe and whole-pad
+  stiffness. The authored8corner and105grid PhysX candidates did not preserve
+  measured load/impact behavior; finer mesh alone is not evidence of fidelity.
+  No upstream solver defect is established.
+- Retain a passive six-DOF global-face support for full-task integration. It keeps
+  source vertical K, tilt/shear compliance,4ms loss, nonlinear stroke and500N
+  densification cap, and balanced force/moment reactions. Independent corner
+  warping and foam-side collision are omitted and must be disclosed.
+- Actual evidence: eight static/probe checks give K error below0.8%; eight
+  isolated flight/impact checks preserve gravity and nominal momentum;24
+  floating-carton/lid checks cover reset, axis, mass, locking and release.
+  Four evaluator-packed cartons physically lift/release at30cm and complete a
+  landing window;16 mechanism checks pass, with2ms shocks59.24/37.67/36.09/52.99g.
+  This proves component behavior, not robot packing or a task score.
+- Physical pad mass is30g, split15g into the moving face and15g into the carton
+  root. Exported native carton mass is200g and only15g moving nodes survive;
+  the earlier claim that the compiled carton included pinned-pad mass was wrong.
+  The new200gcarton+30gpad accounting is explicit; numeric armature is not added
+  as physical mass and native scores never transfer.
+- Actual contact gates, complete scoring,20Hz YAM controls with27/7Nm and40N
+  fingers, robot fullgoal, Dream1, media and live ownership remain required.
+  No blanket FEM or hardware-testing requirement is imposed on other tasks.
+- Evidence: global-pad-component-evidence.json, global-pad-static-43448/,
+  global-pad-air-separated-43449/, carton-lid-reset-43451/,
+  packed-carton-drop-v2-43464/ and the source DEVIATIONS.md.
+
+
+## 2026-11-09: D3 hinge reaction uses the measured incoming joint basis
+- Scope: D3 integration in the installed UNC PhysX/IsaacLab build only.
+  SDK comments do not replace actual known-load conventions.
+-43480 physical0.8Nm opening torque gives a mirrored-sign discrepancy through
+  processed JointWrenchSensor coordinates.43491 checks all4cartons at0/45deg
+  root yaw under actual balanced torques and gravity; all24 raw-joint-basis
+  reactions agree within0.001Nm(maxabout6.44e-6Nm). Rawbody/processedjoint
+  interpretations fail the mirrored hinges, up to1.546Nm.
+- Use the raw incoming torque's hinge-X component for D3's untuck reaction.
+  Both authored joints use localX; opposite localRot0/1 preserve their actual
+  opening axes. This is a measured task-local conversion, no SDK/host edit or
+  general upstream bug assertion. Re-check if the backend/joint authoring changes.
+- Evidence: lid-basis-43491/result.json and
+  lid-incoming-basis-verification.json underD3readiness. Knownload setup is
+  evaluator-only; it does not prove a robot's5Ntuck/fullgoal.
+
+
+## 2026-11-10: C1 explicit public physical case
+Scope: a separate public C1-T1 entry only. Preserve generic reset(seed),43/44,
+transfer and all variants. Use retained installed TaskFile.module metadata for
+explicit physicalseed42, independent of Inspect trialseed; pass trialseed through
+SDK reset unchanged, logboth and require planner/materials to usephysical42.
+Reject contradictory publicconfiguration before simulation. No SDK or implicit
+globalenvironment override. Rootinspectedinstalled load/TaskFile.module source.
+Publicinstruction/demo/model must describe identicalfixedphysicalcase.
+Measurement proof and readiness remain separate: retaincurrent runtimecredit
+gates until specificproofsare reviewed; independentgenuinemeasured-goal evidence
+must neverbe mislabeled aspublicscore1 orsubmissionreadiness. Implementation/
+actualcoldTaskFile.module/derivedseed/genericvariant/strictJSON/preSDKtestsPASS
+inpublic-fixed42-reference-v2; source6099b549 frozen/rootreviewed, firstgenuine
+43632attempt queuedthenrunning. This isnotphysical/fullgoalcertification.
+
+## 2026-11-10: D1 temporary own-end cord/gripper contact classification
+Scope: scripted D1 planning helpers, nottaskphysics orSDK. Thetaskanalyticcord
+alreadyomits robot-cord collision; userclarifiedincidentalcord/grippercontact
+isnotblanketforbidden. Report temporary own attached-end gripper surface
+contact andopeningpad-localproxy. Reject rigidgripperbodycentrelinecrossing;
+releasedretreat centreline staysoutsidealllinks andendpoint has4mmclearance.
+Ignore conservativebroadflags onlyif exactcertifieddistance>=4mm. Otherlink/
+segment/sourcefixture/load/wrist/score guards stay. Finalfidelity mustdisclose
+omittedrobot-cord collision; thisdoesnotcalibratecontactforces orprove runtime.
+Evidence:43700 centreline-crossingproposal rejects;43701 path records own-end
+surfacecontact thenretreat endpoints clear; geometry/DATA checksPASS, physical
+43702 pending. See EVALUATIONS.md forfailedproposals andscope.
+
+## 2026-11-10: D1 B plan readiness binds source seating and physical bars
+Scope: private scripted D1 planning/DATA helpers only; canonicaltask/source24
+physics/scoring/force/hardware remainunchanged. AreadyBplan mustcallcanonical
+strap.seat_check(goal,speed0)==bar1 andincludeall4finiteeye-bar capsules inrobot/
+heldhook fixturechecks. Heldhookbarpenetration beyond.1mm rejects; robotchosen
+clearance remains1mm. Tangency/mathcontact isnotanofficialtaskveto.
+Promoter independentlyrecomputes sourcegoal andhook/fixturegeometry. Aplanned
+rightretreatvector must bindall46checkedFKposes beforecontrollerconsumesit;
+40actualretreatcontrols retainexistingpublic14DIKactions.
+Evidence:43770 findsold1.278mmshank/.5mmfoot nominalbaroverlap andyaw55invalid
+sourcealignment.43787 13regressionmethodsPASS, includingoldfalseaccept vsnew
+reject forbothlegacyreports, currentgoodpromotion andwrongvectorreject.
+43785 newsource-validcap44/tilt15 path147/opening121/right46/left61PASS, source
+bar1/all4caps checked. ThisdoesNOTprovephysicalBseat/release/fullgoal/model;
+GPU43788 isthenewphysicalcandidate. Preservefailedbaselines.

@@ -1,0 +1,233 @@
+{
+  "archive": "review-evidence.tar.gz",
+  "bytes": 4598264,
+  "sha256": "52bcd4897c25f9e28bb0171c41da5d5ba193366666199a3c7d9a94fc2c027e69",
+  "uncompressed_file_bytes": 41642301,
+  "members": [
+    {
+      "path": "ROOT-physical-review.json",
+      "type": "file",
+      "bytes": 13456,
+      "sha256": "a880f3b707437f695203fd8c00eaf3597f03f364985fe1f1cf86dd383e441c83"
+    },
+    {
+      "path": "replay",
+      "type": "directory",
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "replay/launcher.json",
+      "type": "file",
+      "bytes": 477,
+      "sha256": "6cecbac0db5de773e382e84c86cedd6b64d93acc8a9e66712525e3d831bdb9a5"
+    },
+    {
+      "path": "replay/left_cam-encoder.log",
+      "type": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "replay/left_cam.mp4",
+      "type": "file",
+      "bytes": 75129,
+      "sha256": "01cf0f5a5fd0159402b8f6b6b299b5c0d3cabdfd262bab3ba182982dce7ccb37"
+    },
+    {
+      "path": "replay/left_cam.png",
+      "type": "file",
+      "bytes": 39341,
+      "sha256": "5415aad5dbc08240eeef6bf71ce23f40cca723091c0e3c1ad7c4410554f924c7"
+    },
+    {
+      "path": "replay/media-finalization.json",
+      "type": "file",
+      "bytes": 396,
+      "sha256": "75add07e8adf7a193d507d9d011ba86391fcccbafcbe927bfaaf2dddff9b3682"
+    },
+    {
+      "path": "replay/physics.jsonl",
+      "type": "file",
+      "bytes": 12549056,
+      "sha256": "8cbee1cfa5484d160b3f0d19d0a1716673ac93dfe77e75f0cf0ec3f7948c200b"
+    },
+    {
+      "path": "replay/result.json",
+      "type": "file",
+      "bytes": 1839,
+      "sha256": "25e8d86b0aa669072a64f31b3274cf9702328d43246531f37fd89b72b3756077"
+    },
+    {
+      "path": "replay/right_cam-encoder.log",
+      "type": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "replay/right_cam.mp4",
+      "type": "file",
+      "bytes": 257094,
+      "sha256": "9178d6a48c0d3670387693c53b1d8d4dc0f3c475c1c035b6bf28eb8777ec4259"
+    },
+    {
+      "path": "replay/right_cam.png",
+      "type": "file",
+      "bytes": 50334,
+      "sha256": "924fa5514349f1ae50d13890126eb4688ffad127f8d7521e995076cba49aa946"
+    },
+    {
+      "path": "replay/top_cam-encoder.log",
+      "type": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "replay/top_cam.mp4",
+      "type": "file",
+      "bytes": 81819,
+      "sha256": "c01b3b9f4503d322ccb30373f2b4de4ec5a2599627df1e619185d7efc6923150"
+    },
+    {
+      "path": "replay/top_cam.png",
+      "type": "file",
+      "bytes": 50586,
+      "sha256": "c7da4e7c0a1cbd095eb27ad9a2d615c937e9e2699806c771ef946aa0e0078b34"
+    },
+    {
+      "path": "replay/trace.jsonl",
+      "type": "file",
+      "bytes": 28147195,
+      "sha256": "ee38a1d56761bccc0f39cb7dadc0d7cd20d5c77af23b43ad00835fde98fec0b9"
+    },
+    {
+      "path": "setup",
+      "type": "directory",
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "setup/actual-reset-review.json",
+      "type": "file",
+      "bytes": 10551,
+      "sha256": "3007c08112144e4f8e7de48ebd104965bd1575df271d1858357b9323b099cbfe"
+    },
+    {
+      "path": "setup/left_cam.png",
+      "type": "file",
+      "bytes": 39341,
+      "sha256": "5415aad5dbc08240eeef6bf71ce23f40cca723091c0e3c1ad7c4410554f924c7"
+    },
+    {
+      "path": "setup/physics.jsonl",
+      "type": "file",
+      "bytes": 128103,
+      "sha256": "f3cae8dfa62b33e470b5d4d9a55cf65970e8dcf3d645d11f5abe7b2f2a6df5b5"
+    },
+    {
+      "path": "setup/result.json",
+      "type": "file",
+      "bytes": 1321,
+      "sha256": "2f63370e510a4ae3e2151768947335a5d4f6651b665378c89c248b4878964bd9"
+    },
+    {
+      "path": "setup/right_cam.png",
+      "type": "file",
+      "bytes": 50334,
+      "sha256": "924fa5514349f1ae50d13890126eb4688ffad127f8d7521e995076cba49aa946"
+    },
+    {
+      "path": "setup/top_cam.png",
+      "type": "file",
+      "bytes": 50586,
+      "sha256": "c7da4e7c0a1cbd095eb27ad9a2d615c937e9e2699806c771ef946aa0e0078b34"
+    },
+    {
+      "path": "setup/trace.jsonl",
+      "type": "file",
+      "bytes": 17502,
+      "sha256": "77f23d48cc3154f4d598c4bf2841becc8922e1a1cd8abddfaf584a1bfc6a67a8"
+    },
+    {
+      "path": "review-evidence",
+      "type": "directory",
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "review-evidence/physical-review-analysis.json",
+      "type": "file",
+      "bytes": 2067,
+      "sha256": "afc468719ef1bba0fb0b9c6828dff49b377cd86622b6a333c437a9d2d5e8c6a2"
+    },
+    {
+      "path": "review-evidence/reused-B7-force-api-pins.json",
+      "type": "file",
+      "bytes": 541,
+      "sha256": "5bf8ee07529b33cfe7e32cb1a40ca79e5101b89d018a8bbb460dd2fe33353e32"
+    },
+    {
+      "path": "review-evidence/reused-B7-six-axis-wrist-norm.json",
+      "type": "file",
+      "bytes": 13171,
+      "sha256": "acd78904a8596fa652ea9743f882915613444cb2e68fef9f3f487a1e803c9f2b"
+    },
+    {
+      "path": "source/candidate/contacts.py",
+      "type": "file",
+      "bytes": 2994,
+      "sha256": "a4bdd2e09c43fd782066bc549a3dc672d5bdddd2e3257c1bb06872b9e9e9a2cd"
+    },
+    {
+      "path": "source/candidate/mechanism.py",
+      "type": "file",
+      "bytes": 1344,
+      "sha256": "d1abdf5ca3a287f7aab53ca59852c2e6264936e84ce4a68159c1ee6f3676d523"
+    },
+    {
+      "path": "source/candidate/motor_adapter.py",
+      "type": "file",
+      "bytes": 2812,
+      "sha256": "74e5b7cf9df93e854efbc3c4d5f957622fc285e290ebee37ece298ec179c1f38"
+    },
+    {
+      "path": "source/candidate/mount.py",
+      "type": "file",
+      "bytes": 369,
+      "sha256": "29c9d6b3c342b992bb95bde658cb73702a3ff937f6615425e869ac08b46ddacd"
+    },
+    {
+      "path": "source/candidate/physical-inventory.json",
+      "type": "file",
+      "bytes": 44147,
+      "sha256": "da68181cc5eb6d1a48b0423cf80675e6d7533578fb7935ae37560ec0f92621c6"
+    },
+    {
+      "path": "source/candidate/physics.py",
+      "type": "file",
+      "bytes": 6296,
+      "sha256": "757a5813d949a0610424b5a2313cf7b6e4a700f805524b2e42bd92571ccadf91"
+    },
+    {
+      "path": "source/candidate/scoring.py",
+      "type": "file",
+      "bytes": 2800,
+      "sha256": "2727fe7c305dea1621e96968f9a733c64515c253b0d3862adc91fa0324c7d30e"
+    },
+    {
+      "path": "source/candidate/task.py",
+      "type": "file",
+      "bytes": 1300,
+      "sha256": "4530bfc6b48b0522116a7683a6689157005c46535dd0940f45cd1b0634c69c93"
+    }
+  ],
+  "checks": {
+    "relative_normalized_paths": true,
+    "duplicates_absent": true,
+    "only_regular_files_and_directories": true,
+    "no_symlinks_hardlinks_devices": true,
+    "secret_patterns_absent": true,
+    "JSON_credentials_and_session_ID_keys_absent": true
+  },
+  "blind_video_review": "All3 original replay camera videos and setup views inspected: simulator RGB only, no team identifiers, paths or text overlays."
+}

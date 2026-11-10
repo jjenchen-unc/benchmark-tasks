@@ -1,0 +1,18 @@
+{
+  "title": "Lower a fragile cabinet with a hydraulic release valve",
+  "category": "Impact on jobs",
+  "keywords": [
+    "hydraulic jack",
+    "controlled lowering",
+    "fragile load"
+  ],
+  "instruction": "Use the red hydraulic jack to lower the raised glass display cabinet onto the steel rails. Land at no more than 25 mm/s, keep every glass-panel contact at 15 N or below, then let go and leave the cabinet resting on the rails for 3 s.",
+  "context": "Meter the load-driven hydraulic release so a fragile cabinet transfers from its jack onto fixed rails with a gentle landing and no direct lifting. The release has no automatic safe-speed cap.",
+  "setup": "Fixed physical seed42, no jitter. Table top Z=0.7475m. Two six-axis YAM arms with parallel grippers: left base(0,0.305,0.75)m, identity yaw; right base(0.68,-0.15,0.75)m, yaw pi, on a120x120x2.5mm steel plate centered at Z=0.74875m. Joint1-3 limits27Nm, joint4-6 limits7Nm TOTAL including gravity; each finger40N. Both start at the source READY pose with open grippers. Two fixed bottle jacks centered(0.17,-0.15)/(0.17,0.15)m, red/blue;120x100x12mm bases on the table, cylinder diameters66/80mm,110x110x15mm pads,180mm handles with60mm free sleeves,40mm release knobs. Two900x30x30mm steel rails at X=0.085/0.255,Y=-0.15m, tops Z=0.8825m, six24x24x105mm posts and source12mm retaining lips. A free9.02987kg walnut/glass cabinet,210x210x386mm envelope, starts on the red ram with plinth origin(0.17,-0.15,0.9325)m,50mm above rail tops. Its four side panels, two shelves and four ornaments remain. Red/blue ram extensions55/0mm; lever angles0.3rad; valve and all other exact parameters, primitive poses, sizes, masses, materials and room/station assets are shipped in runtime/candidate/fixture.json, physical-inventory.json and the pinned SDK source.",
+  "scoring": "End score with permanent safety invalidation:0 for glass normal contact>15N, any rail landing>25mm/s, cabinet tilt>10deg, cabinet underside40mm below rails, nonfinite measurement, or force guard termination. Otherwise0.25 for >=10mm hands-off jack-carried descent with matching oil flow;0.5 for >=30mm.0.75 for gentle jack-mediated rail landing with no robot contact;1.0 after that resting hands-off rail condition continuously holds3s with cabinet linear speed<=1mm/s and angular speed<=1degree/s. Every other outcome0.",
+  "run_limit": "3210 genuine14D joint_pos actions at20Hz;160.5s;500Hz physics.",
+  "reset_notes": "Reset restores both jack joints and the freely moving cabinet. All Inspect harness seeds route to the same explicitly fixed seed42 physical instance; require object_jitter=0. No exact42-only rejection. No consumables.",
+  "fidelity": "Rigid-body PhysX with primitive geometry. Load-dependent oil target and stiff ram drive approximate hydraulics; no fluid/compliance calibration. Friction and masses are estimates. Glass damage uses normal-contact force history, not fracture; panel attribution is conservative near frames. CPU contact/clock/motor and wrist-norm APIs are source-bound reviewed, not hardware calibrated. Fixed supported right-arm mount and genuine YAM27/7Nm total and40N fingers are retained.",
+  "scores": "Dream-1 (dreamlabs/dream-1-beta, one continuous session, 4 rows/request): 0.0 at 3210 actions / 160.5 s. Scripted genuine YAM demo: 1.0 at 629 actions / 31.45 s, including 3.014 s released hold.",
+  "media": "M-VZJLUG"
+}

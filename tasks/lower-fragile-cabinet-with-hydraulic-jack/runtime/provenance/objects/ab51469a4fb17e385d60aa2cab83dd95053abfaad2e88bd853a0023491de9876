@@ -1,0 +1,38 @@
+{
+  "changed": [
+    "sourcehashes.json",
+    "mount.py",
+    "task.py",
+    "reference.py",
+    "kit.py"
+  ],
+  "native_physics_assets_scorer_caps_budget_byte_exact": true,
+  "mount_translation_m": [
+    0.68,
+    -0.15,
+    0.75
+  ],
+  "mount_yaw_rad": 3.141592653589793,
+  "mount_quat_xyzw": [
+    0,
+    0,
+    1,
+    0
+  ],
+  "plate_center_m": [
+    0.68,
+    -0.15,
+    0.74875
+  ],
+  "plate_size_m": [
+    0.12,
+    0.12,
+    0.0025
+  ],
+  "pure_task_construction": true,
+  "isolated_chosen_launcher": true,
+  "controller_no_direct_task_state_write_calls": true,
+  "guard_escape_proofs_reused": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/hydraulic-actual-contact-whole-v3-20261110-0840/guard-regressions.json",
+  "guard_only_change": "local module provenance path string",
+  "physical_evidence": false
+}

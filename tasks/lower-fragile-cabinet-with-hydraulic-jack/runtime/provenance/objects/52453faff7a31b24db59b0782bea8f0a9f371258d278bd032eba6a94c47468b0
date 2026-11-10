@@ -1,0 +1,12 @@
+import sys,json,math
+from pathlib import Path
+R=Path(__file__).resolve().parent;sys.path.insert(0,str(R));import geometry as G
+import numpy as np
+from yam_arena import ik,station
+F=json.loads((R/'candidate/fixture.json').read_text());out=[]
+for yaw in [math.radians(x) for x in (-30,-60,-90,-120)]:
+ c,s=math.cos(yaw),math.sin(yaw);rot=np.array([[-c,0,-s],[0,1,0],[s,0,-c]])
+ for j2,j3 in [(.1,.5),(.1,2.5),(.8,.5),(.8,2.5),(1.5,.5),(1.5,2.5)]:
+  q,e,r=ik.solve([.38,-.15,.8225],ik.matrix_to_quat_xyzw(rot),q_init=[.3,j2,j3,-.6,0,0],base_pos=station.BASES['right'],iters=300)
+  a=G.audit(np.r_[q,[-.04695]*2],F);row=dict(yaw=yaw,q=q.tolist(),e=e,r=r,worst=a[:2]);out.append(row);print(row,flush=True)
+(R/'outside-tilt-branches.json').write_text(json.dumps(out,indent=2,allow_nan=False))

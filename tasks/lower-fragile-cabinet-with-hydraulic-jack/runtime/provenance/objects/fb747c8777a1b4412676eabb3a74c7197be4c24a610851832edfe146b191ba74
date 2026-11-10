@@ -1,0 +1,22 @@
+"""Lower the raised glass display cabinet onto the steel rails using the red hydraulic
+jack's release valve. Landing at most25mm/s, no glass contact over15N, and let go
+for3s. Two fixed bottle jacks and full size rails are preserved. Development only.
+"""
+import json,sys
+from pathlib import Path
+import numpy as np
+HERE=Path(__file__).resolve().parent;sys.path.insert(0,str(HERE))
+from kit import Jack,Cabinet,Rail,install,current_status
+from yam_arena.task_file import Box
+install()
+F=json.loads((HERE/'fixture.json').read_text());D=np.array(F['translation']);SCENE='station';SCORE_OVER='end'
+OBJECTS=[]
+for b in F['bodies']:
+ if b['name'] in ('jack_S','jack_T'):
+  pos=np.array(b['world_pos'])+D;pos[2]=.7475
+  OBJECTS.append(Jack(name=b['name'],pos=tuple(pos),size=(.12,.10,.22),mass=None,tag=b['name'][-1]))
+ if b['name']=='cabinet':OBJECTS.append(Cabinet(name='cabinet',pos=tuple(np.array(b['world_pos'])+D),size=(.21,.21,.386),mass=b['mass']))
+ if b['name']=='world':
+  for g in b['geoms']:
+   OBJECTS.append(Rail(mu=g['friction'][0],name=g['name'],pos=tuple(np.array(g['pos'])+D),size=tuple(2*np.array(g['size'])),color=tuple(g['rgba'][:3])))
+def score(objects):return current_status()['score']

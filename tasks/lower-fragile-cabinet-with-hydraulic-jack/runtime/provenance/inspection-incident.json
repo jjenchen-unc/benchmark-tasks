@@ -1,0 +1,9 @@
+{
+  "command": "CPU inspect.getsource request imported yam_arena.scene before guard",
+  "result": "ImportError at pxr.PhysxSchema; Warp CUDA warning, no available CUDA driver",
+  "elapsed_s": 9.502546574,
+  "simulator_initializations": 0,
+  "AppLauncher_calls": 0,
+  "simulator_module_import_attempted": true,
+  "corrective_action": "all subsequent SDK scene/robot inspection used container file reads; chosen launcher guarded before isaaclab.app"
+}

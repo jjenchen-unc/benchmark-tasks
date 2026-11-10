@@ -1,0 +1,14 @@
+import sys,json,math
+from pathlib import Path
+R=Path(__file__).resolve().parent;sys.path.insert(0,str(R));import geometry as G
+import numpy as np
+from yam_arena import ik,station
+F=json.loads((R/'candidate/fixture.json').read_text());out=[]
+for tilt in (45,60,75,90):
+ a=math.radians(tilt);c,s=math.cos(a),math.sin(a);rot=np.array([[-1,0,0],[0,c,s],[0,s,-c]])
+ q=np.array([0,1,1,-.6,0,0.]);rows=[]
+ for y in np.linspace(0,math.radians(115),24):
+  c,s=math.cos(y),math.sin(y);rz=np.array([[c,-s,0],[s,c,0],[0,0,1]]);q,e,r=ik.solve([.38,-.15,.8225],ik.matrix_to_quat_xyzw(rz@rot),q_init=q,base_pos=station.BASES['right'],iters=250)
+  a=G.audit(np.r_[q,[-.04695]*2],F);rows.append(dict(yaw=float(y),q=q.tolist(),e=e,r=r,worst=a[:1]))
+ out.append(dict(tilt=tilt,rows=rows));print(tilt,'max errors',max(v['e'] for v in rows),max(v['r'] for v in rows),'min gap',min(v['worst'][0][0] if v['worst'] else .02 for v in rows), 'first',rows[0],flush=True)
+(R/'side-grasp.json').write_text(json.dumps(out,indent=2,allow_nan=False))

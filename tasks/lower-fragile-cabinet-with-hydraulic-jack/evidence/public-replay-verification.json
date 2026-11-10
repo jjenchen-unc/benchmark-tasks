@@ -1,0 +1,98 @@
+{
+  "manifest": "ed2331a70682e377504783bff75714668f7bae4f46caccd2074e2540a8d13ccc",
+  "controls": 629,
+  "hold_s": 3.0139999999998897,
+  "public_score": 1,
+  "native_diagnostic": 1,
+  "proofs": {
+    "result.json": {
+      "path": "result.json",
+      "sha256": "0abd0944426ec28c43e5e2e951d2fa8369273584c0e391c7b58899994e2fb702"
+    },
+    "launcher.json": {
+      "path": "launcher.json",
+      "sha256": "3f3cefa3b28002a8af5196dfa0682040f580de83afd0ab1d1936c88e7eedab44"
+    },
+    "trace.jsonl": {
+      "path": "trace.jsonl",
+      "sha256": "fa0228eb21ede1e12224f5a7b288522e930ebddff4520995f634ee21fe025869"
+    },
+    "physics.jsonl": {
+      "path": "physics.jsonl",
+      "sha256": "bad1db557657352be2214ab6ada59448e26447b9d047e3caaa7c45204f45b4fc"
+    },
+    "media-finalization.json": {
+      "path": "media-finalization.json",
+      "sha256": "fb56fd2a4c40412261b305c662bba54f5e0603abf769a7bd770fee0481e393b1"
+    },
+    "left_cam.mp4": {
+      "path": "left_cam.mp4",
+      "sha256": "72c5cf75f23ed01fc40c57f0b7495e129d1e063b2c3e4f58c347174ac3aea105"
+    },
+    "right_cam.mp4": {
+      "path": "right_cam.mp4",
+      "sha256": "cd2665ba42ba003fbf481ee9e2a6f650b28e898406ee9177f58a868335f8b3f8"
+    },
+    "top_cam.mp4": {
+      "path": "top_cam.mp4",
+      "sha256": "0dd9060000b7c688f04301e0e41a7ef1f183f570e50955ce5f8ef93a5adb3bb1"
+    }
+  },
+  "kind": "ACTUAL_PUBLIC_REPLAY_INDEPENDENT_VERIFICATION",
+  "method": "Same immutable protocol fresh verifier with explicit public-credit expectation score 1/gate null/missing empty; independent native History recomputation unchanged",
+  "external_verifier_sha256": "7babf5c874d852e423161afccd190f4ac2fb80bb7260a7b1397105b025cff504",
+  "full_decode_all_three": true,
+  "streams": {
+    "top_cam": {
+      "ffmpeg_version": "7.0.2-static https://johnvansickle.com/ffmpeg/ built with gcc 8 (Debian 8.3.0-6)",
+      "codec": "h264",
+      "pix_fmt": "yuv420p(progressive)",
+      "fps": 20.0,
+      "source_size": [
+        320,
+        176
+      ],
+      "size": [
+        320,
+        176
+      ],
+      "rotate": 0,
+      "duration": 31.5,
+      "decoded_frame_count": 630
+    },
+    "left_cam": {
+      "ffmpeg_version": "7.0.2-static https://johnvansickle.com/ffmpeg/ built with gcc 8 (Debian 8.3.0-6)",
+      "codec": "h264",
+      "pix_fmt": "yuv420p(progressive)",
+      "fps": 20.0,
+      "source_size": [
+        320,
+        176
+      ],
+      "size": [
+        320,
+        176
+      ],
+      "rotate": 0,
+      "duration": 31.5,
+      "decoded_frame_count": 630
+    },
+    "right_cam": {
+      "ffmpeg_version": "7.0.2-static https://johnvansickle.com/ffmpeg/ built with gcc 8 (Debian 8.3.0-6)",
+      "codec": "h264",
+      "pix_fmt": "yuv420p(progressive)",
+      "fps": 20.0,
+      "source_size": [
+        320,
+        176
+      ],
+      "size": [
+        320,
+        176
+      ],
+      "rotate": 0,
+      "duration": 31.5,
+      "decoded_frame_count": 630
+    }
+  }
+}

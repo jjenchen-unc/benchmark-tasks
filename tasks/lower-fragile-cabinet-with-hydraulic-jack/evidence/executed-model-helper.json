@@ -1,0 +1,8 @@
+{
+  "native_bundle_fingerprint": "ed2331a70682e377504783bff75714668f7bae4f46caccd2074e2540a8d13ccc",
+  "original_model_child_sha256": "e69b546946df36398f4874dbc43f185a667b4a23810d89ee02a42cd89351c082",
+  "actual_executed_model_helper_sha256": "829775074232e82fa8c2dd88c444a5295ef460a181c5ba681dd3a3392b36fc97",
+  "workflow_manifest_sha256": "80d3b27af49a715531a56dbda6d88f72924b4e0f6e2fb48251c85ba3ff8cbdd7",
+  "policy": "official transient retries within same continuous session; expiration/replacement invalid; no episode restart",
+  "task_physics_controller_goals_budget_changed": false
+}

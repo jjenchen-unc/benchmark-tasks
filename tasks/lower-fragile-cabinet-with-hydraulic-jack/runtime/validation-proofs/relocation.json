@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "boundary": "SDK:isaaclab.app",
+  "outside_package_reads": [],
+  "isolated": 1,
+  "wall_s": 0.4361187592148781,
+  "physics_proof": false
+}

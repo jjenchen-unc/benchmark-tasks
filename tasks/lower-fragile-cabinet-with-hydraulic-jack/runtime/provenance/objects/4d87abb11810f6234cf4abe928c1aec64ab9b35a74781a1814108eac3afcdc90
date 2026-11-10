@@ -1,0 +1,465 @@
+#usda 1.0
+(
+    defaultPrim = "Fixture"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "Fixture" (
+    prepend apiSchemas = ["PhysicsArticulationRootAPI", "PhysxArticulationAPI"]
+)
+{
+    bool physxArticulation:enabledSelfCollisions = 1
+    int physxArticulation:solverPositionIterationCount = 64
+    int physxArticulation:solverVelocityIterationCount = 8
+    quatd xformOp:orient = (1, 0, 0, 0)
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+    def "links"
+    {
+        def Xform "jack_S" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0.008536362, 0, 0.044048987)
+            float3 physics:diagonalInertia = (0.0018086644, 0.0014334337, 0.0007929602)
+            float physics:mass = 0.5406005
+            quatf physics:principalAxes = (0.4675082, 0.53050554, 0.53050554, 0.4675082)
+            float physxRigidBody:maxDepenetrationVelocity = 0.2
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cube "jack_S_base" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding:physics = </Fixture/materials/mu_1_1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.0005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.12, 0.1, 0.012)
+                double3 xformOp:translate = (0, 0, 0.006000000000000005)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cylinder "jack_S_body" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.09
+                rel material:binding:physics = </Fixture/materials/mu_1_1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.0005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.033
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0.05699999999999994)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cylinder "shape_12" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.012
+                rel material:binding:physics = </Fixture/materials/mu_1_1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.0005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.024
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0.10699999999999998)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cube "shape_13" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding:physics = </Fixture/materials/mu_1_1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.0005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.024, 0.024, 0.04)
+                double3 xformOp:translate = (-0.03, 0, 0.07499999999999996)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cylinder "shape_14" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.02
+                rel material:binding:physics = </Fixture/materials/mu_1_1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.0005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.012
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (-0.012, 0, 0.02499999999999991)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Capsule "rod_S" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.17
+                rel material:binding:physics = </Fixture/materials/mu_1_1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.0005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.006
+                quatd xformOp:orient = (0.7071067811865476, 0, -0.7071067811865475, 0)
+                double3 xformOp:translate = (0.115, 0, 0.029999999999999916)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cylinder "shape_16" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.058
+                rel material:binding:physics = </Fixture/materials/mu_1_1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.0005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.009
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0.21, 0, 0.03499999999999992)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+        }
+
+        def Xform "ram_S" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0, -0.023866666)
+            float3 physics:diagonalInertia = (0.00127007, 0.00127007, 0.0006808)
+            float physics:mass = 0.75
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.2
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0, 0, 0.11499999999999999)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cylinder "shape_17"
+            {
+                uniform token axis = "Z"
+                double height = 0.1
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.019
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, -0.05)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cylinder "shape_18"
+            {
+                uniform token axis = "Z"
+                double height = 0.012
+                color3f[] primvars:displayColor = [(0.7, 0.65, 0.4)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.012
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, -0.003)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cube "pad_S" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+            )
+            {
+                rel material:binding:physics = </Fixture/materials/mu_1_2> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.0005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.11, 0.11, 0.015)
+                double3 xformOp:translate = (0, 0, 0.0075)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+        }
+
+        def Xform "lever_S" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (-0.09, 0.021, 0)
+            float3 physics:diagonalInertia = (0.00015783131, 0.00015783131, 0.0000012132233)
+            float physics:mass = 0.05
+            quatf physics:principalAxes = (0.70710677, 0.1606756, 0.6886097, -0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.2
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (-0.035, 0, 0.07499999999999996)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Capsule "handle_S" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.18483506160899235
+                rel material:binding:physics = </Fixture/materials/mu_1_1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.0005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.007
+                quatd xformOp:orient = (0.7071067811865476, 0.160675602081711, 0.6886097232073328, -0)
+                double3 xformOp:translate = (-0.09, 0.021, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+        }
+
+        def Xform "grip_S" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0, 0)
+            float3 physics:diagonalInertia = (0.00000678125, 0.00000678125, 0.0000015625)
+            float physics:mass = 0.02
+            quatf physics:principalAxes = (0.70710677, 0.70710677, 0, 0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.2
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (-0.21499999999999997, 0, 0.07499999999999996)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cylinder "grip_S" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.06
+                rel material:binding:physics = </Fixture/materials/mu_1_1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.0005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.1, 0.1, 0.1)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.0125
+                quatd xformOp:orient = (0.7071067811865475, 0.7071067811865475, 0, 0)
+                double3 xformOp:translate = (0, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+        }
+
+        def Xform "valve_S" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0, 0)
+            float3 physics:diagonalInertia = (0.00000364, 0.00000364, 0.000006)
+            float physics:mass = 0.03
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.2
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.21000000000000002, 0, 0.07199999999999995)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cylinder "knob_S" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.016
+                rel material:binding:physics = </Fixture/materials/mu_2_0> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.0005
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.08, 0.08, 0.08)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.02
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cube "shape_23"
+            {
+                color3f[] primvars:displayColor = [(0.9, 0.9, 0.9)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.01, 0.004, 0.001)
+                double3 xformOp:translate = (0.014, 0, 0.0085)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+        }
+    }
+
+    def "materials"
+    {
+        def Material "mu_1_1" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.1
+            float physics:restitution = 0
+            float physics:staticFriction = 1.1
+        }
+
+        def Material "mu_1_2" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.2
+            float physics:restitution = 0
+            float physics:staticFriction = 1.2
+        }
+
+        def Material "mu_2_0" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 2
+            float physics:restitution = 0
+            float physics:staticFriction = 2
+        }
+    }
+
+    def "joints"
+    {
+        def PhysicsPrismaticJoint "ram_S" (
+            prepend apiSchemas = ["PhysicsDriveAPI:linear", "PhysxJointAPI", "PhysxJointAxisAPI:linear"]
+        )
+        {
+            float drive:linear:physics:damping = 400
+            float drive:linear:physics:maxForce = inf
+            float drive:linear:physics:stiffness = 200000
+            float drive:linear:physics:targetPosition = 0
+            uniform token drive:linear:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </Fixture/links/jack_S>
+            rel physics:body1 = </Fixture/links/ram_S>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0, 0, 0.115)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0.70710677, 0, -0.70710677, 0)
+            quatf physics:localRot1 = (0.70710677, 0, -0.70710677, 0)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 0.0641
+            float physxJoint:armature = 0.02
+            float physxJointAxis:linear:dynamicFrictionEffort = 0
+            float physxJointAxis:linear:staticFrictionEffort = 0
+        }
+
+        def PhysicsRevoluteJoint "lever_S" (
+            prepend apiSchemas = ["PhysicsDriveAPI:angular", "PhysxJointAPI", "PhysxJointAxisAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0.0052359877
+            float drive:angular:physics:maxForce = inf
+            float drive:angular:physics:stiffness = 0.008726646
+            float drive:angular:physics:targetPosition = 31.512678
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </Fixture/links/jack_S>
+            rel physics:body1 = </Fixture/links/lever_S>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (-0.035, 0, 0.075)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0.70710677, 0, 0, 0.70710677)
+            quatf physics:localRot1 = (0.70710677, 0, 0, 0.70710677)
+            float physics:lowerLimit = -14.323945
+            float physics:upperLimit = 17.188734
+            float physxJoint:armature = 0.02
+            float physxJointAxis:angular:dynamicFrictionEffort = 0
+            float physxJointAxis:angular:staticFrictionEffort = 0
+        }
+
+        def PhysicsRevoluteJoint "grip_S" (
+            prepend apiSchemas = ["PhysicsDriveAPI:angular", "PhysxJointAPI", "PhysxJointAxisAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0.000034906585
+            float drive:angular:physics:maxForce = inf
+            float drive:angular:physics:stiffness = 0
+            float drive:angular:physics:targetPosition = 0
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </Fixture/links/lever_S>
+            rel physics:body1 = </Fixture/links/grip_S>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (-0.18, 0, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0.70710677, 0, 0, 0.70710677)
+            quatf physics:localRot1 = (0.70710677, 0, 0, 0.70710677)
+            float physxJoint:armature = 0.02
+            float physxJointAxis:angular:dynamicFrictionEffort = 0
+            float physxJointAxis:angular:staticFrictionEffort = 0
+        }
+
+        def PhysicsRevoluteJoint "valve_S" (
+            prepend apiSchemas = ["PhysicsDriveAPI:angular", "PhysxJointAPI", "PhysxJointAxisAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0.00017453292
+            float drive:angular:physics:maxForce = inf
+            float drive:angular:physics:stiffness = 0
+            float drive:angular:physics:targetPosition = 0
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </Fixture/links/jack_S>
+            rel physics:body1 = </Fixture/links/valve_S>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0.21, 0, 0.072)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0.70710677, 0, -0.70710677, 0)
+            quatf physics:localRot1 = (0.70710677, 0, -0.70710677, 0)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 360.00085
+            float physxJoint:armature = 0.002
+            float physxJointAxis:angular:dynamicFrictionEffort = 0.3
+            float physxJointAxis:angular:staticFrictionEffort = 0.3
+        }
+
+        def PhysicsFixedJoint "world_fixed"
+        {
+            rel physics:body1 = </Fixture/links/jack_S>
+        }
+    }
+}
+

@@ -1,0 +1,192 @@
+{
+  "law": "opening=clip(degrees(phi)-phi0,0,90); v_mm_s=(v30/30)*opening*sqrt(max(measured_pad_force_N,0)/50); dV_m=min(v*.001*dt,V)",
+  "parameters": {
+    "phi0_S": 109.651,
+    "v30_S": 161.49,
+    "cabinet_weight": 88.583,
+    "stroke_S": 0.0641
+  },
+  "source_sha256": "d1abdf5ca3a287f7aab53ca59852c2e6264936e84ce4a68159c1ee6f3676d523",
+  "nominal_loaded_flow_mm_s_per_degree": 7.164973191418095,
+  "full_open_90deg_nominal_oil_flow_mm_s": 644.8475872276285,
+  "opening_for25mm_s_at_nominal_load_deg": 3.4891965862403995,
+  "teacher_initial_opening_for10mm_s_deg": 1.3956786344961598,
+  "actual_loaded_opening_range_deg": [
+    0.24784340596153243,
+    2.470038622236018
+  ],
+  "actual_peak_descent_mm_s": 17.153652384877205,
+  "first_rail_contact": {
+    "tick": 569,
+    "phi_deg": 111.67154387295747,
+    "opening_deg": 2.020543872957475,
+    "height_mm": -5.9604644775390625e-05,
+    "vz_mm_s": -0.04850099139730446,
+    "pad_N": 52.886017203330994,
+    "on_rails": true,
+    "flow_lowered_mm": 49.69847085856615
+  },
+  "milestones": [
+    {
+      "tick": 1,
+      "phi_deg": 0.0,
+      "opening_deg": 0,
+      "height_mm": 49.51983690261841,
+      "vz_mm_s": 0.13612343173008412,
+      "pad_N": 88.5920979976654,
+      "on_rails": false,
+      "flow_lowered_mm": 0.0
+    },
+    {
+      "tick": 41,
+      "phi_deg": 0.0,
+      "opening_deg": 0,
+      "height_mm": 49.51983690261841,
+      "vz_mm_s": 0.12232150766067207,
+      "pad_N": 88.68272495269775,
+      "on_rails": false,
+      "flow_lowered_mm": 0.0
+    },
+    {
+      "tick": 81,
+      "phi_deg": 0.0,
+      "opening_deg": 0,
+      "height_mm": 49.51983690261841,
+      "vz_mm_s": 0.07861705671530217,
+      "pad_N": 88.13279175758362,
+      "on_rails": false,
+      "flow_lowered_mm": 0.0
+    },
+    {
+      "tick": 121,
+      "phi_deg": 0.0,
+      "opening_deg": 0,
+      "height_mm": 49.51983690261841,
+      "vz_mm_s": 0.04531339800450951,
+      "pad_N": 88.57434844970703,
+      "on_rails": false,
+      "flow_lowered_mm": 0.0
+    },
+    {
+      "tick": 161,
+      "phi_deg": 0.0,
+      "opening_deg": 0,
+      "height_mm": 49.51983690261841,
+      "vz_mm_s": 0.11826866102637723,
+      "pad_N": 88.60058689117432,
+      "on_rails": false,
+      "flow_lowered_mm": 0.0
+    },
+    {
+      "tick": 201,
+      "phi_deg": 1.930505905895527e-06,
+      "opening_deg": 0,
+      "height_mm": 49.51983690261841,
+      "vz_mm_s": 0.13634658535011113,
+      "pad_N": 88.74682307243347,
+      "on_rails": false,
+      "flow_lowered_mm": 0.0
+    },
+    {
+      "tick": 241,
+      "phi_deg": 9.975998424349497,
+      "opening_deg": 0,
+      "height_mm": 49.51983690261841,
+      "vz_mm_s": 0.04048856135341339,
+      "pad_N": 88.62902545928955,
+      "on_rails": false,
+      "flow_lowered_mm": 0.0
+    },
+    {
+      "tick": 281,
+      "phi_deg": 27.144372167377302,
+      "opening_deg": 0,
+      "height_mm": 49.51983690261841,
+      "vz_mm_s": 0.08767413237364963,
+      "pad_N": 88.74029636383057,
+      "on_rails": false,
+      "flow_lowered_mm": 0.0
+    },
+    {
+      "tick": 321,
+      "phi_deg": 44.28289969127945,
+      "opening_deg": 0,
+      "height_mm": 49.51983690261841,
+      "vz_mm_s": 0.08565439202357084,
+      "pad_N": 88.50388407707214,
+      "on_rails": false,
+      "flow_lowered_mm": 0.0
+    },
+    {
+      "tick": 361,
+      "phi_deg": 61.339429086648295,
+      "opening_deg": 0,
+      "height_mm": 49.51983690261841,
+      "vz_mm_s": 0.07873662980273366,
+      "pad_N": 88.53065538406372,
+      "on_rails": false,
+      "flow_lowered_mm": 0.0
+    },
+    {
+      "tick": 401,
+      "phi_deg": 78.48312194111026,
+      "opening_deg": 0,
+      "height_mm": 49.51983690261841,
+      "vz_mm_s": 0.08411382441408932,
+      "pad_N": 88.51700294017792,
+      "on_rails": false,
+      "flow_lowered_mm": 0.0
+    },
+    {
+      "tick": 441,
+      "phi_deg": 95.6751520443284,
+      "opening_deg": 0,
+      "height_mm": 49.51983690261841,
+      "vz_mm_s": 0.06315157224889845,
+      "pad_N": 88.46105885505676,
+      "on_rails": false,
+      "flow_lowered_mm": 0.0
+    },
+    {
+      "tick": 481,
+      "phi_deg": 111.86083573561521,
+      "opening_deg": 2.209835735615215,
+      "height_mm": 45.8868145942688,
+      "vz_mm_s": -16.473831608891487,
+      "pad_N": 87.16840744018555,
+      "on_rails": false,
+      "flow_lowered_mm": 3.6567413678217284
+    },
+    {
+      "tick": 521,
+      "phi_deg": 110.1751382182669,
+      "opening_deg": 0.5241382182668985,
+      "height_mm": 22.697031497955322,
+      "vz_mm_s": -4.151532892137766,
+      "pad_N": 88.71912825107574,
+      "on_rails": false,
+      "flow_lowered_mm": 26.82676785167167
+    },
+    {
+      "tick": 561,
+      "phi_deg": 111.59630250906062,
+      "opening_deg": 1.9453025090606246,
+      "height_mm": 5.5040717124938965,
+      "vz_mm_s": -13.363380916416645,
+      "pad_N": 88.2133469581604,
+      "on_rails": false,
+      "flow_lowered_mm": 44.02915418901097
+    },
+    {
+      "tick": 601,
+      "phi_deg": 105.46114655879919,
+      "opening_deg": 0,
+      "height_mm": -5.9604644775390625e-05,
+      "vz_mm_s": -0.07099150388967246,
+      "pad_N": 0,
+      "on_rails": true,
+      "flow_lowered_mm": 49.956605206671966
+    }
+  ],
+  "limitations": "Full-open oil target law is exact source arithmetic. Actual full-open cabinet landing has NOT been run/measured in this final source; an uncapped fast target implies risk, not a newly measured counterfactual landing proof."
+}

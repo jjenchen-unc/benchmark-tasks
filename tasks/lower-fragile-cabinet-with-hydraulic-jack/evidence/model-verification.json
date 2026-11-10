@@ -1,0 +1,20 @@
+{
+  "status": "ACTUAL_COMPLETED_DREAM_TRIAL_PENDING_ROOT_MEDIA_REVIEW",
+  "score": 0.0,
+  "steps": 3210,
+  "sessions": 1,
+  "request_count": 795,
+  "frames_per_camera": 3211,
+  "source_manifest_sha256": "58c35883bc7312160c7edc576f08f29f2094b5d57c7f574d685bbe663b52321c",
+  "executed_model_helper_sha256": "829775074232e82fa8c2dd88c444a5295ef460a181c5ba681dd3a3392b36fc97",
+  "executed_helper_proof_sha256": "c5cef3d71f652de9faafff648ba69f919bda1518d6b008f3a1c809fb959c9193",
+  "outer_execution_manifest_sha256": "80d3b27af49a715531a56dbda6d88f72924b4e0f6e2fb48251c85ba3ff8cbdd7",
+  "summary_sha256": "20205091b24f8d99323c0c4dac517c0fe7f35adcbcb04d67c6822c9c15b3ed78",
+  "record_sha256": "8f06aeca74562a581c3bc28a9efc9bde0f0f74fc073af396c117ea86f29eaa5b",
+  "media_sha256": {
+    "top_cam.mp4": "2a3a27d8165f9ef8d8340e5d36be68fbe91e7ffe601bf074dd769f5837ad50d9",
+    "left_cam.mp4": "d67e9d9a230491d35adde2749112dad8b250fac9a4a48ced4e7b58cb72abb821",
+    "right_cam.mp4": "1eaf61e24bdbb19490c5b115ae9f3db8bcc700ae579043a0d65e27bf13fc5b8c"
+  },
+  "submission_ready": false
+}

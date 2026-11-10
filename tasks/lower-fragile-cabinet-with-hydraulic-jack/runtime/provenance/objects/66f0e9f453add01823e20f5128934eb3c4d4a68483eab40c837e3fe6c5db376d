@@ -1,0 +1,15 @@
+from pathlib import Path
+import hashlib,json
+R=Path(__file__).resolve().parent;D=R.parents[1]/'continuation/server-brev-close-magic-hydraulic-20261110-0840/Hydraulic_actual_contact_approach_whole';old=R.parent/'review-magic-hydraulic-actual-20261110-0705'
+def put(p,x):p.write_text(json.dumps(x,indent=2,allow_nan=False)+'\n')
+x=json.loads((R/'result.json').read_text())
+m=json.loads((old/'installed-consumed-SHA256.json').read_text());m.update(json.loads((R/'geometry-consumed-SHA256.json').read_text()));logs=[json.loads(l) for l in (R/'guard.jsonl').read_text().splitlines()];m.update(logs[-1]['consumed_files'])
+for p in sorted(R.rglob('*')):
+ if p.is_file() and (p.suffix in ('.py','.sh','.usda') or p.parent==R/'candidate' or p.name in ('candidate-SHA256.json','fingerprint.json')):m[str(p)]=hashlib.sha256(p.read_bytes()).hexdigest()
+for n in ('result.json','physics.jsonl','trace.jsonl'):
+ p=old/'hydraulic/job-43767/trial'/n;m[str(p)]=hashlib.sha256(p.read_bytes()).hexdigest()
+for p in (R.parents[2]/'AGENTS.md',R.parents[2]/'README.md',R.parents[2]/'docs/agent/STATE.md',R.parents[2]/'docs/agent/DECISIONS.md',R.parents[2]/'docs/agent/LESSONS.md',R.parents[2]/'containers/unc/run.sh'):m[str(p)]=hashlib.sha256(p.read_bytes()).hexdigest()
+put(R/'consumed-sourceSHA.json',m)
+for name in ('REPORT.md','result.json'):(D/name).write_bytes((R/name).read_bytes())
+put(D/'DELIVERY.json',{'unit':x['unit'],'owned_root':str(R),'result':str(R/'result.json'),'report':str(R/'REPORT.md'),'source_map':str(R/'consumed-sourceSHA.json'),'gpu_request':str(R/'GPU_REQUEST.sh'),'status':x['status'],'files':len(m)})
+print(json.dumps({'delivery':str(D),'frozen_files':len(m),'status':x['status']}))

@@ -1,0 +1,9 @@
+{
+  "native_bundle_fingerprint": "ed2331a70682e377504783bff75714668f7bae4f46caccd2074e2540a8d13ccc",
+  "original_model_child_sha256": "e69b546946df36398f4874dbc43f185a667b4a23810d89ee02a42cd89351c082",
+  "original_verifier_sha256": "eabb612264d49f72d53112083c7beab169cdba7de5dbd3c93e491b0b898ccd25",
+  "actual_model_entry_sha256": "829775074232e82fa8c2dd88c444a5295ef460a181c5ba681dd3a3392b36fc97",
+  "actual_verifier_sha256": "16c4d5a55ee83997403c4ca3530fed2895ba7390bef03066992f28f76f5d01db",
+  "task_candidate_files_unchanged": true,
+  "scope": "Only explicit outer execution helper path/source receipt, official same-session transport retry handler and positive attempt counts. No policy/goal/physics/controller/scoring/action-budget changes."
+}

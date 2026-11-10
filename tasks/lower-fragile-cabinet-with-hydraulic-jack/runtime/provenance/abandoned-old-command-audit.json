@@ -1,0 +1,8 @@
+{
+  "reason": "superseded after full-route finite finger/stem collision identified; original command-route process terminated by exact own PID before completing known-failing geometry",
+  "pid": 3682719,
+  "exit_code": 143,
+  "other_owner_processes_touched": 0,
+  "old_commands": "controller-contract-low-grip.json",
+  "failure_evidence": "full-route.json"
+}

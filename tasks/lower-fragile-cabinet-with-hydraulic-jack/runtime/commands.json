@@ -1,0 +1,37 @@
+{
+  "cpu_prefix": [
+    "containers/unc/run.sh",
+    "/opt/IsaacLab-Arena/.venv/bin/python",
+    "-B",
+    "-I"
+  ],
+  "operator_entry": "OPERATOR.md",
+  "gpu_request": "GPU_REQUEST_UNSUBMITTED.sbatch",
+  "gpu_request_submitted": false,
+  "canonical_chdir": "/mnt/bum/jjenchen/robocurve",
+  "resources": {
+    "gpu": 1,
+    "cpu": 4,
+    "ram_gb": 32,
+    "wall_minutes": 30
+  },
+  "cpu_synthetic_measured_wall_s": 1.102433456107974,
+  "reused_geometry_wall_s": 9.311788460239768,
+  "reused_self_wall_s": 26.377660658210516,
+  "reused_controller_wall_s": 2.433356186375022,
+  "physical_whole_wall_s": null,
+  "estimated_replay_minutes": [
+    10,
+    28
+  ],
+  "estimated_setup_minutes": [
+    1,
+    4
+  ],
+  "estimated_model_minutes": [
+    30,
+    180
+  ],
+  "estimates_are_physical_evidence": false,
+  "Brev_operations_authorized_now": false
+}

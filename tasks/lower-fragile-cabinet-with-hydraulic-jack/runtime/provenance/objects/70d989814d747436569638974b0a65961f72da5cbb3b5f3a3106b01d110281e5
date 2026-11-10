@@ -1,0 +1,16 @@
+from pathlib import Path
+import json,hashlib,ast
+R=Path(__file__).resolve().parent;old=R.parent/'review-magic-hydraulic-actual-20261110-0705/hydraulic/candidate';C=R/'candidate'
+def read(n):return json.loads((R/n).read_text())
+rows=read('analysis.json')['outward_joint1_scan'];logs=[json.loads(s) for s in (R/'guard.jsonl').read_text().splitlines()]
+changed=[p.name for p in C.iterdir() if p.is_file() and p.read_bytes()!=(old/p.name).read_bytes()]
+assert sorted(changed)==['reference.py','sourcehashes.json']
+assert rows[1]['worst'][0][0]>0 and all(r['worst'][0][0]>0 for r in rows[1:])
+assert [x['event'] for x in logs]==['guard_installed','actual_task_constructed','boundary'] and logs[-1]['module']=='isaaclab.app'
+assert logs[0]['isolated']==1 and not any(str(R) in p for p in logs[0]['path'])
+assert all(x['pass'] for x in read('guard-regressions.json'))
+tree=ast.parse((C/'reference.py').read_text());calls=[ast.unparse(x.func) for x in ast.walk(tree) if isinstance(x,ast.Call)]
+assert not any(any(s in x for s in ('write_root','write_joint','set_joint','set_external','set_world','set_pose')) for x in calls)
+checks={'exact_launcher_clean_I_guard':True,'pure_TaskFile_construction_before_AppLauncher':True,'guard_preserves_initial_isolated_sys_path':True,'escape_regressions':7,'all_task_physics_geometry_caps_scorer_budget_byte_exact':True,'only_controller_and_embedded_manifest_changed':changed,'no_direct_task_state_writes_AST':True,'actual_FK_link_position_residual_max_m':2.03e-7,'reset_overlap_m':-rows[0]['worst'][0][0],'first_scan_clear_at_q1_rad':rows[1]['q1'],'outward_41_sample_scan_clears_after_first_point':True,'whole_route_accepted':False,'evidence':'CPU geometry / source / cold bootstrap only; not physical success'}
+(R/'checks.json').write_text(json.dumps(checks,indent=2,allow_nan=False)+'\n')
+print(json.dumps(checks,indent=2))

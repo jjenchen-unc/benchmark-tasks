@@ -1,0 +1,201 @@
+{
+  "kind": "CPU geometry on actual dynamic states; first .6s retained physical contact sequence",
+  "rows": [
+    {
+      "control": 1,
+      "sim_s": 0.05,
+      "cup_liner_contact": true,
+      "cup_center_in_liner_frame_m": [
+        6.572389104064769e-07,
+        -0.0022169229795050427,
+        0.03790692694662656
+      ],
+      "projected_cylinder_extent_m": [
+        0.03700521980419081,
+        0.03702190666664606,
+        0.035024110338523554
+      ],
+      "finite_inplane_separation_lower_bound_m": -0.0720045625652804
+    },
+    {
+      "control": 2,
+      "sim_s": 0.1,
+      "cup_liner_contact": true,
+      "cup_center_in_liner_frame_m": [
+        1.2655270705597133e-05,
+        -0.00847567929877524,
+        0.037903183259920814
+      ],
+      "projected_cylinder_extent_m": [
+        0.03700506810205711,
+        0.03702282661489281,
+        0.03502261930409305
+      ],
+      "finite_inplane_separation_lower_bound_m": -0.07199241283135152
+    },
+    {
+      "control": 3,
+      "sim_s": 0.15,
+      "cup_liner_contact": true,
+      "cup_center_in_liner_frame_m": [
+        2.5671793745907223e-05,
+        -0.018905258075086806,
+        0.03790191603256332
+      ],
+      "projected_cylinder_extent_m": [
+        0.037004651542164625,
+        0.037024312556647655,
+        0.035027142643185426
+      ],
+      "finite_inplane_separation_lower_bound_m": -0.07197897974841871
+    },
+    {
+      "control": 4,
+      "sim_s": 0.2,
+      "cup_liner_contact": true,
+      "cup_center_in_liner_frame_m": [
+        4.4073451920478846e-05,
+        -0.03350930462806545,
+        0.03789790616841271
+      ],
+      "projected_cylinder_extent_m": [
+        0.03700381680706852,
+        0.03702631151897229,
+        0.035029912144481715
+      ],
+      "finite_inplane_separation_lower_bound_m": -0.07195974335514804
+    },
+    {
+      "control": 5,
+      "sim_s": 0.25,
+      "cup_liner_contact": true,
+      "cup_center_in_liner_frame_m": [
+        6.307871707456059e-05,
+        -0.05230234055894556,
+        0.03788048431644775
+      ],
+      "projected_cylinder_extent_m": [
+        0.0370004693452899,
+        0.037046905035731936,
+        0.035048784528554186
+      ],
+      "finite_inplane_separation_lower_bound_m": -0.059744564476786374
+    },
+    {
+      "control": 6,
+      "sim_s": 0.3,
+      "cup_liner_contact": true,
+      "cup_center_in_liner_frame_m": [
+        8.547740084452471e-05,
+        -0.07535797148176382,
+        0.037814018519223946
+      ],
+      "projected_cylinder_extent_m": [
+        0.037007908307671145,
+        0.037250832700093495,
+        0.03526539471468193
+      ],
+      "finite_inplane_separation_lower_bound_m": -0.03689286121832967
+    },
+    {
+      "control": 7,
+      "sim_s": 0.35,
+      "cup_liner_contact": false,
+      "cup_center_in_liner_frame_m": [
+        5.397377206151077e-05,
+        -0.1042675782425988,
+        0.03467770112017021
+      ],
+      "projected_cylinder_extent_m": [
+        0.037189227538274944,
+        0.04136323209164262,
+        0.0396533264572433
+      ],
+      "finite_inplane_separation_lower_bound_m": -0.012095653849043812
+    },
+    {
+      "control": 8,
+      "sim_s": 0.4,
+      "cup_liner_contact": false,
+      "cup_center_in_liner_frame_m": [
+        2.8992962168850056e-05,
+        -0.13769475240332696,
+        0.02953657790298725
+      ],
+      "projected_cylinder_extent_m": [
+        0.03700425775535845,
+        0.042334790364592305,
+        0.0406976490596651
+      ],
+      "finite_inplane_separation_lower_bound_m": 0.020359962038734657
+    },
+    {
+      "control": 9,
+      "sim_s": 0.45,
+      "cup_liner_contact": false,
+      "cup_center_in_liner_frame_m": [
+        -0.0005070859220239754,
+        -0.15870916872769314,
+        0.033394899119497445
+      ],
+      "projected_cylinder_extent_m": [
+        0.03703962767613484,
+        0.04895876915321243,
+        0.04810406039139073
+      ],
+      "finite_inplane_separation_lower_bound_m": 0.034750399574480714
+    },
+    {
+      "control": 10,
+      "sim_s": 0.5,
+      "cup_liner_contact": false,
+      "cup_center_in_liner_frame_m": [
+        -0.001379065964307813,
+        -0.1748538352907092,
+        0.036202048402554476
+      ],
+      "projected_cylinder_extent_m": [
+        0.037137025896897075,
+        0.050883173153891834,
+        0.05092763599207066
+      ],
+      "finite_inplane_separation_lower_bound_m": 0.04897066213681736
+    },
+    {
+      "control": 11,
+      "sim_s": 0.55,
+      "cup_liner_contact": false,
+      "cup_center_in_liner_frame_m": [
+        -0.0025010355134318374,
+        -0.19552018172669516,
+        0.03194385677259848
+      ],
+      "projected_cylinder_extent_m": [
+        0.037530668207830756,
+        0.04559388080426232,
+        0.04677631844178559
+      ],
+      "finite_inplane_separation_lower_bound_m": 0.07492630092243285
+    },
+    {
+      "control": 12,
+      "sim_s": 0.6,
+      "cup_liner_contact": false,
+      "cup_center_in_liner_frame_m": [
+        -0.005691588243985635,
+        -0.20089192911785592,
+        0.03346673361307961
+      ],
+      "projected_cylinder_extent_m": [
+        0.03799819445805907,
+        0.04566420010415148,
+        0.046820110886749186
+      ],
+      "finite_inplane_separation_lower_bound_m": 0.08022772901370442
+    }
+  ],
+  "first_contact_control": 1,
+  "last_contact_control": 6,
+  "checkpoint_assertion_is_invalid_slip_requirement": true,
+  "explanation": "Actual contact exists earlier; by .6s the cup projected finite geometry is disjoint from the liner. Slipping off is the expected negative outcome, not a missing-contact backend defect."
+}

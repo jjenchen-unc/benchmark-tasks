@@ -1,0 +1,12 @@
+{
+  "container_image_sha256": "75c6afd86ec4007f663ca2e8647df8ab94d2d678815a72fc428db98733c789ad",
+  "existing_container_python": "/opt/IsaacLab-Arena/.venv/bin/python",
+  "existing_dependencies": "Pinned project YAM/Arena/Inspect stack, numpy/scipy/torch/USD/PhysX; no installation required or performed",
+  "physics_device": "cpu",
+  "cameras": "GPU RTX station top_cam/left_cam/right_cam",
+  "physics_dt": 0.001,
+  "control_hz": 20,
+  "joint_Action_dim": 14,
+  "task_root_relative": ".",
+  "runtime_imports_from_other_task_roots": false
+}

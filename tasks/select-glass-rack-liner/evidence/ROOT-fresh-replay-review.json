@@ -1,0 +1,23 @@
+{
+  "at": "2026-11-10T16:53:22.019417+00:00",
+  "score": 1.0,
+  "controls": 1469,
+  "native_1ms_sample_count": 73450,
+  "detailed_raw_1ms_diagnostic_prefix_samples": 20050,
+  "hold_s": 25.274,
+  "last400controls_unbraced": true,
+  "last400_cup_displacement_m": 2.2351741790771484e-08,
+  "peak_prefix_raw_1ms_wrist_N": [
+    22.020023345947266,
+    21.604629516601562
+  ],
+  "peak_prefix_raw_link20ms_N": 0.0,
+  "guard_freeze_prefix_samples": 0,
+  "all_control_status_force_guard_free": true,
+  "source_fingerprint": "a439b3973c7d87d3ef2f40cab5c169fe18a16fd2d02d71795d94d471db80fa1e",
+  "setup_image": "setup-from-actual-reset-frame.png",
+  "auxiliary_setup_succeeded": false,
+  "all_three_videos_full_decode_pass": true,
+  "fresh_approved_review": "/home/ubuntu/robocurve-final-20261110-1550/results/C1-v9/ROOT-fresh-public-review-APPROVED.json",
+  "actual_model_pending": true
+}

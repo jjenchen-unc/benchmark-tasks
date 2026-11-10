@@ -1,0 +1,35 @@
+{
+  "videos": {
+    "top_cam": {
+      "sha256": "4cb37cee6935437b3935ebdbf77d017a31bd47e21fa3e035ec9c0e5bfb603160",
+      "bytes": 619026,
+      "frames": 2269,
+      "codec": "h264",
+      "pix_fmt": "yuv420p",
+      "fps": 20,
+      "full_decode_pass": true
+    },
+    "left_cam": {
+      "sha256": "21eafa0dfa531dee22fe1cfe87434113868232c36f01ad0be5f95f8d9da28b8d",
+      "bytes": 947015,
+      "frames": 2269,
+      "codec": "h264",
+      "pix_fmt": "yuv420p",
+      "fps": 20,
+      "full_decode_pass": true
+    },
+    "right_cam": {
+      "sha256": "77abeaae2c577b5cb1f853888428e39226c228445b1189f0e5c04e7a51a31d3e",
+      "bytes": 642887,
+      "frames": 2269,
+      "codec": "h264",
+      "pix_fmt": "yuv420p",
+      "fps": 20,
+      "full_decode_pass": true
+    }
+  },
+  "steps": 2268,
+  "score": 0.0,
+  "actual_observations_only": true,
+  "visual_review_pending": true
+}

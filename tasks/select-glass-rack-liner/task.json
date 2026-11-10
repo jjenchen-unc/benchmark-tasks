@@ -1,0 +1,20 @@
+{
+  "title": "Select a liner that holds a glass on a 20 degree rack",
+  "category": "Safety and alignment",
+  "keywords": [
+    "material selection",
+    "friction",
+    "fragile objects",
+    "inclined support",
+    "release verification"
+  ],
+  "instruction": "Select a suitable liner, lay it on the fixed 20 degree rack, stand one glass on it, release both glass and liner, and leave both hands off for 20 seconds after 0.5 seconds settling, with at most 5 mm displacement and 15 degree normal misalignment.",
+  "context": "Choosing a support lining for a fragile vessel requires checking that it resists sliding after both hands let go. Six visually similar liner samples have different contact friction; the fixed inclined rack exposes an unsuitable choice.",
+  "setup": "Fixed public seed 42, C1-T1. Station table top z=0.7475 m; x forward, y left, z up. Six gray liner samples, marked by one to six white dots, 70 x 150 x 6 mm and 75 g each; nominal smooth vinyl/PVC, rubber or open-cell foam materials with estimated contact properties with different dry/wet contact coefficients lie flat at centers (x,y,z)=(0.07,0.05,0.7505),(0.07,-0.05,0.7505),(0.07,-0.15,0.7505),(0.26,0.05,0.7505),(0.26,-0.05,0.7505),(0.26,-0.15,0.7505) m. Two 74 mm diameter x 70 mm, 200 g glass tumbler cylinder approximations stand at (0.10,-0.28,0.7830) and (0.24,-0.28,0.7830) m. A fixed wooden rack 340 x 240 x 12 mm is centered at (0.65,-0.05,0.8479) m, sloped 20 degrees in x, on four 24 mm square legs. A shallow metal pan has a 140 x 170 mm opening, 4 mm floor, 35 mm walls and a 20 mm visual water volume; its reference center is (0.435,-0.05,0.7475) m. An unanchored wood-like practice board/tray, 180 x 140 x 8 mm and 400 g is centered at (0.70,0.25,0.7515) m. Two six-joint YAM arms with parallel grippers sit on metal supports with 120 x 240 mm footprints and height 148.898888 mm; left base (0.36,0.20,0.8975) m yaw -90 degrees, right base (0.40,-0.36,0.8975) m yaw +90 degrees. Exact per-object dimensions and transforms are in candidate/task.py and candidate/c1_contract.py.",
+  "scoring": "Score 0.25 for a liner contacting the rack, not the table, with its normal within 15 degrees of the rack normal and no robot support through the mobile board or other liners. Score 0.5 when a glass rests on exactly one qualifying liner, touches neither bare rack nor table, and its axis is within 15 degrees of the rack normal, without robot support through any movable contact chain (including other glasses). After 0.5 seconds settling, its center must stay within 5 mm of the first settled position: 0.75 after 10 seconds and 1.0 after 20 seconds uninterrupted. Losing a settled placement voids it until renewed robot contact. A glass tipping past 60 degrees from vertical, slipping more than 10 mm below the rack low edge, or dropping more than 30 mm from its last robot-contact height onto furniture vetoes all credit. Wrist force above 80 N for 100 ms or invalid required measurements also veto all credit. Otherwise score 0. This public case requires one glass; wetting is optional.",
+  "run_limit": "2268 genuine 14D controls at 20 Hz (113.4 simulated seconds), including settling and the complete hold; 50 physics substeps of 1 ms per control.",
+  "reset_notes": "SDK reset restores fixed object roots, original dry materials, wet flags, contact/force histories, damage and hold state, and the complete action budget. No consumables are simulated.",
+  "fidelity": "Rigid PhysX liners and solid glass cylinders; glass CoM is 7 mm below center. Pair-only colliders preserve selected dry/wet friction with explicit filters. Liner compression uses a 6540 N/m spring, not material FEM. Water is a visual volume and passive material-change rule, without fluid simulation. YAM total gravity-inclusive arm caps are 27/7 Nm, fingers 40 N; nonfinger contact force uses a conservative Coulomb bound.",
+  "scores": "Dream-1: 0.0 (2268 controls); scripted demo: 1.0 (1469 controls, 25.274 seconds hands off).",
+  "media": "M-76BFBT"
+}

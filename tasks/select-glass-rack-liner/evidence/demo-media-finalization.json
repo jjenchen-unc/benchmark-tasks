@@ -1,0 +1,21 @@
+{
+  "kind": "Actual synchronized simulator observations, no added frames/labels/holds",
+  "frames_per_camera": 1470,
+  "encoder_returncodes": {
+    "top_cam": 0,
+    "left_cam": 0,
+    "right_cam": 0
+  },
+  "all_encoded": true,
+  "files": {
+    "top_cam.mp4": {
+      "bytes": 381691
+    },
+    "left_cam.mp4": {
+      "bytes": 395435
+    },
+    "right_cam.mp4": {
+      "bytes": 505569
+    }
+  }
+}

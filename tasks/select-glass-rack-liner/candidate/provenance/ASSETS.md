@@ -1,0 +1,15 @@
+## C1_liners
+
+No meshes or textures are used: every object is built from MuJoCo primitives in `benches/C1_liners.py` (no third-party assets,
+nothing to license beyond the repo's robot model). The robot is the repo's two-Panda B4 robot (robosuite Panda meshes, MIT
+license, as in `repo_snapshot`). Web pages could not be opened from this host (the fetch proxy refused the connection), so every
+product value below is from memory of the public listing and is marked as estimated.
+
+| object | real product it is based on | values from the product (estimated, from memory) | values chosen / estimated |
+|---|---|---|---|
+| glass tumbler (x2) | Duralex Picardie 16 cl tumbler (Duralex, France; listed on Amazon as "Duralex Picardie Clear Tumbler, 5 3/8 oz / 16 cl", https://www.amazon.com/dp/B00151USMS) | top diameter about 73 mm, height about 79 mm, tempered soda-lime glass, heavy base | modelled as a straight cylinder 74 mm diameter x 70 mm tall (squatter than the Picardie, see DEVIATIONS 5), mass 0.20 kg (card: 2-3 N), centre of mass 28 mm above the base (thick base, estimated), glass-on-wood friction 0.30 (estimated) |
+| non-slip liners (x6, plus 6 new ones in T4) | look-alike grey liners of three common constructions, all cut to the same size (generic, estimated): (a) smooth vinyl / PVC film shelf liner (e.g. Con-Tact Brand clear or smooth-top shelf liner); (b) solid rubber mat (e.g. a strip of a Winco BM-1218 rubber bar service mat); (c) open-cell PVC foam grip liner (e.g. Con-Tact Grip Premium / Duck Select Grip non-adhesive liner) | thickness of (b)/(c) 3-10 mm; foam grip liners are known to keep or gain grip when wet (open cells drain the water film), smooth rubber and vinyl lose grip on wet glass | 70 x 150 x 6 mm (DEVIATIONS 4), 75 g, backing friction 1.0 on the rack and 1.1 on the table (fixed, card), contact compliance about 1 mm under a glass (estimated). Hidden glass-to-liner friction, by type: dry 0.15-0.27 = vinyl film (a); dry 0.46-1.0 = rubber (b) or foam (c). Wet: (b) rubber drops to 0.3-0.67 x dry, below 0.31 (water film on smooth rubber); (a) vinyl stays in 0.3-1.2 x dry but always below 0.31 (it never holds, wet or dry); (c) foam keeps 0.92-1.2 x dry, at least 0.46 (the x1.2 gain is only used for foam and the never-holding vinyl). Which liner is which type is hidden; all look alike. Values estimated (no measured source) |
+| 20 deg rack | generic sloped draining board / display riser on a stand | none taken | board 340 x 240 x 12 mm at 20 deg (card: about 20 deg, public), low edge 65 mm above the table, varnished wood friction 0.30 (estimated, below tan 20 deg so a bare glass slides) |
+| water pan | generic shallow stainless or enamel tray | none taken | inner 140 x 170 mm, 35 mm walls, 20 mm of water (visual only) |
+| practice tray | generic flat serving tray / cutting board | none taken | 180 x 140 x 8 mm, 0.40 kg, friction 0.5 (estimated) |
+| gripper | stock Franka Hand as modelled in the repo (B4 robot) | sim: 40 N per finger, 0-90 mm jaw gap, pad friction 1.5 (repo) | unchanged |

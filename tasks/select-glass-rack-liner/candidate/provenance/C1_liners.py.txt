@@ -1,0 +1,712 @@
+# Card: cards/C1_liners.md (C1 non-slip tray liners on a fixed 20 deg rack), with cards/DECISIONS-2026-10-28.md (C1: wet mu is
+# sampled per liner). Build agent: C1_liners. Deviations from the card: ../DEVIATIONS.md; real products: ../ASSETS.md.
+# Robot: the repo's two-Panda B4 robot (portable_demo.env.scene(seed, 'test') with every non-robot body stripped), stock Franka
+# hands, top-down grasps only (the standard agent API). Actions are data.ctrl rows (nu = 18): 14 residual arm torques (step()
+# adds the arm gravity/bias compensation, so a zero row floats the arms) and 4 finger opening targets (0 closed .. .045 open).
+# Scene (every scene, exploration and deployment, has the same layout): six look-alike non-slip liners (rigid 70 x 150 x 6 mm
+# plates, compliant contact) lying on the table in two rows, a fixed 20 deg rack (sloped board on a stand), two identical short glass tumblers, a shallow
+# water pan and a flat practice tray.
+# Physics: the cup-to-liner friction of every (cup, liner) pair is an explicit <contact><pair> (the hidden value); liners grip
+# the rack and table with a fixed rubber friction of 1.0; a bare glass on the varnished rack (mu .30 < tan 20 deg) slides.
+# Settings from probes batch1 #5 (creep): timestep 1 ms, friction solref .001 (clamped to 2 dt), noslip 20, multiccd.
+# Rule `wet` (reads only sim state): a liner whose centre is inside the pan's water volume becomes wet once: its cup pair
+# friction switches to its wet value and it turns glossy (appearance). No teleports, no object actuators.
+# Hidden cells: mu_dry (P, 6 dry cup-liner friction coefficients), mu_wet (P, 6 wet values).
+# Damage `cup_fell`: a released glass that was resting on the rack ends below the rack's low edge or tips past 60 deg.
+import os, sys, struct, zlib
+from pathlib import Path
+import xml.etree.ElementTree as ET
+import numpy as np
+import mujoco
+from scipy.spatial.transform import Rotation, Slerp
+
+REPO = next(p / 'native_support' for p in Path(__file__).resolve().parents if (p / 'native_support').is_dir())
+sys.path[:0] = [str(REPO), str(REPO / 'mujoco-box-demo')]
+from dual_arm_demo.env import HOME, DOWN
+from portable_demo.env import scene as portable_scene
+
+BENCH_ID = 'C1_liners'
+SEEDS = (42, 43, 44)
+LIM = np.array([80.] * 5 + [12.] * 2)
+KP, KD = 550., 45.
+DT = .001
+TABLE_Z = .80
+N_LINER, N_CUP = 6, 2
+HOLD_S, SETTLE_S, MOVE_TOL, UPRIGHT_DEG = 20., .5, .005, 15.
+# Robocurve round-3 veto extension (wave-12): an unheld glass that free-drops more than DROP_TOL below the height at which the
+# robot last touched it and lands on the table/pan/tray/floor, or that tips past 60 deg anywhere, counts as fallen (broken).
+# Closes the source's documented edge cases (robot shoving a glass off the rack; dropping a glass from height).
+DROP_TOL, TIP_DEG = .030, 60.
+ANGLE = np.radians(20.)
+GRAY = (.31, .41)                      # tan 20 deg +/- 0.05: never sampled
+MU_HOLD, MU_SLIP = (.46, 1.0), (.15, .27)
+MU_RACK, MU_RUBBER, MU_GLASS = .30, 1.0, .30
+# Liner contact compliance: a glass sinks about 0.3 mm into a liner (estimated for a 6 mm rubber / foam / vinyl liner). The
+# softer contact also removes most of the stiff-contact chatter of a glass dragged under a position-controlled arm
+# (DEVIATIONS 3; variants compared in scratch/chatter/).
+PAIR_SOLREF, PAIR_SOLIMP, LINER_SOLREF, LINER_SOLIMP = '.01 1', '.95 .99 .001', '.01 1', '.95 .99 .001'   # round 3 (keeps grip on release)
+
+# geometry (half sizes, m)
+LINER_H = np.array([.035, .075, .003])  # 70 x 150 x 6 mm
+LINER_XY = [np.array([-.05 + .10 * (i % 3), (-.33, -.14)[i // 3]]) for i in range(N_LINER)]   # two rows of three
+LINER_MASS = .075
+CUP_R, CUP_HH, CUP_MASS, CUP_COM = .037, .035, .20, -.007   # CoM 7 mm below the middle (thick glass base)
+CUP_XY = [np.array([.28, -.30]), np.array([.28, -.16])]
+RACK_C = np.array([.05, .25, .9004])   # board centre; board rises toward +y
+RACK_H = np.array([.17, .12, .006])
+SLOTS_X = (-.04, .12)                  # two liner positions across the rack (T3)
+PAN_C, PAN_IN, PAN_WALL, PAN_FLOOR, WATER_D = np.array([.05, .035]), np.array([.07, .085]), .035, .004, .020
+WATER_TOP = TABLE_Z + PAN_FLOOR + WATER_D
+TRAY_C, TRAY_H = np.array([-.25, .30]), np.array([.09, .07, .004])
+U_SLOPE = np.array([0., np.cos(ANGLE), np.sin(ANGLE)])   # up the slope
+N_RACK = np.array([0., -np.sin(ANGLE), np.cos(ANGLE)])   # rack normal
+RACK_TOP_C = RACK_C + N_RACK * RACK_H[2]
+RACK_LOW_Z = float((RACK_TOP_C - U_SLOPE * RACK_H[1])[2])
+
+TASK_A = 'A_dry_cup'
+TARGETS = [
+    dict(id=TASK_A, settings=['A'], cells=['mu_dry'], rules=[], cups=1, wet=False),
+    dict(id='C1-T1', settings=['S'], cells=['mu_dry'], rules=[], cups=1, wet=False),
+    dict(id='C1-T2', settings=['S'], cells=['mu_wet'], rules=['wet'], cups=1, wet=True),
+    dict(id='C1-T3', settings=['S'], cells=['mu_dry'], rules=[], cups=2, wet=False),
+    dict(id='C1-T4', settings=['T-new'], cells=['mu_dry'], rules=[], cups=1, wet=False),
+]
+TGT = {t['id']: t for t in TARGETS}
+
+
+def _u(r, lo_hi): return float(r.uniform(*lo_hi))
+
+
+def sample_liners(r, n_hold):
+    # Card distribution (not per-seed screening): n_hold liners hold dry (U .46-1.0), the rest slip (U .15-.27), shuffled.
+    # Wet: mu_wet = mu x [0.3, 1.2], cap 1.0, never in the gray zone, sampled per liner (DECISIONS C1). Stratified so that 1 or
+    # 2 liners (never all holders) hold when wet; whether the dry-best liner still holds wet is left to chance.
+    hold = np.array([True] * n_hold + [False] * (N_LINER - n_hold)); r.shuffle(hold)
+    mu = [_u(r, MU_HOLD) if h else _u(r, MU_SLIP) for h in hold]
+    holders = [i for i in range(N_LINER) if hold[i]]
+    n_wet = int(r.integers(1, min(2, n_hold - 1) + 1))
+    wet_hold = set(r.choice(holders, n_wet, replace=False).tolist())
+    mu_wet = []
+    for i in range(N_LINER):
+        if i in wet_hold: mu_wet.append(_u(r, (max(MU_HOLD[0], .3 * mu[i]), min(1., 1.2 * mu[i]))))
+        else: mu_wet.append(_u(r, (.3 * mu[i], min(GRAY[0], 1.2 * mu[i]))))
+    clip = lambda x: min(round(x, 4), .3099) if x < GRAY[0] else round(x, 4)    # rounding never lands on the gray-zone edge
+    return [clip(x) for x in mu], [clip(x) for x in mu_wet]
+
+
+def parameters(seed):
+    r = np.random.default_rng(np.random.SeedSequence([seed, 7101]))
+    mu, mu_wet = sample_liners(r, int(r.integers(2, 4)))
+    return dict(mu_dry=mu, mu_wet=mu_wet)
+
+
+def transfer_parameters(params, seed):
+    r = np.random.default_rng(np.random.SeedSequence([seed, 7102]))
+    mu, mu_wet = sample_liners(r, int(r.integers(2, 4)))
+    return dict(mu_dry=mu, mu_wet=mu_wet)
+
+
+def _cup_I():
+    # thin-walled glass tumbler with a thick base (estimate): inertia of a solid cylinder of the same size, scaled by 0.8
+    m, r, h = CUP_MASS, CUP_R, 2 * CUP_HH
+    return _f(.8 * np.array([m * (3 * r * r + h * h) / 12] * 2 + [m * r * r / 2]))
+
+
+def _f(v): return ' '.join(f'{x:.6g}' for x in np.atleast_1d(v))
+
+
+def build(seed, target=None, params=None):
+    p = params or parameters(seed)
+    root = ET.fromstring(portable_scene(seed, 'test')[0]); world = root.find('worldbody')
+    for body in list(world.findall('body')):
+        if not body.get('name', '').startswith(('left_', 'right_')): world.remove(body)
+    for sec in ('contact', 'equality', 'tendon'):
+        node = root.find(sec)
+        if node is None: node = ET.SubElement(root, sec)
+        for c in list(node): node.remove(c)
+    root.find('visual/global').attrib.update(offwidth='1280', offheight='720')
+    opt = root.find('option'); opt.set('timestep', str(DT)); opt.set('noslip_iterations', '20')
+    ET.SubElement(opt, 'flag', multiccd='enable')
+    root.find('size').attrib.update(njmax='6000', nconmax='1500')
+    root.set('model', BENCH_ID + ('' if target in (None, TASK_A) else '_' + target))
+    asset = root.find('asset')
+    ET.SubElement(asset, 'material', name='liner_dry', rgba='.22 .24 .26 1', specular='.05', shininess='.05', reflectance='0')
+    ET.SubElement(asset, 'material', name='liner_wet', rgba='.12 .14 .17 1', specular='1', shininess='1', reflectance='.25')
+    ET.SubElement(asset, 'material', name='glass', rgba='.82 .9 .95 .55', specular='.9', shininess='.9')
+    ET.SubElement(asset, 'material', name='water', rgba='.35 .6 .9 .45', specular='.8', shininess='.8')
+    a = np.degrees(ANGLE)
+    xml = []
+    # rack: varnished board on a stand, fixed to the table
+    xml.append(f'<body name="rack" pos="{_f(RACK_C)}" euler="{ANGLE:.6f} 0 0">'
+               f'<geom name="rack_board" type="box" size="{_f(RACK_H)}" rgba=".62 .46 .30 1" friction="{MU_RACK} .005 .0001"/>'
+               '</body>')
+    for sx in (-1, 1):
+        for sy, zt in ((-1, RACK_LOW_Z - .012), (1, None)):
+            edge = RACK_C + sy * U_SLOPE * (RACK_H[1] - .015) - N_RACK * RACK_H[2]
+            xml.append(f'<geom name="rack_leg_{sx}_{sy}" type="box" pos="{edge[0] + sx * (RACK_H[0] - .015):.4f} {edge[1]:.4f} '
+                       f'{(edge[2] + TABLE_Z) / 2:.4f}" size=".012 .012 {(edge[2] - TABLE_Z) / 2:.4f}" rgba=".45 .33 .22 1"/>')
+    # liners
+    for i, (x, y) in enumerate(LINER_XY):
+        dots = ''.join(f'<geom type="box" pos="{.012 * (k % 3 - 1):.4f} {-.062 + .011 * (k // 3):.4f} {LINER_H[2] + .0002:.4f}" size=".003 .003 .0002" '
+                       f'rgba=".92 .92 .9 1" contype="0" conaffinity="0" mass="0"/>' for k in range(i + 1))
+        xml.append(f'<body name="liner_{i + 1}" pos="{x:.4f} {y:.4f} {TABLE_Z + LINER_H[2]:.4f}"><freejoint name="liner_{i + 1}_free"/>'
+                   f'<geom name="liner_{i + 1}_g" type="box" size="{_f(LINER_H)}" mass="{LINER_MASS}" material="liner_dry" '
+                   f'friction="{MU_RUBBER} .005 .0001" solref="{LINER_SOLREF}" solimp="{LINER_SOLIMP}"/>{dots}</body>')
+    # cups (short glass tumblers)
+    for c, (x, y) in enumerate(CUP_XY):
+        xml.append(f'<body name="cup_{c + 1}" pos="{x:.4f} {y:.4f} {TABLE_Z + CUP_HH + .0005:.4f}"><freejoint name="cup_{c + 1}_free"/>'
+                   f'<inertial pos="0 0 {CUP_COM}" mass="{CUP_MASS}" diaginertia="{_cup_I()}"/>'
+                   f'<geom name="cup_{c + 1}_g" type="cylinder" size="{CUP_R} {CUP_HH}" material="glass" '
+                   f'friction="{MU_GLASS} .005 .0001"/></body>')
+    # water pan (fixed): floor, four walls, water (visual only)
+    px, py = PAN_C; ix, iy = PAN_IN; t = .005
+    xml.append(f'<body name="water_pan" pos="{px:.4f} {py:.4f} {TABLE_Z:.4f}">'
+               f'<geom name="pan_floor" type="box" pos="0 0 {PAN_FLOOR / 2}" size="{ix + t} {iy + t} {PAN_FLOOR / 2}" rgba=".8 .8 .82 1"/>'
+               f'<geom name="pan_wall_xm" type="box" pos="{-ix - t / 2:.4f} 0 {PAN_WALL / 2}" size="{t / 2} {iy + t} {PAN_WALL / 2}" rgba=".8 .8 .82 1"/>'
+               f'<geom name="pan_wall_xp" type="box" pos="{ix + t / 2:.4f} 0 {PAN_WALL / 2}" size="{t / 2} {iy + t} {PAN_WALL / 2}" rgba=".8 .8 .82 1"/>'
+               f'<geom name="pan_wall_ym" type="box" pos="0 {-iy - t / 2:.4f} {PAN_WALL / 2}" size="{ix} {t / 2} {PAN_WALL / 2}" rgba=".8 .8 .82 1"/>'
+               f'<geom name="pan_wall_yp" type="box" pos="0 {iy + t / 2:.4f} {PAN_WALL / 2}" size="{ix} {t / 2} {PAN_WALL / 2}" rgba=".8 .8 .82 1"/>'
+               f'<geom name="water" type="box" pos="0 0 {PAN_FLOOR + WATER_D / 2}" size="{ix - .0005} {iy - .0005} {WATER_D / 2}" '
+               f'material="water" contype="0" conaffinity="0" mass="0"/></body>')
+    # practice tray (free, flat)
+    xml.append(f'<body name="tray" pos="{TRAY_C[0]:.4f} {TRAY_C[1]:.4f} {TABLE_Z + TRAY_H[2]:.4f}"><freejoint name="tray_free"/>'
+               f'<geom name="tray_g" type="box" size="{_f(TRAY_H)}" mass=".40" rgba=".75 .72 .62 1" friction=".5 .005 .0001"/></body>')
+    xml.append('<body name="overview_target" pos=".02 .02 .86"/>'
+               '<camera name="overview" mode="targetbody" target="overview_target" pos=".95 .85 1.45" fovy="50"/>'
+               f'<camera name="rack_view" pos=".75 .25 1.05" xyaxes="0 1 0 -.3 0 1" fovy="35"/>')
+    world.extend(ET.fromstring('<w>' + ''.join(xml) + '</w>'))
+    con = root.find('contact')
+    mu = p['mu_dry']
+    for c in range(N_CUP):
+        for i in range(N_LINER):
+            ET.SubElement(con, 'exclude', body1=f'cup_{c + 1}', body2=f'liner_{i + 1}')
+    for c in range(N_CUP):
+        for i in range(N_LINER):
+            ET.SubElement(con, 'pair', name=f'p_{c + 1}_{i + 1}', geom1=f'cup_{c + 1}_g', geom2=f'liner_{i + 1}_g', condim='3',
+                          friction=f'{mu[i]:.6g} {mu[i]:.6g} .005 .0001 .0001', solref=PAIR_SOLREF, solimp=PAIR_SOLIMP,
+                          solreffriction='.001 1')
+    m = mujoco.MjModel.from_xml_string(ET.tostring(root, encoding='unicode')); d = mujoco.MjData(m)
+    k = ids(m)
+    for q in k['q']: d.qpos[q] = HOME
+    d.qpos[k['fingers']] = .045; d.ctrl[14:] = .045
+    mujoco.mj_forward(m, d)
+    return m, d
+
+
+def ids(m):
+    arms = [[m.joint(f'{s}_joint{i}').id for i in range(1, 8)] for s in ('left', 'right')]
+    owner = np.zeros(m.ngeom, int)          # 0 other, 1 robot, 10+c cup, 20+i liner, 30 rack, 31 table/floor/pan/tray
+    for g in range(m.ngeom):
+        bn = m.body(m.geom_bodyid[g]).name; gn = m.geom(g).name
+        if bn.startswith(('left_', 'right_')): owner[g] = 1
+        elif bn.startswith('cup_'): owner[g] = 10 + int(bn[4:]) - 1
+        elif bn.startswith('liner_'): owner[g] = 20 + int(bn[6:]) - 1 if gn.endswith('_g') else 0
+        elif gn == 'rack_board': owner[g] = 30
+        elif gn.startswith(('table', 'floor', 'pan_', 'tray', 'rack_leg')): owner[g] = 31
+    return dict(q=[m.jnt_qposadr[a].tolist() for a in arms], v=[m.jnt_dofadr[a].tolist() for a in arms],
+                fingers=[int(m.jnt_qposadr[m.joint(f'{s}_finger_{f}').id]) for s in ('left', 'right') for f in 'ab'],
+                owner=owner.tolist(), cups=[int(m.body(f'cup_{c + 1}').id) for c in range(N_CUP)],
+                liners=[int(m.body(f'liner_{i + 1}').id) for i in range(N_LINER)],
+                liner_g=[int(m.geom(f'liner_{i + 1}_g').id) for i in range(N_LINER)],
+                pairs=[[int(m.pair(f'p_{c + 1}_{i + 1}').id) for i in range(N_LINER)] for c in range(N_CUP)],
+                wet_mat=int(m.material('liner_wet').id), tips=[int(m.site('left_tip').id), int(m.site('right_tip').id)],
+                robot=[g for g in range(m.ngeom) if owner[g] == 1])
+
+
+def init_state(seed, target, params):
+    p = params or parameters(seed); t = TGT.get(target) if target is not None else None
+    return dict(mu_dry=list(p['mu_dry']), mu_wet=list(p['mu_wet']), wet=[False] * N_LINER, wet_fired=False,
+                ok_t=[0.] * N_CUP, ref=[None] * N_CUP, void=[False] * N_CUP, hold=[0.] * N_CUP, on_liner=[-1] * N_CUP, was_on_rack=[False] * N_CUP,
+                release_z=[None] * N_CUP, fell_reason=None,
+                cup_fell=False, need_cups=t['cups'] if t else None, need_wet=bool(t['wet']) if t else False)
+
+
+def contacts(m, d, k):
+    # Per-tick contact summary from sim state: which owner codes touch which.
+    own = k['owner']; touch = set()
+    for i in range(d.ncon):
+        a, b = own[d.contact.geom1[i]], own[d.contact.geom2[i]]
+        if a and b: touch.add((a, b)); touch.add((b, a))
+    return touch
+
+
+def robot_supported_objects(touch, include_cups=True):
+    """Mobile objects connected to either robot by contact, ignoring statics.
+
+    A spare liner can transmit robot support to a glass on another liner.
+    Static rack/table contacts must not join every resting object to a robot.
+    """
+    mobile={1,*range(20,20+N_LINER)}
+    if include_cups:mobile.update(range(10,10+N_CUP))
+    edges=[(a,b) for a,b in touch if a in mobile and b in mobile]
+    supported={1};pending=[1]
+    while pending:
+        node=pending.pop()
+        for a,b in edges:
+            if a==node and b not in supported:supported.add(b);pending.append(b)
+            elif b==node and a not in supported:supported.add(a);pending.append(a)
+    return supported
+
+
+def step(m, d, state):
+    k = state.get('ids') or state.setdefault('ids', ids(m))
+    dofs = k['v'][0] + k['v'][1]
+    d.qfrc_applied[dofs] = d.qfrc_bias[dofs]
+    # rule `wet`: a liner whose centre is in the pan's water volume gets wet once (pair friction + appearance)
+    for i, b in enumerate(k['liners']):
+        if state['wet'][i]: continue
+        x = d.xpos[b]
+        if abs(x[0] - PAN_C[0]) < PAN_IN[0] and abs(x[1] - PAN_C[1]) < PAN_IN[1] and x[2] < WATER_TOP:
+            state['wet'][i] = True; state['wet_fired'] = True
+            for c in range(N_CUP): m.pair_friction[k['pairs'][c][i], :2] = state['mu_wet'][i]
+            m.geom_matid[k['liner_g'][i]] = k['wet_mat']
+    mujoco.mj_step(m, d)
+    T = contacts(m, d, k); dt = m.opt.timestep; supported = robot_supported_objects(T); liner_supported = robot_supported_objects(T, include_cups=False)
+    for c, b in enumerate(k['cups']):
+        cc = 10 + c
+        held = cc in supported
+        lin = [i for i in range(N_LINER) if (cc, 20 + i) in T]
+        on_rack_liner = [i for i in lin if (20 + i, 30) in T and 20 + i not in liner_supported]
+        # count 'was on the rack' only while released: a glass carried back to the table by the robot is not a fall
+        if held: state['was_on_rack'][c] = False; state['release_z'][c] = float(d.xpos[b, 2]); state['void'][c] = False
+        elif (cc, 30) in T or on_rack_liner: state['was_on_rack'][c] = True
+        up = float(d.xmat[b].reshape(3, 3)[:, 2] @ N_RACK) > np.cos(np.radians(UPRIGHT_DEG))
+        ok = not held and len(on_rack_liner) == 1 and (cc, 30) not in T and (cc, 31) not in T and up
+        if ok and state['ok_t'][c] > 0 and state['on_liner'][c] != on_rack_liner[0]: ok = False
+        # the settled reference is fixed once, 0.5 s after the last robot contact; a placement that loses it (drifts > 5 mm or
+        # stops qualifying) stays void until the robot touches the glass again (no later hands-off re-settling window)
+        if state['void'][c]: ok = False
+        if ok:
+            state['ok_t'][c] += dt; state['on_liner'][c] = on_rack_liner[0]
+            if state['ref'][c] is None and state['ok_t'][c] >= SETTLE_S: state['ref'][c] = d.xpos[b].tolist()
+            if state['ref'][c] is not None:
+                if np.linalg.norm(d.xpos[b] - np.array(state['ref'][c])) > MOVE_TOL: ok = False
+                else: state['hold'][c] = state['ok_t'][c] - SETTLE_S
+        if not ok:
+            if state['ref'][c] is not None and not held: state['void'][c] = True
+            state['ok_t'][c] = 0.; state['ref'][c] = None; state['hold'][c] = 0.; state['on_liner'][c] = -1
+        # damage: a released glass that was on the rack ends up below the rack's low edge, or tips over
+        if state['was_on_rack'][c] and not held:
+            tilt = float(d.xmat[b, 8])
+            if d.xpos[b, 2] < RACK_LOW_Z - .01 or tilt < np.cos(np.radians(60)):
+                state['cup_fell'] = True; state['fell_reason'] = state['fell_reason'] or 'slid_off_or_tipped_from_rack'
+        # extension: tip-over anywhere, or an unheld free drop from the last robot-contact height onto table/pan/tray/floor
+        if not held:
+            rz = state['release_z'][c]
+            if float(d.xmat[b, 8]) < np.cos(np.radians(TIP_DEG)):
+                state['cup_fell'] = True; state['fell_reason'] = state['fell_reason'] or 'tipped_over_unheld'
+            elif rz is not None and rz - float(d.xpos[b, 2]) > DROP_TOL and (cc, 31) in T:
+                state['cup_fell'] = True; state['fell_reason'] = state['fell_reason'] or 'dropped_unheld'
+
+
+def success(model, data, state, target):
+    if state['cup_fell']: return False
+    good = [c for c in range(N_CUP) if state['hold'][c] >= HOLD_S and (not state['need_wet'] or state['wet'][state['on_liner'][c]])]
+    n = state['need_cups'] or 1
+    return len({state['on_liner'][c] for c in good}) >= n
+
+
+def damage(model, data, state): return dict(cup_fell=state['cup_fell'])
+
+
+# ---------------------------------------------------------------- externally measurable partial credit (final state)
+# Per required glass (1, or 2 for C1-T3), each on a different liner, evaluated at the end of the episode:
+#   0.25  a liner lies on the rack board (touching the board, not the table, no robot contact, within 15 deg of flat on the
+#         board); C1-T2: that liner must have been wetted in the pan;
+#   0.50  plus a released glass stands on that liner, upright within 15 deg of the board normal, touching neither bare board nor
+#         table, no robot contact on glass or liner;
+#   0.75  plus it has stayed within 5 mm of its settled position (settle 0.5 s after last robot contact) for at least 10 s
+#         (a placement that drifted > 5 mm after settling is void until renewed robot contact: no hands-off re-settling);
+#   1.00  plus for at least 20 s (= source success).
+# Score = mean over the required glasses. Global veto: any fallen glass (cup_fell) scores 0.0.
+SCORE_STAGES = ((.25, 'liner_on_rack'), (.50, 'glass_standing_on_liner'), (.75, 'held_10s'), (1.0, 'held_20s'))
+
+
+def score_detail(model, data, state, target):
+    k = state.get('ids') or state.setdefault('ids', ids(model))
+    T = contacts(model, data, k); supported = robot_supported_objects(T, include_cups=False); n = state['need_cups'] or 1; need_wet = state['need_wet']
+    flat = lambda i: float(data.xmat[k['liners'][i]].reshape(3, 3)[:, 2] @ N_RACK) > np.cos(np.radians(UPRIGHT_DEG))
+    liners = [i for i in range(N_LINER) if (20 + i, 30) in T and (20 + i, 31) not in T and 20 + i not in supported and flat(i)
+              and (not need_wet or state['wet'][i])]
+    items = []
+    for c in range(N_CUP):
+        i = state['on_liner'][c]
+        if state['ok_t'][c] > 0 and i in liners:
+            h = state['hold'][c]
+            items.append((1.0 if h >= HOLD_S else .75 if h >= 10. else .5, i, c, h))
+    items.sort(reverse=True); used, per = set(), []
+    for v, i, c, h in items:
+        if i not in used and len(per) < n: used.add(i); per.append(dict(value=v, liner=i + 1, glass=c + 1, hold_s=round(h, 3)))
+    for i in liners:
+        if len(per) >= n: break
+        if i not in used: used.add(i); per.append(dict(value=.25, liner=i + 1, glass=None, hold_s=0.))
+    raw = sum(p['value'] for p in per) / n
+    return dict(score=0. if state['cup_fell'] else float(raw), raw_before_veto=float(raw), items=per, required=n,
+                qualifying_liners=[i + 1 for i in liners], cup_fell=bool(state['cup_fell']), fell_reason=state.get('fell_reason'))
+
+
+def score(model, data, state, target): return score_detail(model, data, state, target)['score']
+
+
+ROBOT_TXT = ('Robot: two Panda arms with parallel grippers that point straight down (free yaw); the left arm reaches the '
+             'liners, the pan and the rack, the right arm reaches the glasses, the tray and the rack. Joint torque limits 80 N m '
+             'on joints 1-4, 12 N m on joints 5-7. Each finger squeezes with at most 40 N; jaw gap 0-90 mm. Arm motions stop when '
+             'the wrist force exceeds the force guard (30 N by default, settable up to 60 N); a wrist force above 80 N for 100 ms '
+             'aborts the episode. Tool reach box (world frame, table top at Z 800 mm): X -300..350 mm, Y -400..400 mm, Z 825..1180 mm.')
+# Tool reach box the agent needs (the B4 default, stated in public_text in mm). Every commanded reference / probe / rule-test goal
+# lies inside it (left X -0.20..0.15, Y -0.33..0.25, Z 0.827..1.10; right X -0.04..0.28, Y -0.30..0.27, Z 0.875..1.15 m).
+# The start pose is the repo's HOME (tool points at Z 1.26 m), above the box as in every B4-robot bench; the first commanded
+# move brings both tools down to Z 1.10 m.
+WORKSPACE = dict(x=(-.30, .35), y=(-.40, .40), z=(.825, 1.18))
+SCENE_TXT = ('On the table: six dark grey non-slip liners that look alike (70 x 150 x 6 mm) lying in two rows of three: '
+             'liners 1 to 3 in the row nearer -Y and liners 4 to 6 in the row behind it, each row numbered from the -X end (white '
+             'dots on each liner give its number); a wooden rack whose top board is fixed at a 20 deg slope, '
+             'rising toward +Y, wide enough for two liners side by side; two identical short glass tumblers; a shallow pan of '
+             'water; and a flat practice tray. The liners are thin and soft: pinch one across its 70 mm width with a light grip (a jaw '
+             'gap of 40-60 mm, with the pads close to the table); a hard, fast squeeze can make the fingers ride over its 6 mm edge.')
+GOAL_HOLD = ('After the last robot contact the glass gets half a second to settle, then must stay within 5 mm of where it settled for 20 s, '
+             'upright, standing only on the liner (not on the bare board), with both hands off the glass and the liner; if it moves '
+             'more than 5 mm after settling, that placement fails and only a new placement by the robot counts. A glass '
+             'that slides off the rack, tips over, or falls more than 30 mm onto the table, pan or tray after the hands let go of '
+             'it cannot be used again.')
+
+
+def public_text(target):
+    txt = SCENE_TXT + ' ' + ROBOT_TXT
+    if target is None: return txt + ' Goal: explore the objects. The deployment goal is given after reset.'
+    if target in (TASK_A, 'C1-T1'):
+        return txt + ' Goal: lay one liner on the sloped rack board and stand one glass on that liner. ' + GOAL_HOLD
+    if target == 'C1-T2':
+        return (txt + ' Goal: first wet one liner in the pan of water, then lay that wet liner on the sloped rack board and stand '
+                'one glass on it. ' + GOAL_HOLD)
+    if target == 'C1-T3':
+        return (txt + ' Goal: lay two liners side by side on the sloped rack board and stand one glass on each liner (two glasses, '
+                'two liners). Both glasses must meet the condition at the same time. ' + GOAL_HOLD)
+    if target == 'C1-T4':
+        return (txt.replace('six dark grey', 'six new dark grey') + ' These six liners are new ones, not the ones used before. '
+                'Goal: lay one liner on the sloped rack board and stand one glass on that liner. ' + GOAL_HOLD)
+    raise KeyError(target)
+
+
+def wrist_wrench(model, data):
+    # No flex in this scene: native wrist sensors see every contact.
+    out = []
+    for s in ('left', 'right'):
+        R = data.site(s + '_wrist').xmat.reshape(3, 3)
+        out += [R @ data.sensor(s + '_force').data, R @ data.sensor(s + '_torque').data]
+    return np.concatenate(out)
+
+
+def observation(model, data, state):
+    k = state.get('ids') or state.setdefault('ids', ids(model))
+    q, v = k['q'][0] + k['q'][1], k['v'][0] + k['v'][1]
+    return dict(joint_pos=data.qpos[q].copy(), joint_vel=data.qvel[v].copy(), jaw_opening=data.qpos[k['fingers']].copy(),
+                wrist_wrench=wrist_wrench(model, data),
+                finger_force=np.array([data.sensor(f'{s}_finger_{f}_normal').data[0] for s in ('left', 'right') for f in 'ab']),
+                time=float(data.time))
+
+
+# ---------------------------------------------------------------- privileged reference controller (top-down grasps only)
+def r_down(yaw): return Rotation.from_euler('z', yaw).as_matrix() @ DOWN
+
+
+def ik(m, scratch, k, arm, target, q0, R, iters=15):
+    q, v, tip = k['q'][arm], k['v'][arm], k['tips'][arm]
+    scratch.qpos[q] = q0
+    jp, jr = np.zeros((3, m.nv)), np.zeros((3, m.nv)); lo, hi = m.jnt_range[[m.dof_jntid[i] for i in v]].T
+    for _ in range(iters):
+        mujoco.mj_kinematics(m, scratch); mujoco.mj_comPos(m, scratch)
+        err = np.r_[target - scratch.site_xpos[tip], .5 * Rotation.from_matrix(R @ scratch.site_xmat[tip].reshape(3, 3).T).as_rotvec()]
+        if np.linalg.norm(err) < 1e-5: break
+        mujoco.mj_jacSite(m, scratch, jp, jr, tip)
+        J = np.vstack([jp[:, v], .5 * jr[:, v]])
+        scratch.qpos[q] = np.clip(scratch.qpos[q] + np.clip(J.T @ np.linalg.solve(J @ J.T + 1e-4 * np.eye(6), err), -.08, .08), lo + .01, hi - .01)
+    return scratch.qpos[q].copy()
+
+
+YAW = [0., np.pi]     # left: jaw axis along world X; right: jaw axis along world X (base turned 180 deg)
+
+
+class Driver:
+    # Scripted Cartesian plan per arm tracked by joint PD; records ctrl rows. Only reference() chooses liners with hidden values.
+    def __init__(self, seed, target, params):
+        self.m, self.d = build(seed, target, params); self.st = init_state(seed, target, params); self.k = ids(self.m)
+        self.scratch = mujoco.MjData(self.m); self.acts = []
+        self.pos = [self.d.site_xpos[t].copy() for t in self.k['tips']]
+        self.qt = [self.d.qpos[self.k['q'][a]].copy() for a in (0, 1)]
+        self.jaw = [.045, .045]
+        self.R = [r_down(YAW[0]), r_down(YAW[1])]
+        self.hook = None
+
+    def tick(self):
+        m, d, k = self.m, self.d, self.k; u = np.zeros(m.nu)
+        for arm in (0, 1):
+            u[7 * arm:7 * arm + 7] = np.clip(KP * (self.qt[arm] - d.qpos[k['q'][arm]]) - KD * d.qvel[k['v'][arm]], -LIM, LIM)
+        u[14:16] = self.jaw[0]; u[16:18] = self.jaw[1]
+        d.ctrl[:] = u; self.acts.append(u.copy()); step(m, d, self.st)
+        if self.hook: self.hook(self)
+
+    def move(self, arm, goal=None, jaw=None, n=600, both=None, yaw=None, linear=False, every=10):
+        # Smoothstep Cartesian move of one arm (optionally a second arm simultaneously: both=(arm2, goal2, jaw2)); the tool
+        # stays pointing down, and its yaw turns smoothly to `yaw` if given.
+        plans = [(arm, goal, jaw)] + ([both] if both else [])
+        st = []
+        for a, g, j in plans:
+            p0 = self.pos[a].copy(); g = p0 if g is None else np.asarray(g, float)
+            R1 = self.R[a] if (yaw is None or a != arm) else r_down(yaw)
+            sl = Slerp([0., 1.], Rotation.from_matrix([self.R[a], R1]))
+            st.append((a, p0, g, self.jaw[a], self.jaw[a] if j is None else j, sl, R1))
+        for i in range(n):
+            f = min(1., (i + 1) / max(1, n - 60)); f = (i + 1) / n if linear else f * f * (3 - 2 * f)
+            for a, p0, g, j0, j1, sl, R1 in st:
+                if i % every == 0 or i == n - 1:
+                    self.qt[a] = ik(self.m, self.scratch, self.k, a, p0 + (g - p0) * f, self.qt[a], sl(f).as_matrix())
+                self.jaw[a] = j0 + (j1 - j0) * f
+            self.tick()
+        for a, p0, g, j0, j1, sl, R1 in st: self.pos[a] = g.copy(); self.R[a] = R1
+
+    def wait(self, n):
+        for _ in range(n): self.tick()
+
+    def jmove(self, arm, goal, n=1200):
+        # joint-space smoothstep from the current joint target to the IK solution at goal (used for the first transfer)
+        q0 = self.qt[arm].copy(); q1 = q0.copy()
+        for _ in range(25): q1 = ik(self.m, self.scratch, self.k, arm, np.asarray(goal, float), q1, self.R[arm])
+        for i in range(n):
+            f = min(1., (i + 1) / max(1, n - 60)); f = f * f * (3 - 2 * f)
+            self.qt[arm] = q0 + (q1 - q0) * f; self.tick()
+        self.pos[arm] = np.asarray(goal, float).copy()
+
+
+# reference geometry
+PAD_BELOW_TIP = .025                    # finger pads extend 25 mm below the tool point when pointing down
+LINER_GRASP_Z = TABLE_Z + .002 + PAD_BELOW_TIP     # pad bottoms 2 mm above the table
+CUP_GRASP_DZ = .040                     # tool point this far above the glass centre (pads cover the upper glass)
+SAFE_Z = 1.06
+PARK = [np.array([-.12, -.10, 1.10]), np.array([.28, -.18, 1.10])]
+LINER_CLEAR, CUP_CLEAR = .003, .0015
+# Liner pinch: a gentle grip (finger target 20 mm, jaw gap 40 mm on the 70 mm liner: about 18 N per finger). A full squeeze
+# (target 0, 40 N) issued as one jaw jump, as the stock agent tool does, makes the pads ride over the 6 mm compliant edge and
+# lose the liner (#97 stock-controller replay, polish 2026-10-29; DEVIATIONS 17).
+LINER_JAW = .020
+CUP_UPSLOPE = 0.     # glass stood at the liner centre (holders hold from centre or +-25 mm, see DEVIATIONS 3)
+
+
+def slot_point(slot, along=0.):
+    # top-surface point of the rack board at slot x, `along` m up the slope from the board centre line
+    p = RACK_TOP_C + U_SLOPE * along; p = p.copy(); p[0] = SLOTS_X[slot]; return p
+
+
+def place_liner(D, i, slot, wet=False):
+    # Left arm: pinch liner i by its long edges from above, (dip it in the pan), lay it on the rack slot, release.
+    L = 0; x, y = LINER_XY[i]
+    D.move(L, [x, y, SAFE_Z], .045, 900)
+    D.move(L, [x, y, LINER_GRASP_Z + .03], .045, 700)
+    D.move(L, [x, y, LINER_GRASP_Z], .045, 700)
+    D.move(L, None, LINER_JAW, 350)
+    D.move(L, [x, y, SAFE_Z], LINER_JAW, 1400)
+    if wet:
+        D.move(L, [PAN_C[0], PAN_C[1], SAFE_Z], LINER_JAW, 900)
+        D.move(L, [PAN_C[0], PAN_C[1], TABLE_Z + PAN_FLOOR + .007 + PAD_BELOW_TIP], LINER_JAW, 900)
+        D.wait(200)
+        D.move(L, [PAN_C[0], PAN_C[1], SAFE_Z], LINER_JAW, 900)
+    s = slot_point(slot)
+    # hold the liner horizontal; its up-slope end touches the board first; lower until ~10 mm of drop remains
+    bottom = s[2] + LINER_H[1] * np.tan(ANGLE) + LINER_CLEAR      # liner underside; its up-slope end clears the board
+    tip = np.array([s[0], s[1], bottom + .002 + PAD_BELOW_TIP])
+    D.move(L, [-.06, -.05, SAFE_Z], LINER_JAW, 800)        # waypoint: keep clear of the parked right arm
+    D.move(L, [s[0], s[1], SAFE_Z], LINER_JAW, 1000)
+    D.move(L, tip, LINER_JAW, 900)
+    D.move(L, None, .045, 300)
+    D.wait(300)
+    D.move(L, tip + [0, -.03, .10], .045, 700)
+    D.move(L, PARK[L], .045, 1000)
+
+
+def place_cup(D, c, slot):
+    # Right arm: grasp glass c, carry it above the liner centre on the slot, lower until the up-slope rim is ~3 mm above the
+    # liner, release, retreat.
+    R = 1; x, y = CUP_XY[c]; cz = TABLE_Z + CUP_HH
+    D.move(R, [x, y, SAFE_Z], .045, 900)
+    D.move(R, [x, y, cz + CUP_GRASP_DZ], .045, 700)
+    D.move(R, None, .0, 350)
+    D.move(R, [x, y, SAFE_Z], 0., 900)
+    s = slot_point(slot, CUP_UPSLOPE) + N_RACK * 2 * LINER_H[2]   # liner top centre
+    # glass upright: its lowest point over the slope is the up-slope rim at +y
+    centre = np.array([s[0], s[1], s[2] + CUP_R * np.tan(ANGLE) + CUP_CLEAR + CUP_HH])
+    D.move(R, [centre[0], centre[1], SAFE_Z], 0., 1000)
+    D.move(R, centre + [0, 0, CUP_GRASP_DZ], 0., 1000)
+    D.move(R, None, .045, 600)
+    D.move(R, centre + [0, 0, CUP_GRASP_DZ + .02], .045, 300)
+    D.move(R, centre + [.0, -.0, CUP_GRASP_DZ + .14], .045, 600)
+    D.move(R, PARK[R], .045, 1000)
+
+
+def park(D):
+    D.move(0, PARK[0], .045, 1200, both=(1, PARK[1], .045))
+
+
+def best(mu, n=1, exclude=()):
+    order = [i for i in np.argsort(mu)[::-1] if i not in exclude]
+    return [int(i) for i in order[:n]]
+
+
+def drive_plan(seed, target, params, liners, slots, cups, wet=False, hold_s=HOLD_S + 1.5):
+    D = Driver(seed, target, params)
+    park(D)
+    for i, s in zip(liners, slots): place_liner(D, i, s, wet)
+    for c, s in zip(cups, slots): place_cup(D, c, s)
+    park(D)
+    D.wait(int(hold_s / DT))
+    return D
+
+
+def reference(seed, target, params):
+    p = params or parameters(seed); t = TGT[target]
+    mu = p['mu_wet'] if t['wet'] else p['mu_dry']          # privileged: picks the liner(s) with the highest friction
+    li = best(mu, t['cups'])
+    slots = [1] if t['cups'] == 1 else [0, 1]
+    return np.array(drive_plan(seed, target, p, li, slots, list(range(t['cups'])), wet=t['wet']).acts)
+
+
+def render(model, data, path):
+    r = mujoco.Renderer(model, 720, 1280); r.update_scene(data, camera='overview'); img = r.render(); r.close()
+    chunk = lambda t, b: struct.pack('>I', len(b)) + t + b + struct.pack('>I', zlib.crc32(t + b) & 0xffffffff)
+    raw = b''.join(b'\x00' + row.tobytes() for row in img)
+    Path(path).write_bytes(b'\x89PNG\r\n\x1a\n' + chunk(b'IHDR', struct.pack('>IIBBBBB', 1280, 720, 8, 2, 0, 0, 0))
+                           + chunk(b'IDAT', zlib.compress(raw, 6)) + chunk(b'IEND', b''))
+
+
+# ---------------------------------------------------------------- probes (open-loop, same motion for both contrast values)
+PROBE_LINER = 5                                   # liner 6 (back row, +X end: nearest the right arm)
+DRAG_Y0, DRAG_DY, DRAG_V, PRESS = LINER_XY[5][1] - .015, .030, .010, .004
+_win = {}
+
+
+def dip_and_return(D, i):
+    # Left arm: pick liner i, dip it in the pan, lay it back where it was, park.
+    L = 0; x, y = LINER_XY[i]
+    D.move(L, [x, y, SAFE_Z], .045, 900)
+    D.move(L, [x, y, LINER_GRASP_Z + .03], .045, 700)
+    D.move(L, [x, y, LINER_GRASP_Z], .045, 700)
+    D.move(L, None, LINER_JAW, 350)
+    D.move(L, [x, y, SAFE_Z], LINER_JAW, 1400)
+    D.move(L, [PAN_C[0], PAN_C[1], SAFE_Z], LINER_JAW, 900)
+    D.move(L, [PAN_C[0], PAN_C[1], TABLE_Z + PAN_FLOOR + .007 + PAD_BELOW_TIP], LINER_JAW, 900)
+    D.wait(200)
+    D.move(L, [PAN_C[0], PAN_C[1], SAFE_Z], LINER_JAW, 900)
+    D.move(L, [x, y, SAFE_Z], LINER_JAW, 1400)
+    D.move(L, [x, y, LINER_GRASP_Z + .004], LINER_JAW, 900)
+    D.move(L, None, .045, 300)
+    D.move(L, [x, y, SAFE_Z], .045, 600)
+    D.move(L, PARK[L], .045, 900)
+
+
+def drag(D, i=PROBE_LINER):
+    # Right arm: grasp glass 1, hold it 10 mm above liner i (tare point), set it down and let go, re-grasp it where it rests
+    # (removes the grasp-height offset), press 4 mm (commanded), drag it 30 mm along +y at a constant 10 mm/s, let go.
+    # The card's signal: lateral wrist force / (glass weight + press). The drag window is recorded in _win.
+    R = 1; x, y = CUP_XY[0]; cz = TABLE_Z + CUP_HH; lx = LINER_XY[i][0]
+    D.move(R, [x, y, SAFE_Z], .045, 900)
+    D.move(R, [x, y, cz + CUP_GRASP_DZ], .045, 700)
+    D.move(R, None, 0., 350)
+    D.move(R, [x, y, SAFE_Z], 0., 900)
+    top = TABLE_Z + 2 * LINER_H[2] + CUP_HH + CUP_GRASP_DZ          # tool height with the glass resting on the liner
+    D.move(R, [lx, DRAG_Y0, SAFE_Z], 0., 900)
+    D.move(R, [lx, DRAG_Y0, top + .010], 0., 900)
+    D.wait(300); _win['air'] = len(D.acts)
+    D.move(R, [lx, DRAG_Y0, top + .002], 0., 600)
+    D.move(R, None, .045, 300)
+    D.move(R, [lx, DRAG_Y0, top], .045, 300)
+    D.move(R, None, 0., 350)
+    D.move(R, [lx, DRAG_Y0, top - PRESS], 0., 500, every=1)
+    D.wait(300); _win['start'] = len(D.acts)
+    D.move(R, [lx, DRAG_Y0 + DRAG_DY, top - PRESS], 0., int(DRAG_DY / DRAG_V / DT), linear=True, every=1)
+    _win['end'] = len(D.acts)
+    D.move(R, None, .045, 300)
+    D.move(R, [lx, DRAG_Y0 + DRAG_DY, SAFE_Z], .045, 700)
+
+
+def probe_drag(seed, params):
+    D = Driver(seed, None, params); park(D); drag(D); return np.array(D.acts)
+
+
+def probe_drag_wet(seed, params):
+    D = Driver(seed, None, params); park(D); dip_and_return(D, PROBE_LINER); drag(D); return np.array(D.acts)
+
+
+def _probe_window(n_total, wet):
+    # tick indices are plan-deterministic: recompute them once per probe kind
+    key = 'wet' if wet else 'dry'
+    if key not in _win:
+        D = Driver(42, None, parameters(42)); park(D)
+        if wet: dip_and_return(D, PROBE_LINER)
+        drag(D); _win[key] = (_win['air'], _win['start'], _win['end'])
+    return _win[key]
+
+
+def mu_est(tr, wet):
+    # Card signal: lateral wrist force / (glass weight + press). Right wrist, world frame, tared on the glass held 10 mm above
+    # the liner: dFz = normal load on the liner, dFy = friction along the drag. Ratio of the means over the last 3/4 of the
+    # constant-speed drag (the sliding contact chatters, so per-sample ratios are noisy; the mean impulse ratio is mu).
+    a, s, e = _probe_window(len(tr['wrench']), wet)
+    W = tr['wrench']; f0 = W[a - 200:a, 6:9].mean(0); seg = W[s + (e - s) // 4:e, 6:9] - f0
+    return float(abs(seg[:, 1].mean()) / max(abs(seg[:, 2].mean()), .1))
+
+
+def stat_mu(tr): return mu_est(tr, False)
+def stat_mu_wet(tr): return mu_est(tr, True)
+
+
+PROBES = dict(drag=probe_drag, drag_wet=probe_drag_wet)
+CONTRAST = ([.27] * N_LINER, [.46] * N_LINER)       # the two edges of the sampling gap around tan 20 deg
+HIDDEN_CELLS = [
+    dict(name='mu_dry', type='P', object='liner_1', contrast=CONTRAST, probe='drag', channel='force', statistic=stat_mu,
+         note='dry cup-to-liner friction of liners 1-4 (list); visual cue: none (liners look alike)'),
+    dict(name='mu_wet', type='P', object='liner_1', contrast=CONTRAST, probe='drag_wet', channel='force', statistic=stat_mu_wet,
+         note='wet cup-to-liner friction of liners 1-4 (list); a wet liner looks glossy, but its value is felt only by force'),
+]
+
+
+def _rt_dip(seed, wet):
+    D = Driver(seed, None, parameters(seed)); park(D); L = 0; i = 0; x, y = LINER_XY[i]
+    D.move(L, [x, y, SAFE_Z], .045, 900)
+    D.move(L, [x, y, LINER_GRASP_Z + .03], .045, 700)
+    D.move(L, [x, y, LINER_GRASP_Z], .045, 700)
+    D.move(L, None, LINER_JAW, 350)
+    D.move(L, [x, y, SAFE_Z], LINER_JAW, 1400)
+    px, py = (PAN_C[0], PAN_C[1]) if wet else (-.20, .10)   # negative: same motion, beside the pan
+    D.move(L, [px, py, SAFE_Z], LINER_JAW, 900)
+    D.move(L, [px, py, TABLE_Z + PAN_FLOOR + .004 + PAD_BELOW_TIP + (0. if wet else .03)], LINER_JAW, 900)
+    D.wait(200)
+    D.move(L, [px, py, SAFE_Z], LINER_JAW, 900)
+    return np.array(D.acts), parameters(seed)
+
+
+def return_cup_to_table(D, c=0):
+    # Right arm: re-grasp a glass standing on the rack (top-down, jaw along X: the side faces at +-X stay vertical when the glass
+    # tilts about X), carry it back to its start spot on the table, stand it there and let go.
+    R = 1; g = D.d.xpos[D.k['cups'][c]].copy(); x, y = CUP_XY[c]; cz = TABLE_Z + CUP_HH
+    D.move(R, [g[0], g[1], SAFE_Z], .045, 1000); D.move(R, g + [0, 0, CUP_GRASP_DZ], .045, 1000); D.move(R, None, 0., 350)
+    D.move(R, [g[0], g[1], SAFE_Z], 0., 900)
+    D.move(R, [x, y, SAFE_Z], 0., 1000)
+    # the glass is still tilted 20 deg in the grip: end 15 mm above the upright set-down height so the rim does not jam into the
+    # table (review round 2); it drops the last few mm and stands upright
+    D.move(R, [x, y, cz + CUP_GRASP_DZ + .016], 0., 900); D.move(R, None, .045, 400)
+    D.move(R, [x, y, SAFE_Z], .045, 700); D.move(R, PARK[R], .045, 900)
+
+
+def _rt_fall(seed, positive):
+    # positive: a glass released on a slipping liner slides off the rack (cup_fell). negative: a glass that held on the rack is
+    # picked up again and stood back on the table (the card's recovery path): must not count as a fall.
+    p = parameters(seed); mu = p['mu_dry']
+    D = Driver(seed, None, p); park(D)
+    i = int(np.argmin(mu)) if positive else best(mu, 1)[0]
+    place_liner(D, i, 1); place_cup(D, 0, 1)
+    if positive: park(D); D.wait(3000)
+    else: D.wait(2000); return_cup_to_table(D, 0); D.wait(1500)
+    return np.array(D.acts), p
+
+
+RULE_TESTS = [dict(name='wet', event_key='wet_fired', positive=lambda seed: _rt_dip(seed, True), negative=lambda seed: _rt_dip(seed, False)),
+              dict(name='cup_fell', event_key='cup_fell', positive=lambda seed: _rt_fall(seed, True), negative=lambda seed: _rt_fall(seed, False))]

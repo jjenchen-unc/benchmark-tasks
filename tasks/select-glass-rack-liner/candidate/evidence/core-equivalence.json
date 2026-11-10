@@ -1,0 +1,20 @@
+{
+  "task.py": true,
+  "c1_kit.py": true,
+  "c1_history.py": true,
+  "c1_physics.py": true,
+  "c1_motor_adapter.py": true,
+  "c1_contacts.py": true,
+  "c1_contract.py": true,
+  "c1_public.py": true,
+  "public_entry.py": true,
+  "reference.py": true,
+  "parking_controller.py": true,
+  "parking-plan.json": true,
+  "reach_v2.py": true,
+  "hand_geometry.py": true,
+  "c1_force_bound.py": true,
+  "physics_AST_exact_except_verified_channel_lookup": true,
+  "no_receipt_activated": true,
+  "all_candidate_Python_compiles": true
+}

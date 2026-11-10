@@ -1,0 +1,10 @@
+{
+  "kind": "CPU synthetic helper validation only",
+  "passed": true,
+  "positive_synthetic": true,
+  "missing_receipt_rejects": true,
+  "unapproved_real_candidate_gates_closed": true,
+  "strict_numeric_negatives": 15,
+  "duplicate_nonfinite_overflow_rejects": true,
+  "tampered_source_rejects": true
+}

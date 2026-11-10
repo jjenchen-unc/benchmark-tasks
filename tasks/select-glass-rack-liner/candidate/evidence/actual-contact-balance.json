@@ -1,0 +1,141 @@
+{
+  "kind": "CPU force-balance review of ACTUAL sampled raw normals; friction is not reconstructed",
+  "rows": [
+    {
+      "arm": "left",
+      "axis": 0,
+      "sign": -1,
+      "before_cross_contact_tail_controls": 20,
+      "after_cross_contact_tail_controls": 0,
+      "before_normal_world_n": [
+        -0.6615829631626878,
+        0.18311957685084837,
+        -0.0914238886042272
+      ],
+      "after_normal_world_n": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "normal_delta_n": [
+        0.6615829631626878,
+        -0.18311957685084837,
+        0.0914238886042272
+      ],
+      "uncorrected_residual_n": [
+        -0.6339570313692091,
+        0.31641350984573363,
+        -0.005605721473694203
+      ],
+      "normal_balance_residual_n": [
+        0.02762593179347872,
+        0.13329393299488526,
+        0.085818167130533
+      ],
+      "normal_balance_residual_norm_n": 0.16091992570948757
+    },
+    {
+      "arm": "left",
+      "axis": 0,
+      "sign": 1,
+      "before_cross_contact_tail_controls": 20,
+      "after_cross_contact_tail_controls": 20,
+      "before_normal_world_n": [
+        -0.7210997674791477,
+        0.19817508737375772,
+        -0.09903366284079795
+      ],
+      "after_normal_world_n": [
+        -2.102855271775644,
+        0.5405590427168352,
+        0.26855391116053406
+      ],
+      "normal_delta_n": [
+        -1.3817555042964964,
+        0.3423839553430775,
+        0.367587574001332
+      ],
+      "uncorrected_residual_n": [
+        1.5338702768087389,
+        0.12269117832183839,
+        0.09420390129089373
+      ],
+      "normal_balance_residual_n": [
+        0.15211477251224248,
+        0.4650751336649159,
+        0.46179147529222575
+      ],
+      "normal_balance_residual_norm_n": 0.6728188096526887
+    },
+    {
+      "arm": "left",
+      "axis": 1,
+      "sign": -1,
+      "before_cross_contact_tail_controls": 20,
+      "after_cross_contact_tail_controls": 20,
+      "before_normal_world_n": [
+        -0.7057634115145515,
+        0.19661636320829548,
+        -0.09696128335456784
+      ],
+      "after_normal_world_n": [
+        -1.161762812702349,
+        0.3173396765405784,
+        0.15468656022791444
+      ],
+      "normal_delta_n": [
+        -0.45599940118779747,
+        0.1207233133322829,
+        0.25164784358248227
+      ],
+      "uncorrected_residual_n": [
+        0.3301399141550063,
+        -0.6701610445976263,
+        0.1694591522216795
+      ],
+      "normal_balance_residual_n": [
+        -0.12585948703279115,
+        -0.5494377312653433,
+        0.4211069958041618
+      ],
+      "normal_balance_residual_norm_n": 0.7036004071412774
+    },
+    {
+      "arm": "left",
+      "axis": 1,
+      "sign": 1,
+      "before_cross_contact_tail_controls": 20,
+      "after_cross_contact_tail_controls": 20,
+      "before_normal_world_n": [
+        -0.6353161491475628,
+        0.17631609008686827,
+        0.08579966083647239
+      ],
+      "after_normal_world_n": [
+        -0.3414038250000062,
+        0.01722139121866856,
+        0.00797399674268488
+      ],
+      "normal_delta_n": [
+        0.29391232414755664,
+        -0.1590946988681997,
+        -0.07782566409378751
+      ],
+      "uncorrected_residual_n": [
+        -0.32892026007175446,
+        -0.006446659564971924,
+        0.0366511344909668
+      ],
+      "normal_balance_residual_n": [
+        -0.03500793592419782,
+        -0.16554135843317164,
+        -0.04117452960282071
+      ],
+      "normal_balance_residual_norm_n": 0.1741402848785602
+    }
+  ],
+  "sample_count": 191,
+  "missing_tail_samples_due_original_diagnostic_cap": 289,
+  "contact_journal_sha256": "4ef2ec7a862512cda0e3e7ce7a7135780d9ff18c5727e1a8bdfaf54f2d0b062d",
+  "unmeasured_friction_and_acceleration_remain": true
+}

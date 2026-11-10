@@ -1,0 +1,65 @@
+{
+  "error": null,
+  "eval": {
+    "benchmark": null,
+    "created": "2026-11-10T16:55:11.828406+00:00",
+    "embodiment": "yam_arena",
+    "embodiment_info": {
+      "capabilities": [
+        "resettable",
+        "seedable"
+      ],
+      "control_hz": 20.0,
+      "evaluation_interface": [],
+      "is_simulated": true,
+      "morphology": null
+    },
+    "environment_id": "isaaclab-arena-0.3.1-yam-bimanual-station-calibrated-task-public_entry",
+    "environment_revision": "0003d6b8b7fd",
+    "git_commit": null,
+    "grader": null,
+    "grader_config": {},
+    "inspect_robots_version": "1.0.0",
+    "max_seconds": null,
+    "max_steps": 2268,
+    "policy": "dream",
+    "policy_checkpoint": "dreamlabs/dream-1-beta",
+    "policy_config": {
+      "action_horizon": 1,
+      "replan_interval": null,
+      "temperature": null
+    },
+    "reducer": "mean",
+    "rubrics": [
+      {
+        "kind": "capability",
+        "metadata": {},
+        "name": "task_score",
+        "scorer": "task_score",
+        "text": ""
+      }
+    ],
+    "seed": 42,
+    "task": "adhoc"
+  },
+  "results": {
+    "abstentions": {},
+    "errored_trials": 0,
+    "metrics": {
+      "task_score": 0.0
+    },
+    "total_scenes": 1,
+    "total_trials": 1
+  },
+  "stats": {
+    "completed_at": "2026-11-10T17:15:07.731643+00:00",
+    "duration_s": 1195.900852273,
+    "frames_dir": "/home/ubuntu/robocurve-final-20261110-1550/results/C1-v9/model/model/frames/20261110_165511_49805af2",
+    "mean_inference_latency_s": 0.4310793951127056,
+    "records_dir": "/home/ubuntu/robocurve-final-20261110-1550/results/C1-v9/model/model/records/20261110_165511_49805af2",
+    "started_at": "2026-11-10T16:55:11.830802+00:00",
+    "total_steps": 2268
+  },
+  "status": "success",
+  "version": 3
+}

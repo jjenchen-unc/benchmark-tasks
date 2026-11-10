@@ -1,0 +1,81 @@
+{
+  "public_case": true,
+  "trial_seed": 3867854786,
+  "physical_seed": 42,
+  "kind": "Independent genuine14D20Hz replay",
+  "model_calls": 0,
+  "submission_ready": false,
+  "actions_sha256": "0db8da82e6b08021d9407d9ed10b5e61883a67bae3295e938d0df8a39e5c0499",
+  "controls": 1469,
+  "instruction": "Select a suitable liner, lay it on the fixed 20 degree rack, stand one glass on it, release both glass and liner, and leave both hands off for 20 seconds after 0.5 seconds settling, with at most 5 mm displacement and 15 degree normal misalignment.",
+  "status": {
+    "score": 1.0,
+    "raw_before_veto": 1.0,
+    "items": [
+      {
+        "value": 1.0,
+        "liner": 2,
+        "glass": 1,
+        "hold_s": 25.274
+      }
+    ],
+    "required": 1,
+    "qualifying_liners": [
+      2
+    ],
+    "cup_fell": false,
+    "fell_reason": null,
+    "failure": null,
+    "physics_samples": 73450,
+    "physics_s": 73.44999999998666,
+    "raw_score": 1.0,
+    "gate": null,
+    "missing": [],
+    "measurement_error": null,
+    "controls": 1469,
+    "wet": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "wrist_max_n": [
+      22.020023345947266,
+      21.604629516601562
+    ],
+    "force_guard_frozen": false,
+    "link20ms_force_n": 0.0,
+    "filter_audit": {
+      "task_colliders": 16,
+      "all_colliders": 665,
+      "exclusions_authored": 5352,
+      "relationship_updates": 8
+    },
+    "submission_ready": false
+  },
+  "physical_raw_fullscore": true,
+  "verified_fullscore": true,
+  "media": {
+    "kind": "Actual synchronized simulator observations, no added frames/labels/holds",
+    "frames_per_camera": 1470,
+    "encoder_returncodes": {
+      "top_cam": 0,
+      "left_cam": 0,
+      "right_cam": 0
+    },
+    "all_encoded": true,
+    "files": {
+      "top_cam.mp4": {
+        "bytes": 381691
+      },
+      "left_cam.mp4": {
+        "bytes": 395435
+      },
+      "right_cam.mp4": {
+        "bytes": 505569
+      }
+    }
+  }
+}

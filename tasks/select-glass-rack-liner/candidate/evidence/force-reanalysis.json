@@ -1,0 +1,177 @@
+{
+  "kind": "CPU arithmetic on actual physical raw snapshots",
+  "rows": [
+    {
+      "arm": "left",
+      "axis": 0,
+      "sign": -1,
+      "old_vector_error_n": 0.9660803066958192,
+      "separate_frames_vector_error_n": 0.9355074563345788,
+      "separate_frames_norm_error_n": 0.5926893244404301,
+      "separate_frames_world_delta_n": [
+        4.354921319004376,
+        0.677055936375742,
+        0.02535656129893571
+      ],
+      "max_abs_joint_velocity_rad_s": 0.05478296056389809
+    },
+    {
+      "arm": "left",
+      "axis": 0,
+      "sign": 1,
+      "old_vector_error_n": 1.8731887024418097,
+      "separate_frames_vector_error_n": 1.8471354280570043,
+      "separate_frames_norm_error_n": 1.2451525595939787,
+      "separate_frames_world_delta_n": [
+        -3.5686970011140318,
+        1.1004066105718024,
+        0.390366886881103
+      ],
+      "max_abs_joint_velocity_rad_s": 0.04248959571123123
+    },
+    {
+      "arm": "left",
+      "axis": 1,
+      "sign": -1,
+      "old_vector_error_n": 1.0879310074189472,
+      "separate_frames_vector_error_n": 1.035546226743325,
+      "separate_frames_norm_error_n": 0.9531925913688557,
+      "separate_frames_world_delta_n": [
+        0.3179648499210228,
+        4.030429421482958,
+        0.17659908043692418
+      ],
+      "max_abs_joint_velocity_rad_s": 0.06848717480897903
+    },
+    {
+      "arm": "left",
+      "axis": 1,
+      "sign": 1,
+      "old_vector_error_n": 0.4577271899368873,
+      "separate_frames_vector_error_n": 0.47761829834704456,
+      "separate_frames_norm_error_n": 0.17106770688180184,
+      "separate_frames_world_delta_n": [
+        -0.4103774918862495,
+        -5.151182199023989,
+        -0.1919726432785378
+      ],
+      "max_abs_joint_velocity_rad_s": 0.1200140044093132
+    },
+    {
+      "arm": "left",
+      "axis": 2,
+      "sign": -1,
+      "old_vector_error_n": 0.5528975891709751,
+      "separate_frames_vector_error_n": 0.2565256294931372,
+      "separate_frames_norm_error_n": 0.14537162577429452,
+      "separate_frames_world_delta_n": [
+        0.19023068771970486,
+        0.09881113608491177,
+        5.140904376873635
+      ],
+      "max_abs_joint_velocity_rad_s": 0.16371434926986694
+    },
+    {
+      "arm": "left",
+      "axis": 2,
+      "sign": 1,
+      "old_vector_error_n": 1.7075556006416033,
+      "separate_frames_vector_error_n": 1.3056894987887089,
+      "separate_frames_norm_error_n": 1.2253533417150582,
+      "separate_frames_world_delta_n": [
+        -0.22312577425246793,
+        -0.45051854310711903,
+        -6.205019916195573
+      ],
+      "max_abs_joint_velocity_rad_s": 0.29016926884651184
+    },
+    {
+      "arm": "right",
+      "axis": 0,
+      "sign": -1,
+      "old_vector_error_n": 1.4781226552259576,
+      "separate_frames_vector_error_n": 1.4271205568140588,
+      "separate_frames_norm_error_n": 1.1731786340876407,
+      "separate_frames_world_delta_n": [
+        3.760788868292207,
+        -0.09327527999641383,
+        0.7016612978313326
+      ],
+      "max_abs_joint_velocity_rad_s": 0.04239382594823837
+    },
+    {
+      "arm": "right",
+      "axis": 0,
+      "sign": 1,
+      "old_vector_error_n": 1.0866156425755882,
+      "separate_frames_vector_error_n": 1.035277319530851,
+      "separate_frames_norm_error_n": 0.7611040495613572,
+      "separate_frames_world_delta_n": [
+        -4.189643975031014,
+        -0.10906077666210123,
+        -0.635002352850214
+      ],
+      "max_abs_joint_velocity_rad_s": 0.06482099741697311
+    },
+    {
+      "arm": "right",
+      "axis": 1,
+      "sign": -1,
+      "old_vector_error_n": 0.7408912367583108,
+      "separate_frames_vector_error_n": 0.7673039803315541,
+      "separate_frames_norm_error_n": 0.2588257249523922,
+      "separate_frames_world_delta_n": [
+        0.6220210299944098,
+        5.206649260718841,
+        -0.39892520542289134
+      ],
+      "max_abs_joint_velocity_rad_s": 0.10173483937978745
+    },
+    {
+      "arm": "right",
+      "axis": 1,
+      "sign": 1,
+      "old_vector_error_n": 0.6155486926013768,
+      "separate_frames_vector_error_n": 0.5946147670097875,
+      "separate_frames_norm_error_n": 0.07520384286838944,
+      "separate_frames_world_delta_n": [
+        -0.4908340215077609,
+        -4.890005046815218,
+        0.31709587627482705
+      ],
+      "max_abs_joint_velocity_rad_s": 0.10427553951740265
+    },
+    {
+      "arm": "right",
+      "axis": 2,
+      "sign": -1,
+      "old_vector_error_n": 0.5564031149883406,
+      "separate_frames_vector_error_n": 0.49166103118399734,
+      "separate_frames_norm_error_n": 0.412516158762557,
+      "separate_frames_world_delta_n": [
+        -0.22810655951920822,
+        0.15931474791844913,
+        5.405360059928087
+      ],
+      "max_abs_joint_velocity_rad_s": 0.24373409152030945
+    },
+    {
+      "arm": "right",
+      "axis": 2,
+      "sign": 1,
+      "old_vector_error_n": 1.9387650983927678,
+      "separate_frames_vector_error_n": 1.752785476440854,
+      "separate_frames_norm_error_n": 1.6628248088950661,
+      "separate_frames_world_delta_n": [
+        0.6388476251576503,
+        -0.019686803060613656,
+        -6.6320977507605585
+      ],
+      "max_abs_joint_velocity_rad_s": 0.328172504901886
+    }
+  ],
+  "max_vector_error_n": 1.8471354280570043,
+  "threshold_n": 1.0,
+  "production_patch_justified": false,
+  "conclusion": "Independent before/after frame subtraction is required for world deltas but does not close the actual 1N failure. Velocity and finite endpoints do not establish equilibrium or inertia causation."
+}

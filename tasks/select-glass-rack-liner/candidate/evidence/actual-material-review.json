@@ -1,0 +1,619 @@
+{
+  "materials": [
+    {
+      "path": "/physicsScene/defaultMaterial",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 0.5
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 0.5
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/liner_1/geometry/material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 1.0
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 1.0
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "max"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/liner_1/pair_material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 0.2021999955177307
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 0.2021999955177307
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "min"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/liner_1/rubber_material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 1.0
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 1.0
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "max"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/liner_2/geometry/material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 1.0
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 1.0
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "max"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/liner_2/pair_material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 0.8600999712944031
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 0.8600999712944031
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "min"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/liner_2/rubber_material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 1.0
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 1.0
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "max"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/liner_3/geometry/material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 1.0
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 1.0
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "max"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/liner_3/pair_material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 0.7922000288963318
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 0.7922000288963318
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "min"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/liner_3/rubber_material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 1.0
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 1.0
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "max"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/liner_4/geometry/material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 1.0
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 1.0
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "max"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/liner_4/pair_material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 0.18310000002384186
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 0.18310000002384186
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "min"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/liner_4/rubber_material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 1.0
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 1.0
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "max"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/liner_5/geometry/material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 1.0
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 1.0
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "max"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/liner_5/pair_material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 0.25029999017715454
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 0.25029999017715454
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "min"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/liner_5/rubber_material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 1.0
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 1.0
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "max"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/liner_6/geometry/material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 1.0
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 1.0
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "max"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/liner_6/pair_material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 0.1881999969482422
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 0.1881999969482422
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "min"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/liner_6/rubber_material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 1.0
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 1.0
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "max"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/cup_1/geometry/material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 0.30000001192092896
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 0.30000001192092896
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "max"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/cup_1/pair_material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 1.0
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 1.0
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "min"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/cup_2/geometry/material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 0.30000001192092896
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 0.30000001192092896
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "max"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/cup_2/pair_material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 1.0
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 1.0
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "min"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/rack/geometry/material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 0.30000001192092896
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 0.30000001192092896
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "max"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/rack_leg_m_m/geometry/material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 0.5
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 0.5
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "max"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/rack_leg_m_p/geometry/material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 0.5
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 0.5
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "max"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/rack_leg_p_m/geometry/material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 0.5
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 0.5
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "max"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/rack_leg_p_p/geometry/material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 0.5
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 0.5
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "max"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/pan_floor/geometry/material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 0.5
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 0.5
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "max"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/pan_xm/geometry/material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 0.5
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 0.5
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "max"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/pan_xp/geometry/material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 0.5
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 0.5
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "max"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/pan_ym/geometry/material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 0.5
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 0.5
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "max"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/pan_yp/geometry/material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 0.5
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 0.5
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "max"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/tray/geometry/material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 0.5
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 0.5
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "max"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/c1_left_support/geometry/material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 0.5
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 0.5
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "max"
+        }
+      }
+    },
+    {
+      "path": "/World/envs/env_0/c1_right_support/geometry/material",
+      "values": {
+        "physics:dynamicFriction": {
+          "type": "float",
+          "value": 0.5
+        },
+        "physics:staticFriction": {
+          "type": "float",
+          "value": 0.5
+        },
+        "physxMaterial:frictionCombineMode": {
+          "type": "token",
+          "value": "max"
+        }
+      }
+    }
+  ],
+  "pair_matrix_count": 48,
+  "allowed_pairs": 12,
+  "all_match": true,
+  "physical_tan20": 0.36397023426620234,
+  "meaning": "Only pair-only cup/liner shapes collide. Both pair materials use min: cup1.0 and sampled liner coefficient; main rubber1 max cannot override excluded main cup/liner pairs.",
+  "distribution_mu_hold_min": 0.46,
+  "distribution_mu_slip_max": 0.31
+}

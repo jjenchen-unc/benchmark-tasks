@@ -1,0 +1,285 @@
+{
+  "kind": "CPU conditional exact SDK mesh/FK, not physical contact validation",
+  "target_joint1_rad": -0.6,
+  "path": "both arms joint1 monotone interpolation; all other commands unchanged",
+  "rows": [
+    {
+      "u": 0.0,
+      "cross_arm_convex_vertex_distance_m": 0.001947562788092938,
+      "cross_arm_AABB_separation_lower_bound_m": 0.0,
+      "pair": [
+        "tip_left",
+        "tip_left"
+      ]
+    },
+    {
+      "u": 0.025,
+      "cross_arm_convex_vertex_distance_m": 0.006284393791171794,
+      "cross_arm_AABB_separation_lower_bound_m": 0.005721758327088486,
+      "pair": [
+        "tip_left",
+        "tip_left"
+      ]
+    },
+    {
+      "u": 0.05,
+      "cross_arm_convex_vertex_distance_m": 0.012791290626296636,
+      "cross_arm_AABB_separation_lower_bound_m": 0.01286559408290981,
+      "pair": [
+        "tip_left",
+        "tip_left"
+      ]
+    },
+    {
+      "u": 0.07500000000000001,
+      "cross_arm_convex_vertex_distance_m": 0.018577118663815506,
+      "cross_arm_AABB_separation_lower_bound_m": 0.02003787872419932,
+      "pair": [
+        "tip_left",
+        "tip_left"
+      ]
+    },
+    {
+      "u": 0.1,
+      "cross_arm_convex_vertex_distance_m": 0.02366366124855901,
+      "cross_arm_AABB_separation_lower_bound_m": 0.027215380620736807,
+      "pair": [
+        "tip_left",
+        "tip_left"
+      ]
+    },
+    {
+      "u": 0.125,
+      "cross_arm_convex_vertex_distance_m": 0.027198907220054747,
+      "cross_arm_AABB_separation_lower_bound_m": 0.03439511718525545,
+      "pair": [
+        "tip_left",
+        "tip_left"
+      ]
+    },
+    {
+      "u": 0.15000000000000002,
+      "cross_arm_convex_vertex_distance_m": 0.031002980121562107,
+      "cross_arm_AABB_separation_lower_bound_m": 0.041575833446690025,
+      "pair": [
+        "tip_left",
+        "tip_left"
+      ]
+    },
+    {
+      "u": 0.17500000000000002,
+      "cross_arm_convex_vertex_distance_m": 0.04683403908184286,
+      "cross_arm_AABB_separation_lower_bound_m": 0.04875627426273038,
+      "pair": [
+        "tip_left",
+        "tip_left"
+      ]
+    },
+    {
+      "u": 0.2,
+      "cross_arm_convex_vertex_distance_m": 0.08636835888879185,
+      "cross_arm_AABB_separation_lower_bound_m": 0.05593550924663145,
+      "pair": [
+        "link5",
+        "tip_left"
+      ]
+    },
+    {
+      "u": 0.225,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.06311353350131174,
+      "pair": null
+    },
+    {
+      "u": 0.25,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.0702900449704098,
+      "pair": null
+    },
+    {
+      "u": 0.275,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.0774647423265705,
+      "pair": null
+    },
+    {
+      "u": 0.30000000000000004,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.08463733973773749,
+      "pair": null
+    },
+    {
+      "u": 0.325,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.09169223823425254,
+      "pair": null
+    },
+    {
+      "u": 0.35000000000000003,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.09772329684760815,
+      "pair": null
+    },
+    {
+      "u": 0.375,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.10352686629282881,
+      "pair": null
+    },
+    {
+      "u": 0.4,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.1092629958882506,
+      "pair": null
+    },
+    {
+      "u": 0.42500000000000004,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.1150623158712892,
+      "pair": null
+    },
+    {
+      "u": 0.45,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.1209186554161024,
+      "pair": null
+    },
+    {
+      "u": 0.47500000000000003,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.12682451883675241,
+      "pair": null
+    },
+    {
+      "u": 0.5,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.1327736617102932,
+      "pair": null
+    },
+    {
+      "u": 0.525,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.13876084481335907,
+      "pair": null
+    },
+    {
+      "u": 0.55,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.14478108681551657,
+      "pair": null
+    },
+    {
+      "u": 0.5750000000000001,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.1508184177587309,
+      "pair": null
+    },
+    {
+      "u": 0.6000000000000001,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.1568817375017988,
+      "pair": null
+    },
+    {
+      "u": 0.625,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.16259885304160218,
+      "pair": null
+    },
+    {
+      "u": 0.65,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.16815820735900255,
+      "pair": null
+    },
+    {
+      "u": 0.675,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.17373674022645966,
+      "pair": null
+    },
+    {
+      "u": 0.7000000000000001,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.1793358524873703,
+      "pair": null
+    },
+    {
+      "u": 0.7250000000000001,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.18495450949317918,
+      "pair": null
+    },
+    {
+      "u": 0.75,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.19059179058292322,
+      "pair": null
+    },
+    {
+      "u": 0.775,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.19624687234059998,
+      "pair": null
+    },
+    {
+      "u": 0.8,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.20183008713549547,
+      "pair": null
+    },
+    {
+      "u": 0.8250000000000001,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.20678135518268798,
+      "pair": null
+    },
+    {
+      "u": 0.8500000000000001,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.21178086432195947,
+      "pair": null
+    },
+    {
+      "u": 0.875,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.2168261969979121,
+      "pair": null
+    },
+    {
+      "u": 0.9,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.22191408945502966,
+      "pair": null
+    },
+    {
+      "u": 0.925,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.2270415327495906,
+      "pair": null
+    },
+    {
+      "u": 0.9500000000000001,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.2322057497089162,
+      "pair": null
+    },
+    {
+      "u": 0.9750000000000001,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.23740417392214438,
+      "pair": null
+    },
+    {
+      "u": 1.0,
+      "cross_arm_convex_vertex_distance_m": null,
+      "cross_arm_AABB_separation_lower_bound_m": 0.2422403138193318,
+      "pair": null
+    }
+  ],
+  "endpoint_cross_arm_AABB_separation_lower_bound_m": 0.2422403138193318,
+  "initial_contact_from_actual_physics_not_inferred_from_mesh_metric": true,
+  "actual_start_source": "actual-initial-inventory.json joint_pos",
+  "SDK_URDF_sha256": "d6cc3fca8d6848aad36c0d2bb8798de391fcf5ef8f41180fe7618eda141f0bef",
+  "metric_limitation": "existing SDK hull signed vertex distance is a conservative diagnostic, not full swept mesh contact proof"
+}

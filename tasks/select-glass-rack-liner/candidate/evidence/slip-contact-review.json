@@ -1,0 +1,151 @@
+{
+  "kind": "CPU inspection of actual checkpoint; no invented dynamic poses from USD",
+  "checkpoint_controls": 12,
+  "checkpoint_status": {
+    "score": 0.0,
+    "raw_before_veto": 0.25,
+    "items": [
+      {
+        "value": 0.25,
+        "liner": 4,
+        "glass": null,
+        "hold_s": 0.0
+      }
+    ],
+    "required": 1,
+    "qualifying_liners": [
+      4
+    ],
+    "cup_fell": true,
+    "fell_reason": "slid_off_or_tipped_from_rack",
+    "failure": null,
+    "physics_samples": 600,
+    "physics_s": 0.6000000000000004,
+    "raw_score": 0.0,
+    "gate": "unverified_runtime_channels",
+    "missing": [
+      "contacts_bracing",
+      "dry_slip_hold",
+      "explicit_pair_filters",
+      "genuine_robot_fullgoal",
+      "geometry",
+      "link_guard",
+      "total_motor_limits",
+      "wet_transition",
+      "wrist_force"
+    ],
+    "measurement_error": null,
+    "controls": 12,
+    "wet": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "wrist_max_n": [
+      21.554296493530273,
+      21.625513076782227
+    ],
+    "force_guard_frozen": false,
+    "link20ms_force_n": 0.0,
+    "filter_audit": {
+      "task_colliders": 16,
+      "all_colliders": 665,
+      "exclusions_authored": 5352,
+      "relationship_updates": 8
+    },
+    "submission_ready": false
+  },
+  "pair_contacts_at_checkpoint": [],
+  "support_graph": {
+    "edges": [
+      [
+        1,
+        1
+      ],
+      [
+        10,
+        31
+      ],
+      [
+        11,
+        31
+      ],
+      [
+        20,
+        31
+      ],
+      [
+        21,
+        31
+      ],
+      [
+        22,
+        31
+      ],
+      [
+        23,
+        30
+      ],
+      [
+        24,
+        31
+      ],
+      [
+        25,
+        31
+      ],
+      [
+        30,
+        23
+      ],
+      [
+        31,
+        10
+      ],
+      [
+        31,
+        11
+      ],
+      [
+        31,
+        20
+      ],
+      [
+        31,
+        21
+      ],
+      [
+        31,
+        22
+      ],
+      [
+        31,
+        24
+      ],
+      [
+        31,
+        25
+      ],
+      [
+        31,
+        32
+      ],
+      [
+        32,
+        31
+      ]
+    ],
+    "robot_supported": [
+      1
+    ],
+    "indirect_supported": [
+      1
+    ]
+  },
+  "initial_expected_vertical_gap_m": 0.0005,
+  "mu_dry": 0.1831,
+  "conclusion": "Contact at .6s is not a prerequisite for a valid slip: negative case may have already slid away. Need inspect earlier retained contact history; no layout or production patch justified."
+}

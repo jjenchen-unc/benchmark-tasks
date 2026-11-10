@@ -133,6 +133,14 @@ uploaded separately.
 
 The release law is `v_mm_s=(161.49/30)*clip(phi_deg-109.651,0,90)*sqrt(pad_force_N/50)`. At nominal88.583 N it yields7.16497 mm/s per degree and644.848 mm/s at full90-degree opening. The successful demo used loaded openings0.24784–2.47004 degrees, rather than a hard automatic safe-speed cap. This arithmetic is the oil-target law, not a measured counterfactual full-open landing: that final-source failure trial was not run. The actual metering trajectory and this limitation are recorded in `evidence/metering-difference.json`.
 
-The eight original runtime source files listed in `.gitattributes` retain their
+The four original unpacked runtime source files listed in `.gitattributes` retain their
 reviewed byte-for-byte endings. That attribute permits only their existing
 blank line at end of file; other whitespace checks remain enabled.
+
+Historical native provenance is distributed as `native-provenance-source.tar.gz`,
+a lossless source archive containing no generated media. Before any runtime
+import, the launcher restores it with the readable native source into the
+external review cache and verifies every one of the207 executed native files
+against its original SHA256. It never changes the source checkout. This is a
+source packaging change; task physics, controllers, score, limits and the
+evaluated model helper remain byte-for-byte unchanged after extraction.

@@ -1,6 +1,6 @@
 """Portable path binding around the exact evaluated native bundle and model helper."""
 from pathlib import Path
-import argparse,hashlib,json,os,sys,tarfile,subprocess,runpy,tempfile,urllib.request
+import argparse,hashlib,json,os,sys,tarfile,subprocess,runpy,tempfile,urllib.request,shutil
 sys.dont_write_bytecode=True
 P=Path(__file__).resolve().parent
 p=argparse.ArgumentParser();p.add_argument('phase',choices=['prepare','setup','replay','model']);p.add_argument('--cache',type=Path,required=True);p.add_argument('--out',type=Path);p.add_argument('--evidence-archive',type=Path);p.add_argument('--preflight-only',action='store_true');a=p.parse_args();C=a.cache.resolve();S=P/'runtime'
@@ -48,6 +48,39 @@ if not C.exists():
  except BaseException:
   import shutil;shutil.rmtree(stage);raise
 elif not (C/'.archive-sha256').is_file() or (C/'.archive-sha256').read_text().strip()!=expected:raise ValueError('Use a fresh cache or one extracted from the exact reviewed archive')
+# Restore the exact evaluated native tree outside the source checkout. Historical
+# provenance is packed losslessly to keep the public source change manageable.
+packed=m['packed_native_provenance'];bundle=C/'native-runtime'
+expected_native=m['executed_native_file_sha256']
+def verify_native(folder):
+ actual={str(f.relative_to(folder)):sha(f) for f in folder.rglob('*') if f.is_file() and '__pycache__' not in f.parts}
+ if actual!=expected_native:raise ValueError('Restored native source differs from evaluated207-file tree')
+if not bundle.exists():
+ archive=P/packed['archive']
+ if archive.stat().st_size!=packed['bytes'] or sha(archive)!=packed['sha256']:raise ValueError('Packed source archive changed')
+ inventory={x['path']:x for x in packed['members']};seen=set()
+ stage=Path(tempfile.mkdtemp(dir=C,prefix='native-source-'))
+ try:
+  for item in S.rglob('*'):
+   rel=item.relative_to(S)
+   if item.is_symlink():raise ValueError('Published runtime source must not contain symlinks')
+   if item.is_file():
+    dst=stage/rel;dst.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(item,dst)
+  with tarfile.open(archive,'r:gz') as t:
+   for member in t.getmembers():
+    n=member.name
+    if not member.isfile() or n not in inventory or n in seen or Path(n).is_absolute() or '..' in Path(n).parts or '\\' in n:raise ValueError('Unsafe packed native source member')
+    declared=inventory[n];seen.add(n)
+    if member.size!=declared['bytes']:raise ValueError('Packed native source size changed')
+    content=t.extractfile(member).read()
+    if hashlib.sha256(content).hexdigest()!=declared['sha256']:raise ValueError('Packed native source member SHA changed')
+    dst=stage/n;dst.parent.mkdir(parents=True,exist_ok=True)
+    if dst.exists():raise ValueError('Packed native source duplicates a published file')
+    dst.write_bytes(content)
+   if seen!=set(inventory):raise ValueError('Packed native source incomplete')
+  verify_native(stage);stage.rename(bundle)
+ except BaseException:shutil.rmtree(stage);raise
+verify_native(bundle);S=bundle
 sys.path[:0]=[str(S),str(S/'candidate')]
 from protocol import receipt,check
 review=C/'ROOT-physical-review.json';receipt(review)

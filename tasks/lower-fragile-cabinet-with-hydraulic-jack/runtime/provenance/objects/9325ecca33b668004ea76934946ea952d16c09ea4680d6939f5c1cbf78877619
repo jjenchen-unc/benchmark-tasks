@@ -1,8 +1,0 @@
-{
-  "sha256": "3d99b723a8311b2707c53e8c8d34487855b32cea1929129542e8858a629a2265",
-  "native_copy_byte_exact": false,
-  "changes": [
-    "reference.py: finite bounded 14D, outward initial joint1 connector"
-  ],
-  "physics_changed": false
-}

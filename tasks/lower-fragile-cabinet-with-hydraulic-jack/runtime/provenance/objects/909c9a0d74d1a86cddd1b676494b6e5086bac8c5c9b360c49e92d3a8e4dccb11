@@ -1,8 +1,0 @@
-import sys
-from pathlib import Path
-sys.path.insert(0,str(Path(__file__).resolve().parent));import geometry as G
-import numpy as np
-for g in (0, .5,1):
- t=G.fk([0,1,1,-.6,0,0,-.04695*g,-.04695*g]);inv=np.linalg.inv(t['gripper'])
- for side in ('tip_left','tip_right'):
-  a=inv@t[side];v=np.concatenate([v@a[:3,:3].T+a[:3,3] for n,i,v,no,e in G.M if n==side]);print(g,side,v.min(0),v.max(0),flush=True)

@@ -1,9 +1,0 @@
-{
-  "passed": true,
-  "failures": [],
-  "failure_count": 0,
-  "min_separation_m": 1.0617249501798653e-07,
-  "pairs": 89753617,
-  "wall_s": 26.377660658210516,
-  "coverage": "finite all URDF collision convex hulls; adjacent bodies excluded at mechanical joints, original SDK self collisions unchanged"
-}

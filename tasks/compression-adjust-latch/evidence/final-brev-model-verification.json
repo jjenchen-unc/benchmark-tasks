@@ -1,0 +1,26 @@
+{
+  "kind": "actualDream1 model evaluation; score is scorer output, not a demo",
+  "valid_completed_trial": true,
+  "policy": "dream",
+  "model": "dreamlabs/dream-1-beta",
+  "score": 0.0,
+  "steps": 3848,
+  "max_steps": 3848,
+  "termination": {
+    "reason": "time_limit",
+    "detail": null,
+    "terminated": true,
+    "truncated": false
+  },
+  "continuous_model_evaluation": true,
+  "request_count": 954,
+  "sessions": 1,
+  "frame_counts": {
+    "top_cam": 3849,
+    "left_cam": 3849,
+    "right_cam": 3849
+  },
+  "record": "/home/ubuntu/s4-final-20261110-0655/results/model/model/records/20261110_072828_3acdd996/scene-0-e0/record.json",
+  "summary": "/home/ubuntu/s4-final-20261110-0655/results/model/model/adhoc_bec96349.json",
+  "submission_ready": false
+}

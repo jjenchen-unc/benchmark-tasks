@@ -1,0 +1,24 @@
+{
+  "python": "3.12.16 (main, Oct 26 2026, 14:08:45) [Clang 23.1.3 ]",
+  "versions": {
+    "isaacsim": "6.1.0.0",
+    "isaaclab": "17.0.2",
+    "isaaclab_arena": "0.3.0",
+    "inspect-robots": "1.0.0",
+    "inspect-robots-yam": "0.38.0",
+    "inspect-robots-agent": "0.30.0",
+    "inspect-robots-dream": "0.1.0",
+    "torch": "2.11.0+cu128",
+    "numpy": "2.3.1",
+    "scipy": "1.17.0"
+  },
+  "yam_file_sha256": {
+    "robot.py": "e20e595e65c611d7c444d9825524aed2e7ecec840bf6c31cbb0898a79a457c94",
+    "station.py": "1db9cd37b5b4d833eb2a1263336a901e15846a1b602fab8fa3c58869eb2c83f6",
+    "inspect_embodiment.py": "1b0cbbcdf98b7385e4d213e88bd59c296639bb7031c80e8d73efdce0eabcc4c6",
+    "urdf.py": "a3eb2548cb3e45c3e1d3af346a8c8a9e75a966d6048d1d6b78b34257c2c97430"
+  },
+  "simulation_starts": 0,
+  "model_calls": 0,
+  "scope": "Read-only metadata from existing container, no AppLauncher imports"
+}

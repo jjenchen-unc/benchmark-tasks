@@ -1,0 +1,19 @@
+{
+  "title": "Adjust and retain an equipment enclosure compression latch",
+  "category": "Impact on jobs",
+  "instruction": "Adjust the unloaded grip-length knob, turn the wing handle clockwise to its locked position, then leave both hands off every enclosure part for 20 seconds.",
+  "setup": "Fixed steel enclosure at root (0.28,0,0.7475)m, yaw -105deg, on standard Arena table. Exact 13 primitives, four passive joints, materials, initial poses, robot/station/camera/support dimensions are in setup-inventory.json. Both YAM bases (0,+/-0.305,0.9)m on fixed 240x120mm supports. Lid 300x400x4mm; 6.8mm gasket; adjustment knob radius15mm/height18mm; pawl24x20x6mm. No jitter.",
+  "scoring": "Terminal continuous20s hands-off: handle>=175deg and pawl/flange clamp>20N throughout. Gap<1mm:1.0; gap<2mm:0.5; otherwise locked:0.25. Any missing/nonfinite measurement, cam stripped at any time, or80N wrist-force persistence0.1s:0. Cam draw torque>3Nm for0.1s strips cam permanently. Knob locks above2N pawl clamp and releases below0.5N.",
+  "run_limit": "3848 genuine14D YAM controls at20Hz (192.4s); physics500Hz",
+  "reset_notes": "Full reset clears mechanism and guard; source42 fixture fixed, object_jitter=0; Inspect-derived trial seeds accepted.",
+  "keywords": [
+    "adjustable compression latch",
+    "contact force",
+    "threaded adjustment",
+    "equipment enclosure"
+  ],
+  "context": "Equipment enclosure latches must keep a gasket compressed after the operator lets go. This task couples unloaded threaded grip-length adjustment to cam closure, clamp force and a strict gap limit; forcing the cam can permanently strip it.",
+  "fidelity": "CPU PhysX with GPU RTX cameras. Source fixture geometry, body masses/inertias and passive thresholds are retained. Cam/screw equalities use balanced finite compliance; contact friction and solver dynamics differ. Generalized armatures are numerical inertia, not mass. Seven runtime channels have source-bound validation. YAM uses total 27/7Nm including gravity, left50N/right40N fingers. The scripted demo replays genuine saved joint actions.",
+  "scores": "Dream-1: 0.0 (3848 controls, 954 requests, one session). Scripted demo: 1.0 (1959 controls; 25.398s hands-off).",
+  "media": "M-GL5JEW"
+}

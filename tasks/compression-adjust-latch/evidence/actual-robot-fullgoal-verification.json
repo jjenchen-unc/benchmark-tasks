@@ -1,0 +1,50 @@
+{
+  "at": "2026-11-09T23:05:59.696359+00:00",
+  "job": 43559,
+  "scope": "ActualmatchingArena/YAM genuineRobotfullgoal plus encoded3RGB; not a model or submissionreadyclaim",
+  "score": 1.0,
+  "controls": 1959,
+  "physics_s": 97.95,
+  "final_qualifying_hold_s": 25.398,
+  "actual_final_gap_m": 0.0007610590226948257,
+  "actual_final_handle_rad": 3.141590118408203,
+  "actual_final_clamp_n": 186.1036026095453,
+  "actual_final_robot_contact": false,
+  "damage": false,
+  "failure": null,
+  "matching_ten_runtime_channel_receipt": true,
+  "source_unchanged": true,
+  "all_local_modules_consumed_from_frozen_snapshot": true,
+  "result_sha256": "06af65fc73a73b31c5be3589bcc8a7a9049cb519eb0d04f32e820a048fb5b183",
+  "action_journal_sha256": "77dea787db39afe85685fbfdea2628ce167ca1c129772705b0d7351fd9a4a39d",
+  "media": {
+    "kind": "Actual synchronized simulator observations, no added frames/labels/holds",
+    "frames_per_camera": 1960,
+    "encoder_returncodes": {
+      "top_cam": 0,
+      "left_cam": 0,
+      "right_cam": 0
+    },
+    "all_encoded": true,
+    "files": {
+      "top_cam.mp4": {
+        "bytes": 22258846
+      },
+      "left_cam.mp4": {
+        "bytes": 22276776
+      },
+      "right_cam.mp4": {
+        "bytes": 22274858
+      }
+    }
+  },
+  "model_run": false,
+  "submission_ready": false,
+  "remaining": [
+    "actualmodelrun",
+    "finalmediaffprobe_decode_pixels",
+    "portablefinalpackage",
+    "liveownership",
+    "uploadlinkagepublication"
+  ]
+}

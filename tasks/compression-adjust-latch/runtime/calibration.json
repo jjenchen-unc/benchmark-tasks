@@ -1,0 +1,58 @@
+{
+  "passed": true,
+  "physics_device": "cpu",
+  "physics_dt": 0.002,
+  "control_hz": 20,
+  "source_sha256": {
+    "fixture.json": "ead0dd986b850b774fbb717b63fbf650a28b8cd62fc5a6796c4eeb2e3e7023c2",
+    "compiled-fixture.json": "d0d5d8a137a6fcd356b51ebd803ca5d8f42df94e581496edbaaeb08530c07d9e",
+    "latch.usda": "7e3138c94c84d73cab60564a7d23695316210063743f540af8b3b4671be34e40",
+    "kit.py": "a53dfa17da39fff61d7d6dc70a3f0e3e4112e443f0af0fd66129860bbecaaa82",
+    "mechanism.py": "a2cc5fffb6d58862cc309217ae95c2a84b42709529e7e98788f0d28b2f619854",
+    "observer.py": "bf28147ce6ba8d4c6658763ef2dced7b6a1aac59e9caaaf8df6780a4c751136f",
+    "contacts.py": "764e4449c9d980f7e00dfe6543f44b0b9250a1bc05d4f09148170be5066e8dbe",
+    "motor_limits.py": "515cfca5eb28fc5bb4dd49088d8e91c785f80b9b29250e8c6b8e846c31b24dfb",
+    "step_guard.py": "472656c1ef603cabce9fb24702ea4d8dd2f5fdfc7e32c6727358b8a59d72c167",
+    "task.py": "ec9d9a4fe30df03b4ea823827c06bf22545b87bb593060c5659e871453b1ebbb"
+  },
+  "checks": {
+    "joint_state": true,
+    "pawl_contact": true,
+    "robot_enclosure_contact": true,
+    "wrist_force": true,
+    "substeps": true,
+    "cam_force": true,
+    "motor_limits": true
+  },
+  "physical_review": {
+    "channel_checks": {
+      "joint_state": true,
+      "pawl_contact": true,
+      "robot_enclosure_contact": true,
+      "wrist_force": true,
+      "substeps": true,
+      "cam_force": true,
+      "motor_limits": true
+    },
+    "contact_physical_samples": 1200,
+    "contact_disagreements": 0,
+    "per_arm_known20N_max_mean_error_n": {
+      "left": 1.6559306640573368e-05,
+      "right": 1.6559306640573368e-05
+    },
+    "cam_force_mean_n": 187.65134973144532,
+    "raw_pawl_Z_mean_n": 187.6513214111328,
+    "pawl_contact_mean_n": 187.3570214949323,
+    "cam_raw_mean_error_n": 2.832031250932232e-05,
+    "pawl_weight_balance_error_n": 2.8236513024415544e-05,
+    "scope": "Raw pawl Z validates passive cam force; cam torque follows source virtual work. No claim raw free-hinge torque equals derived cam torque. Evaluator prepared states are not robot feasibility."
+  },
+  "evidence_files": {
+    "artifacts/submission-readiness/s4-arena-preparation-20261109/foundation-v3-43544/result.json": "18c76caff5de4674d52409af5791a83188a3aa4504c978b962b78588a4ba6c91",
+    "artifacts/submission-readiness/s4-arena-preparation-20261109/channel-probe-43552/result.json": "9dca8e0fe49463de9a193209b31332df5d2d714a37c77a1ad818f6d243016075",
+    "artifacts/submission-readiness/s4-arena-preparation-20261109/channel-probe-43552/physical-samples.jsonl": "b70854714f744bb45351e64f366559872d90506486797d3e8b07e854502df513"
+  },
+  "genuine_robot_fullgoal_demonstrated": false,
+  "model_run": false,
+  "submission_ready": false
+}

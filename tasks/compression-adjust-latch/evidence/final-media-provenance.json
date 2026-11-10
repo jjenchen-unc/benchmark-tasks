@@ -1,0 +1,28 @@
+{
+  "media_id": "M-GL5JEW",
+  "upload_http_status": 200,
+  "files": {
+    "model_run.mp4": {
+      "sha256": "c5d0e869ef905e192d61b9af27d63e5fc3ab36b527efca9c0c8e71539e96ec33",
+      "bytes": 688352
+    },
+    "demo.mp4": {
+      "sha256": "3280d73adf7960a71273a5546b9c406b7612b2e6826ecf4e0411a73e822b8886",
+      "bytes": 1055942
+    },
+    "setup.png": {
+      "sha256": "7155c7b2f806ca3fb7a69bb4df4d2603887276b8ba3dede0c964becafe859016",
+      "bytes": 158223
+    }
+  },
+  "demo_score": 1.0,
+  "model_score": 0.0,
+  "demo_controls": 1959,
+  "model_controls": 3848,
+  "model_sessions": 1,
+  "model_requests": 954,
+  "actual_saved_RGB_only": true,
+  "full_videos_decoded": true,
+  "visual_review": "Sampled actual top/left/right frames and three setup images; no visible team identifiers; top overview selected.",
+  "official_acceptance_claimed": false
+}

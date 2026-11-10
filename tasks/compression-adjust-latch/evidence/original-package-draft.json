@@ -1,0 +1,43 @@
+{
+  "title": "Adjust and retain an equipment enclosure compression latch",
+  "category": "Impact on jobs",
+  "instruction": "Adjust the unloaded grip-length knob, turn the wing handle clockwise to its locked position, then leave both hands off every enclosure part for 20 seconds.",
+  "setup": "Fixed steel enclosure at root (0.28,0,0.7475)m, yaw -105deg, on standard Arena table. Exact 13 primitives, four passive joints, materials, initial poses, robot/station/camera/support dimensions are in setup-inventory.json. Both YAM bases (0,+/-0.305,0.9)m on fixed 240x120mm supports. Lid 300x400x4mm; 6.8mm gasket; adjustment knob radius15mm/height18mm; pawl24x20x6mm. No jitter.",
+  "scoring": "Terminal continuous20s hands-off: handle>=175deg and pawl/flange clamp>20N throughout. Gap<1mm:1.0; gap<2mm:0.5; otherwise locked:0.25. Any missing/nonfinite measurement, cam stripped at any time, or80N wrist-force persistence0.1s:0. Cam draw torque>3Nm for0.1s strips cam permanently. Knob locks above2N pawl clamp and releases below0.5N.",
+  "run_limit": "3848 genuine14D YAM controls at20Hz (192.4s); physics500Hz",
+  "reset_notes": "Full reset clears mechanism and guard; source42 fixture fixed, object_jitter=0; Inspect-derived trial seeds accepted.",
+  "fidelity": "CPU PhysX with source-bound seven-channel validation. Exact fixture geometry/mass/inertia and passive source thresholds retained; balanced finite-compliance cam and screw restraint approximate native equality. Contact friction/solver differs. Numerical armature is not mass. YAM has 27/7Nm total including gravity, left50N/right40N fingers. Actual Arena/YAM demo score1; Dream-1 not run. Historical runtime development records remain unchanged.",
+  "evidence": {
+    "arena_robot_demo": 1.0,
+    "dream1": null,
+    "media": "three actual reference videos; not uploaded"
+  },
+  "not_submission_ready": true,
+  "official_policy": "robocurve-official-v2.1",
+  "status": "portable draft; model/media/publication pending",
+  "robot_mounts": {
+    "base_rise_m": 0.15,
+    "left_base_m": [
+      0.0,
+      0.305,
+      0.9
+    ],
+    "right_base_m": [
+      0.0,
+      -0.305,
+      0.9
+    ],
+    "supports": "two fixed240x120mm pedestal tops meet actual YAM base-mesh underside"
+  },
+  "fixture_placement": {
+    "root_m": [
+      0.28,
+      0.0,
+      0.7475
+    ],
+    "yaw_deg": -105,
+    "transform": "rigid whole-fixture yaw/translation only; original geometry/materials/joint axes in local frame unchanged"
+  },
+  "scores": "Dream-1: not run; actual Arena/YAM scripted demo: 1.0 (1959 controls, 97.95s, final25.398s hands-off).",
+  "media": null
+}

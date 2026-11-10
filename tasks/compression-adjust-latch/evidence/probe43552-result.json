@@ -1,0 +1,259 @@
+{
+  "kind": "Evaluator-only per-physics-step contact and load diagnostics; no feasibility.",
+  "model_calls": 0,
+  "full_goal_demonstrated": false,
+  "checks": {
+    "left_known20N_wrist": true,
+    "right_known20N_wrist": true,
+    "contact_observed_in_source": true,
+    "raw_robot_contact_observed": true,
+    "source_raw_contact_agreement": true,
+    "final_reset_clean": true
+  },
+  "cases": [
+    {
+      "label": "neutral",
+      "samples": 500,
+      "termination": null,
+      "mean_wrist_n": [
+        6.793751185417175,
+        6.793751185417175
+      ],
+      "source_contact_any": false,
+      "raw_robot_contact_any": false
+    },
+    {
+      "label": "known20N_left",
+      "samples": 750,
+      "termination": null,
+      "mean_wrist_n": [
+        26.794976389567058,
+        6.793751136779785
+      ],
+      "source_contact_any": false,
+      "raw_robot_contact_any": false
+    },
+    {
+      "label": "known20N_right",
+      "samples": 750,
+      "termination": null,
+      "mean_wrist_n": [
+        6.793751136779785,
+        26.794976389567058
+      ],
+      "source_contact_any": false,
+      "raw_robot_contact_any": false
+    },
+    {
+      "label": "prepared_cam_retention",
+      "samples": 2500,
+      "termination": null,
+      "mean_wrist_n": [
+        6.793751448631286,
+        6.793751448631286
+      ],
+      "source_contact_any": false,
+      "raw_robot_contact_any": false
+    },
+    {
+      "label": "contact_depth_0.01",
+      "samples": 200,
+      "termination": null,
+      "mean_wrist_n": [
+        7.375896624326706,
+        6.793751094341278
+      ],
+      "source_contact_any": true,
+      "raw_robot_contact_any": true
+    },
+    {
+      "label": "contact_depth_0.007",
+      "samples": 200,
+      "termination": null,
+      "mean_wrist_n": [
+        5.016303026080132,
+        6.793750989437103
+      ],
+      "source_contact_any": true,
+      "raw_robot_contact_any": true
+    },
+    {
+      "label": "contact_depth_0.004",
+      "samples": 200,
+      "termination": null,
+      "mean_wrist_n": [
+        3.9371171993017198,
+        6.793751440048218
+      ],
+      "source_contact_any": true,
+      "raw_robot_contact_any": true
+    },
+    {
+      "label": "contact_depth_0.001",
+      "samples": 200,
+      "termination": null,
+      "mean_wrist_n": [
+        2.973606263995171,
+        6.793750965595246
+      ],
+      "source_contact_any": true,
+      "raw_robot_contact_any": true
+    },
+    {
+      "label": "contact_depth_-0.002",
+      "samples": 200,
+      "termination": null,
+      "mean_wrist_n": [
+        2.108703768849373,
+        6.7937512421607975
+      ],
+      "source_contact_any": true,
+      "raw_robot_contact_any": true
+    },
+    {
+      "label": "contact_depth_-0.005",
+      "samples": 200,
+      "termination": null,
+      "mean_wrist_n": [
+        1.7023958697915078,
+        6.793751769065857
+      ],
+      "source_contact_any": true,
+      "raw_robot_contact_any": true
+    }
+  ],
+  "source_sha256": {
+    "DEVIATIONS.md": "4e79cc49a4dc34ca9ad10280ebf0e83f009098eb610438df7dc6de103f3e09dc",
+    "README.md": "29418e73f435530e362ea032f0c6ce91fa80343b1d54793d735b80fb49578a60",
+    "THIRD_PARTY_NOTICES.md": "449444dcae86b6882e55d16ddea379a6ffda3b8610dccc2c6203b481448620ae",
+    "build_usd.py": "5b3646311817c3ba013592ce0855e428cf1a5756da15b839aef5d1fbb2818cca",
+    "calibration-format.md": "41fa338e997010d352a7fccdc2507c1d6c684bee1fec5e8118c319fa204b16cc",
+    "compile_fixture.py": "9ca2cb31663b232d68f12267ed576e6dc62ced68415f08fc89c1dc95ed760f03",
+    "compiled-fixture.json": "d0d5d8a137a6fcd356b51ebd803ca5d8f42df94e581496edbaaeb08530c07d9e",
+    "contacts.py": "764e4449c9d980f7e00dfe6543f44b0b9250a1bc05d4f09148170be5066e8dbe",
+    "driver.py": "e3bc6ae592b21d0e5744840af737c3ad8da8ebc27e9c1a3b7cebc942aca77fc1",
+    "fixture.json": "ead0dd986b850b774fbb717b63fbf650a28b8cd62fc5a6796c4eeb2e3e7023c2",
+    "fixture.xml": "c9cacaedfc81d7431220485b898867e10c3c656047f9fed8c6b4966a8365fe37",
+    "foundation-launch.sh": "2d76a8e1886b1f16e3ac345e5399f30bed17d307ee4c052b7b81843ceaab5ad3",
+    "foundation.py": "341205f44343aaf9d0cebc66626133ec33a61c6325d594f0d14ed6a9018a8875",
+    "kit.py": "a53dfa17da39fff61d7d6dc70a3f0e3e4112e443f0af0fd66129860bbecaaa82",
+    "latch.usda": "7e3138c94c84d73cab60564a7d23695316210063743f540af8b3b4671be34e40",
+    "manifest.json": "667a59c97c8baafc82e6b1bd59e62768378843076c6e369a06a9e75e2145651a",
+    "mechanism.py": "a2cc5fffb6d58862cc309217ae95c2a84b42709529e7e98788f0d28b2f619854",
+    "motor_limits.py": "515cfca5eb28fc5bb4dd49088d8e91c785f80b9b29250e8c6b8e846c31b24dfb",
+    "observer.py": "bf28147ce6ba8d4c6658763ef2dced7b6a1aac59e9caaaf8df6780a4c751136f",
+    "reference.py": "0fdc8cacdddbeb16f266af81f32e79f7f86f4e2b68c112f17bbe6769264c535d",
+    "source-provenance.json": "a1960ec8924196dfea479435c47fb8cb10db5f775c1639de96980730bf403838",
+    "step_guard.py": "472656c1ef603cabce9fb24702ea4d8dd2f5fdfc7e32c6727358b8a59d72c167",
+    "task.draft.json": "5e2dbe54ff4744a6780a23b250e972f47fba562719c8d34ff82617eb369963b4",
+    "task.py": "ec9d9a4fe30df03b4ea823827c06bf22545b87bb593060c5659e871453b1ebbb",
+    "test_entry.py": "aaedc52552c3de519429a6ad50f731c7fb51dc2744de41ed4e5682b81fcfcc51",
+    "verify_static.py": "3107aec8e79dcc52a108b860608be09de2627a0800e838993e2b9c096bf7a372",
+    "verify_usd.py": "b8ae74619049e11756337a65c1ca1adb0922499121699b5625d6c663f58f7a28"
+  },
+  "contact_selection": {
+    "sensors": [
+      "/World/envs/env_0/compression_latch/links/enclosure",
+      "/World/envs/env_0/compression_latch/links/lid",
+      "/World/envs/env_0/compression_latch/links/handle",
+      "/World/envs/env_0/compression_latch/links/knob",
+      "/World/envs/env_0/compression_latch/links/pawl"
+    ],
+    "filters": [
+      "/World/envs/env_0/LeftArm/Geometry/base",
+      "/World/envs/env_0/LeftArm/Geometry/base/link1",
+      "/World/envs/env_0/LeftArm/Geometry/base/link1/link2",
+      "/World/envs/env_0/LeftArm/Geometry/base/link1/link2/link3",
+      "/World/envs/env_0/LeftArm/Geometry/base/link1/link2/link3/link4",
+      "/World/envs/env_0/LeftArm/Geometry/base/link1/link2/link3/link4/link5",
+      "/World/envs/env_0/LeftArm/Geometry/base/link1/link2/link3/link4/link5/gripper",
+      "/World/envs/env_0/LeftArm/Geometry/base/link1/link2/link3/link4/link5/gripper/tip_left",
+      "/World/envs/env_0/LeftArm/Geometry/base/link1/link2/link3/link4/link5/gripper/tip_right",
+      "/World/envs/env_0/RightArm/Geometry/base",
+      "/World/envs/env_0/RightArm/Geometry/base/link1",
+      "/World/envs/env_0/RightArm/Geometry/base/link1/link2",
+      "/World/envs/env_0/RightArm/Geometry/base/link1/link2/link3",
+      "/World/envs/env_0/RightArm/Geometry/base/link1/link2/link3/link4",
+      "/World/envs/env_0/RightArm/Geometry/base/link1/link2/link3/link4/link5",
+      "/World/envs/env_0/RightArm/Geometry/base/link1/link2/link3/link4/link5/gripper",
+      "/World/envs/env_0/RightArm/Geometry/base/link1/link2/link3/link4/link5/gripper/tip_left",
+      "/World/envs/env_0/RightArm/Geometry/base/link1/link2/link3/link4/link5/gripper/tip_right"
+    ],
+    "sensor_count": 5,
+    "filter_count": 18
+  },
+  "URDF_gripper_subtree_mass_kg": 0.6925330000000001,
+  "expected_static_wrist_gravity_n": 6.793748730000001,
+  "left_wrist": {
+    "measured_mean_n": [
+      26.79376528930664,
+      6.7937509651184085
+    ],
+    "expected_n": [
+      26.79374873,
+      6.793748730000001
+    ],
+    "tolerance_n": 2.0
+  },
+  "right_wrist": {
+    "measured_mean_n": [
+      6.7937509651184085,
+      26.79376528930664
+    ],
+    "expected_n": [
+      6.793748730000001,
+      26.79374873
+    ],
+    "tolerance_n": 2.0
+  },
+  "cam_raw_means": {
+    "enclosure": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "lid": [
+      -6.419237615773454e-05,
+      0.0,
+      -203.0305938720703,
+      1.7656799178123475,
+      -23.844644409179686,
+      -0.0004776817701058462
+    ],
+    "handle": [
+      -6.030261374689871e-07,
+      0.0,
+      -0.8829003572463989,
+      -1.4250709501339998e-09,
+      4.2125605226317475e-09,
+      1.4034765453723362e-13
+    ],
+    "knob": [
+      -7.186530837088867e-08,
+      3.725289943190546e-08,
+      -0.29430004954338074,
+      3.18755244421709e-10,
+      4.2513798037546735e-10,
+      3.2877080921863235e-17
+    ],
+    "pawl": [
+      -4.170246756984852e-05,
+      7.629393621755298e-06,
+      187.6513214111328,
+      1.7391940183639527,
+      -2.2482748374938963,
+      -8.500102239850094e-07
+    ]
+  },
+  "cam_force_mean_n": 187.65134973144532,
+  "cam_torque_mean_nm": 0.2015930690765381,
+  "clamp_mean_n": 187.3570214949323,
+  "contact_disagreement_samples": 0,
+  "first_contact_disagreements": [],
+  "source_unchanged": true,
+  "runtime_completed": true,
+  "total_physical_samples": 7200
+}

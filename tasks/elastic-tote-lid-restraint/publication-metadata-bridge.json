@@ -1,0 +1,25 @@
+{
+  "at": "2026-11-10T20:04:41.030314+00:00",
+  "scope": "README and submission metadata only; no new physics or model trial claimed",
+  "changed_existing_files": [
+    "verified-prefix-preflight.json",
+    "README.md",
+    "core-source-manifest.json"
+  ],
+  "unchanged_physics_controller_and_helpers": true,
+  "original_preflight_sha256": "cd138269792002f8d41605789dd0acce59301c98b679209a5f20d0a8f624d838",
+  "original_manifest_sha256": "65b6f53f7d26f58108c9cdc8282b3efd953c51a9a95a9979c859c9ad5b6ddf19",
+  "demo": {
+    "score": 1,
+    "controls": 2291,
+    "sim_seconds": 114.55,
+    "validation": "Independent portable trial 43973"
+  },
+  "model": {
+    "score": 0,
+    "controls": 4000,
+    "inspect_status": "success",
+    "errored_trials": 0
+  },
+  "seed_scope": "Inspect seed 42; fixed geometry has no random layout or jitter dependency"
+}

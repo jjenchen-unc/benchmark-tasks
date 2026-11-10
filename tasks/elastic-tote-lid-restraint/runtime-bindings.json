@@ -1,0 +1,50 @@
+{
+  "physics_modules_sha256": {
+    "d1r_arena/geometry.py": "ff14529d90f22db9ae2b6e5fd2e5e281b05028906288c84640fc944b623c008a",
+    "d1r_arena/guards.py": "897fee123015689413735791a58dafea1684dfee03f21a70c8d9ba79d7943585",
+    "d1r_arena/kit.py": "1b206fd40e0eeea8df07d97677eb5de039cd8e318a6606f75da22d1f99a6a6af",
+    "d1r_arena/motor_limits.py": "c258f23678d225b54fb09a430aa39696b64d2e4e2b36b2e7dd19918b24d4ee61",
+    "d1r_arena/rigging.py": "15297e4dc582c7576505c2526783cc5ef93cccfffe576fea7a1e1a7d4d52e004",
+    "d1r_arena/routeguard.py": "3642236987339bef22722d311c69f279024de2047c567be1bf029d93c92018cf",
+    "d1r_arena/scoring.py": "026ee9a6ac3b52b47e7df38cd2eae61efbb6701fa900efe3f8f7a743b74bb6a3",
+    "d1r_arena/strap.py": "ff2dd9aeab43b2d8c96c26fee55e15749c4babceb789060cf6cd703b1eaf3844",
+    "d1r_arena/visuals.py": "ce93dd84c5ebf19075d7c651fb45b0597b314aea7287b6e9f5b77ddfd2c3207a"
+  },
+  "task_runtime_AST_identical_to_reference": true,
+  "reference_public_actions": 2291,
+  "reference_score": 1.0,
+  "reference_kind": "measured-state scripted development controller, not Dream-1",
+  "target_official_runtime_pins": {
+    "python": "3.12",
+    "isaacsim": "6.1.0.0",
+    "inspect-robots": "1.0.0",
+    "inspect-robots-yam": "0.38.0",
+    "inspect-robots-dream": "0.1.0",
+    "arena": "c7edf3a9d5d8276565208f72422f8f8a0806d6cf",
+    "yam-isaac-lab-arena": "0059d02a1a91bc6834c1d0846022891df0c78730"
+  },
+  "UNC_development_runtime": {
+    "versions": {
+      "isaacsim": "6.1.0.0",
+      "isaaclab": "17.0.2",
+      "isaaclab_arena": "0.3.0",
+      "inspect-robots": "1.0.0",
+      "inspect-robots-yam": "0.38.0",
+      "inspect-robots-dream": "0.1.0",
+      "yam-isaac-lab-arena": null
+    },
+    "direct_git_commits": {
+      "isaaclab": null,
+      "isaaclab_arena": null,
+      "inspect-robots-dream": "b5e936a201cec66c54c297e522c920d98445e339"
+    },
+    "yam_module_sha256": {
+      "yam_arena": "4d9d18b68405e3c13c280f79bd2547ba74eaff98d7660b77807ade66977bd108",
+      "yam_arena.inspect_embodiment": "1b0cbbcdf98b7385e4d213e88bd59c296639bb7031c80e8d73efdce0eabcc4c6",
+      "yam_arena.embodiment": "1efd8380e99d7c54f948f7e3cb259232ff02ace050cb0fe9a1c3285d172ee653",
+      "yam_arena.actions": "ad100980fdf19521922e3e269ea353f61ae6c6eb5502ea9795be7c3d492d1c43"
+    }
+  },
+  "UNC_yam_checkout_git": "bd62771e60320433893bd1d2df0fc79b5ddcd6d1",
+  "runtime_scope": "UNC cold replay and target official/Brev validation are separate evidence gates. Distribution version labels may differ from repository release tags."
+}

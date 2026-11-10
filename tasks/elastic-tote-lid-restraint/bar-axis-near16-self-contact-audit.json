@@ -1,0 +1,772 @@
+{
+  "kind": "Nominal sampled hand-vs-base/links1\u20133 plus actual prior engagement analysis; no fullgoal/model evidence",
+  "source_plan_sha256": "a23fd1c5777a6d9e47e0401bc4d7fc2ceafbf24c326606c7236cfa6c53b7f2d4",
+  "planned": [
+    {
+      "index": 0,
+      "stage": "above",
+      "self_separation_m": 0.044030893420743844,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 5,
+      "stage": "above",
+      "self_separation_m": 0.044129124856277624,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 10,
+      "stage": "above",
+      "self_separation_m": 0.04421234949557862,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 15,
+      "stage": "above",
+      "self_separation_m": 0.04411629317405685,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 20,
+      "stage": "above",
+      "self_separation_m": 0.04397242465217843,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 25,
+      "stage": "above",
+      "self_separation_m": 0.04360512175219844,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 30,
+      "stage": "above",
+      "self_separation_m": 0.043118717848912524,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 35,
+      "stage": "above",
+      "self_separation_m": 0.04241812458292027,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 40,
+      "stage": "above",
+      "self_separation_m": 0.03472936492919169,
+      "nearest": [
+        "gripper",
+        "link2"
+      ]
+    },
+    {
+      "index": 45,
+      "stage": "above",
+      "self_separation_m": 0.034256716288288996,
+      "nearest": [
+        "gripper",
+        "link2"
+      ]
+    },
+    {
+      "index": 50,
+      "stage": "above",
+      "self_separation_m": 0.038893638126385244,
+      "nearest": [
+        "gripper",
+        "link2"
+      ]
+    },
+    {
+      "index": 55,
+      "stage": "above",
+      "self_separation_m": 0.034405247611330916,
+      "nearest": [
+        "gripper",
+        "link2"
+      ]
+    },
+    {
+      "index": 60,
+      "stage": "above",
+      "self_separation_m": 0.027233438129265194,
+      "nearest": [
+        "gripper",
+        "link2"
+      ]
+    },
+    {
+      "index": 61,
+      "stage": "above",
+      "self_separation_m": 0.025845195659655776,
+      "nearest": [
+        "gripper",
+        "link2"
+      ]
+    },
+    {
+      "index": 65,
+      "stage": "grasp",
+      "self_separation_m": 0.025859676116044367,
+      "nearest": [
+        "gripper",
+        "link2"
+      ]
+    },
+    {
+      "index": 70,
+      "stage": "grasp",
+      "self_separation_m": 0.024015917312396537,
+      "nearest": [
+        "gripper",
+        "link2"
+      ]
+    },
+    {
+      "index": 75,
+      "stage": "grasp",
+      "self_separation_m": 0.027898937538390678,
+      "nearest": [
+        "gripper",
+        "base"
+      ]
+    },
+    {
+      "index": 80,
+      "stage": "grasp",
+      "self_separation_m": 0.027898938983290197,
+      "nearest": [
+        "gripper",
+        "base"
+      ]
+    },
+    {
+      "index": 85,
+      "stage": "grasp",
+      "self_separation_m": 0.033192849778369116,
+      "nearest": [
+        "gripper",
+        "base"
+      ]
+    },
+    {
+      "index": 86,
+      "stage": "grasp",
+      "self_separation_m": 0.03319284971235212,
+      "nearest": [
+        "gripper",
+        "base"
+      ]
+    },
+    {
+      "index": 90,
+      "stage": "lift",
+      "self_separation_m": 0.029231781604698415,
+      "nearest": [
+        "gripper",
+        "base"
+      ]
+    },
+    {
+      "index": 95,
+      "stage": "lift",
+      "self_separation_m": 0.027898936971154698,
+      "nearest": [
+        "gripper",
+        "base"
+      ]
+    },
+    {
+      "index": 100,
+      "stage": "lift",
+      "self_separation_m": 0.027898936962053006,
+      "nearest": [
+        "gripper",
+        "base"
+      ]
+    },
+    {
+      "index": 105,
+      "stage": "lift",
+      "self_separation_m": 0.025848834610677697,
+      "nearest": [
+        "gripper",
+        "link2"
+      ]
+    },
+    {
+      "index": 106,
+      "stage": "lift",
+      "self_separation_m": 0.025832277886687724,
+      "nearest": [
+        "gripper",
+        "link2"
+      ]
+    },
+    {
+      "index": 110,
+      "stage": "carry_near_high",
+      "self_separation_m": 0.035712591672256974,
+      "nearest": [
+        "gripper",
+        "link2"
+      ]
+    },
+    {
+      "index": 115,
+      "stage": "carry_near_high",
+      "self_separation_m": 0.038305116426003094,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 120,
+      "stage": "carry_near_high",
+      "self_separation_m": 0.039399243376797566,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 125,
+      "stage": "carry_near_high",
+      "self_separation_m": 0.04034059852823635,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 130,
+      "stage": "carry_near_high",
+      "self_separation_m": 0.04110386171460689,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 135,
+      "stage": "carry_near_high",
+      "self_separation_m": 0.0417086545067582,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 140,
+      "stage": "carry_near_high",
+      "self_separation_m": 0.0422492245202819,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 145,
+      "stage": "carry_near_high",
+      "self_separation_m": 0.04264719753321211,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 150,
+      "stage": "carry_near_high",
+      "self_separation_m": 0.042996615396633464,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 155,
+      "stage": "carry_near_high",
+      "self_separation_m": 0.04327232300096728,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 160,
+      "stage": "carry_near_high",
+      "self_separation_m": 0.043484117434255065,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 165,
+      "stage": "carry_near_high",
+      "self_separation_m": 0.04367787868371553,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 170,
+      "stage": "carry_near_high",
+      "self_separation_m": 0.04379223597464699,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 174,
+      "stage": "carry_near_high",
+      "self_separation_m": 0.04390471435802534,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 175,
+      "stage": "carry_outside_high",
+      "self_separation_m": 0.04397848333177001,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 180,
+      "stage": "carry_outside_high",
+      "self_separation_m": 0.044188375092304,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 185,
+      "stage": "carry_outside_high",
+      "self_separation_m": 0.044168081300522744,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 190,
+      "stage": "carry_outside_high",
+      "self_separation_m": 0.04394859124907069,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 195,
+      "stage": "carry_outside_high",
+      "self_separation_m": 0.04358038959195265,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 200,
+      "stage": "carry_outside_high",
+      "self_separation_m": 0.04311866752739557,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 205,
+      "stage": "carry_outside_high",
+      "self_separation_m": 0.04260490581990717,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 210,
+      "stage": "pitch_hook",
+      "self_separation_m": 0.046895888562980215,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 215,
+      "stage": "pitch_hook",
+      "self_separation_m": 0.0507586555973325,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 219,
+      "stage": "pitch_hook",
+      "self_separation_m": 0.05363087928071253,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 220,
+      "stage": "outside_lower_clearance",
+      "self_separation_m": 0.053641052880428086,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 225,
+      "stage": "outside_lower_clearance",
+      "self_separation_m": 0.05363129956193946,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 230,
+      "stage": "outside_lower_clearance",
+      "self_separation_m": 0.05364649007982214,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 235,
+      "stage": "outside_lower_clearance",
+      "self_separation_m": 0.05365493778910668,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 238,
+      "stage": "outside_lower_clearance",
+      "self_separation_m": 0.05364147717210388,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 240,
+      "stage": "advance_above_edge",
+      "self_separation_m": 0.05365510525404238,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 245,
+      "stage": "advance_above_edge",
+      "self_separation_m": 0.05367461126494977,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 250,
+      "stage": "advance_above_edge",
+      "self_separation_m": 0.053657549862328846,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 255,
+      "stage": "advance_above_edge",
+      "self_separation_m": 0.053686110676711474,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 260,
+      "stage": "advance_above_edge",
+      "self_separation_m": 0.053675962368242125,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 264,
+      "stage": "advance_above_edge",
+      "self_separation_m": 0.0537016978389806,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 265,
+      "stage": "outside_lower",
+      "self_separation_m": 0.05368678867796839,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 270,
+      "stage": "outside_lower",
+      "self_separation_m": 0.05371595578817767,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 275,
+      "stage": "outside_lower",
+      "self_separation_m": 0.053680714479491964,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 280,
+      "stage": "outside_lower",
+      "self_separation_m": 0.05369041675506847,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 285,
+      "stage": "outside_lower",
+      "self_separation_m": 0.05370052562082228,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 290,
+      "stage": "mouth_above",
+      "self_separation_m": 0.053748466840228826,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 295,
+      "stage": "mouth_above",
+      "self_separation_m": 0.053756690168206944,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 300,
+      "stage": "mouth_above",
+      "self_separation_m": 0.05373290750501836,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 305,
+      "stage": "mouth_above",
+      "self_separation_m": 0.05368798771015881,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 310,
+      "stage": "mouth_entry",
+      "self_separation_m": 0.053704449230898677,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 315,
+      "stage": "mouth_entry",
+      "self_separation_m": 0.05368184867926895,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 320,
+      "stage": "mouth_entry",
+      "self_separation_m": 0.05371151534054386,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 325,
+      "stage": "mouth_entry",
+      "self_separation_m": 0.05367870169922506,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 330,
+      "stage": "mouth_insert",
+      "self_separation_m": 0.05371736113246506,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    },
+    {
+      "index": 335,
+      "stage": "mouth_insert",
+      "self_separation_m": 0.05374711276466759,
+      "nearest": [
+        "gripper",
+        "link3"
+      ]
+    }
+  ],
+  "actual_prior_contact": {
+    "step": 910,
+    "hook_pos": [
+      0.48503026366233826,
+      0.21025018393993378,
+      0.8628324866294861
+    ],
+    "hook_R": [
+      [
+        -0.05957077875069694,
+        0.9982169705831885,
+        0.0037685486274348645
+      ],
+      [
+        0.2675101871707339,
+        0.01960119225839252,
+        -0.9633556420252745
+      ],
+      [
+        -0.9617118186228735,
+        -0.05637972066063607,
+        -0.26820086692498624
+      ]
+    ],
+    "bar_closest_along_axis_m": -0.013,
+    "bar_in_hook": [
+      0.04876272642238797,
+      0.004909177114512008,
+      -0.006860461469360939
+    ],
+    "bar_axis_alignment": 0.9982169705831885,
+    "finite_capsule_shape_clearance_m": {
+      "handle": 0.01982154676678421,
+      "shank": 0.00018873328419969585,
+      "foot": 0.0014654526659223822
+    },
+    "cord_force_N": [
+      -0.14970056455788563,
+      -4.091319380645101,
+      13.6141254209154
+    ],
+    "abrupt_unload_joint_step_rad": [
+      -0.025800177336541538,
+      -0.07797177146943257,
+      0.03797745121727969,
+      -0.02035997580541382,
+      0.16930155152421972,
+      -0.023204622089404436
+    ]
+  },
+  "contact_preflight": {
+    "kind": "Intentional bar contact, not a collision-free hook pose",
+    "goal": [
+      0.484,
+      0.22999999999999998,
+      0.8175
+    ],
+    "throat_local": [
+      0.048,
+      0.0,
+      -0.0065
+    ],
+    "hook_goal": [
+      0.4868838929461118,
+      0.21089769934264047,
+      0.8619188616588855
+    ],
+    "tcp_goal": [
+      0.5068531591644239,
+      0.20569329738016934,
+      0.8805805532794371
+    ],
+    "q": [
+      -0.02935801669816543,
+      2.734410168299621,
+      2.2278892254643288,
+      -1.0471443293093907,
+      0.5208135036797976,
+      1.5330524421408658
+    ],
+    "ik_position_error_m": 8.113032277683601e-11,
+    "ik_rotation_error_rad": 3.570770195076242e-10,
+    "robot_fixture_clearance_lower_bound_m": 0.025,
+    "robot_fixture_nearest": null,
+    "nonadjacent_hand_clearance_m": 0.05383534913029253,
+    "held_shape_fixture_min": {
+      "part": "shank",
+      "obstacle": "tote_tall/bracket_0",
+      "separation_m": 0.0008977149902586155
+    }
+  }
+}

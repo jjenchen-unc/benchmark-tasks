@@ -1,0 +1,14 @@
+{
+  "yaw": 25.0,
+  "final_yaw": 10.0,
+  "route": "mouth",
+  "bar_offset": 0.0,
+  "tilt": 10.0,
+  "contact_x": 0.0495,
+  "contact_z": -0.0105,
+  "right_retreat": [
+    -0.06,
+    -0.04,
+    0.08
+  ]
+}

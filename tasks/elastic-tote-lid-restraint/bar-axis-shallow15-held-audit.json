@@ -1,0 +1,10 @@
+{
+  "kind": "Nominal held-hook/fixture/finite-bar/cord audit only, not robot evidence; geometry remains unchanged",
+  "issues": [],
+  "min_hook_separation_m": 0.0015000000000000117,
+  "min_bar_clearance_m": 0.0010311288741491837,
+  "max_tension_n": 14.694077512413573,
+  "cord_centreline_hull_hits": [],
+  "source_path": "bar-axis-mouth-path-shallow15.json",
+  "source_plan_sha256": "a23fd1c5777a6d9e47e0401bc4d7fc2ceafbf24c326606c7236cfa6c53b7f2d4"
+}

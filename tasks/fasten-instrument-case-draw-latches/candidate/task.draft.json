@@ -1,0 +1,32 @@
+{
+  "status": "development draft; unvalidated Arena port; not publication ready",
+  "title": "Fasten an instrument case with spring draw latches",
+  "category": "Impact on jobs",
+  "keywords": [
+    "instrument case",
+    "draw latch",
+    "spring hook",
+    "secondary catch",
+    "bimanual"
+  ],
+  "instruction": "Close the open blue-grey case, seat and tension both spring hooks on keeper bars, leave both levers flat and secondary catches home, then leave both hands off the case and instrument for20seconds. Do not tip either case more than15degrees or either instrument more than20degrees.",
+  "context": "Equipment cases require a separately seated hook, over-centre tension and secondary catch to resist vibration. This representative tests those fastening abilities without replacing them by transport or a cosmetic closure.",
+  "setup": "See README physical inventory and fixture.json for every primitive, inertial mass, material, pose and spring. Standard YAM station; fixed200x600x60mm wooden plinth at(.35,-.04,.7775)m; two loose240x160mm plastic cases with180mm bodies and40mm hinged lids at(.34,.10,.8075) and(.34,-.18,.8075)m, yaw-90deg;1.82kg each including hardware. Two steel spring draw latches per case, three5mm keeper bars per latch at6mm pitch; A has7mm sideways secondary catches. Two40x160mm,.30kg upright instrument cylinders with42x12mm caps at(.35,.10,.894) and(.35,-.18,.894)m. A starts open with hooks off, B closed. Exact physical seed42 parameters in fixture.json.",
+  "scoring": "Final state: all nonzero credit requires no robot contact with target A or its instrument. Lid<=2deg:.25; +.25 per fastener with hook actually attached to any keeper bar, extension above free length>=1.5mm, lever<=.05rad and catch<=1.5mm, up to.75. Full1.0 requires the complete state continuously20s hands off. Any instrument tilt>20deg or case tilt>15deg at any time vetoes all credit. Raw wrist>80N for100ms aborts. Wrist>60N for20ms or nonfinger contact20ms-average>50N stops arm until next action. All other outcomes score the currently satisfied tier, including0. Runtime credit remains gated pending actual validation.",
+  "run_limit": "7964 genuine14D control actions,398.2s at20Hz;500Hz physics. Actual wall time unmeasured.",
+  "reset_notes": "Fixed physical seed42 case properties/layout for any Inspect harness seed or derived episode ID; object_jitter=0. Reset restores both free cases/instruments, every joint/connection/limit and clears history. SDK settles0.5s before counted time; start-state correspondence remains unverified.",
+  "fidelity": "Task-only primitive geometry/masses/axes compiled from exact native source, floating PhysX case articulations, passive spring/conditional hook mechanisms. Tanh dry-friction approximation, PhysX contact/friction differences and conservative nonfinger guard are disclosed in DEVIATIONS.md. Lower YAM total27/7Nm and retained40N fingers; feasibility, force/capture calibration and clearance unverified.",
+  "scores": "Dream-1: not run; Arena robot reference: not run. No model/demo numeric score claimed. Native fullscore is design evidence only.",
+  "media": null,
+  "representative_goal": "DL-T2",
+  "not_final_task_json": true,
+  "required_remaining": [
+    "Root actual foundation runtime",
+    "Known-load/contact/capture/catch/reset safety qualification",
+    "Repair remaining source waypoint IK failures without changing task goal/limits",
+    "Genuine YAM fullgoal demonstration and independent replay",
+    "Actual Dream-1 run",
+    "Matching anonymous screenshot/H.264 model and demo media",
+    "Fresh primary board/ownership comparison before publication"
+  ]
+}

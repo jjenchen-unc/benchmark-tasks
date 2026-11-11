@@ -1,0 +1,5 @@
+{
+  "reproduction/model_entry.py": "5fb3e29e033891f91926b2a1ef37a0584aac076c52fc973b76ecf61166d2439d",
+  "reproduction/verify_model.py": "f4fcd7bd60575e5e7210eae61458db9e270926349b9572642b1e35134f1f0e14",
+  "reproduction/gripper_saturation.py": "b525f6c889d0accbfa7ac3183371150138d4b717a6ea5814f45e4dc2f8eeac06"
+}

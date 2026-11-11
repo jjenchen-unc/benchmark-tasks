@@ -1,0 +1,23 @@
+{
+  "native_package": "ports/packages/S2_draw_latch--drawlatch_open",
+  "representative_goal": "DL-T2",
+  "physical_seed": 42,
+  "exact_bench_sha256": "c4f1d83d5a280c03e9e81299080151487cecaa50a27963cfdc8c376ae55c0e7e",
+  "export": "Executed read-only exact source copy before task-only MuJoCo compilation and FK; no physics stepping. Exporter and frozen native snapshot remain in readiness evidence, not runtime.",
+  "runtime_native_imports": false,
+  "bundled_panda_assets": false,
+  "generated_assets": "95 task-specific primitive colliders:90 case hardware/shells,4 instrument/cap,1 plinth",
+  "helper_provenance": [
+    {
+      "file": "motor_limits.py",
+      "derived_from": "D3 verified foundation d3_motor_adapter.py, itself based on verified B5 total effort implementation",
+      "changes": "S2-local names; source40N ceiling preserved; arm force-guard hold uses measured joints"
+    },
+    {
+      "file": "contacts.py",
+      "derived_from": "B5 physics_observer.py Contacts class",
+      "changes": "Task-local array helper only; fresh S2 validation required"
+    }
+  ],
+  "notices": "SOURCE_ASSETS.md preserved verbatim. No mesh/texture/product CAD assets bundled; SDK YAM and station assets remain installed dependencies. No third-party license is invented for newly generated task primitives."
+}

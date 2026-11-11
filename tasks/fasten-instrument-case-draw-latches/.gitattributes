@@ -1,0 +1,7 @@
+# Preserve the exact reviewed source bytes; ignore only extra EOF blank lines in these six files.
+candidate/assets/case-A.usda whitespace=-blank-at-eof
+candidate/assets/case-B.usda whitespace=-blank-at-eof
+candidate/assets/instrument-A.usda whitespace=-blank-at-eof
+candidate/assets/instrument-B.usda whitespace=-blank-at-eof
+candidate/build_usd.py whitespace=-blank-at-eof
+candidate/contacts.py whitespace=-blank-at-eof

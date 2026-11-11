@@ -1,0 +1,20 @@
+{
+  "title": "Fasten an instrument case with separate spring hooks and safety catches",
+  "category": "Impact on jobs",
+  "keywords": [
+    "instrument case",
+    "spring draw latch",
+    "hook seating",
+    "secondary catch",
+    "bimanual"
+  ],
+  "instruction": "Close the blue-grey instrument case and fasten both spring draw latches.\nSeat each hook on a keeper bar, tension it with the lever flat, and return both\nsecondary catches home. Leave both hands off the case and instrument for20s.\nDo not tip either instrument more than20deg or either case more than15deg.\nThe cases stand loose on a wooden plinth; the green case remains closed.",
+  "context": "Equipment-case fastening requires seating a separate hook, tensioning it and securing an independent safety catch. A flat lever on an unattached hook is insufficient; the closed loose case must remain secured with both hands away.",
+  "setup": "Standard YAM table and bases. Fixed200x600x60mm wooden plinth centred(.35,-.04,.7775)m. Two loose240x160x180mm plastic cases with40mm lids,1.82kg each, roots(.34,.10,.8075) and(.34,-.18,.8075),yaw-90deg. Blue-grey A starts open; green B closed. Two steel spring hooks/levers percase,three5mm keepers at6mm pitch; A has7mm secondary catches. Two40x160mm,.30kg upright steel instrument surrogates with42x12mm caps at(.35,+.10,.894) and(.35,-.18,.894). Complete95collider inventory, masses, poses and physicalseed42 in README/fixture.json.",
+  "scoring": "Hands off target case/instrument required for any credit. Lid<=2deg:.25;+ .25 per attached hook with extension>=1.5mm,lever<=.05rad,catch<=1.5mm. Full1 requires both continuously20s hands off. Any case tilt>15deg or instrument>20deg vetoes all credit. Wrist>80N100ms aborts; wrist>60N20ms/nonfinger average>50N20ms stops arm within current action. Otherwise currently satisfied tier,including0.",
+  "run_limit": "7964 genuine 14D actions at 20 Hz (398.2 s); 500 Hz physics. One episode; native success or physical failure may end it earlier.",
+  "reset_notes": "Every Inspect seed passes unchanged; fixedphysicalseed42,jitter0. Reset restores all loose bodies/joints/connections/history. Passive SDKsettling0.5s is outside counted clock.",
+  "fidelity": "Source primitive masses/joints; free cases/instruments. Native passive springs and SI joint friction. Contact/proximity+dwell hook capture enables spherical joints. PhysX compliance differs; nonfinger force sum is conservative. Six-DOF YAM total27/7Nm,40N fingers replaces source Panda80/12Nm. Fixed physicalseed42; scoped force-norm/API evidence, not hardware validation. Model decoder saturates both grippers to public[0,1]; all arm values unchanged.",
+  "scores": "Dream-1 + public gripper saturation[0,1]:0.0/6979 actions (instrument tipped). Scripted demo:1.0/4056 actions,29.984s hands-off. Final model:1 session/1737 requests; prior ERROR trials unscored.",
+  "media": "M-EZG3AZ"
+}

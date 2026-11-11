@@ -1,0 +1,14 @@
+{
+  "snapshot_at": "2026-11-11T07:38:15.263315+00:00",
+  "snapshot_sha256": "34d532caa250578f86fcc0316a03fee3c2e0de7100231e75069d3af62a23e30f",
+  "task_count": 1572,
+  "reviewed_ids": [
+    "TK-UZDH46",
+    "TK-YBH54G",
+    "TK-XA7JUD",
+    "TK-5KQLXV"
+  ],
+  "nearest": "TK-5KQLXV",
+  "all_reviewed_pending_other_teams": true,
+  "no_exhaustive_absence_or_organizer_clearance_claim": true
+}

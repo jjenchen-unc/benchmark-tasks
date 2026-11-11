@@ -1,0 +1,47 @@
+{
+  "schema": "S2_FINAL_ACTUAL_EVIDENCE_SUMMARY",
+  "source_fingerprint": "f14b6578e9d24ab65e2ba991d9894f4eb82a3fca9dec481d9883adcff43f8542",
+  "physical_review_sha256": "5f42bb338fc4d4a1398acd82f41394ab462246150b44329142d715bc2ce0e6ca",
+  "immutable_physical_evidence_asset_sha256": "9bb80c8153e4b10149b27f0fd521a3e6132cb8f24c991a859757ef41b5f53b42",
+  "model": {
+    "policy": "Dream-1 + public gripper saturation [0,1] on all returned rows",
+    "score": 0.0,
+    "framework_status": "success",
+    "error": null,
+    "steps": 6979,
+    "native_samples": 174465,
+    "physical_termination": "instrument_tipped",
+    "peak_instrument_tilt_deg": 20.082782410115332,
+    "sessions": 1,
+    "request_count": 1737,
+    "transport_retries": 0,
+    "projected_gripper_values": 16218,
+    "all_arm_values_preserved": true,
+    "frames_per_camera": 6980,
+    "all_NPY_shape_dtype_SHA_and_source_verified": true,
+    "three_H264_full_decode_passed": true,
+    "selected_top_video_sha256": "caf054900d1e429a87661147d2d2689ef16eea614d2eea341dd4f74b47b09387"
+  },
+  "scripted_demo": {
+    "validated_native_History_score": 1.0,
+    "raw_public_score_preserved": 0.0,
+    "controls": 4056,
+    "native_samples": 101400,
+    "continuous_hands_off_s": 29.984,
+    "selected_top_video_sha256": "58c96e2b8002b3550450b11062749251010a7e1cb51f52b2728da938b303eb9d"
+  },
+  "setup_png_sha256": "86ba127fdc08642bf113484efed46c67046b4adb1f618ecf2ca3c9e9fbff6712",
+  "earlier_trials": [
+    {
+      "steps": 3436,
+      "status": "INVALID",
+      "scored": false
+    },
+    {
+      "steps": 1488,
+      "status": "INVALID",
+      "scored": false
+    }
+  ],
+  "official_acceptance_claim": false
+}

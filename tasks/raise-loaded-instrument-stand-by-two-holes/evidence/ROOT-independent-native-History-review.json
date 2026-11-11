@@ -1,0 +1,567 @@
+{
+  "UTC": "2026-11-11T14:05:10.035321+00:00",
+  "controls": 2722,
+  "samples": 68050,
+  "all_native_History_fields_verified": true,
+  "wrist_peak_N": [
+    53.09846878051758,
+    58.5272102355957
+  ],
+  "samples_at_or_above60N": [
+    0,
+    0
+  ],
+  "final_measurement": {
+    "leg": [
+      0.07475021481513977,
+      0.07525045424699783
+    ],
+    "pin": [
+      1.5370753558840988e-08,
+      1.6133281377506137e-08
+    ],
+    "angle": [
+      0.057960521429777145,
+      0.002289621625095606
+    ],
+    "leg_velocity": [
+      -1.3117387425154448e-05,
+      2.153683453798294e-09
+    ],
+    "robot_contact": false,
+    "contact_count": 0,
+    "wrist": [
+      6.794005393981934,
+      6.793750286102295
+    ],
+    "acceleration_g": 0.0006396397474014377,
+    "actual_dt": 0.002,
+    "instrument_com_velocity": [
+      6.245990900244436e-07,
+      -9.015202204827866e-13,
+      5.540649083894853e-06
+    ],
+    "mechanism_limits": [
+      [
+        [
+          -0.029999999329447746,
+          0.029999999329447746
+        ],
+        [
+          0.049400001764297485,
+          0.12999999523162842
+        ],
+        [
+          -0.05000000074505806,
+          0.12999999523162842
+        ],
+        [
+          -3.4028234663852886e+38,
+          3.4028234663852886e+38
+        ],
+        [
+          -0.012000000104308128,
+          0.0
+        ],
+        [
+          -0.012000000104308128,
+          0.0
+        ],
+        [
+          -0.5,
+          0.5
+        ],
+        [
+          0.0,
+          0.15000000596046448
+        ],
+        [
+          0.0,
+          0.15000000596046448
+        ],
+        [
+          -0.012000000104308128,
+          0.012000000104308128
+        ]
+      ]
+    ],
+    "robot_contact_pairs": []
+  },
+  "source_unchanged": true,
+  "last80_reseat": [
+    {
+      "control": 505,
+      "phase": "L_reseat_track",
+      "height": 0.05025029554963112,
+      "pin": -0.0036144645418971777,
+      "velocity": 5.5158743634819984e-06
+    },
+    {
+      "control": 506,
+      "phase": "L_reseat_track",
+      "height": 0.05025026574730873,
+      "pin": -0.003551512025296688,
+      "velocity": -7.3409173637628555e-06
+    },
+    {
+      "control": 507,
+      "phase": "L_reseat_track",
+      "height": 0.05025023594498634,
+      "pin": -0.003489532507956028,
+      "velocity": 0.002238932065665722
+    },
+    {
+      "control": 508,
+      "phase": "L_reseat_track",
+      "height": 0.050250276923179626,
+      "pin": -0.003415935207158327,
+      "velocity": -4.040688509121537e-06
+    },
+    {
+      "control": 509,
+      "phase": "L_reseat_track",
+      "height": 0.05025026202201843,
+      "pin": -0.003347748424857855,
+      "velocity": 2.782318006211426e-06
+    },
+    {
+      "control": 510,
+      "phase": "L_reseat_track",
+      "height": 0.050250254571437836,
+      "pin": -0.0032568785827606916,
+      "velocity": 0.0018039874266833067
+    },
+    {
+      "control": 511,
+      "phase": "L_reseat_track",
+      "height": 0.05025029554963112,
+      "pin": -0.0031732162460684776,
+      "velocity": 8.320435881614685e-06
+    },
+    {
+      "control": 512,
+      "phase": "L_reseat_track",
+      "height": 0.050250280648469925,
+      "pin": -0.0031057288870215416,
+      "velocity": -5.135661922395229e-07
+    },
+    {
+      "control": 513,
+      "phase": "L_reseat_track",
+      "height": 0.05025026574730873,
+      "pin": -0.0030363802798092365,
+      "velocity": 3.3378746593371034e-06
+    },
+    {
+      "control": 514,
+      "phase": "L_reseat_track",
+      "height": 0.05025028809905052,
+      "pin": -0.002922316547483206,
+      "velocity": 5.393318133428693e-06
+    },
+    {
+      "control": 515,
+      "phase": "L_reseat_track",
+      "height": 0.050250276923179626,
+      "pin": -0.002776511711999774,
+      "velocity": 1.8118225852958858e-06
+    },
+    {
+      "control": 516,
+      "phase": "L_reseat_track",
+      "height": 0.05025026574730873,
+      "pin": -0.0027082625310868025,
+      "velocity": 1.0152717777600628e-06
+    },
+    {
+      "control": 517,
+      "phase": "L_reseat_track",
+      "height": 0.05025026202201843,
+      "pin": -0.0026007017586380243,
+      "velocity": 3.5542325349524617e-06
+    },
+    {
+      "control": 518,
+      "phase": "L_reseat_track",
+      "height": 0.05025029182434082,
+      "pin": -0.002501977374777198,
+      "velocity": 4.522483777691377e-06
+    },
+    {
+      "control": 519,
+      "phase": "L_reseat_track",
+      "height": 0.05025027319788933,
+      "pin": -0.002352351788431406,
+      "velocity": 4.601318323693704e-06
+    },
+    {
+      "control": 520,
+      "phase": "L_reseat_track",
+      "height": 0.050250276923179626,
+      "pin": -0.002244287868961692,
+      "velocity": 4.77770299767144e-06
+    },
+    {
+      "control": 521,
+      "phase": "L_reseat_track",
+      "height": 0.050250280648469925,
+      "pin": -0.0020917991641908884,
+      "velocity": -2.546458972574328e-07
+    },
+    {
+      "control": 522,
+      "phase": "L_reseat_track",
+      "height": 0.050250280648469925,
+      "pin": -0.001967738615348935,
+      "velocity": 8.525187695340719e-06
+    },
+    {
+      "control": 523,
+      "phase": "L_reseat_track",
+      "height": 0.05025026574730873,
+      "pin": -0.0018777713412418962,
+      "velocity": 4.147352228756063e-06
+    },
+    {
+      "control": 524,
+      "phase": "L_reseat_track",
+      "height": 0.050250276923179626,
+      "pin": -0.001752157579176128,
+      "velocity": 6.41900442133192e-06
+    },
+    {
+      "control": 525,
+      "phase": "L_reseat_track",
+      "height": 0.05025028437376022,
+      "pin": -0.0015265030087903142,
+      "velocity": 2.522857357689645e-06
+    },
+    {
+      "control": 526,
+      "phase": "L_reseat_track",
+      "height": 0.05025028437376022,
+      "pin": -0.001163356238976121,
+      "velocity": -1.207226887345314e-06
+    },
+    {
+      "control": 527,
+      "phase": "L_reseat_track",
+      "height": 0.05025026574730873,
+      "pin": -0.000721703574527055,
+      "velocity": 2.2828062355984002e-06
+    },
+    {
+      "control": 1751,
+      "phase": "L_reseat_track",
+      "height": 0.07633554190397263,
+      "pin": -0.007738348096609116,
+      "velocity": 1.3166572898626328e-05
+    },
+    {
+      "control": 1752,
+      "phase": "L_reseat_track",
+      "height": 0.07616476714611053,
+      "pin": -0.007544507272541523,
+      "velocity": -0.0013311151415109634
+    },
+    {
+      "control": 1753,
+      "phase": "L_reseat_track",
+      "height": 0.07586327195167542,
+      "pin": -0.0071270642802119255,
+      "velocity": -0.004495619796216488
+    },
+    {
+      "control": 1754,
+      "phase": "L_reseat_track",
+      "height": 0.07548243552446365,
+      "pin": -0.006342630367726088,
+      "velocity": -0.003599794814363122
+    },
+    {
+      "control": 1755,
+      "phase": "L_reseat_track",
+      "height": 0.07524856925010681,
+      "pin": -0.004920785315334797,
+      "velocity": 0.0020146251190453768
+    },
+    {
+      "control": 1756,
+      "phase": "L_reseat_track",
+      "height": 0.07522445917129517,
+      "pin": -0.00410970114171505,
+      "velocity": 0.0013854942517355084
+    },
+    {
+      "control": 1757,
+      "phase": "L_reseat_track",
+      "height": 0.07520883530378342,
+      "pin": -0.003942722920328379,
+      "velocity": 1.1978205293416977e-05
+    },
+    {
+      "control": 1758,
+      "phase": "L_reseat_track",
+      "height": 0.0751897469162941,
+      "pin": -0.0038262256421148777,
+      "velocity": -2.1948653738945723e-06
+    },
+    {
+      "control": 1759,
+      "phase": "L_reseat_track",
+      "height": 0.07517345249652863,
+      "pin": -0.003723978763446212,
+      "velocity": 0.0014967467868700624
+    },
+    {
+      "control": 1760,
+      "phase": "L_reseat_track",
+      "height": 0.07515320181846619,
+      "pin": -0.0036204580683261156,
+      "velocity": 1.5407680621137843e-05
+    },
+    {
+      "control": 1761,
+      "phase": "L_reseat_track",
+      "height": 0.07512177526950836,
+      "pin": -0.0034871140960603952,
+      "velocity": -0.0018062246963381767
+    },
+    {
+      "control": 1762,
+      "phase": "L_reseat_track",
+      "height": 0.07510504126548767,
+      "pin": -0.003397198161110282,
+      "velocity": 0.0019331793300807476
+    },
+    {
+      "control": 1763,
+      "phase": "L_reseat_track",
+      "height": 0.07507579773664474,
+      "pin": -0.0033056323882192373,
+      "velocity": -8.160818833857775e-05
+    },
+    {
+      "control": 1764,
+      "phase": "L_reseat_track",
+      "height": 0.07503529638051987,
+      "pin": -0.0031894126441329718,
+      "velocity": 0.0038326384965330362
+    },
+    {
+      "control": 1765,
+      "phase": "L_reseat_track",
+      "height": 0.07500708848237991,
+      "pin": -0.0031011539977043867,
+      "velocity": 0.002102573635056615
+    },
+    {
+      "control": 1766,
+      "phase": "L_reseat_track",
+      "height": 0.07496561855077744,
+      "pin": -0.0030029043555259705,
+      "velocity": -0.0020987174939364195
+    },
+    {
+      "control": 1767,
+      "phase": "L_reseat_track",
+      "height": 0.0749322697520256,
+      "pin": -0.0028776705730706453,
+      "velocity": -5.089648766443133e-06
+    },
+    {
+      "control": 1768,
+      "phase": "L_reseat_track",
+      "height": 0.07490003854036331,
+      "pin": -0.0027898726984858513,
+      "velocity": 4.248495679348707e-05
+    },
+    {
+      "control": 1769,
+      "phase": "L_reseat_track",
+      "height": 0.07486782222986221,
+      "pin": -0.0027365938294678926,
+      "velocity": 3.0711875297129154e-05
+    },
+    {
+      "control": 1770,
+      "phase": "L_reseat_track",
+      "height": 0.0748383179306984,
+      "pin": -0.0026084729470312595,
+      "velocity": 0.003595897462219
+    },
+    {
+      "control": 1771,
+      "phase": "L_reseat_track",
+      "height": 0.07481340318918228,
+      "pin": -0.0024877225514501333,
+      "velocity": -0.000390500295907259
+    },
+    {
+      "control": 1772,
+      "phase": "L_reseat_track",
+      "height": 0.07479850202798843,
+      "pin": -0.0023361535277217627,
+      "velocity": 1.0883290087804198e-05
+    },
+    {
+      "control": 1773,
+      "phase": "L_reseat_track",
+      "height": 0.07477402687072754,
+      "pin": -0.0022689192555844784,
+      "velocity": 0.002277554012835026
+    },
+    {
+      "control": 1774,
+      "phase": "L_reseat_track",
+      "height": 0.07476109266281128,
+      "pin": -0.002184855053201318,
+      "velocity": 1.1255629942752421e-05
+    },
+    {
+      "control": 1775,
+      "phase": "L_reseat_track",
+      "height": 0.07475551217794418,
+      "pin": -0.002031905110925436,
+      "velocity": -1.2191478163003922e-05
+    },
+    {
+      "control": 1776,
+      "phase": "L_reseat_track",
+      "height": 0.07476548105478287,
+      "pin": -0.0018990415846928954,
+      "velocity": 0.0018842972349375486
+    },
+    {
+      "control": 1777,
+      "phase": "L_reseat_track",
+      "height": 0.0747886449098587,
+      "pin": -0.0017922965344041586,
+      "velocity": -4.726054612547159e-06
+    },
+    {
+      "control": 1778,
+      "phase": "L_reseat_track",
+      "height": 0.07480885088443756,
+      "pin": -0.0017133585643023252,
+      "velocity": 0.0019576686900109053
+    },
+    {
+      "control": 1779,
+      "phase": "L_reseat_track",
+      "height": 0.07483377307653427,
+      "pin": -0.0016702115535736084,
+      "velocity": 0.0033024547155946493
+    },
+    {
+      "control": 1780,
+      "phase": "L_reseat_track",
+      "height": 0.07485409826040268,
+      "pin": -0.0016497698379680514,
+      "velocity": 0.002907421439886093
+    },
+    {
+      "control": 1781,
+      "phase": "L_reseat_track",
+      "height": 0.07488572597503662,
+      "pin": -0.0015891813673079014,
+      "velocity": 0.002785599324852228
+    },
+    {
+      "control": 1782,
+      "phase": "L_reseat_track",
+      "height": 0.07491572946310043,
+      "pin": -0.0014996135141700506,
+      "velocity": 0.004857901018112898
+    },
+    {
+      "control": 1783,
+      "phase": "L_reseat_track",
+      "height": 0.07493644207715988,
+      "pin": -0.0014685782371088862,
+      "velocity": 6.020476575940847e-06
+    },
+    {
+      "control": 1784,
+      "phase": "L_reseat_track",
+      "height": 0.07495879381895065,
+      "pin": -0.0014053226914256811,
+      "velocity": 0.0033227885141968727
+    },
+    {
+      "control": 1785,
+      "phase": "L_reseat_track",
+      "height": 0.07498800754547119,
+      "pin": -0.001385808689519763,
+      "velocity": -4.762696335092187e-06
+    },
+    {
+      "control": 1786,
+      "phase": "L_reseat_track",
+      "height": 0.07499220222234726,
+      "pin": -0.0013355023693293333,
+      "velocity": 0.0005333192530088127
+    },
+    {
+      "control": 1787,
+      "phase": "L_reseat_track",
+      "height": 0.07500730454921722,
+      "pin": -0.0012771696783602238,
+      "velocity": 0.0010327149648219347
+    },
+    {
+      "control": 1788,
+      "phase": "L_reseat_track",
+      "height": 0.07504654675722122,
+      "pin": -0.001210400485433638,
+      "velocity": 0.0016627616714686155
+    },
+    {
+      "control": 1789,
+      "phase": "L_reseat_track",
+      "height": 0.07509581744670868,
+      "pin": -0.0011258363956585526,
+      "velocity": 0.0009652631706558168
+    },
+    {
+      "control": 1790,
+      "phase": "L_reseat_track",
+      "height": 0.07512987405061722,
+      "pin": -0.0010304679162800312,
+      "velocity": 0.0040129018016159534
+    },
+    {
+      "control": 1791,
+      "phase": "L_reseat_track",
+      "height": 0.0751582607626915,
+      "pin": -0.0009563225321471691,
+      "velocity": 0.00446008425205946
+    }
+  ],
+  "final_status": {
+    "score": 0.0,
+    "diagnostic_score": 1.0,
+    "gate": "runtime_channels_unverified",
+    "missing": [
+      "clock",
+      "instrument_acceleration",
+      "joint_state",
+      "pin_mechanism",
+      "reset",
+      "robot_contacts",
+      "total_motor_limits",
+      "wrist_force"
+    ],
+    "failure": null,
+    "time_s": 136.09999999992175,
+    "controls": 2722,
+    "hold_s": 2.447999999999952,
+    "partial_hold_s": 0.0,
+    "peak_g": 0.7585288090270997,
+    "peak_drop_m_s": 0.07214083522558212
+  },
+  "full_goal_proven": false,
+  "submission_ready": false,
+  "model_calls": 0,
+  "scope": "All actual2ms native History/status independently recomputed. Partial failure is not instruction-complete or full-goal proof."
+}

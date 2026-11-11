@@ -1,0 +1,14 @@
+{
+  "UTC": "2026-11-11T15:56:11.817914+00:00",
+  "actual_model_video": true,
+  "full_decode_verified": true,
+  "frames": 4573,
+  "codec": "h264",
+  "size": [
+    640,
+    360
+  ],
+  "fps": 20.0,
+  "bytes": 1617589,
+  "sha256": "5134624156e5d2b97edbfefb250ceb91fee68b95f188b38e094899d9253b7711"
+}

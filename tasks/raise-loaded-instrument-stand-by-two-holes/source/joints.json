@@ -1,0 +1,262 @@
+[
+  {
+    "name": "plate_y",
+    "kind": "slide",
+    "axis": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "anchor": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "range": [
+      -0.03,
+      0.03
+    ],
+    "limited": true,
+    "K": 0.0,
+    "ref": 0.0,
+    "D": 2.0,
+    "friction": 0.0,
+    "armature": 0.02,
+    "parent": "root",
+    "child": "plate_y_frame"
+  },
+  {
+    "name": "plate_z",
+    "kind": "slide",
+    "axis": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "anchor": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "range": [
+      0.0,
+      0.0
+    ],
+    "limited": false,
+    "K": 0.0,
+    "ref": 0.0,
+    "D": 2.0,
+    "friction": 0.0,
+    "armature": 0.02,
+    "parent": "plate_y_frame",
+    "child": "plate_z_frame"
+  },
+  {
+    "name": "plate_roll",
+    "kind": "hinge",
+    "axis": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "anchor": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "range": [
+      -0.5,
+      0.5
+    ],
+    "limited": true,
+    "K": 0.0,
+    "ref": 0.0,
+    "D": 0.5,
+    "friction": 0.0,
+    "armature": 0.02,
+    "parent": "plate_z_frame",
+    "child": "plate"
+  },
+  {
+    "name": "slotR_y",
+    "kind": "slide",
+    "axis": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "anchor": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "range": [
+      -0.012,
+      0.012
+    ],
+    "limited": true,
+    "K": 0.0,
+    "ref": 0.0,
+    "D": 2.0,
+    "friction": 0.0,
+    "armature": 0.02,
+    "parent": "plate",
+    "child": "slotR"
+  },
+  {
+    "name": "legL_z",
+    "kind": "slide",
+    "axis": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "anchor": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "range": [
+      -0.05,
+      0.13
+    ],
+    "limited": true,
+    "K": 0.0,
+    "ref": 0.0,
+    "D": 4.0,
+    "friction": 1.0,
+    "armature": 0.02,
+    "parent": "root",
+    "child": "legL"
+  },
+  {
+    "name": "pinL_x",
+    "kind": "slide",
+    "axis": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "anchor": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "range": [
+      -0.012,
+      0.0
+    ],
+    "limited": true,
+    "K": 1100.0,
+    "ref": 0.008181818181818182,
+    "D": 0.5,
+    "friction": 0.0,
+    "armature": 0.002,
+    "parent": "legL",
+    "child": "pinL"
+  },
+  {
+    "name": "knobL_rot",
+    "kind": "hinge",
+    "axis": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "anchor": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "range": [
+      0.0,
+      1.6
+    ],
+    "limited": true,
+    "K": 0.0,
+    "ref": 0.0,
+    "D": 0.002,
+    "friction": 0.03,
+    "armature": 0.02,
+    "parent": "pinL",
+    "child": "knobbL"
+  },
+  {
+    "name": "legR_z",
+    "kind": "slide",
+    "axis": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "anchor": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "range": [
+      -0.05,
+      0.13
+    ],
+    "limited": true,
+    "K": 38.73333333333334,
+    "ref": 0.8249999999999998,
+    "D": 60.0,
+    "friction": 1.0,
+    "armature": 0.02,
+    "parent": "root",
+    "child": "legR"
+  },
+  {
+    "name": "pinR_x",
+    "kind": "slide",
+    "axis": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "anchor": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "range": [
+      -0.012,
+      0.0
+    ],
+    "limited": true,
+    "K": 1100.0,
+    "ref": 0.008181818181818182,
+    "D": 0.5,
+    "friction": 0.0,
+    "armature": 0.002,
+    "parent": "legR",
+    "child": "pinR"
+  },
+  {
+    "name": "knobR_rot",
+    "kind": "hinge",
+    "axis": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "anchor": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "range": [
+      0.0,
+      1.6
+    ],
+    "limited": true,
+    "K": 0.0,
+    "ref": 0.0,
+    "D": 0.002,
+    "friction": 0.03,
+    "armature": 0.02,
+    "parent": "pinR",
+    "child": "knobbR"
+  }
+]

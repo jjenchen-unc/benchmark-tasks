@@ -1,0 +1,2759 @@
+#usda 1.0
+(
+    defaultPrim = "Pins"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "Pins" (
+    prepend apiSchemas = ["PhysicsArticulationRootAPI", "PhysxArticulationAPI"]
+)
+{
+    bool physxArticulation:enabledSelfCollisions = 1
+    int physxArticulation:solverPositionIterationCount = 64
+    int physxArticulation:solverVelocityIterationCount = 8
+    quatd xformOp:orient = (1, 0, 0, 0)
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+    def "links"
+    {
+        def Xform "root" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0, 0)
+            float3 physics:diagonalInertia = (1e-10, 1e-10, 1e-10)
+            float physics:mass = 0.000001
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Xform "plate_y_frame" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0, 0)
+            float3 physics:diagonalInertia = (1e-10, 1e-10, 1e-10)
+            float physics:mass = 0.000001
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.18, 0, 0.32499999999999996)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Xform "plate_z_frame" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0, 0)
+            float3 physics:diagonalInertia = (1e-10, 1e-10, 1e-10)
+            float physics:mass = 0.000001
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.18, 0, 0.32499999999999996)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Xform "plate" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0, 0)
+            float3 physics:diagonalInertia = (0.012066667, 0.0021666666, 0.014166667)
+            float physics:mass = 1
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.18, 0, 0.32499999999999996)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cube "plate_geom" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Pins/materials/plate_geom>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/legL/outerL>,
+                    </Pins/links/pinL/pinL_shaft>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/legR/outerR>,
+                    </Pins/links/pinR/pinR_shaft>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.16, 0.38, 0.02)
+                double3 xformOp:translate = (0, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Capsule "handle_L" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.06999999999999999
+                rel material:binding:physics = </Pins/materials/handle_L>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/legL/outerL>,
+                    </Pins/links/pinL/pinL_shaft>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/legR/outerR>,
+                    </Pins/links/pinR/pinR_shaft>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.015
+                quatd xformOp:orient = (0.7071067811865476, 0.7071067811865475, 0, -0)
+                double3 xformOp:translate = (0.105, -0.13999999999999999, 0.045)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cube "g42" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Pins/materials/g42>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/legL/outerL>,
+                    </Pins/links/pinL/pinL_shaft>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/legR/outerR>,
+                    </Pins/links/pinR/pinR_shaft>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.028, 0.01, 0.04)
+                double3 xformOp:translate = (0.093, -0.18, 0.025)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "g43" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Pins/materials/g43>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/legL/outerL>,
+                    </Pins/links/pinL/pinL_shaft>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/legR/outerR>,
+                    </Pins/links/pinR/pinR_shaft>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.028, 0.01, 0.04)
+                double3 xformOp:translate = (0.093, -0.1, 0.025)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Capsule "handle_R" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.06999999999999999
+                rel material:binding:physics = </Pins/materials/handle_R>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/legL/outerL>,
+                    </Pins/links/pinL/pinL_shaft>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/legR/outerR>,
+                    </Pins/links/pinR/pinR_shaft>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.015
+                quatd xformOp:orient = (0.7071067811865476, 0.7071067811865475, 0, -0)
+                double3 xformOp:translate = (0.105, 0.13999999999999999, 0.045)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cube "g45" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Pins/materials/g45>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/legL/outerL>,
+                    </Pins/links/pinL/pinL_shaft>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/legR/outerR>,
+                    </Pins/links/pinR/pinR_shaft>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.028, 0.01, 0.04)
+                double3 xformOp:translate = (0.093, 0.1, 0.025)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "g46" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Pins/materials/g46>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/legL/outerL>,
+                    </Pins/links/pinL/pinL_shaft>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/legR/outerR>,
+                    </Pins/links/pinR/pinR_shaft>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.028, 0.01, 0.04)
+                double3 xformOp:translate = (0.093, 0.18, 0.025)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+        }
+
+        def Xform "slotR" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0, 0)
+            float3 physics:diagonalInertia = (0.000001, 0.000001, 0.000001)
+            float physics:mass = 0.01
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.12, 0.15, 0.31499999999999995)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Xform "instrument" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0.0308, 0.06)
+            float3 physics:diagonalInertia = (0.008, 0.005, 0.008)
+            float physics:mass = 2.2
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.16499999999999998, -0.03, 0.33499999999999996)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cube "inst_base" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Pins/materials/inst_base>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/pinL/pinL_shaft>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/pinR/pinR_shaft>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.12, 0.17, 0.01)
+                double3 xformOp:translate = (0, 0, 0.005)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "inst_body" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Pins/materials/inst_body>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/pinL/pinL_shaft>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/pinR/pinR_shaft>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.93, 0.62, 0.1)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.104, 0.16, 0.096)
+                double3 xformOp:translate = (0, 0, 0.058)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cylinder "inst_lens" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.02
+                rel material:binding:physics = </Pins/materials/inst_lens>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/pinL/pinL_shaft>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/pinR/pinR_shaft>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.02
+                quatd xformOp:orient = (0.7071067811865475, 0, 0.7071067811865475, 0)
+                double3 xformOp:translate = (-0.06, -0.03, 0.07)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cube "inst_screen" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Pins/materials/inst_screen>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/pinL/pinL_shaft>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/pinR/pinR_shaft>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.15, 0.3, 0.35)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.002, 0.06, 0.04)
+                double3 xformOp:translate = (-0.0525, 0.035, 0.07)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "inst_handle" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Pins/materials/inst_handle>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/pinL/pinL_shaft>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/pinR/pinR_shaft>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.02, 0.1, 0.008)
+                double3 xformOp:translate = (0, 0, 0.11)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+        }
+
+        def Xform "innerL" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (-0.0003506964, 0, 0.89502037)
+            float3 physics:diagonalInertia = (0.0023700693, 0.0023690104, 0.00016680313)
+            float physics:mass = 0.32969788
+            quatf physics:principalAxes = (0.7071051, -0.0015517018, -0.0015517018, 0.7071051)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.12, -0.15, -0.8)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cube "innerL_tube"
+            {
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.03, 0.03, 0.249)
+                double3 xformOp:translate = (0, 0, 0.9305)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "innerL_foot" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Pins/materials/innerL_foot>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/legL/outerL>,
+                    </Pins/links/pinL/pinL_shaft>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/pinR/pinR_shaft>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.09, 0.09, 0.012)
+                double3 xformOp:translate = (0, 0, 0.806)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cylinder "g54"
+            {
+                uniform token axis = "Z"
+                double height = 0.0004
+                color3f[] primvars:displayColor = [(0.05, 0.05, 0.05)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.00425
+                quatd xformOp:orient = (0.7071067811865475, 0, 0.7071067811865475, 0)
+                double3 xformOp:translate = (-0.0151, 0, 0.945)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cylinder "g55"
+            {
+                uniform token axis = "Z"
+                double height = 0.0004
+                color3f[] primvars:displayColor = [(0.05, 0.05, 0.05)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.00425
+                quatd xformOp:orient = (0.7071067811865475, 0, 0.7071067811865475, 0)
+                double3 xformOp:translate = (-0.0151, 0, 0.97)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cylinder "g56"
+            {
+                uniform token axis = "Z"
+                double height = 0.0004
+                color3f[] primvars:displayColor = [(0.05, 0.05, 0.05)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.00425
+                quatd xformOp:orient = (0.7071067811865475, 0, 0.7071067811865475, 0)
+                double3 xformOp:translate = (-0.0151, 0, 0.995)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cylinder "g57"
+            {
+                uniform token axis = "Z"
+                double height = 0.0004
+                color3f[] primvars:displayColor = [(0.05, 0.05, 0.05)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.00425
+                quatd xformOp:orient = (0.7071067811865475, 0, 0.7071067811865475, 0)
+                double3 xformOp:translate = (-0.0151, 0, 1.02)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cylinder "g58"
+            {
+                uniform token axis = "Z"
+                double height = 0.0004
+                color3f[] primvars:displayColor = [(0.05, 0.05, 0.05)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.00425
+                quatd xformOp:orient = (0.7071067811865475, 0, 0.7071067811865475, 0)
+                double3 xformOp:translate = (-0.0151, 0, 1.045)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cube "g59" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Pins/materials/g59>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/plate/plate_geom>,
+                    </Pins/links/plate/handle_L>,
+                    </Pins/links/plate/g42>,
+                    </Pins/links/plate/g43>,
+                    </Pins/links/plate/handle_R>,
+                    </Pins/links/plate/g45>,
+                    </Pins/links/plate/g46>,
+                    </Pins/links/instrument/inst_base>,
+                    </Pins/links/instrument/inst_body>,
+                    </Pins/links/instrument/inst_lens>,
+                    </Pins/links/instrument/inst_screen>,
+                    </Pins/links/instrument/inst_handle>,
+                    </Pins/links/innerL/innerL_foot>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/legL/outerL>,
+                    </Pins/links/knobbL/knobL>,
+                    </Pins/links/innerR/innerR_foot>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/legR/outerR>,
+                    </Pins/links/knobbR/knobR>,
+                    </Pins/links/step_block/step_block_geom>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0, 0, 0)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.0025, 0.0085, 0.03575)
+                double3 xformOp:translate = (-0.01375, 0, 0.922875)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "g60" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Pins/materials/g60>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/plate/plate_geom>,
+                    </Pins/links/plate/handle_L>,
+                    </Pins/links/plate/g42>,
+                    </Pins/links/plate/g43>,
+                    </Pins/links/plate/handle_R>,
+                    </Pins/links/plate/g45>,
+                    </Pins/links/plate/g46>,
+                    </Pins/links/instrument/inst_base>,
+                    </Pins/links/instrument/inst_body>,
+                    </Pins/links/instrument/inst_lens>,
+                    </Pins/links/instrument/inst_screen>,
+                    </Pins/links/instrument/inst_handle>,
+                    </Pins/links/innerL/innerL_foot>,
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/legL/outerL>,
+                    </Pins/links/knobbL/knobL>,
+                    </Pins/links/innerR/innerR_foot>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/legR/outerR>,
+                    </Pins/links/knobbR/knobR>,
+                    </Pins/links/step_block/step_block_geom>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0, 0, 0)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.0025, 0.0085, 0.0165)
+                double3 xformOp:translate = (-0.01375, 0, 0.9575)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "g61" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Pins/materials/g61>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/plate/plate_geom>,
+                    </Pins/links/plate/handle_L>,
+                    </Pins/links/plate/g42>,
+                    </Pins/links/plate/g43>,
+                    </Pins/links/plate/handle_R>,
+                    </Pins/links/plate/g45>,
+                    </Pins/links/plate/g46>,
+                    </Pins/links/instrument/inst_base>,
+                    </Pins/links/instrument/inst_body>,
+                    </Pins/links/instrument/inst_lens>,
+                    </Pins/links/instrument/inst_screen>,
+                    </Pins/links/instrument/inst_handle>,
+                    </Pins/links/innerL/innerL_foot>,
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/legL/outerL>,
+                    </Pins/links/knobbL/knobL>,
+                    </Pins/links/innerR/innerR_foot>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/legR/outerR>,
+                    </Pins/links/knobbR/knobR>,
+                    </Pins/links/step_block/step_block_geom>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0, 0, 0)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.0025, 0.0085, 0.0165)
+                double3 xformOp:translate = (-0.01375, 0, 0.9825)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "g62" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Pins/materials/g62>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/plate/plate_geom>,
+                    </Pins/links/plate/handle_L>,
+                    </Pins/links/plate/g42>,
+                    </Pins/links/plate/g43>,
+                    </Pins/links/plate/handle_R>,
+                    </Pins/links/plate/g45>,
+                    </Pins/links/plate/g46>,
+                    </Pins/links/instrument/inst_base>,
+                    </Pins/links/instrument/inst_body>,
+                    </Pins/links/instrument/inst_lens>,
+                    </Pins/links/instrument/inst_screen>,
+                    </Pins/links/instrument/inst_handle>,
+                    </Pins/links/innerL/innerL_foot>,
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/legL/outerL>,
+                    </Pins/links/knobbL/knobL>,
+                    </Pins/links/innerR/innerR_foot>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/legR/outerR>,
+                    </Pins/links/knobbR/knobR>,
+                    </Pins/links/step_block/step_block_geom>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0, 0, 0)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.0025, 0.0085, 0.0165)
+                double3 xformOp:translate = (-0.01375, 0, 1.0075)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "g63" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Pins/materials/g63>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/plate/plate_geom>,
+                    </Pins/links/plate/handle_L>,
+                    </Pins/links/plate/g42>,
+                    </Pins/links/plate/g43>,
+                    </Pins/links/plate/handle_R>,
+                    </Pins/links/plate/g45>,
+                    </Pins/links/plate/g46>,
+                    </Pins/links/instrument/inst_base>,
+                    </Pins/links/instrument/inst_body>,
+                    </Pins/links/instrument/inst_lens>,
+                    </Pins/links/instrument/inst_screen>,
+                    </Pins/links/instrument/inst_handle>,
+                    </Pins/links/innerL/innerL_foot>,
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/legL/outerL>,
+                    </Pins/links/knobbL/knobL>,
+                    </Pins/links/innerR/innerR_foot>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/legR/outerR>,
+                    </Pins/links/knobbR/knobR>,
+                    </Pins/links/step_block/step_block_geom>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0, 0, 0)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.0025, 0.0085, 0.0165)
+                double3 xformOp:translate = (-0.01375, 0, 1.0325)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "g64" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Pins/materials/g64>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/plate/plate_geom>,
+                    </Pins/links/plate/handle_L>,
+                    </Pins/links/plate/g42>,
+                    </Pins/links/plate/g43>,
+                    </Pins/links/plate/handle_R>,
+                    </Pins/links/plate/g45>,
+                    </Pins/links/plate/g46>,
+                    </Pins/links/instrument/inst_base>,
+                    </Pins/links/instrument/inst_body>,
+                    </Pins/links/instrument/inst_lens>,
+                    </Pins/links/instrument/inst_screen>,
+                    </Pins/links/instrument/inst_handle>,
+                    </Pins/links/innerL/innerL_foot>,
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/legL/outerL>,
+                    </Pins/links/knobbL/knobL>,
+                    </Pins/links/innerR/innerR_foot>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/legR/outerR>,
+                    </Pins/links/knobbR/knobR>,
+                    </Pins/links/step_block/step_block_geom>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0, 0, 0)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.0025, 0.0085, 0.00575)
+                double3 xformOp:translate = (-0.01375, 0, 1.05212)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "g65" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Pins/materials/g65>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/plate/plate_geom>,
+                    </Pins/links/plate/handle_L>,
+                    </Pins/links/plate/g42>,
+                    </Pins/links/plate/g43>,
+                    </Pins/links/plate/handle_R>,
+                    </Pins/links/plate/g45>,
+                    </Pins/links/plate/g46>,
+                    </Pins/links/instrument/inst_base>,
+                    </Pins/links/instrument/inst_body>,
+                    </Pins/links/instrument/inst_lens>,
+                    </Pins/links/instrument/inst_screen>,
+                    </Pins/links/instrument/inst_handle>,
+                    </Pins/links/innerL/innerL_foot>,
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/legL/outerL>,
+                    </Pins/links/knobbL/knobL>,
+                    </Pins/links/innerR/innerR_foot>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/legR/outerR>,
+                    </Pins/links/knobbR/knobR>,
+                    </Pins/links/step_block/step_block_geom>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0, 0, 0)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.0025, 0.008, 0.15)
+                double3 xformOp:translate = (-0.01375, -0.00825, 0.98)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "g66" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Pins/materials/g66>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/plate/plate_geom>,
+                    </Pins/links/plate/handle_L>,
+                    </Pins/links/plate/g42>,
+                    </Pins/links/plate/g43>,
+                    </Pins/links/plate/handle_R>,
+                    </Pins/links/plate/g45>,
+                    </Pins/links/plate/g46>,
+                    </Pins/links/instrument/inst_base>,
+                    </Pins/links/instrument/inst_body>,
+                    </Pins/links/instrument/inst_lens>,
+                    </Pins/links/instrument/inst_screen>,
+                    </Pins/links/instrument/inst_handle>,
+                    </Pins/links/innerL/innerL_foot>,
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/legL/outerL>,
+                    </Pins/links/knobbL/knobL>,
+                    </Pins/links/innerR/innerR_foot>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/legR/outerR>,
+                    </Pins/links/knobbR/knobR>,
+                    </Pins/links/step_block/step_block_geom>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0, 0, 0)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.0025, 0.008, 0.15)
+                double3 xformOp:translate = (-0.01375, 0.00825, 0.98)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+        }
+
+        def Xform "legL" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0, 0.06)
+            float3 physics:diagonalInertia = (0.0010384166, 0.0010384166, 0.000060166665)
+            float physics:mass = 0.25
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.12, -0.15, 0.1449999999999999)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cube "outerL" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Pins/materials/outerL>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/plate/plate_geom>,
+                    </Pins/links/plate/handle_L>,
+                    </Pins/links/plate/g42>,
+                    </Pins/links/plate/g43>,
+                    </Pins/links/plate/handle_R>,
+                    </Pins/links/plate/g45>,
+                    </Pins/links/plate/g46>,
+                    </Pins/links/innerL/innerL_foot>,
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/pinL/pinL_shaft>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/pinR/pinR_shaft>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.038, 0.038, 0.22)
+                double3 xformOp:translate = (0, 0, 0.06)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "outerL_cap"
+            {
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.042, 0.042, 0.008)
+                double3 xformOp:translate = (0, 0, -0.05)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "blockL"
+            {
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.021, 0.024, 0.024)
+                double3 xformOp:translate = (-0.0295, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cylinder "housingL"
+            {
+                uniform token axis = "Z"
+                double height = 0.032
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.008
+                quatd xformOp:orient = (0.7071067811865475, 0, 0.7071067811865475, 0)
+                double3 xformOp:translate = (-0.056, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cylinder "nutL"
+            {
+                uniform token axis = "Z"
+                double height = 0.005
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.012
+                quatd xformOp:orient = (0.7071067811865475, 0, 0.7071067811865475, 0)
+                double3 xformOp:translate = (-0.0425, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+        }
+
+        def Xform "pinL" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (-0.028166667, 0, 0)
+            float3 physics:diagonalInertia = (0.000013022934, 0.000013022934, 1.946e-7)
+            float physics:mass = 0.03
+            quatf physics:principalAxes = (0.5, 0.5, 0.5, 0.5)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.12, -0.15, 0.1449999999999999)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Capsule "pinL_shaft" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.011999999999999999
+                rel material:binding:physics = </Pins/materials/pinL_shaft>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/plate/plate_geom>,
+                    </Pins/links/plate/handle_L>,
+                    </Pins/links/plate/g42>,
+                    </Pins/links/plate/g43>,
+                    </Pins/links/plate/handle_R>,
+                    </Pins/links/plate/g45>,
+                    </Pins/links/plate/g46>,
+                    </Pins/links/instrument/inst_base>,
+                    </Pins/links/instrument/inst_body>,
+                    </Pins/links/instrument/inst_lens>,
+                    </Pins/links/instrument/inst_screen>,
+                    </Pins/links/instrument/inst_handle>,
+                    </Pins/links/innerL/innerL_foot>,
+                    </Pins/links/legL/outerL>,
+                    </Pins/links/knobbL/knobL>,
+                    </Pins/links/innerR/innerR_foot>,
+                    </Pins/links/legR/outerR>,
+                    </Pins/links/pinR/pinR_shaft>,
+                    </Pins/links/knobbR/knobR>,
+                    </Pins/links/step_block/step_block_geom>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.004
+                quatd xformOp:orient = (0.7071067811865476, 0, -0.7071067811865475, 0)
+                double3 xformOp:translate = (-0.016, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Capsule "pinL_rod"
+            {
+                uniform token axis = "Z"
+                double height = 0.061000000000000006
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.003
+                quatd xformOp:orient = (0.7071067811865476, 0, -0.7071067811865475, 0)
+                double3 xformOp:translate = (-0.052500000000000005, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+        }
+
+        def Xform "knobbL" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0, 0)
+            float3 physics:diagonalInertia = (0.000001565, 0.000001565, 0.00000121)
+            float physics:mass = 0.02
+            quatf physics:principalAxes = (0.70710677, 0, 0.70710677, 0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.024999999999999994, -0.15, 0.1449999999999999)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cylinder "knobL" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.024
+                rel material:binding:physics = </Pins/materials/knobL>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/pinL/pinL_shaft>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/pinR/pinR_shaft>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.85, 0.1, 0.1)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.011
+                quatd xformOp:orient = (0.7071067811865475, 0, 0.7071067811865475, 0)
+                double3 xformOp:translate = (0, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cube "knobL_mark"
+            {
+                color3f[] primvars:displayColor = [(0.95, 0.95, 0.95)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.0006, 0.003, 0.008)
+                double3 xformOp:translate = (-0.0121, 0, 0.006)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "knobL_lug"
+            {
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.003, 0.003, 0.003)
+                double3 xformOp:translate = (0.0135, 0, 0.0095)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+        }
+
+        def Xform "innerR" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (-0.0003506964, 0, 0.89502037)
+            float3 physics:diagonalInertia = (0.0023700693, 0.0023690104, 0.00016680313)
+            float physics:mass = 0.32969788
+            quatf physics:principalAxes = (0.7071051, -0.0015517018, -0.0015517018, 0.7071051)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.12, 0.15, -0.8)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cube "innerR_tube"
+            {
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.03, 0.03, 0.249)
+                double3 xformOp:translate = (0, 0, 0.9305)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "innerR_foot" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Pins/materials/innerR_foot>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/pinL/pinL_shaft>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/legR/outerR>,
+                    </Pins/links/pinR/pinR_shaft>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.09, 0.09, 0.012)
+                double3 xformOp:translate = (0, 0, 0.806)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cylinder "g79"
+            {
+                uniform token axis = "Z"
+                double height = 0.0004
+                color3f[] primvars:displayColor = [(0.05, 0.05, 0.05)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.00425
+                quatd xformOp:orient = (0.7071067811865475, 0, 0.7071067811865475, 0)
+                double3 xformOp:translate = (-0.0151, 0, 0.945)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cylinder "g80"
+            {
+                uniform token axis = "Z"
+                double height = 0.0004
+                color3f[] primvars:displayColor = [(0.05, 0.05, 0.05)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.00425
+                quatd xformOp:orient = (0.7071067811865475, 0, 0.7071067811865475, 0)
+                double3 xformOp:translate = (-0.0151, 0, 0.97)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cylinder "g81"
+            {
+                uniform token axis = "Z"
+                double height = 0.0004
+                color3f[] primvars:displayColor = [(0.05, 0.05, 0.05)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.00425
+                quatd xformOp:orient = (0.7071067811865475, 0, 0.7071067811865475, 0)
+                double3 xformOp:translate = (-0.0151, 0, 0.995)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cylinder "g82"
+            {
+                uniform token axis = "Z"
+                double height = 0.0004
+                color3f[] primvars:displayColor = [(0.05, 0.05, 0.05)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.00425
+                quatd xformOp:orient = (0.7071067811865475, 0, 0.7071067811865475, 0)
+                double3 xformOp:translate = (-0.0151, 0, 1.02)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cylinder "g83"
+            {
+                uniform token axis = "Z"
+                double height = 0.0004
+                color3f[] primvars:displayColor = [(0.05, 0.05, 0.05)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.00425
+                quatd xformOp:orient = (0.7071067811865475, 0, 0.7071067811865475, 0)
+                double3 xformOp:translate = (-0.0151, 0, 1.045)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cube "g84" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Pins/materials/g84>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/plate/plate_geom>,
+                    </Pins/links/plate/handle_L>,
+                    </Pins/links/plate/g42>,
+                    </Pins/links/plate/g43>,
+                    </Pins/links/plate/handle_R>,
+                    </Pins/links/plate/g45>,
+                    </Pins/links/plate/g46>,
+                    </Pins/links/instrument/inst_base>,
+                    </Pins/links/instrument/inst_body>,
+                    </Pins/links/instrument/inst_lens>,
+                    </Pins/links/instrument/inst_screen>,
+                    </Pins/links/instrument/inst_handle>,
+                    </Pins/links/innerL/innerL_foot>,
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/legL/outerL>,
+                    </Pins/links/knobbL/knobL>,
+                    </Pins/links/innerR/innerR_foot>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/legR/outerR>,
+                    </Pins/links/knobbR/knobR>,
+                    </Pins/links/step_block/step_block_geom>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0, 0, 0)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.0025, 0.0085, 0.03575)
+                double3 xformOp:translate = (-0.01375, 0, 0.922875)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "g85" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Pins/materials/g85>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/plate/plate_geom>,
+                    </Pins/links/plate/handle_L>,
+                    </Pins/links/plate/g42>,
+                    </Pins/links/plate/g43>,
+                    </Pins/links/plate/handle_R>,
+                    </Pins/links/plate/g45>,
+                    </Pins/links/plate/g46>,
+                    </Pins/links/instrument/inst_base>,
+                    </Pins/links/instrument/inst_body>,
+                    </Pins/links/instrument/inst_lens>,
+                    </Pins/links/instrument/inst_screen>,
+                    </Pins/links/instrument/inst_handle>,
+                    </Pins/links/innerL/innerL_foot>,
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/legL/outerL>,
+                    </Pins/links/knobbL/knobL>,
+                    </Pins/links/innerR/innerR_foot>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/legR/outerR>,
+                    </Pins/links/knobbR/knobR>,
+                    </Pins/links/step_block/step_block_geom>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0, 0, 0)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.0025, 0.0085, 0.0165)
+                double3 xformOp:translate = (-0.01375, 0, 0.9575)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "g86" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Pins/materials/g86>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/plate/plate_geom>,
+                    </Pins/links/plate/handle_L>,
+                    </Pins/links/plate/g42>,
+                    </Pins/links/plate/g43>,
+                    </Pins/links/plate/handle_R>,
+                    </Pins/links/plate/g45>,
+                    </Pins/links/plate/g46>,
+                    </Pins/links/instrument/inst_base>,
+                    </Pins/links/instrument/inst_body>,
+                    </Pins/links/instrument/inst_lens>,
+                    </Pins/links/instrument/inst_screen>,
+                    </Pins/links/instrument/inst_handle>,
+                    </Pins/links/innerL/innerL_foot>,
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/legL/outerL>,
+                    </Pins/links/knobbL/knobL>,
+                    </Pins/links/innerR/innerR_foot>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/legR/outerR>,
+                    </Pins/links/knobbR/knobR>,
+                    </Pins/links/step_block/step_block_geom>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0, 0, 0)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.0025, 0.0085, 0.0165)
+                double3 xformOp:translate = (-0.01375, 0, 0.9825)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "g87" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Pins/materials/g87>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/plate/plate_geom>,
+                    </Pins/links/plate/handle_L>,
+                    </Pins/links/plate/g42>,
+                    </Pins/links/plate/g43>,
+                    </Pins/links/plate/handle_R>,
+                    </Pins/links/plate/g45>,
+                    </Pins/links/plate/g46>,
+                    </Pins/links/instrument/inst_base>,
+                    </Pins/links/instrument/inst_body>,
+                    </Pins/links/instrument/inst_lens>,
+                    </Pins/links/instrument/inst_screen>,
+                    </Pins/links/instrument/inst_handle>,
+                    </Pins/links/innerL/innerL_foot>,
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/legL/outerL>,
+                    </Pins/links/knobbL/knobL>,
+                    </Pins/links/innerR/innerR_foot>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/legR/outerR>,
+                    </Pins/links/knobbR/knobR>,
+                    </Pins/links/step_block/step_block_geom>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0, 0, 0)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.0025, 0.0085, 0.0165)
+                double3 xformOp:translate = (-0.01375, 0, 1.0075)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "g88" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Pins/materials/g88>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/plate/plate_geom>,
+                    </Pins/links/plate/handle_L>,
+                    </Pins/links/plate/g42>,
+                    </Pins/links/plate/g43>,
+                    </Pins/links/plate/handle_R>,
+                    </Pins/links/plate/g45>,
+                    </Pins/links/plate/g46>,
+                    </Pins/links/instrument/inst_base>,
+                    </Pins/links/instrument/inst_body>,
+                    </Pins/links/instrument/inst_lens>,
+                    </Pins/links/instrument/inst_screen>,
+                    </Pins/links/instrument/inst_handle>,
+                    </Pins/links/innerL/innerL_foot>,
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/legL/outerL>,
+                    </Pins/links/knobbL/knobL>,
+                    </Pins/links/innerR/innerR_foot>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/legR/outerR>,
+                    </Pins/links/knobbR/knobR>,
+                    </Pins/links/step_block/step_block_geom>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0, 0, 0)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.0025, 0.0085, 0.0165)
+                double3 xformOp:translate = (-0.01375, 0, 1.0325)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "g89" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Pins/materials/g89>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/plate/plate_geom>,
+                    </Pins/links/plate/handle_L>,
+                    </Pins/links/plate/g42>,
+                    </Pins/links/plate/g43>,
+                    </Pins/links/plate/handle_R>,
+                    </Pins/links/plate/g45>,
+                    </Pins/links/plate/g46>,
+                    </Pins/links/instrument/inst_base>,
+                    </Pins/links/instrument/inst_body>,
+                    </Pins/links/instrument/inst_lens>,
+                    </Pins/links/instrument/inst_screen>,
+                    </Pins/links/instrument/inst_handle>,
+                    </Pins/links/innerL/innerL_foot>,
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/legL/outerL>,
+                    </Pins/links/knobbL/knobL>,
+                    </Pins/links/innerR/innerR_foot>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/legR/outerR>,
+                    </Pins/links/knobbR/knobR>,
+                    </Pins/links/step_block/step_block_geom>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0, 0, 0)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.0025, 0.0085, 0.00575)
+                double3 xformOp:translate = (-0.01375, 0, 1.05212)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "g90" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Pins/materials/g90>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/plate/plate_geom>,
+                    </Pins/links/plate/handle_L>,
+                    </Pins/links/plate/g42>,
+                    </Pins/links/plate/g43>,
+                    </Pins/links/plate/handle_R>,
+                    </Pins/links/plate/g45>,
+                    </Pins/links/plate/g46>,
+                    </Pins/links/instrument/inst_base>,
+                    </Pins/links/instrument/inst_body>,
+                    </Pins/links/instrument/inst_lens>,
+                    </Pins/links/instrument/inst_screen>,
+                    </Pins/links/instrument/inst_handle>,
+                    </Pins/links/innerL/innerL_foot>,
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/legL/outerL>,
+                    </Pins/links/knobbL/knobL>,
+                    </Pins/links/innerR/innerR_foot>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/legR/outerR>,
+                    </Pins/links/knobbR/knobR>,
+                    </Pins/links/step_block/step_block_geom>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0, 0, 0)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.0025, 0.008, 0.15)
+                double3 xformOp:translate = (-0.01375, -0.00825, 0.98)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "g91" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Pins/materials/g91>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/plate/plate_geom>,
+                    </Pins/links/plate/handle_L>,
+                    </Pins/links/plate/g42>,
+                    </Pins/links/plate/g43>,
+                    </Pins/links/plate/handle_R>,
+                    </Pins/links/plate/g45>,
+                    </Pins/links/plate/g46>,
+                    </Pins/links/instrument/inst_base>,
+                    </Pins/links/instrument/inst_body>,
+                    </Pins/links/instrument/inst_lens>,
+                    </Pins/links/instrument/inst_screen>,
+                    </Pins/links/instrument/inst_handle>,
+                    </Pins/links/innerL/innerL_foot>,
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/legL/outerL>,
+                    </Pins/links/knobbL/knobL>,
+                    </Pins/links/innerR/innerR_foot>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/legR/outerR>,
+                    </Pins/links/knobbR/knobR>,
+                    </Pins/links/step_block/step_block_geom>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0, 0, 0)]
+                float[] primvars:displayOpacity = [0]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.0025, 0.008, 0.15)
+                double3 xformOp:translate = (-0.01375, 0.00825, 0.98)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+        }
+
+        def Xform "legR" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0, 0.06)
+            float3 physics:diagonalInertia = (0.0010384166, 0.0010384166, 0.000060166665)
+            float physics:mass = 0.25
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.12, 0.15, 0.1449999999999999)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cube "outerR" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Pins/materials/outerR>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/plate/plate_geom>,
+                    </Pins/links/plate/handle_L>,
+                    </Pins/links/plate/g42>,
+                    </Pins/links/plate/g43>,
+                    </Pins/links/plate/handle_R>,
+                    </Pins/links/plate/g45>,
+                    </Pins/links/plate/g46>,
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/pinL/pinL_shaft>,
+                    </Pins/links/innerR/innerR_foot>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/pinR/pinR_shaft>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.038, 0.038, 0.22)
+                double3 xformOp:translate = (0, 0, 0.06)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "outerR_cap"
+            {
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.042, 0.042, 0.008)
+                double3 xformOp:translate = (0, 0, -0.05)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "blockR"
+            {
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.021, 0.024, 0.024)
+                double3 xformOp:translate = (-0.0295, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cylinder "housingR"
+            {
+                uniform token axis = "Z"
+                double height = 0.032
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.008
+                quatd xformOp:orient = (0.7071067811865475, 0, 0.7071067811865475, 0)
+                double3 xformOp:translate = (-0.056, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cylinder "nutR"
+            {
+                uniform token axis = "Z"
+                double height = 0.005
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.012
+                quatd xformOp:orient = (0.7071067811865475, 0, 0.7071067811865475, 0)
+                double3 xformOp:translate = (-0.0425, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+        }
+
+        def Xform "pinR" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (-0.028166667, 0, 0)
+            float3 physics:diagonalInertia = (0.000013022934, 0.000013022934, 1.946e-7)
+            float physics:mass = 0.03
+            quatf physics:principalAxes = (0.5, 0.5, 0.5, 0.5)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.12, 0.15, 0.1449999999999999)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Capsule "pinR_shaft" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.011999999999999999
+                rel material:binding:physics = </Pins/materials/pinR_shaft>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/plate/plate_geom>,
+                    </Pins/links/plate/handle_L>,
+                    </Pins/links/plate/g42>,
+                    </Pins/links/plate/g43>,
+                    </Pins/links/plate/handle_R>,
+                    </Pins/links/plate/g45>,
+                    </Pins/links/plate/g46>,
+                    </Pins/links/instrument/inst_base>,
+                    </Pins/links/instrument/inst_body>,
+                    </Pins/links/instrument/inst_lens>,
+                    </Pins/links/instrument/inst_screen>,
+                    </Pins/links/instrument/inst_handle>,
+                    </Pins/links/innerL/innerL_foot>,
+                    </Pins/links/legL/outerL>,
+                    </Pins/links/pinL/pinL_shaft>,
+                    </Pins/links/knobbL/knobL>,
+                    </Pins/links/innerR/innerR_foot>,
+                    </Pins/links/legR/outerR>,
+                    </Pins/links/knobbR/knobR>,
+                    </Pins/links/step_block/step_block_geom>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.004
+                quatd xformOp:orient = (0.7071067811865476, 0, -0.7071067811865475, 0)
+                double3 xformOp:translate = (-0.016, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Capsule "pinR_rod"
+            {
+                uniform token axis = "Z"
+                double height = 0.061000000000000006
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.003
+                quatd xformOp:orient = (0.7071067811865476, 0, -0.7071067811865475, 0)
+                double3 xformOp:translate = (-0.052500000000000005, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+        }
+
+        def Xform "knobbR" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0, 0)
+            float3 physics:diagonalInertia = (0.000001565, 0.000001565, 0.00000121)
+            float physics:mass = 0.02
+            quatf physics:principalAxes = (0.70710677, 0, 0.70710677, 0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.024999999999999994, 0.15, 0.1449999999999999)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cylinder "knobR" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.024
+                rel material:binding:physics = </Pins/materials/knobR>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/pinL/pinL_shaft>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/pinR/pinR_shaft>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.85, 0.1, 0.1)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.011
+                quatd xformOp:orient = (0.7071067811865475, 0, 0.7071067811865475, 0)
+                double3 xformOp:translate = (0, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cube "knobR_mark"
+            {
+                color3f[] primvars:displayColor = [(0.95, 0.95, 0.95)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.0006, 0.003, 0.008)
+                double3 xformOp:translate = (-0.0121, 0, 0.006)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "knobR_lug"
+            {
+                color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.003, 0.003, 0.003)
+                double3 xformOp:translate = (0.0135, 0, 0.0095)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+        }
+
+        def Xform "step_block" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0, 0)
+            float3 physics:diagonalInertia = (0.001014, 0.001014, 0.001728)
+            float physics:mass = 0.72
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.3, -0.48, 0.02499999999999991)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cube "step_block_geom" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Pins/materials/step_block_geom>
+                prepend rel physics:filteredPairs = [
+                    </Pins/links/innerL/g59>,
+                    </Pins/links/innerL/g60>,
+                    </Pins/links/innerL/g61>,
+                    </Pins/links/innerL/g62>,
+                    </Pins/links/innerL/g63>,
+                    </Pins/links/innerL/g64>,
+                    </Pins/links/innerL/g65>,
+                    </Pins/links/innerL/g66>,
+                    </Pins/links/pinL/pinL_shaft>,
+                    </Pins/links/innerR/g84>,
+                    </Pins/links/innerR/g85>,
+                    </Pins/links/innerR/g86>,
+                    </Pins/links/innerR/g87>,
+                    </Pins/links/innerR/g88>,
+                    </Pins/links/innerR/g89>,
+                    </Pins/links/innerR/g90>,
+                    </Pins/links/innerR/g91>,
+                    </Pins/links/pinR/pinR_shaft>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.25, 0.45, 0.3)]
+                float[] primvars:displayOpacity = [1]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.12, 0.12, 0.05)
+                double3 xformOp:translate = (0, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+        }
+    }
+
+    def "materials"
+    {
+        def Material "plate_geom" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.1
+            float physics:restitution = 0
+            float physics:staticFriction = 1.1
+        }
+
+        def Material "handle_L" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.1
+            float physics:restitution = 0
+            float physics:staticFriction = 1.1
+        }
+
+        def Material "g42" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.1
+            float physics:restitution = 0
+            float physics:staticFriction = 1.1
+        }
+
+        def Material "g43" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.1
+            float physics:restitution = 0
+            float physics:staticFriction = 1.1
+        }
+
+        def Material "handle_R" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.1
+            float physics:restitution = 0
+            float physics:staticFriction = 1.1
+        }
+
+        def Material "g45" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.1
+            float physics:restitution = 0
+            float physics:staticFriction = 1.1
+        }
+
+        def Material "g46" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.1
+            float physics:restitution = 0
+            float physics:staticFriction = 1.1
+        }
+
+        def Material "inst_base" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.1
+            float physics:restitution = 0
+            float physics:staticFriction = 1.1
+        }
+
+        def Material "inst_body" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.1
+            float physics:restitution = 0
+            float physics:staticFriction = 1.1
+        }
+
+        def Material "inst_lens" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.1
+            float physics:restitution = 0
+            float physics:staticFriction = 1.1
+        }
+
+        def Material "inst_screen" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.1
+            float physics:restitution = 0
+            float physics:staticFriction = 1.1
+        }
+
+        def Material "inst_handle" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.1
+            float physics:restitution = 0
+            float physics:staticFriction = 1.1
+        }
+
+        def Material "innerL_foot" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.1
+            float physics:restitution = 0
+            float physics:staticFriction = 1.1
+        }
+
+        def Material "g59" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.3
+            float physics:restitution = 0
+            float physics:staticFriction = 0.3
+        }
+
+        def Material "g60" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.3
+            float physics:restitution = 0
+            float physics:staticFriction = 0.3
+        }
+
+        def Material "g61" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.3
+            float physics:restitution = 0
+            float physics:staticFriction = 0.3
+        }
+
+        def Material "g62" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.3
+            float physics:restitution = 0
+            float physics:staticFriction = 0.3
+        }
+
+        def Material "g63" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.3
+            float physics:restitution = 0
+            float physics:staticFriction = 0.3
+        }
+
+        def Material "g64" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.3
+            float physics:restitution = 0
+            float physics:staticFriction = 0.3
+        }
+
+        def Material "g65" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.3
+            float physics:restitution = 0
+            float physics:staticFriction = 0.3
+        }
+
+        def Material "g66" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.3
+            float physics:restitution = 0
+            float physics:staticFriction = 0.3
+        }
+
+        def Material "outerL" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.1
+            float physics:restitution = 0
+            float physics:staticFriction = 1.1
+        }
+
+        def Material "pinL_shaft" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.3
+            float physics:restitution = 0
+            float physics:staticFriction = 0.3
+        }
+
+        def Material "knobL" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.2
+            float physics:restitution = 0
+            float physics:staticFriction = 1.2
+        }
+
+        def Material "innerR_foot" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.1
+            float physics:restitution = 0
+            float physics:staticFriction = 1.1
+        }
+
+        def Material "g84" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.3
+            float physics:restitution = 0
+            float physics:staticFriction = 0.3
+        }
+
+        def Material "g85" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.3
+            float physics:restitution = 0
+            float physics:staticFriction = 0.3
+        }
+
+        def Material "g86" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.3
+            float physics:restitution = 0
+            float physics:staticFriction = 0.3
+        }
+
+        def Material "g87" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.3
+            float physics:restitution = 0
+            float physics:staticFriction = 0.3
+        }
+
+        def Material "g88" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.3
+            float physics:restitution = 0
+            float physics:staticFriction = 0.3
+        }
+
+        def Material "g89" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.3
+            float physics:restitution = 0
+            float physics:staticFriction = 0.3
+        }
+
+        def Material "g90" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.3
+            float physics:restitution = 0
+            float physics:staticFriction = 0.3
+        }
+
+        def Material "g91" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.3
+            float physics:restitution = 0
+            float physics:staticFriction = 0.3
+        }
+
+        def Material "outerR" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.1
+            float physics:restitution = 0
+            float physics:staticFriction = 1.1
+        }
+
+        def Material "pinR_shaft" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.3
+            float physics:restitution = 0
+            float physics:staticFriction = 0.3
+        }
+
+        def Material "knobR" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.2
+            float physics:restitution = 0
+            float physics:staticFriction = 1.2
+        }
+
+        def Material "step_block_geom" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.1
+            float physics:restitution = 0
+            float physics:staticFriction = 1.1
+        }
+    }
+
+    def "joints"
+    {
+        def PhysicsFixedJoint "world_fixed"
+        {
+            rel physics:body1 = </Pins/links/root>
+            point3f physics:localPos0 = (0, 0, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+        }
+
+        def PhysicsPrismaticJoint "plate_y" (
+            prepend apiSchemas = ["PhysicsDriveAPI:linear", "PhysxJointAPI", "PhysxJointAxisAPI:linear"]
+        )
+        {
+            float drive:linear:physics:damping = 2
+            float drive:linear:physics:stiffness = 0
+            float drive:linear:physics:targetPosition = 0
+            uniform token drive:linear:physics:type = "force"
+            uniform token physics:axis = "Y"
+            rel physics:body0 = </Pins/links/root>
+            rel physics:body1 = </Pins/links/plate_y_frame>
+            point3f physics:localPos0 = (0.18, 0, 0.325)
+            point3f physics:localPos1 = (0, 0, 0)
+            float physics:lowerLimit = -0.03
+            float physics:upperLimit = 0.03
+            float physxJoint:armature = 0.02
+            float physxJointAxis:linear:dynamicFrictionEffort = 0
+            float physxJointAxis:linear:staticFrictionEffort = 0
+        }
+
+        def PhysicsPrismaticJoint "plate_z" (
+            prepend apiSchemas = ["PhysicsDriveAPI:linear", "PhysxJointAPI", "PhysxJointAxisAPI:linear"]
+        )
+        {
+            float drive:linear:physics:damping = 2
+            float drive:linear:physics:stiffness = 0
+            float drive:linear:physics:targetPosition = 0
+            uniform token drive:linear:physics:type = "force"
+            uniform token physics:axis = "Z"
+            rel physics:body0 = </Pins/links/plate_y_frame>
+            rel physics:body1 = </Pins/links/plate_z_frame>
+            point3f physics:localPos0 = (0, 0, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            float physxJoint:armature = 0.02
+            float physxJointAxis:linear:dynamicFrictionEffort = 0
+            float physxJointAxis:linear:staticFrictionEffort = 0
+        }
+
+        def PhysicsRevoluteJoint "plate_roll" (
+            prepend apiSchemas = ["PhysicsDriveAPI:angular", "PhysxJointAPI", "PhysxJointAxisAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0.008726646
+            float drive:angular:physics:stiffness = 0
+            float drive:angular:physics:targetPosition = 0
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </Pins/links/plate_z_frame>
+            rel physics:body1 = </Pins/links/plate>
+            point3f physics:localPos0 = (0, 0, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            float physics:lowerLimit = -28.64789
+            float physics:upperLimit = 28.64789
+            float physxJoint:armature = 0.02
+            float physxJointAxis:angular:dynamicFrictionEffort = 0
+            float physxJointAxis:angular:staticFrictionEffort = 0
+        }
+
+        def PhysicsPrismaticJoint "slotR_y" (
+            prepend apiSchemas = ["PhysicsDriveAPI:linear", "PhysxJointAPI", "PhysxJointAxisAPI:linear"]
+        )
+        {
+            float drive:linear:physics:damping = 2
+            float drive:linear:physics:stiffness = 0
+            float drive:linear:physics:targetPosition = 0
+            uniform token drive:linear:physics:type = "force"
+            uniform token physics:axis = "Y"
+            rel physics:body0 = </Pins/links/plate>
+            rel physics:body1 = </Pins/links/slotR>
+            point3f physics:localPos0 = (-0.06, 0.15, -0.01)
+            point3f physics:localPos1 = (0, 0, 0)
+            float physics:lowerLimit = -0.012
+            float physics:upperLimit = 0.012
+            float physxJoint:armature = 0.02
+            float physxJointAxis:linear:dynamicFrictionEffort = 0
+            float physxJointAxis:linear:staticFrictionEffort = 0
+        }
+
+        def PhysicsFixedJoint "instrument_fixed"
+        {
+            rel physics:body0 = </Pins/links/plate>
+            rel physics:body1 = </Pins/links/instrument>
+            point3f physics:localPos0 = (-0.015, -0.03, 0.01)
+            point3f physics:localPos1 = (0, 0, 0)
+        }
+
+        def PhysicsFixedJoint "innerL_fixed"
+        {
+            rel physics:body0 = </Pins/links/root>
+            rel physics:body1 = </Pins/links/innerL>
+            point3f physics:localPos0 = (0.12, -0.15, -0.8)
+            point3f physics:localPos1 = (0, 0, 0)
+        }
+
+        def PhysicsPrismaticJoint "legL_z" (
+            prepend apiSchemas = ["PhysicsDriveAPI:linear", "PhysxJointAPI", "PhysxJointAxisAPI:linear"]
+        )
+        {
+            float drive:linear:physics:damping = 4
+            float drive:linear:physics:stiffness = 0
+            float drive:linear:physics:targetPosition = 0
+            uniform token drive:linear:physics:type = "force"
+            uniform token physics:axis = "Z"
+            rel physics:body0 = </Pins/links/root>
+            rel physics:body1 = </Pins/links/legL>
+            point3f physics:localPos0 = (0.12, -0.15, 0.145)
+            point3f physics:localPos1 = (0, 0, 0)
+            float physics:lowerLimit = -0.05
+            float physics:upperLimit = 0.13
+            float physxJoint:armature = 0.02
+            float physxJointAxis:linear:dynamicFrictionEffort = 1
+            float physxJointAxis:linear:staticFrictionEffort = 1
+        }
+
+        def PhysicsPrismaticJoint "pinL_x" (
+            prepend apiSchemas = ["PhysicsDriveAPI:linear", "PhysxJointAPI", "PhysxJointAxisAPI:linear"]
+        )
+        {
+            float drive:linear:physics:damping = 0.5
+            float drive:linear:physics:stiffness = 1100
+            float drive:linear:physics:targetPosition = 0.008181818
+            uniform token drive:linear:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </Pins/links/legL>
+            rel physics:body1 = </Pins/links/pinL>
+            point3f physics:localPos0 = (0, 0, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            float physics:lowerLimit = -0.012
+            float physics:upperLimit = 0
+            float physxJoint:armature = 0.002
+            float physxJointAxis:linear:dynamicFrictionEffort = 0
+            float physxJointAxis:linear:staticFrictionEffort = 0
+        }
+
+        def PhysicsRevoluteJoint "knobL_rot" (
+            prepend apiSchemas = ["PhysicsDriveAPI:angular", "PhysxJointAPI", "PhysxJointAxisAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0.000034906585
+            float drive:angular:physics:stiffness = 0
+            float drive:angular:physics:targetPosition = 0
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </Pins/links/pinL>
+            rel physics:body1 = </Pins/links/knobbL>
+            point3f physics:localPos0 = (-0.095, 0, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 91.67325
+            float physxJoint:armature = 0.02
+            float physxJointAxis:angular:dynamicFrictionEffort = 0.03
+            float physxJointAxis:angular:staticFrictionEffort = 0.03
+        }
+
+        def PhysicsFixedJoint "innerR_fixed"
+        {
+            rel physics:body0 = </Pins/links/root>
+            rel physics:body1 = </Pins/links/innerR>
+            point3f physics:localPos0 = (0.12, 0.15, -0.8)
+            point3f physics:localPos1 = (0, 0, 0)
+        }
+
+        def PhysicsPrismaticJoint "legR_z" (
+            prepend apiSchemas = ["PhysicsDriveAPI:linear", "PhysxJointAPI", "PhysxJointAxisAPI:linear"]
+        )
+        {
+            float drive:linear:physics:damping = 60
+            float drive:linear:physics:stiffness = 38.733334
+            float drive:linear:physics:targetPosition = 0.825
+            uniform token drive:linear:physics:type = "force"
+            uniform token physics:axis = "Z"
+            rel physics:body0 = </Pins/links/root>
+            rel physics:body1 = </Pins/links/legR>
+            point3f physics:localPos0 = (0.12, 0.15, 0.145)
+            point3f physics:localPos1 = (0, 0, 0)
+            float physics:lowerLimit = -0.05
+            float physics:upperLimit = 0.13
+            float physxJoint:armature = 0.02
+            float physxJointAxis:linear:dynamicFrictionEffort = 1
+            float physxJointAxis:linear:staticFrictionEffort = 1
+        }
+
+        def PhysicsPrismaticJoint "pinR_x" (
+            prepend apiSchemas = ["PhysicsDriveAPI:linear", "PhysxJointAPI", "PhysxJointAxisAPI:linear"]
+        )
+        {
+            float drive:linear:physics:damping = 0.5
+            float drive:linear:physics:stiffness = 1100
+            float drive:linear:physics:targetPosition = 0.008181818
+            uniform token drive:linear:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </Pins/links/legR>
+            rel physics:body1 = </Pins/links/pinR>
+            point3f physics:localPos0 = (0, 0, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            float physics:lowerLimit = -0.012
+            float physics:upperLimit = 0
+            float physxJoint:armature = 0.002
+            float physxJointAxis:linear:dynamicFrictionEffort = 0
+            float physxJointAxis:linear:staticFrictionEffort = 0
+        }
+
+        def PhysicsRevoluteJoint "knobR_rot" (
+            prepend apiSchemas = ["PhysicsDriveAPI:angular", "PhysxJointAPI", "PhysxJointAxisAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0.000034906585
+            float drive:angular:physics:stiffness = 0
+            float drive:angular:physics:targetPosition = 0
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </Pins/links/pinR>
+            rel physics:body1 = </Pins/links/knobbR>
+            point3f physics:localPos0 = (-0.095, 0, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 91.67325
+            float physxJoint:armature = 0.02
+            float physxJointAxis:angular:dynamicFrictionEffort = 0.03
+            float physxJointAxis:angular:staticFrictionEffort = 0.03
+        }
+
+        def PhysicsFixedJoint "step_block_fixed"
+        {
+            rel physics:body0 = </Pins/links/root>
+            rel physics:body1 = </Pins/links/step_block>
+            point3f physics:localPos0 = (0.3, -0.48, 0.025)
+            point3f physics:localPos1 = (0, 0, 0)
+        }
+
+        def PhysicsSphericalJoint "joinL"
+        {
+            rel physics:body0 = </Pins/links/plate>
+            rel physics:body1 = </Pins/links/legL>
+            uniform bool physics:excludeFromArticulation = 1
+            point3f physics:localPos0 = (-0.06, -0.15, -0.01)
+            point3f physics:localPos1 = (0, 0, 0.17)
+        }
+
+        def PhysicsSphericalJoint "joinR"
+        {
+            rel physics:body0 = </Pins/links/slotR>
+            rel physics:body1 = </Pins/links/legR>
+            uniform bool physics:excludeFromArticulation = 1
+            point3f physics:localPos0 = (0, 0, 0)
+            point3f physics:localPos1 = (0, 0, 0.17)
+        }
+    }
+}
+

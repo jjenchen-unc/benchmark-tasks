@@ -1,0 +1,146 @@
+{
+  "UTC": "2026-11-11T14:39:52.380840+00:00",
+  "reviewer": "ROOT",
+  "approved": true,
+  "source_fingerprint": "6ca25a60cac2458a6088ad04b450adfc2a87429040b46a120844d9d1829b6f92",
+  "reference_sha256": "b00ca1b46b20a9580179893937d2dbbbbca36da2071f01f41ddf0efee0630812",
+  "channels": {
+    "clock": {
+      "approved": true,
+      "evidence_sha256": "00609b10fccca8c8afc78eaa132870c0a645776c96cd0d6107247fc0ada613da",
+      "evidence": [
+        {
+          "artifact": "ROOT-independent-physical-channels-review.json",
+          "sha256": "7b4e885c099fc2051a9ccd9e31571ae8752e13996949b4ac6fb67eca1e78e72b"
+        },
+        {
+          "artifact": "ROOT-independent-native-History-review.json",
+          "sha256": "503b2ebc2fd733f02ac04e85550990178925a2347aa8ee7c6234030c09a01ef0"
+        }
+      ],
+      "basis": "All68050native2ms indexes/time, primarycounter+25steps/control independentlymatch; actualget_physics_dt checked byobserver."
+    },
+    "joint_state": {
+      "approved": true,
+      "evidence_sha256": "7c2ccaf08cb2bb4a0b5b171d0d3f5e03b35a30f67eccc5056d6f327a09bc50ca",
+      "evidence": [
+        {
+          "artifact": "ROOT-independent-physical-channels-review.json",
+          "sha256": "7b4e885c099fc2051a9ccd9e31571ae8752e13996949b4ac6fb67eca1e78e72b"
+        }
+      ],
+      "basis": "Actual10DOF names/positions/vel match59,831backend snapshots; actualSDKFK max.506um."
+    },
+    "robot_contacts": {
+      "approved": true,
+      "evidence_sha256": "7c2ccaf08cb2bb4a0b5b171d0d3f5e03b35a30f67eccc5056d6f327a09bc50ca",
+      "evidence": [
+        {
+          "artifact": "ROOT-independent-physical-channels-review.json",
+          "sha256": "7b4e885c099fc2051a9ccd9e31571ae8752e13996949b4ac6fb67eca1e78e72b"
+        }
+      ],
+      "basis": "All68050 inverseprimary rows agree with original namedstand-contact predicate;59,797 positive rows;last1224 no contact to ANYPinsactor."
+    },
+    "wrist_force": {
+      "approved": true,
+      "evidence_sha256": "7cb86fcd2b7fd4cdcfda8c913591a239c817af4dd2c8fb3d5056ca0a7f0691ea",
+      "evidence": [
+        {
+          "artifact": "ROOT-independent-physical-channels-review.json",
+          "sha256": "7b4e885c099fc2051a9ccd9e31571ae8752e13996949b4ac6fb67eca1e78e72b"
+        },
+        {
+          "artifact": "ROOT-current-component-independent-review.json",
+          "sha256": "2edc947bcd1b70513d9f42bf21747b41fb61c4162d6ab00e247ad2a6a228529b"
+        }
+      ],
+      "basis": "Independent rawgripper jointwrench norms exact for59,831snapshots; original20Nsafe/100Nabortactualcomponent. Resultantincludesgravity."
+    },
+    "instrument_acceleration": {
+      "approved": true,
+      "evidence_sha256": "674ddbfb923140926a1ef864e46f27a48d3033d1aff10f663c419d86e402581f",
+      "evidence": [
+        {
+          "artifact": "ROOT-independent-native-History-review.json",
+          "sha256": "503b2ebc2fd733f02ac04e85550990178925a2347aa8ee7c6234030c09a01ef0"
+        },
+        {
+          "artifact": "ROOT-current-component-independent-review.json",
+          "sha256": "2edc947bcd1b70513d9f42bf21747b41fb61c4162d6ab00e247ad2a6a228529b"
+        }
+      ],
+      "basis": "COM velocity difference+original5msEMA independentlyrecomputed, original5Ndiagnostic; notspecificforce accelerometer."
+    },
+    "pin_mechanism": {
+      "approved": true,
+      "evidence_sha256": "7cb86fcd2b7fd4cdcfda8c913591a239c817af4dd2c8fb3d5056ca0a7f0691ea",
+      "evidence": [
+        {
+          "artifact": "ROOT-independent-physical-channels-review.json",
+          "sha256": "7b4e885c099fc2051a9ccd9e31571ae8752e13996949b4ac6fb67eca1e78e72b"
+        },
+        {
+          "artifact": "ROOT-current-component-independent-review.json",
+          "sha256": "2edc947bcd1b70513d9f42bf21747b41fb61c4162d6ab00e247ad2a6a228529b"
+        }
+      ],
+      "basis": "All68050passiveprestepfloat32limits exact with correctbegin tick; actual30Npin probes/quarterturnnativecontroller retained."
+    },
+    "total_motor_limits": {
+      "approved": true,
+      "evidence_sha256": "0fb1915b52b260672fba8c9f64684216ae41bd5ba44393d1e1910ab13fad08fc",
+      "evidence": [
+        {
+          "artifact": "left-joint-table.json",
+          "sha256": "6bd3a92df282e9491fbc444f279b9f3f9a7cbcca3032f8d34cbca6d5ffe2596c"
+        },
+        {
+          "artifact": "right-joint-table.json",
+          "sha256": "a9ef744d1d123bde531be5faa679fc79823e749081725dd351197a28ba12b504"
+        },
+        {
+          "artifact": "ROOT-independent-physical-channels-review.json",
+          "sha256": "7b4e885c099fc2051a9ccd9e31571ae8752e13996949b4ac6fb67eca1e78e72b"
+        }
+      ],
+      "basis": "Readback27/7Nm,40Nfingers. Frozenadapter gravity entersnativecapped implicitdrive, zeroexternalarmeffort. No perstepappliedeffortmeasurement claim."
+    },
+    "reset": {
+      "approved": true,
+      "evidence_sha256": "dceec604423dcd763cf33a57f798c11f0ec369f7b146c820d9e012b9678d3728",
+      "evidence": [
+        {
+          "artifact": "ROOT-current-component-independent-review.json",
+          "sha256": "2edc947bcd1b70513d9f42bf21747b41fb61c4162d6ab00e247ad2a6a228529b"
+        },
+        {
+          "artifact": "identity.json",
+          "sha256": "236eb2cd213ad51ddb0140f29f3734e6d02cd3c625b9d031ca0247fae9dbfed2"
+        },
+        {
+          "artifact": "ROOT-independent-physical-channels-review.json",
+          "sha256": "7b4e885c099fc2051a9ccd9e31571ae8752e13996949b4ac6fb67eca1e78e72b"
+        }
+      ],
+      "basis": "Sevenactualcomponentepisodes+samephysicalsource+current5729consumedhashes; originalfixedcase42+zerojitter. Notmultiseed evidence."
+    }
+  },
+  "scope": "Approval of eight original runtime channels for exactly frozenphysicalsource; credit gate may enable unchanged History scoring in a source-bound portablewrapper.",
+  "original_60N_preserved": true,
+  "original_full_run_public_score": 0,
+  "original_full_run_diagnostic_score": 1,
+  "submission_ready": false,
+  "model_approved": false,
+  "remaining": [
+    "portable runtime real-interface review",
+    "actual continuousDream run",
+    "readable actual media",
+    "fresh ownership/importance/publication gates"
+  ],
+  "limitations": [
+    "Rigidmechanism approximations disclosed in source draft; no real-hardware calibration claim.",
+    "Approval does not retroactively change original publicscore0 to1.",
+    "New physicalsource/camera/wrapper/termination changes require affected verification."
+  ]
+}

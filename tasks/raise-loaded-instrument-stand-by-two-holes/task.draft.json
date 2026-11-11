@@ -1,0 +1,30 @@
+{
+ "status": "development draft; actual runtime unverified; not for publication",
+ "rubric_version": "robocurve-official-v2.1",
+ "title": "Raise a loaded two-leg instrument stand by two holes",
+ "category": "Impact on jobs",
+ "keywords": [
+  "bimanual",
+  "loaded stand",
+  "pull pin",
+  "gas spring",
+  "safe reindexing"
+ ],
+ "instruction": "Raise both legs of the instrument stand by two 25 mm holes, from hole 1 to hole 3. Seat both pull pins, make the plate level within 3 mm, and release all robot contact for 1 second. Keep instrument acceleration below 3 g after a 5 ms filter and downward leg speed at most 0.2 m/s. Keep wrists below 60 N; over 80 N for 0.1 s aborts.",
+ "context": "Reindex a delicate loaded instrument while supporting the plate and controlling unequal gas-assisted and pawl-equipped telescoping legs.",
+ "setup": "One fixed physical source-42 case. Generated aluminium instrument stand: fixed inner legs 300 mm apart, 25 mm hole pitch, 38 mm sliding outer legs 250 g each, steel 8 mm pins with red 22x24 mm polymer knobs (50 g pin assemblies), 1 kg 160x380x20 mm plate with two capsule handles, bolted 2.2 kg instrument. Right leg gas assist29.05 N and left leg lift-cleared safety pawl. Green wooden120x120x50 mm block at(0.07,-0.15,0.7725)m. Complete63-shape dimensions/materials/inertias/neutral poses and joints in fixture.json; reset transforms in kit.initial(). Task rigid transform Rz(-90deg)+(0.55,0.15,-0.0525)m from native layout. YAM bases at(0.32,+/-0.305,1.15)m on220x240x400 mm bolted pedestal approximations, centres(0.32,+/-0.305,0.9475)m. SDK station table top0.7475 m. Added supports preserve all task-object relative geometry; arm/fixture path clearance remains unverified.",
+ "scoring": "Terminal1.0: both leg slides within1.5 mm of75 mm, both pins withdrawn less than3 mm, leg-height difference<=3 mm, no robot/stand contact continuously for1 s. Terminal0.5: same predicate at50 mm (hole2). Otherwise0. Permanent zero after any3g filtered jolt, downward leg speed>0.2m/s, nonfinite state or wrist>80N continuously0.1s. Observe every2 ms. All actual credit currently disabled pending runtime channel validation. Diagnostic-only synthetic tests are not real task scores.",
+ "run_limit": "4,572 genuine14D controls at20Hz;228.6 simulated seconds;25 physics substeps of2ms per control.",
+ "reset_notes": "All harness seeds/episodeIDs use the declared fixed source42 case; jitter0. Reset restores all10 joints/passive stops and history before settling. Pins seat at source signed0.25 mm offsets. Full reset/commands inREADME. No consumables.",
+ "fidelity": "Rigid source primitives, source masses, square hidden pin-hole collision strips, conditional passive pawl/rest stops and gas spring. Serial passive articulation and two excluded-loop spherical joints replace native global plate constraints. Three additional1e-6kg numeric frame masses. YAM actual27/7Nm total includinggravity and40N finger ceilings are below native Panda declared80/12Nm; loaded feasibility is unverified. Source estimate claims do not establish physical calibration.",
+ "scores": "Dream-1: not run. Native reference: terminal success observed in a Root-allocated diagnostic under the original 60 N limit, but public credit channels are not approved, so no credited score is claimed (public 0 pending).",
+ "media": null,
+ "not_final_task_json": true,
+ "publication_blockers": [
+  "actual Arena physics/mechanism/safety/reset/clearance checks",
+  "genuine robot full-goal run under actual limits",
+  "actual Dream-1 run",
+  "real scored media and IDs",
+  "fresh primary ownership and publication comparison"
+ ]
+}

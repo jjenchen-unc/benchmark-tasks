@@ -1,0 +1,42 @@
+{
+  "representative": "QP-T1/S/source42",
+  "source_goals_preserved": [
+    {
+      "goal_id": "QP-T1",
+      "settings": [
+        "S",
+        "T-new"
+      ],
+      "instruction": "An instrument stand stands on the table: a top plate carrying a bolted instrument, on two telescoping legs (left leg and right leg, 0.3 m apart). Each leg is locked at its height by a pull-knob pin (red knob) through a row of holes 2.5 cm apart in the inner tube. Pulling a knob out frees that leg; letting the knob go returns the pin into the hole it faces, unless the pulled knob is turned a quarter turn, which keeps the pin out until the knob is turned back. The top plate has a handle above each leg. A green block 5 cm tall is on the table. Robot: two Panda arms with parallel grippers; the left arm reaches the knobs, the right arm reaches the plate handles. Each finger squeezes with at most 40 N. Joint torque limits 80 N m on joints 1-4, 12 N m on joints 5-7. Keep the wrist force below 60 N; a wrist force above 80 N for 0.1 s aborts the episode. The plate hand may need a wrist force guard up to about 50 N. Tool workspace for both arms: x from -0.3 to 0.5 m, y from -0.5 to 0.5 m, z from 0.825 to 1.38 m (table top at z = 0.8 m). Hand orientation is commanded as roll/pitch/yaw (rpy_deg, fixed-axis XYZ, as in the bottle task), so a hand can roll about a knob. The instrument is delicate: its acceleration must stay below 3 g and the plate must never move down faster than 0.2 m/s. Goal: raise the stand by two holes on both legs (plate two holes higher than now). Both pins must be back in their holes and the plate level within 3 mm; then let go of everything and keep both hands off the stand for 1 s."
+    },
+    {
+      "goal_id": "QP-T2",
+      "settings": [
+        "S"
+      ],
+      "instruction": "An instrument stand stands on the table: a top plate carrying a bolted instrument, on two telescoping legs (left leg and right leg, 0.3 m apart). Each leg is locked at its height by a pull-knob pin (red knob) through a row of holes 2.5 cm apart in the inner tube. Pulling a knob out frees that leg; letting the knob go returns the pin into the hole it faces, unless the pulled knob is turned a quarter turn, which keeps the pin out until the knob is turned back. The top plate has a handle above each leg. A green block 5 cm tall is on the table. Robot: two Panda arms with parallel grippers; the left arm reaches the knobs, the right arm reaches the plate handles. Each finger squeezes with at most 40 N. Joint torque limits 80 N m on joints 1-4, 12 N m on joints 5-7. Keep the wrist force below 60 N; a wrist force above 80 N for 0.1 s aborts the episode. The plate hand may need a wrist force guard up to about 50 N. Tool workspace for both arms: x from -0.3 to 0.5 m, y from -0.5 to 0.5 m, z from 0.825 to 1.38 m (table top at z = 0.8 m). Hand orientation is commanded as roll/pitch/yaw (rpy_deg, fixed-axis XYZ, as in the bottle task), so a hand can roll about a knob. The instrument is delicate: its acceleration must stay below 3 g and the plate must never move down faster than 0.2 m/s. Goal: lower the stand by two holes on both legs (plate two holes lower than now). Both pins must be back in their holes and the plate level within 3 mm; then let go of everything and keep both hands off the stand for 1 s."
+    },
+    {
+      "goal_id": "QP-T3",
+      "settings": [
+        "S"
+      ],
+      "instruction": "An instrument stand stands on the table: a top plate carrying a bolted instrument, on two telescoping legs (left leg and right leg, 0.3 m apart). Each leg is locked at its height by a pull-knob pin (red knob) through a row of holes 2.5 cm apart in the inner tube. Pulling a knob out frees that leg; letting the knob go returns the pin into the hole it faces, unless the pulled knob is turned a quarter turn, which keeps the pin out until the knob is turned back. The top plate has a handle above each leg. The left leg stands on a green block 5 cm tall, so the plate tilts. Robot: two Panda arms with parallel grippers; the left arm reaches the knobs, the right arm reaches the plate handles. Each finger squeezes with at most 40 N. Joint torque limits 80 N m on joints 1-4, 12 N m on joints 5-7. Keep the wrist force below 60 N; a wrist force above 80 N for 0.1 s aborts the episode. The plate hand may need a wrist force guard up to about 50 N. Tool workspace for both arms: x from -0.3 to 0.5 m, y from -0.5 to 0.5 m, z from 0.825 to 1.38 m (table top at z = 0.8 m). Hand orientation is commanded as roll/pitch/yaw (rpy_deg, fixed-axis XYZ, as in the bottle task), so a hand can roll about a knob. The instrument is delicate: its acceleration must stay below 3 g and the plate must never move down faster than 0.2 m/s. Goal: make the top plate level again by adjusting the legs (any hole). Both pins must be back in their holes and the plate level within 3 mm; then let go of everything and keep both hands off the stand for 1 s."
+    },
+    {
+      "goal_id": "QP-T4",
+      "settings": [
+        "T-combo"
+      ],
+      "instruction": "An instrument stand stands on the table: a top plate carrying a bolted instrument, on two telescoping legs (left leg and right leg, 0.3 m apart). Each leg is locked at its height by a pull-knob pin (red knob) through a row of holes 2.5 cm apart in the inner tube. Pulling a knob out frees that leg; letting the knob go returns the pin into the hole it faces, unless the pulled knob is turned a quarter turn, which keeps the pin out until the knob is turned back. The top plate has a handle above each leg. A green block 5 cm tall is on the table. Robot: two Panda arms with parallel grippers; the left arm reaches the knobs, the right arm reaches the plate handles. Each finger squeezes with at most 40 N. Joint torque limits 80 N m on joints 1-4, 12 N m on joints 5-7. Keep the wrist force below 60 N; a wrist force above 80 N for 0.1 s aborts the episode. The plate hand may need a wrist force guard up to about 50 N. Tool workspace for both arms: x from -0.3 to 0.5 m, y from -0.5 to 0.5 m, z from 0.825 to 1.38 m (table top at z = 0.8 m). Hand orientation is commanded as roll/pitch/yaw (rpy_deg, fixed-axis XYZ, as in the bottle task), so a hand can roll about a knob. The instrument is delicate: its acceleration must stay below 3 g and the plate must never move down faster than 0.2 m/s. This is a different stand of the same model. Goal: first raise it by one hole on both legs, then lower it by two holes on both legs (ending one hole lower than at the start). Both pins must be back in their holes and the plate level within 3 mm; then let go of everything and keep both hands off the stand for 1 s."
+    },
+    {
+      "goal_id": "A_raise_one",
+      "settings": [
+        "A"
+      ],
+      "instruction": "An instrument stand stands on the table: a top plate carrying a bolted instrument, on two telescoping legs (left leg and right leg, 0.3 m apart). Each leg is locked at its height by a pull-knob pin (red knob) through a row of holes 2.5 cm apart in the inner tube. Pulling a knob out frees that leg; letting the knob go returns the pin into the hole it faces, unless the pulled knob is turned a quarter turn, which keeps the pin out until the knob is turned back. The top plate has a handle above each leg. A green block 5 cm tall is on the table. Robot: two Panda arms with parallel grippers; the left arm reaches the knobs, the right arm reaches the plate handles. Each finger squeezes with at most 40 N. Joint torque limits 80 N m on joints 1-4, 12 N m on joints 5-7. Keep the wrist force below 60 N; a wrist force above 80 N for 0.1 s aborts the episode. The plate hand may need a wrist force guard up to about 50 N. Tool workspace for both arms: x from -0.3 to 0.5 m, y from -0.5 to 0.5 m, z from 0.825 to 1.38 m (table top at z = 0.8 m). Hand orientation is commanded as roll/pitch/yaw (rpy_deg, fixed-axis XYZ, as in the bottle task), so a hand can roll about a knob. The instrument is delicate: its acceleration must stay below 3 g and the plate must never move down faster than 0.2 m/s. Goal: raise the stand by one hole on both legs (plate one hole higher than now). Both pins must be back in their holes and the plate level within 3 mm; then let go of everything and keep both hands off the stand for 1 s."
+    }
+  ],
+  "note": "Provenance only. Other variants preserved in immutable native snapshot; not claimed as implemented Arena variants or additional task counts."
+}

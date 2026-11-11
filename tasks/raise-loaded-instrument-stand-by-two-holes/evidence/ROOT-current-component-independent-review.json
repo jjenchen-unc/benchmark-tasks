@@ -1,0 +1,223 @@
+{
+  "kind": "ROOT_PINS_V13S_CURRENT_SOURCE_COMPONENT_REVIEW",
+  "UTC": "2026-11-11T10:01:07.885643+00:00",
+  "passed": true,
+  "all_native_History_rows_recomputed": 1825,
+  "episodes": {
+    "2": 250,
+    "3": 75,
+    "4": 250,
+    "5": 75,
+    "6": 25,
+    "7": 1000,
+    "8": 150
+  },
+  "first_native_failures": {
+    "3": {
+      "sample": 58,
+      "time_s": 0.11600000000000009,
+      "failure": "wrist_abort"
+    },
+    "5": {
+      "sample": 58,
+      "time_s": 0.11600000000000009,
+      "failure": "wrist_abort"
+    },
+    "6": {
+      "sample": 15,
+      "time_s": 0.030000000000000013,
+      "failure": "plate_drop"
+    }
+  },
+  "all_COM_acceleration_difference_recomputed_max_error_g": 0.0,
+  "probes": [
+    {
+      "label": "left_world_y_20.0N",
+      "actual_public_steps": 10,
+      "last_controls": 10,
+      "failure": null,
+      "wrist_N": [
+        21.122697830200195,
+        6.793751239776611
+      ],
+      "pin_m": [
+        2.063587345446649e-08,
+        1.502012558773913e-08
+      ],
+      "leg_m": [
+        0.024750083684921265,
+        0.02525045908987522
+      ],
+      "peak_g": 0.001982207354728249,
+      "after_stop_rejected": null
+    },
+    {
+      "label": "left_world_y_100.0N",
+      "actual_public_steps": 3,
+      "last_controls": 3,
+      "failure": "wrist_abort",
+      "wrist_N": [
+        102.98385620117188,
+        6.7937517166137695
+      ],
+      "pin_m": [
+        1.5791522756103404e-08,
+        1.4841191386949504e-08
+      ],
+      "leg_m": [
+        0.02475007064640522,
+        0.02525043860077858
+      ],
+      "peak_g": 0.019151878040055803,
+      "after_stop_rejected": true
+    },
+    {
+      "label": "right_world_y_20.0N",
+      "actual_public_steps": 10,
+      "last_controls": 10,
+      "failure": null,
+      "wrist_N": [
+        6.793750762939453,
+        21.122587203979492
+      ],
+      "pin_m": [
+        2.1117905646406143e-08,
+        1.533432048006489e-08
+      ],
+      "leg_m": [
+        0.024750055745244026,
+        0.02525043860077858
+      ],
+      "peak_g": 0.01932265973558455,
+      "after_stop_rejected": null
+    },
+    {
+      "label": "right_world_y_100.0N",
+      "actual_public_steps": 3,
+      "last_controls": 3,
+      "failure": "wrist_abort",
+      "wrist_N": [
+        6.7937517166137695,
+        102.98219299316406
+      ],
+      "pin_m": [
+        1.5791522756103404e-08,
+        1.4841191386949504e-08
+      ],
+      "leg_m": [
+        0.02475007064640522,
+        0.02525043860077858
+      ],
+      "peak_g": 0.019151878040055803,
+      "after_stop_rejected": true
+    },
+    {
+      "label": "loaded_pinL_30N_outward",
+      "actual_public_steps": 1,
+      "last_controls": 1,
+      "failure": "plate_drop",
+      "wrist_N": [
+        6.793750762939453,
+        6.793750762939453
+      ],
+      "pin_m": [
+        -0.012000013142824173,
+        1.557220841164053e-08
+      ],
+      "leg_m": [
+        0.016473466530442238,
+        0.02525043860077858
+      ],
+      "peak_g": 0.524267740819743,
+      "after_stop_rejected": null
+    },
+    {
+      "label": "loaded_pinR_30N_outward",
+      "actual_public_steps": 20,
+      "last_controls": 20,
+      "failure": null,
+      "wrist_N": [
+        6.793752193450928,
+        6.793752193450928
+      ],
+      "pin_m": [
+        1.5028692956775558e-08,
+        -0.012000015005469322
+      ],
+      "leg_m": [
+        0.02475009113550186,
+        0.1104908138513565
+      ],
+      "peak_g": 1.6233867388060839,
+      "after_stop_rejected": null
+    },
+    {
+      "label": "pinR_spring_return",
+      "actual_public_steps": 20,
+      "last_controls": 40,
+      "failure": null,
+      "wrist_N": [
+        6.793751239776611,
+        6.793751239776611
+      ],
+      "pin_m": [
+        1.576656316615299e-08,
+        -0.008964484557509422
+      ],
+      "leg_m": [
+        0.024750104174017906,
+        0.11051629483699799
+      ],
+      "peak_g": 1.6233867388060839,
+      "after_stop_rejected": null
+    },
+    {
+      "label": "instrument_5N_x_100ms",
+      "actual_public_steps": 2,
+      "last_controls": 2,
+      "failure": null,
+      "wrist_N": [
+        6.7937517166137695,
+        6.7937517166137695
+      ],
+      "pin_m": [
+        1.5450753565460218e-08,
+        2.1557877261102476e-08
+      ],
+      "leg_m": [
+        0.024750111624598503,
+        0.025250444188714027
+      ],
+      "peak_g": 0.025614504618312335,
+      "after_stop_rejected": null
+    },
+    {
+      "label": "instrument_release",
+      "actual_public_steps": 4,
+      "last_controls": 6,
+      "failure": null,
+      "wrist_N": [
+        6.7937517166137695,
+        6.7937517166137695
+      ],
+      "pin_m": [
+        2.0594759675418572e-08,
+        2.113799446590292e-08
+      ],
+      "leg_m": [
+        0.024750083684921265,
+        0.025250444188714027
+      ],
+      "peak_g": 0.025614504618312335,
+      "after_stop_rejected": null
+    }
+  ],
+  "model_calls": 0,
+  "full_goal_credit": false,
+  "limits": [
+    "20N known-load safe response and100N bothwrist latchedabort/after-stop rejection observed; forcefeedback is dynamic, not exactstaticcalibration.",
+    "30N pinpulls are evaluator-onlyforcedresponses, not demonstration of robotability; springreturn canhalt atholewall and is not assumed fullyreseated.",
+    "Instrument5N response is constrained stand motion, not independent F/m calibration.",
+    "Public8channelpromotion requires separatefullgoal/source/contact/kinematics/motor/reset review."
+  ]
+}

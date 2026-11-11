@@ -1,0 +1,42 @@
+{
+  "UTC": "2026-11-11T15:18:31.358798+00:00",
+  "reviewer": "ROOT",
+  "actual_public_score": 1.0,
+  "controls": 2694,
+  "native_rows": 67350,
+  "all_native_History_and_clock_fields_recomputed": true,
+  "all_native_measurements_bit_exact_to_approved_P19_prefix": 67350,
+  "source_fingerprint": "6ca25a60cac2458a6088ad04b450adfc2a87429040b46a120844d9d1829b6f92",
+  "all_outer_manifest_payload_hashes_verified": 51,
+  "currentSDK_source_hashes_verified": 369,
+  "wrist_peak_N": [
+    53.09846878051758,
+    58.5272102355957
+  ],
+  "samples_at_or_above_original60N": [
+    0,
+    0
+  ],
+  "final_leg_m": [
+    0.07475020736455917,
+    0.07525046169757843
+  ],
+  "final_pin_m": [
+    1.4796839309383358e-08,
+    1.5799482611100757e-08
+  ],
+  "final_knob_rad": [
+    0.057960521429777145,
+    0.002289621625095606
+  ],
+  "hands_off_s": 1.0480000000000007,
+  "instrument_filtered_peak_g": 0.7585288090270997,
+  "downward_leg_peak_m_s": 0.07214083522558212,
+  "source_physics_unchanged": true,
+  "full_native_instruction_goal_verified": true,
+  "public_runtime_demo_verified": true,
+  "model_calls": 0,
+  "model_evaluation_complete": false,
+  "submission_ready": false,
+  "scope": "Actual source-bound publicscore1 from genuine robot-only native episode. All67350new physical rows are exact approvedP19prefix; only scoringgate/public termination and recordingoverview differ."
+}

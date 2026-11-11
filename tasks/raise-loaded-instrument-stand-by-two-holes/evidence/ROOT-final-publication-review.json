@@ -1,0 +1,45 @@
+{
+  "UTC": "2026-11-11T16:12:45.972955+00:00",
+  "reviewer": "ROOT",
+  "scope": "Final publication evidence, superseding earlier per-run pending-publication flags without altering those historical receipts.",
+  "full_goal_demonstrated": true,
+  "actual_Dream_score_valid": true,
+  "demo_score": 1.0,
+  "Dream_score": 0.0,
+  "media_id": "M-ZV2ND7",
+  "physical_source_fingerprint": "6ca25a60cac2458a6088ad04b450adfc2a87429040b46a120844d9d1829b6f92",
+  "visual_review": {
+    "ROOT_reviewed_actual_setup_and_three_actual_video_frames": true,
+    "team_identification_observed": false,
+    "sparse_frame_limitations": [
+      "Small pin seating and final clearance cannot be established from three overview stills.",
+      "Independent visual reviewer could not resolve apparent gripper/payload overlap or apparent framing differences."
+    ],
+    "disposition": "Provide the continuous unmodified full video. Native history and primary contact/FK proofs establish the scored release and mechanism states; sparse-frame impressions are not treated as measurement. Recording camera intrinsics and physics-invariant rendering are source-bound.",
+    "CLI_payload_completed": true,
+    "CLI_cleanup_timeout_exit": 143
+  },
+  "media": {
+    "UTC": "2026-11-11T16:02:46.948951+00:00",
+    "files": {
+      "demo.mp4": {
+        "bytes": 1281616,
+        "sha256": "02ca4c95ad762d1d1b74beb165104b989bcd0332637d63f712053cfc610b81ce"
+      },
+      "setup.png": {
+        "bytes": 186466,
+        "sha256": "e9755844f37cfe9cee15e054a670b92e9f36f3bd1ebc23d3eb0558c0d470c19e"
+      },
+      "model.mp4": {
+        "bytes": 1617589,
+        "sha256": "5134624156e5d2b97edbfefb250ceb91fee68b95f188b38e094899d9253b7711"
+      }
+    },
+    "scope": "Encoded final upload media only; no raw journals copied locally."
+  },
+  "publication_gates_remaining": [
+    "Final relocated preflight/tests and frozen-runtime equality",
+    "Git publication and official receiver/media linkage"
+  ],
+  "raw_backup": "Full independently verified raw archives retained on Brev; UNC transfer pending route recovery."
+}

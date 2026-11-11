@@ -1,0 +1,17 @@
+{
+  "UTC": "2026-11-11T15:21:03.174877+00:00",
+  "reviewer": "ROOT",
+  "source_video": "/home/ubuntu/pins-v20-ROOT-public-20261111-1458/demo/overview_cam.mp4",
+  "SHA256": "02ca4c95ad762d1d1b74beb165104b989bcd0332637d63f712053cfc610b81ce",
+  "bytes": 1281616,
+  "codec": "h264",
+  "size": [
+    640,
+    360
+  ],
+  "fps": 20.0,
+  "frames": 2695,
+  "full_decode_verified": true,
+  "actual_frames_unmodified": true,
+  "visual_review_pending": true
+}

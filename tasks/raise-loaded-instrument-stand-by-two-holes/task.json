@@ -1,0 +1,21 @@
+{
+  "title": "Raise a loaded two-leg instrument stand by two holes",
+  "category": "Impact on jobs",
+  "keywords": [
+    "bimanual",
+    "load transfer",
+    "telescoping stand",
+    "pull pin",
+    "gas spring",
+    "fragile payload"
+  ],
+  "instruction": "Raise both legs of the instrument stand by two 25 mm holes, from hole 1 to hole 3. Seat both pull pins, make the plate level within 3 mm, and release all robot contact for 1 second. Keep instrument acceleration below 3 g after a 5 ms filter and downward leg speed at most 0.2 m/s. Keep wrists below 60 N; over 80 N for 0.1 s aborts.",
+  "context": "Adjust a height-selectable stand while its instrument remains supported. The two arms must transfer the load before reindexing each pull pin. A left safety pawl and right gas assist make the two legs respond differently; the payload also imposes acceleration and downward-speed constraints.",
+  "setup": "One fixed physical source-42 case on the YAM station table (z=0.7475 m). World x is forward, y left, z up. Arm bases are at (0.32,+/-0.305,1.15) m on fixed 0.22x0.24x0.40 m pedestal approximations centered at (0.32,+/-0.305,0.9475) m. The stand has two telescoping legs 0.30 m apart, 25 mm hole pitch, 38 mm sliding tubes (0.25 kg each), 8 mm steel pull pins with red polymer knobs (0.05 kg assemblies), and a 1 kg 160x380x20 mm plate with two capsule handles carrying a bolted 2.2 kg instrument. Left/right slides start at 24.75/25.25 mm. Only the left leg has a lift-cleared pawl; the right has 29.05 N gas assist. A fixed green 120x120x50 mm block is at (0.07,-0.15,0.7725) m. The source layout is transformed by Rz(-90 degrees)+(0.55,0.15,-0.0525) m. The complete 63-shape dimensions, materials, masses, inertias, poses and all 10 joint definitions are in source/fixture.json, source/joints.json and source/kit.py; source/stand.usda is the executed geometry.",
+  "scoring": "At each 2 ms native sample: 1.0 when both leg slides are within 1.5 mm of 75 mm, both pins are withdrawn less than 3 mm, the leg-height difference is at most 3 mm, and there is no robot contact with the declared stand bodies continuously for 1 s. This ends the episode. The same predicate at 50 mm yields 0.5 while it holds, without early termination. Otherwise 0. Permanent zero after filtered instrument acceleration exceeds 3 g, either leg moves down faster than 0.2 m/s, nonfinite state, or either wrist exceeds 80 N continuously for 0.1 s. Acceleration is the instrument COM velocity difference, gravity excluded, followed by a first-order 5 ms low-pass. The instruction also requires wrists below 60 N; the full demo satisfies it at every sample.",
+  "run_limit": "4,572 controls at 20 Hz (228.6 simulated seconds), 25 native 2 ms steps/control. Ends on full success, safety failure or budget.",
+  "reset_notes": "Fixed physical source-42 layout for every harness seed; object_jitter=0. Inspect-derived trial seeds pass through unchanged. Reset restores all 10 joint positions, passive stops and history before settling; no consumables. Run a fresh demo/model output directory outside the task folder.",
+  "fidelity": "Rigid source primitives/masses; hidden square pin-hole collision strips; conditional passive pawl and quarter-turn stops; constant gas assist. A serial passive articulation and two excluded-loop spherical joints approximate the plate constraints, with three 1e-6 kg numeric frames. YAM uses 27/7 Nm total motor ceilings including gravity and 40 N fingers. Instrument acceleration is a filtered kinematic COM estimate.",
+  "scores": "Dream-1 beta: 0.0, 4,572 controls, 1,135 requests in one continuous session, zero errored trials. Genuine native scripted demo: 1.0, 2,694 controls; both wrists below 60 N throughout.",
+  "media": "M-ZV2ND7"
+}

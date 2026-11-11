@@ -1,0 +1,25 @@
+{
+  "observed_container_metadata": {
+    "isaacsim": "6.1.0.0",
+    "isaaclab_distribution": "17.0.2",
+    "isaaclab-arena": "0.3.0",
+    "yam-arena": "0.1.0",
+    "inspect-robots": "1.0.0",
+    "numpy": "2.3.1",
+    "torch": "2.11.0+cu128",
+    "pxr_Usd_GetVersion": "0.25.5"
+  },
+  "version_scope": "Metadata read without simulator startup. isaaclab is the installed distribution reported by importlib.metadata; runtime compatibility still unverified for this port.",
+  "image_sha256": "75c6afd86ec4007f663ca2e8647df8ab94d2d678815a72fc428db98733c789ad",
+  "launchable_pins": {
+    "yam-isaac-lab-arena": "0059d02a1a91bc6834c1d0846022891df0c78730",
+    "inspect-robots-dream": "b5e936a201cec66c54c297e522c920d98445e339"
+  },
+  "offline_extraction": {
+    "mujoco": "3.3.7",
+    "numpy": "2.0.2",
+    "scipy": "1.13.1"
+  },
+  "runtime_native_dependencies": false,
+  "installation_performed": false
+}

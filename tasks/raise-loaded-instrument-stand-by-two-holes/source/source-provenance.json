@@ -1,0 +1,14 @@
+{
+  "native_readonly_root": "ports/design-lab/latch_indexing/prototypes/pins--supported_reindex",
+  "native_module_sha256": "76bf99fedfde155c7f146cee58c5295538a864c0d1eac12699ce0cb0eeca1571",
+  "immutable_copy_module_sha256": "76bf99fedfde155c7f146cee58c5295538a864c0d1eac12699ce0cb0eeca1571",
+  "copy_exact": true,
+  "source_execution": "Immutable copied module actually imported and its build() executed for compile-neutral extraction; reset IK bypassed by runtime wrapper; mj_forward only, zero mj_step calls. MuJoCo/native never imported by actual Arena runtime.",
+  "fixture_shapes": 63,
+  "fixture_joints": 10,
+  "native_geometry_preserved": true,
+  "asset_origin": "Generated task primitives from listed pins native source. No external meshes/textures or Panda assets bundled in runtime port.",
+  "notices": "Native scene ASSETS.md and PROVENANCE.json preserved under readiness immutable-native. Source refers to robosuite MIT Panda meshes; those meshes are not included in this runtime. YAM robot asset supplied separately by installed SDK and retains its own notices. Task-local motor/contact adapters adapted from verified project B5/D3 examples; no SDK source edited.",
+  "native_source_not_edited": true,
+  "historical_review_is_design_evidence_only": true
+}

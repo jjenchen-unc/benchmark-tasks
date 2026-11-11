@@ -1,0 +1,72 @@
+{
+  "UTC": "2026-11-11T15:57:23.051648+00:00",
+  "reviewer": "ROOT",
+  "actual_Dream_score": 0.0,
+  "actual_inspect_status": "success",
+  "actual_errored_trials": 0,
+  "model": "dreamlabs/dream-1-beta",
+  "episodes": 1,
+  "controls": 4572,
+  "native_rows_independently_recomputed": 114300,
+  "continuous_completed_requests": 1135,
+  "session_hash_count": 1,
+  "all_continuity_attempts_valid": true,
+  "rows_per_request": 4,
+  "projection_log_entries": 1135,
+  "projection_first_entry_keys": [
+    "all_rows_preserved",
+    "arm_columns_sha256_after",
+    "arm_columns_sha256_before",
+    "bounds",
+    "chunk_index",
+    "clipped_by_side",
+    "clipped_rows",
+    "clipped_values",
+    "kind",
+    "preprojection_grip_minmax",
+    "rows"
+  ],
+  "recorded_actions_relative_path": "actions/20261111_152550_f5841ef2/scene-0-e0.jsonl",
+  "recorded_policy_inference_chunks": 4572,
+  "returned_prediction_rows": [
+    48
+  ],
+  "actual_seed": {
+    "physical_case": 42,
+    "inspect_trial_seed": 3867854786,
+    "passed_unchanged": true
+  },
+  "source_unchanged": true,
+  "all_source_and_SDK_preflight_verified": true,
+  "wrist_peak_N": [
+    11.426708221435547,
+    7.975653648376465
+  ],
+  "final_native_status": {
+    "score": 0.0,
+    "diagnostic_score": 0.0,
+    "gate": null,
+    "missing": [],
+    "failure": null,
+    "time_s": 228.60000000036342,
+    "controls": 4572,
+    "hold_s": 0.0,
+    "partial_hold_s": 0.0,
+    "peak_g": 0.0033527427066870454,
+    "peak_drop_m_s": 0.0002806590055115521,
+    "measurement_error": null
+  },
+  "actual_termination": {
+    "reason": "time_limit",
+    "detail": null,
+    "terminated": true,
+    "truncated": false
+  },
+  "model_score_valid": true,
+  "submission_ready": false,
+  "notes": [
+    "4572 actual controls and1135 completed provider requests are distinct counts; SDK policy parameter rows_per_request=4, while returned prediction matrices contain48 rows. No claim of exactly4 returned rows or all controls generated one-to-one.",
+    "Root wrapper never restarts expired/changed session; providererrors are invalid runs, not zero scores.",
+    "Recording overview is not a fourth policy input; original3camera input retained."
+  ]
+}

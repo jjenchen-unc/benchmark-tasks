@@ -1,0 +1,233 @@
+#usda 1.0
+(
+    defaultPrim = "B6"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "B6" (
+    prepend apiSchemas = ["PhysicsArticulationRootAPI", "PhysxArticulationAPI"]
+)
+{
+    bool physxArticulation:enabledSelfCollisions = 1
+    int physxArticulation:solverPositionIterationCount = 64
+    int physxArticulation:solverVelocityIterationCount = 8
+    quatd xformOp:orient = (1, 0, 0, 0)
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+    def "links"
+    {
+        def Xform "body_right" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (-0.009750565, 0, -0.03910187)
+            float3 physics:diagonalInertia = (0.0021513158, 0.0018468102, 0.0010116044)
+            float physics:mass = 0.9545753
+            quatf physics:principalAxes = (0, 0.6747744, 0, 0.73802406)
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cylinder "body_right_face" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.006
+                rel material:binding:physics = </B6/materials/mu_0_15> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.78, 0.62, 0.25)]
+                double radius = 0.04
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, -0.003)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cylinder "body_right_throat"
+            {
+                uniform token axis = "Z"
+                double height = 0.0006
+                color3f[] primvars:displayColor = [(0.03, 0.03, 0.03)]
+                double radius = 0.0215
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, -0.0002)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cube "body_right_index"
+            {
+                color3f[] primvars:displayColor = [(0.9, 0.1, 0.1)]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.0036, 0.0016, 0.0004)
+                double3 xformOp:translate = (0.0365, 0, 0.0001)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "body_right_shell" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B6/materials/mu_1_1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.16, 0.16, 0.17)]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.13, 0.09, 0.064)
+                double3 xformOp:translate = (0, 0, -0.038)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "body_right_grip" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B6/materials/mu_1_1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.1, 0.1, 0.11)]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.032, 0.098, 0.056)
+                double3 xformOp:translate = (-0.053, 0, -0.05)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+        }
+
+        def Xform "body_right_button" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0.0035, 0, 0)
+            float3 physics:diagonalInertia = (7.322917e-8, 7.322917e-8, 1.05625e-7)
+            float physics:mass = 0.005
+            quatf physics:principalAxes = (0.70710677, 0, 0.70710677, 0)
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.065, 2.2043642400000018e-18, -0.018000000000000016)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cylinder "body_right_button_cap" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.007
+                rel material:binding:physics = </B6/materials/mu_1_1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.75, 0.2, 0.15)]
+                double radius = 0.0065
+                quatd xformOp:orient = (0.707106790659974, 0, 0.707106771713121, 0)
+                double3 xformOp:translate = (0.0035, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+        }
+
+        def Xform "body_right_ring" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0, 0)
+            float3 physics:diagonalInertia = (0.000001, 0.000001, 0.000001)
+            float physics:mass = 0.01
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+    }
+
+    def "materials"
+    {
+        def Material "mu_0_15" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.15
+            float physics:restitution = 0
+            float physics:staticFriction = 0.15
+        }
+
+        def Material "mu_1_1" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.1
+            float physics:restitution = 0
+            float physics:staticFriction = 1.1
+        }
+    }
+
+    def "joints"
+    {
+        def PhysicsPrismaticJoint "body_right_button_slide" (
+            prepend apiSchemas = ["PhysxJointAPI", "PhysxJointAxisAPI:linear", "PhysicsDriveAPI:linear"]
+        )
+        {
+            float drive:linear:physics:damping = 2
+            float drive:linear:physics:maxForce = inf
+            float drive:linear:physics:stiffness = 1500
+            float drive:linear:physics:targetPosition = 0
+            uniform token drive:linear:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </B6/links/body_right>
+            rel physics:body1 = </B6/links/body_right_button>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0.065, 2.2043642e-18, -0.018)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0, 0, 0, 1)
+            quatf physics:localRot1 = (0, 0, 0, 1)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 0.004
+            float physxJoint:armature = 0.001
+            float physxJointAxis:linear:dynamicFrictionEffort = 0
+            float physxJointAxis:linear:staticFrictionEffort = 0
+        }
+
+        def PhysicsRevoluteJoint "body_right_turn" (
+            prepend apiSchemas = ["PhysxJointAPI", "PhysxJointAxisAPI:angular", "PhysicsDriveAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0.000017453292
+            float drive:angular:physics:maxForce = inf
+            float drive:angular:physics:stiffness = 0
+            float drive:angular:physics:targetPosition = 0
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </B6/links/body_right>
+            rel physics:body1 = </B6/links/body_right_ring>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0, 0, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0.70710677, 0, -0.70710677, 0)
+            quatf physics:localRot1 = (0.70710677, 0, -0.70710677, 0)
+            float physics:lowerLimit = -60.382935
+            float physics:upperLimit = 2.5
+            float physxJoint:armature = 0.0001
+            float physxJointAxis:angular:dynamicFrictionEffort = 0.02
+            float physxJointAxis:angular:staticFrictionEffort = 0.02
+        }
+
+        def PhysicsFixedJoint "world_fixed"
+        {
+            rel physics:body1 = </B6/links/body_right>
+        }
+    }
+}
+

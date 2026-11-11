@@ -1,0 +1,215 @@
+{
+  "archive": "B6-v30-frozen-physical-review.tgz",
+  "bytes": 54318811,
+  "sha256": "1f942cbe68b9f10fb3ffeda3e3819223340128cca79bf4513c32846b00a34f2e",
+  "members": {
+    "credit-review": {
+      "type": "directory",
+      "bytes": 0
+    },
+    "credit-review/ROOT-APPROVED.json": {
+      "type": "file",
+      "bytes": 35850,
+      "sha256": "92ea414e4c251ebb1963a6276597fd4afecda1dc8789899d658cfb55f6b2c585"
+    },
+    "credit-review/ROOT-v30-source-support-scorer-review.json": {
+      "type": "file",
+      "bytes": 1823,
+      "sha256": "4f60514ceb49fb421a83853fc6182a41795693ac5490e0f19358a9c5a5495908"
+    },
+    "credit-review/actual-drive-caps-and-velocities.json": {
+      "type": "file",
+      "bytes": 2262,
+      "sha256": "6afeaae917caff6e50862522db44cec151d8a73d7471bbb5bd9340f2e43841c5"
+    },
+    "credit-review/b6-v29": {
+      "type": "directory",
+      "bytes": 0
+    },
+    "credit-review/b6-v29/review-evidence": {
+      "type": "directory",
+      "bytes": 0
+    },
+    "credit-review/b6-v29/review-evidence/wrist-force-api-reuse": {
+      "type": "directory",
+      "bytes": 0
+    },
+    "credit-review/b6-v29/review-evidence/wrist-force-api-reuse/B6-v30-wrist-force-unit-reuse.json": {
+      "type": "file",
+      "bytes": 4051,
+      "sha256": "1dbce147073fb655a2bb91f138ebab92d48732e5bf9f0a7cb288ed6b4e1cf7ce"
+    },
+    "credit-review/b6-v29/review-evidence/wrist-force-api-reuse/B7-actual43768-kit.py": {
+      "type": "file",
+      "bytes": 8985,
+      "sha256": "85b47aae136f501a1801d0ee0da526f81540da8d49c55042091a75926d78ddef"
+    },
+    "credit-review/b6-v29/review-evidence/wrist-force-api-reuse/B7-actual43768-knownload-input.json": {
+      "type": "file",
+      "bytes": 5885,
+      "sha256": "45abb8f6ec3d5324d726a35a7b6ccc62c7c0d48bcf418deec59afed937b0fe37"
+    },
+    "credit-review/b6-v29/review-evidence/wrist-force-api-reuse/B7-actual43768-observer.py": {
+      "type": "file",
+      "bytes": 4830,
+      "sha256": "956b40753364c3abdce24273fda8019408e175a4cd34e8e45c0e9acbf8382feb"
+    },
+    "credit-review/b6-v29/review-evidence/wrist-force-api-reuse/S2-v30-force-unit-reuse.json": {
+      "type": "file",
+      "bytes": 8914,
+      "sha256": "463738433ead1653b0ab6ffbbf497aa5b8ce2e208dfc43e54f9c88e4b7b54604"
+    },
+    "credit-review/b6-v30": {
+      "type": "directory",
+      "bytes": 0
+    },
+    "credit-review/b6-v30/component-function-equivalence-v30.json": {
+      "type": "file",
+      "bytes": 12630,
+      "sha256": "746354f966a6abc5e5c50039822ea8135e56088ad5119eb716649b7e2056ca08"
+    },
+    "credit-review/b6-v30/provenance": {
+      "type": "directory",
+      "bytes": 0
+    },
+    "credit-review/b6-v30/provenance/B6-43897-reviewed.json": {
+      "type": "file",
+      "bytes": 1109,
+      "sha256": "2502f089bb9effeb389a5b261ca0771b3b5b359ab3e9c0766dd5dd8cd7dca58d"
+    },
+    "credit-review/full-actual-review.json": {
+      "type": "file",
+      "bytes": 1783,
+      "sha256": "c50cb82cf16900647f9d36cb759706f9ce1d8c3c0333f20ff8f27be8ec4044da"
+    },
+    "credit-review/full-vector-actual-audit.json": {
+      "type": "file",
+      "bytes": 14123,
+      "sha256": "d963c717530231596c20fe3f98fa8dbc299505e3163872234cc64ff78b095ab0"
+    },
+    "credit-review/historical-overload-component.json": {
+      "type": "file",
+      "bytes": 1644,
+      "sha256": "849717060725d108fc0bdfcafeec58119fadaff21a3389db8c6fcb1fd2c10981"
+    },
+    "credit-review/historical-overload-review.json": {
+      "type": "file",
+      "bytes": 394,
+      "sha256": "636b1b308e4323824cc096d87c15c9568a5e8a1a0b0d56106177835d2c4ea9c2"
+    },
+    "credit-review/mounted-support-source-review.json": {
+      "type": "file",
+      "bytes": 1739,
+      "sha256": "95aa21bd98b24aa450f88bb9f2e5b81234ff7cb9523fea1fb7f8dce2c88d6d25"
+    },
+    "credit-review/reference": {
+      "type": "directory",
+      "bytes": 0
+    },
+    "credit-review/reference/actions.json": {
+      "type": "file",
+      "bytes": 763756,
+      "sha256": "7d2d81e128ee977cc38f10c7b8686c714f827b5c92d86de7f765ffe692008314"
+    },
+    "credit-review/reference/force-vectors.jsonl": {
+      "type": "file",
+      "bytes": 469098162,
+      "sha256": "1317ef5c63e32cf6ebb21ef98d1ba5ad64ede6246f308fa792911b175dbd0240"
+    },
+    "credit-review/reference/journal.jsonl": {
+      "type": "file",
+      "bytes": 3029812,
+      "sha256": "514b4a77a10a71a32a792a4ea89d3da3752ce17fe5da396bde3ff525340d4754"
+    },
+    "credit-review/reference/left_cam-encoder.log": {
+      "type": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "credit-review/reference/left_cam.mp4": {
+      "type": "file",
+      "bytes": 577979,
+      "sha256": "2abd16aadfbbddea54ba6bc13c7c05088dda133898add1d14e7efae541f930ac"
+    },
+    "credit-review/reference/limit-api.jsonl": {
+      "type": "file",
+      "bytes": 1011,
+      "sha256": "33fae3744bfb200e99a6ea976802ff2223c2dfafb8f24ab38c6226504182b56f"
+    },
+    "credit-review/reference/media-finalization.json": {
+      "type": "file",
+      "bytes": 399,
+      "sha256": "5be46e62dfa27a65c66cfb4c48a19b8126bee0ad32b24ec66753cbbeb14fbde1"
+    },
+    "credit-review/reference/moving-nominal-decisions.jsonl": {
+      "type": "file",
+      "bytes": 1457926,
+      "sha256": "7dc4bded541d016b01f6e81ed600fc88724e2451f85c190564e4943242232900"
+    },
+    "credit-review/reference/phases.json": {
+      "type": "file",
+      "bytes": 102998,
+      "sha256": "2aeda08d0b503789e60b01644a449b18a667800ae9fe36facd154291e1742be1"
+    },
+    "credit-review/reference/physics.jsonl": {
+      "type": "file",
+      "bytes": 96365324,
+      "sha256": "ea124a1653748e9dd1b26bcfb570c09d7a4f151b1774475b4e4f9b2ca18a52de"
+    },
+    "credit-review/reference/progress.json": {
+      "type": "file",
+      "bytes": 958,
+      "sha256": "87f824e76cdc6d3dd8560b8a0582b214d8936bbce1fb5cac505c9bded5ca026a"
+    },
+    "credit-review/reference/result.json": {
+      "type": "file",
+      "bytes": 23065,
+      "sha256": "ed28e697458fcdd8b6f492ad7cd187eaec3a92076bc048d2c349ca1ba3a01ecc"
+    },
+    "credit-review/reference/right_cam-encoder.log": {
+      "type": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "credit-review/reference/right_cam.mp4": {
+      "type": "file",
+      "bytes": 545958,
+      "sha256": "64f730ff6ed8426854b90015f71dcd1a7dbd98510392249a5807d54a24598c8c"
+    },
+    "credit-review/reference/robot-journal.jsonl": {
+      "type": "file",
+      "bytes": 46194912,
+      "sha256": "113fad0315de5ada24df012ef9cd7b0703c775ce603c7da24ec508e8a4ca7a13"
+    },
+    "credit-review/reference/seed-contract.json": {
+      "type": "file",
+      "bytes": 475,
+      "sha256": "3e196204438fc01dee23d5d85764d069c1f1393947362559aee70fcf3821178b"
+    },
+    "credit-review/reference/setup.png": {
+      "type": "file",
+      "bytes": 131663,
+      "sha256": "179b24fdc70be8a494fe82617837610e6551e8172123c385b91ffaef6f7aca7c"
+    },
+    "credit-review/reference/top_cam-encoder.log": {
+      "type": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "credit-review/reference/top_cam.mp4": {
+      "type": "file",
+      "bytes": 552938,
+      "sha256": "978b4ed62a1fe60005990b7102e59279fffd8eaadf44996d385a095d33740829"
+    },
+    "credit-review/sampled-media-review.json": {
+      "type": "file",
+      "bytes": 923,
+      "sha256": "e9146bf2f4e498f14474b17c758dd7861530c22158cc117eeaade364af8b4ee3"
+    }
+  },
+  "selected_only_approved_physical_evidence": true,
+  "private_provider_models_included": false,
+  "secret_pattern_scan": "PASS",
+  "ROOT_receipt_sha256": "92ea414e4c251ebb1963a6276597fd4afecda1dc8789899d658cfb55f6b2c585",
+  "UTC": "2026-11-11T07:19:29.498838+00:00"
+}

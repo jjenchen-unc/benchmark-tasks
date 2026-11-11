@@ -1,0 +1,40 @@
+{
+  "unit": "B6_actual_static_tracking_complete_repair",
+  "status": "cpu_conditional_candidate_ready_for_root_review",
+  "candidate_root": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/b6-static-tracking-v14-20261110-1512",
+  "physical_success": false,
+  "full_goal_verified": false,
+  "submission_ready": false,
+  "gpu_requests_submitted": 0,
+  "Brev_operations": 0,
+  "model_calls": 0,
+  "native_budget_controls": 3034,
+  "whole_conditional_bound_controls": 2423,
+  "first_lift_max_controls": 310,
+  "servo_cap_controls": 60,
+  "servo_gain_max": 2.0,
+  "servo_ki_per_s": 2.0,
+  "servo_joint_slew_rad_per_control": 0.001,
+  "synthetic_function_convergence_controls": 28,
+  "geometry_samples": 63,
+  "geometry_unexpected_intersections": 0,
+  "guard_exit_code": 86,
+  "candidate_fingerprint": "20486380f78485f78f9e44e72301154c8ae56826ebba9b5afd231a01f243e9cb",
+  "request": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/b6-static-tracking-v14-20261110-1512/request.sbatch",
+  "estimated_first_lift_wall_seconds": [
+    220,
+    420
+  ],
+  "next_action": "ROOT review; one first-lift actual physical request; no dispatch by this worker",
+  "proofs": {
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/b6-static-tracking-v14-20261110-1512/REPORT.md": "0e8be16b2894a431f87de50cc76c064699ae0676901dd26369d51eeb720ca058",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/b6-static-tracking-v14-20261110-1512/motor-analysis.json": "e8f9a0b3b2d5e135cf4b7a2cb88b1427463acd91a6e96c0777f92e65c09806bb",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/b6-static-tracking-v14-20261110-1512/actual-tracking-analysis.json": "2c56df9bc52dfa63e74b49162ad27e7ef16a2356e57e862f1b5e9296313a1776",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/b6-static-tracking-v14-20261110-1512/changed-checks.json": "6f82fa9fdf40e05bbc3c7062c80053348feb8b196394ef28f39748667b7ae0f8",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/b6-static-tracking-v14-20261110-1512/function-checks.json": "a97045efdd9b0cbffd38572270875caefa4546938889e19ade93a230085e1f4c",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/b6-static-tracking-v14-20261110-1512/correction-envelope-finite-geometry.json": "00573eeb66d5a027f178c01d88ef83fc9a95407da3c094a50bc7d81852f01fe5",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/b6-static-tracking-v14-20261110-1512/pre-sdk-proof.json": "830a057e3df3e851f7463f601b6c4f6fed6d7f6edbccdc2fb7aea8ac77b4f7c3",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/b6-static-tracking-v14-20261110-1512/manifest.json": "a98763f3743d33d673836377994434d75c288d6d4353ace821b5b79f1d97b80a",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/b6-static-tracking-v14-20261110-1512/consumed-source-sha256.json": "4b7239ca0e9d0add6842064480d3d446f183dd04f81f9822d8d8dd0a3b452181"
+  }
+}

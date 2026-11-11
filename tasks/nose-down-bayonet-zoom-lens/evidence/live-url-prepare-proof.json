@@ -1,0 +1,11 @@
+{
+  "status": "PASS_ACTUAL_CLEAN_LIVE_URL_AND_NINE_CHANNEL_RECEIPT",
+  "cache_marker_sha256": "af650841d70fcbf2f09a7f83eba176c224d8b8e37c8cb68ee821eaa491482853",
+  "archive_sha256": "1f942cbe68b9f10fb3ffeda3e3819223340128cca79bf4513c32846b00a34f2e",
+  "bytes": 54318811,
+  "verified_member_count": 35,
+  "URL": "https://github.com/jjenchen-unc/benchmark-tasks/releases/download/b6-review-20261111/B6-v30-frozen-physical-review.tgz",
+  "receipt_sha256": "92ea414e4c251ebb1963a6276597fd4afecda1dc8789899d658cfb55f6b2c585",
+  "simulation_calls": 0,
+  "model_calls": 0
+}

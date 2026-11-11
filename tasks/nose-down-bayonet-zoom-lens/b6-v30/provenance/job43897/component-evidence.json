@@ -1,0 +1,67 @@
+{
+  "checks": {
+    "original_button_predicate_releases": true,
+    "release_restores_exact_limits": true,
+    "relatches_at_current_angle": true,
+    "no_measurement_error": true,
+    "credit_stays_disabled": true,
+    "reset_loaded_capture_pin": true,
+    "reset_native_limits": true,
+    "reset_task_joints": true,
+    "loaded_zoom_native_hold_20s": true,
+    "helix_residual_bounded_0p25mm": true,
+    "hold_controls_complete": true,
+    "short_lock_retention": true,
+    "short_zoom_measurement_finite": true
+  },
+  "before_reset": {
+    "captured": {
+      "body_left": null,
+      "body_right": "lens_blue"
+    },
+    "pin": {
+      "body_left": false,
+      "body_right": true
+    }
+  },
+  "final_before_reset": {
+    "score": 0.0,
+    "measured_rubric": {
+      "score": 1.0,
+      "tier": "full",
+      "reasons": []
+    },
+    "missing_runtime_validation": [
+      "clock",
+      "lock_capture",
+      "motor_limits",
+      "mount_reaction",
+      "reset",
+      "robot_contacts",
+      "seat_push",
+      "wrist_force",
+      "zoom_helix"
+    ],
+    "history": {
+      "overload": false,
+      "dropped": false,
+      "invalid_measurement_seen": false,
+      "hands_off_end_s": 20.05,
+      "hold_full_s": 20.05,
+      "hold_locked_s": 20.05
+    },
+    "sim_elapsed_s": 20.05,
+    "samples": 10025,
+    "failure": null,
+    "peak_wrist_n": [
+      6.7937541007995605,
+      6.7937541007995605
+    ],
+    "measurement_error": null,
+    "controls": 401,
+    "backend": "CPU PhysX/GPU RTX",
+    "credit_channels_activated": false
+  },
+  "sample_count": 401,
+  "scope": "EVALUATOR ONLY: explicitly placed unlocked/locked/out-of-scale/drop negatives.\nNever used as a robot demonstration; state writes are confined to this file.\n"
+}

@@ -1,0 +1,51 @@
+{
+  "unit": "B6_portable_strict_physics_numeric_boundary",
+  "status": "implementation_complete_pending_ROOT_and_fresh_physical_validation",
+  "implementation_complete": true,
+  "candidate_root": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/b6-fullportable-v16-20261110-1538",
+  "candidate_fingerprint": "50a248fadacb9bda5868fec5b976f45a5af0b71fca621a78bca425c5f6bb64e9",
+  "candidate_file_count": 38,
+  "candidate_byte_exact_v15_v14": true,
+  "cpu_checks_pass": true,
+  "fresh_boundary_tests": 20,
+  "malformed_variants_rejected_before_native_update": 19,
+  "positive_actual_rows_accepted": 25,
+  "physical_success": false,
+  "full_goal_verified": false,
+  "submission_ready": false,
+  "final_brev_only_remaining": false,
+  "actual43967": "ROOT_PASS_FIRST_LIFT_PLUS10_RETENTION_ONLY_297controls_7425samples",
+  "actual43897": "EVALUATOR_COMPONENT_13PASS_ONLY",
+  "public_channels_promoted": [],
+  "archive_sha256": "5b50c946f9457855e753f99a8a2a5557abb2e06bf3a4455d39276f64099e12c0",
+  "archive_bytes": 736994,
+  "request": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/b6-fullportable-v16-20261110-1538/GPU_REQUEST_UNSUBMITTED.sbatch",
+  "request_submitted": false,
+  "simulator_initializations": 0,
+  "Brev_operations": 0,
+  "model_calls": 0,
+  "native_budget_controls": 3034,
+  "native_hold_s": 20,
+  "estimated_whole_wall_s": [
+    1100,
+    2300
+  ],
+  "request_timeout_s": 1680,
+  "remaining": [
+    "fresh whole genuine reference and native20s hold",
+    "fresh exact-action replay",
+    "ROOT individual channel review",
+    "user-opened final official runtime/model/media validation"
+  ],
+  "proofs": {
+    "REPORT.md": "a11a9092d314593df673cf83964649fae76f426cba9b05f23046c12411ec5f9a",
+    "manifest.json": "d88e2320dd767f8560a9d729add755500c69dad977abec3ddc6258f371f5c929",
+    "archive.json": "29d605b1a93f726b0a12669afeadb7631451b129a02aea9e3ec98f890ae65658",
+    "full-consumed-source-map.json": "2d6eacec6d79d43e0c631b07b75714765fd984f2b41c8341c82b9b54fd770a58",
+    "checks/fresh-boundary.json": "3cf7457c808fda101f417def4767b583981cd0241310839551b754d678e29661",
+    "checks/protocol.json": "d84e3d72b6152373385368c67661ebc06f315cb196f8cc9227d0ad881a34fd1a",
+    "checks/v16-reference.json": "e8f75ed5ab16318aacd24916b185b3b4cb972d57d889e273027c7c528f61acf7",
+    "checks/v16-model-synthetic.json": "64b8114594cd9b861f8cbd50f2a7699127b56e607fab2b7e97d4907429219fb8",
+    "checks/v16-model-missing.json": "147361efc8081f84ab208d47cc59243d8980c136021b14026a8f673312732812"
+  }
+}

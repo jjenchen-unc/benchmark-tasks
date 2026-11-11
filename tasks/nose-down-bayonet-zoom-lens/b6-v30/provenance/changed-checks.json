@@ -1,0 +1,13 @@
+{
+  "synthetic_only": true,
+  "synthetic_final_tcp_error_m": 3.637720417345567e-05,
+  "synthetic_min_tcp_error_m": 1.7852934099915193e-05,
+  "bounded_nonfinite_checks": true,
+  "unchanged_complete_suffix": true,
+  "changed_candidate_files": [
+    "embedded-input-manifest.json",
+    "tracking.py",
+    "reference.py"
+  ],
+  "wall_seconds": 0.11146965064108372
+}

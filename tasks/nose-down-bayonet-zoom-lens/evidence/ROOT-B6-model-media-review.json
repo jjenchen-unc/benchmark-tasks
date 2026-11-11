@@ -1,0 +1,70 @@
+{
+  "schema": "ROOT-B6-ACTUAL-MODEL-AND-SELECTED-MEDIA-REVIEW",
+  "UTC": "2026-11-11T07:47:18.058381+00:00",
+  "reviewer": "ROOT",
+  "approved_model_and_media": true,
+  "actual_scores_verified": true,
+  "model_score": 0.0,
+  "demo_score": 1.0,
+  "model_controls": 3034,
+  "model_requests": 751,
+  "model_sessions": 1,
+  "demo_controls": 2402,
+  "demo_hands_free_s": 25.898,
+  "native_physics_and_actions_unchanged": true,
+  "physical_review_SHA": "92ea414e4c251ebb1963a6276597fd4afecda1dc8789899d658cfb55f6b2c585",
+  "independent_raw_review_SHA": "79fde05dfe29a1a4e3c38a2ffd98d5cfe2886115b98dead89c69f745cf4a5b60",
+  "full_UNC_backup_SHA": "03ae3a23ab8c9a4dc6f5e0d2d9a5daa67225a8690aacaa603c40113401fc8694",
+  "all11845_archive_files_and11475_NPY_verified": true,
+  "policy_disclosure": "Dream-1 + public gripper saturation [0,1] on all returned rows",
+  "visual_review": {
+    "reviewed": true,
+    "setup_matches_scene": true,
+    "identifying_overlays_seen": false,
+    "pixels": [
+      "final-media/setup.png",
+      "review-images/demo-contact-sheet.png",
+      "review-images/actual-model-contact-sheet.png"
+    ],
+    "actual_model_failure_matches_score0": true,
+    "actual_demo_shows_pickup_mount_release": true,
+    "right_wrist_is_auxiliary_view_not_independent_goalproof": true,
+    "numeric_goal_verified_in_unchanged_native_History_not_image_inference": true
+  },
+  "media": {
+    "setup.png": {
+      "bytes": 131663,
+      "sha256": "179b24fdc70be8a494fe82617837610e6551e8172123c385b91ffaef6f7aca7c"
+    },
+    "demo.mp4": {
+      "bytes": 2623416,
+      "sha256": "00f8bdf5d0e55950ad4ef5de34134819c3edb7c532b75e99122651356e479334",
+      "codec_name": "h264",
+      "width": 960,
+      "height": 176,
+      "pix_fmt": "yuv420p",
+      "r_frame_rate": "20/1",
+      "duration": "120.150000",
+      "nb_frames": "2403",
+      "full_decode": true
+    },
+    "model_run.mp4": {
+      "bytes": 4467405,
+      "sha256": "0494946304915de57eac14ff1c4b9e8c44b29f4c1bcb7d3dd4bf64a8a3f3c9cf",
+      "codec_name": "h264",
+      "width": 960,
+      "height": 176,
+      "pix_fmt": "yuv420p",
+      "r_frame_rate": "20/1",
+      "duration": "151.750000",
+      "nb_frames": "3035",
+      "full_decode": true
+    }
+  },
+  "ready_for_upload": false,
+  "remaining": [
+    "Final taskfolder/README/manifest/licenses/runtime/novelty/metadata and source snapshot checks",
+    "Fresh team authorization/ownership/hold/24hquota check immediately before upload",
+    "Actual media upload receipt/taskjsonID, singlefoldercommit+PR+officialreceiver+servedmediaSHA"
+  ]
+}

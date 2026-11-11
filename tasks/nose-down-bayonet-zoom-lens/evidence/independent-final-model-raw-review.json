@@ -1,0 +1,55 @@
+{
+  "status": "PASS_INDEPENDENT_ARCHIVE_SOURCE_ALL_NPY_HISTORY_ACTION_SESSION",
+  "UTC": "2026-11-11T07:43:51.949846+00:00",
+  "archive_sha256": "03ae3a23ab8c9a4dc6f5e0d2d9a5daa67225a8690aacaa603c40113401fc8694",
+  "all_indexed_files_verified_by_separate_backup_audit": 11845,
+  "ALL_archived_NPY_files_shape_dtype_SHA_verified": 11475,
+  "actual_final_model_NPY_files": 9105,
+  "shape": [
+    176,
+    320,
+    3
+  ],
+  "dtype": "uint8",
+  "all_primary_frames_nonconstant": true,
+  "frames_per_camera": 3035,
+  "all_source_manifest_files_byteexact": true,
+  "source_fingerprint": "f7db7f019989b30f88921430caeded1aed0df1f108061b72c0c21afd17a43994",
+  "physics_samples_rederived": 75850,
+  "all_action_last_substep_pairs": 3034,
+  "valid_public_model_score": 0.0,
+  "requests": 751,
+  "sessions": 1,
+  "episode_starts": 1,
+  "request_failures": 0,
+  "actual_summary_status": "success",
+  "actual_record_status": "success",
+  "actual_seed_contract": {
+    "physical_seed": 42,
+    "inspect_trial_seed": 3867854786,
+    "passed_unchanged": true
+  },
+  "public_gripper_projection": {
+    "policy_conversion": "Dream-1 + public gripper saturation [0,1] on all returned rows",
+    "adapter_sha256": "b525f6c889d0accbfa7ac3183371150138d4b717a6ea5814f45e4dc2f8eeac06",
+    "projection_chunks": 751,
+    "projected_gripper_values": 1348,
+    "all_returned_rows_preserved": true,
+    "arm_bytes_preserved": true,
+    "projection_journal_sha256": "66723e7644836d004e621ef105a5b8e89e829ae005c92ff65a85fe06f85a20d4"
+  },
+  "force_audit": {
+    "status": "PASS_ACTUAL_FULL_VECTOR_RAW_CACHE_BINDINGS",
+    "samples": 75850,
+    "controls": 3034,
+    "first_control_index": 0,
+    "peak_full_robot_force_N": 0.0,
+    "all_lens_descendants_and18robot_filters": true,
+    "own_patch_tables_and_float32_worldsums": true,
+    "input_wrenches_exact_to_recorded_forcepacket": true,
+    "nativecapturecache_agrees": true
+  },
+  "full_raw_and_source_on_UNC_only": true,
+  "new_physics_or_model_calls": 0,
+  "blind_media_review_pending": true
+}

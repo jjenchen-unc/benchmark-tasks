@@ -1,0 +1,30 @@
+{
+  "schema": "B6_full_contact_vector_measurement_derivation_v22",
+  "status": "NATIVE_VECTOR_INPUT_AUDIT_CONFIRMED_PRODUCTION_BEHAVIOR_UNVALIDATED",
+  "parent_v21_manifest_fingerprint": "881787c430ee84d35a7067720df4bf0558f0f5f663158b85c8393da264f5eda4",
+  "parent_candidate_sha256": {
+    "contacts.py": "8d4d664389d46afd4198d8c6588515eb18a67f3c03a6c3f6238eb43a52354c81",
+    "b6_physics.py": "1ea64fa110fdd333a0594e2a58120cdc0980e206c087c9a6a96ad3705b090e76"
+  },
+  "changed_candidate_sha256": {
+    "contacts.py": "c65ea8f15354f10c84e0142fc47a34588f07d9462dc79c3ec933e307f72bd2b8",
+    "b6_physics.py": "d1e41f5f90b6bc44becd7a8e78895d5f9decdc03f50f120caaf174fd77fcdfda"
+  },
+  "added_candidate_sha256": {
+    "force_vectors.py": "e949f154833282f7ba91e5c95641586879e8a1f9fe8bcad48cbae150b6efac59"
+  },
+  "source_native_sha256": "1cfa853eb4f4da867bbf4ab3d5b8e84d5dcf12c7bacb344bd06751b69c707758",
+  "scope": "Onlyfullnormal+tangentialWORLDrobotcontactvector input onalllensdescendants. Originalread/held/touch/seatnormal, rules/thresholds/geometry/gains/caps/controller unchanged. Rawforce sidecar added.",
+  "native_vector_validation_pending": false,
+  "simulation_starts": 0,
+  "model_calls": 0,
+  "native_vector_audit": {
+    "path": "artifacts/continuation/b6-final-validation-20261110-2240/full-vector-actual-audit.json",
+    "sha256": "d963c717530231596c20fe3f98fa8dbc299505e3163872234cc64ff78b095ab0",
+    "observed_source_fingerprint": "881787c430ee84d35a7067720df4bf0558f0f5f663158b85c8393da264f5eda4",
+    "controls": 1302,
+    "samples": 32550,
+    "newvectors_fed_to_behavior_in_audit": false,
+    "parser_byteexact": true
+  }
+}

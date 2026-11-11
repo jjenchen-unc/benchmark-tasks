@@ -1,0 +1,5 @@
+B6 complete portable v16, private implementation for ROOT review. See OPERATOR.md for exact reference/replay/setup/model commands, evidence receipt format, resource request and walltime estimates. This bundle preserves every v14 candidate byte; it packages existing controller repair rather than proposing another controller or layout.
+
+Not submission-ready. No fresh whole-goal physical success, public channel promotion, final official model/media validation or verified whole-route throughput is claimed. ROOT actual43967 verifies first-lift plus10 retention controls only (297 controls/7425 samples); full goal remains unverified. CPU checks only establish source/adapter/API boundaries and finite JSON behavior. Brev stays OFF.
+
+V16 repair: strict typed physics-row validation now runs in protocol.fresh before native History.update. Native candidate38 files and embedded manifest remain byte-exact; no physics/controller changes. test_fresh_boundary.py feeds actual43967 rows and malformed mutants through fresh itself. These CPU diagnostics do not establish physical failure or success. Existing unchanged escape/API/geometry/source proofs are retained.

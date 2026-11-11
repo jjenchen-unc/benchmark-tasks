@@ -1,0 +1,15 @@
+{
+  "native_source_sha256": "1cfa853eb4f4da867bbf4ab3d5b8e84d5dcf12c7bacb344bd06751b69c707758",
+  "static_export": "MuJoCo compile+forward only,0physics steps",
+  "fixture_sha256": "dd5ae1e4600ebbdaa9953e6c991ae7ed59d66b7a26fa8bc8c11838ab851e75c0",
+  "runtime_native_imports": false,
+  "robot_assets_bundled": false,
+  "third_party_notices": "THIRD_PARTY_NOTICES.md",
+  "task_count": 1,
+  "sdk_helpers": {
+    "contact_api": "B5task-local verified API method; freshB6calibration required",
+    "motor_limits": "D3task-local method derived from verifiedB5G/K,total27/7Nm,source40Nfingers"
+  },
+  "source_goal_preserved": true,
+  "all_native_variant_goals": "unchanged read-only native; not counted as extra ports"
+}

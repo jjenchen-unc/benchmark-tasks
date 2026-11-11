@@ -1,0 +1,25 @@
+{
+  "at": "2026-11-10T15:21:15.439692+00:00",
+  "unit": "B6_camera",
+  "status": "ROOT_REVIEWED_CHANGED_FIRST_LIFT_CONTROLLER_ONLY",
+  "source": "artifacts/submission-readiness/b6-static-tracking-v14-20261110-1512",
+  "new_job": 43967,
+  "source_native_core_unchanged": true,
+  "independent_changed_function_tests_pass": true,
+  "whole_suffix_source_exact": true,
+  "conditional_bound": 2423,
+  "native_budget": 3034,
+  "first_lift_maxcontrols": 310,
+  "unchanged_servo_cap": 60,
+  "geometry": {
+    "samples": 63,
+    "LP_checks": 630,
+    "unexpected_intersections": 0,
+    "clearance_verified_field": false,
+    "interpretation": "Source alwayslabelsdiagnosticclearance_verifiedFalse; thisisfinitecriticalgeometryonly. witness_limit200truncatesstoredexpectedcontactwitnessesONLY; everyloopcontinuesandunexpected_countnotcapped. No passedcontinuousswept/physicalclaim."
+  },
+  "controller": "Frozenactual240sixjointerrorray, integralKi2/s/scalargain0..2/jointslew<=1mrad/control; no gain/cap/thresholdweakening.",
+  "physical_pass": false,
+  "fullgoal_verified": false,
+  "Brev_operations": 0
+}

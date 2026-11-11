@@ -1,0 +1,10 @@
+{
+  "status": "PASS_UNC_ARCHIVE_AND_ALL_INDEXED_MEMBERS",
+  "UTC": "2026-11-11T07:35:24.516114+00:00",
+  "archive": "/mnt/bum/jjenchen/robocurve/artifacts/continuation/brev-final-batch-20261110-1550/B6-v30-restored-model-full-review.tgz",
+  "bytes": 734289016,
+  "sha256": "03ae3a23ab8c9a4dc6f5e0d2d9a5daa67225a8690aacaa603c40113401fc8694",
+  "all_indexed_files": 11845,
+  "verifier_exitcode": 0,
+  "local_bulk_file_created": false
+}

@@ -1,0 +1,60 @@
+{
+  "status": "ACTUAL_B6_DREAM_COMPLETED_PENDING_ROOT_MEDIA_REVIEW",
+  "score": 0.0,
+  "steps": 3034,
+  "physics_samples": 75850,
+  "native_status_score": 0,
+  "public_score_rederived_from_approved_channels": 0.0,
+  "request_count": 751,
+  "sessions": 1,
+  "frames_per_camera": 3035,
+  "manifest_sha256": "b218cb0b25cf693b84a306a134cca688d128738192e562e8c76798d82b59a00c",
+  "summary_sha256": "a759e5a6a59dd898eeec0264f3622363a3cf36474adcc5760ef9cfe36b5c23fa",
+  "record_sha256": "8c9c4fcca6477fa57ed82ff8a40fb87ec302194db0282da2a2908092722bd50d",
+  "media": {
+    "kind": "Actual synchronized simulator observations, no added frames/labels/holds",
+    "frames_per_camera": 3035,
+    "encoder_returncodes": {
+      "top_cam": 0,
+      "left_cam": 0,
+      "right_cam": 0
+    },
+    "all_encoded": true,
+    "files": {
+      "top_cam.mp4": {
+        "bytes": 985351
+      },
+      "left_cam.mp4": {
+        "bytes": 1077787
+      },
+      "right_cam.mp4": {
+        "bytes": 768201
+      }
+    }
+  },
+  "submission_ready": false,
+  "external_model_helper_sha256": "6699ef55f27bf42c859befd28047c4186148365e6c5f69c2a317927930228356",
+  "full_vector_audit": {
+    "status": "PASS_ACTUAL_FULL_VECTOR_RAW_CACHE_BINDINGS",
+    "samples": 75850,
+    "controls": 3034,
+    "first_control_index": 0,
+    "peak_full_robot_force_N": 0.0,
+    "all_lens_descendants_and18robot_filters": true,
+    "own_patch_tables_and_float32_worldsums": true,
+    "input_wrenches_exact_to_recorded_forcepacket": true,
+    "nativecapturecache_agrees": true
+  },
+  "force_verifier_sha256": "76e98757ce093d3e1b50795417a06488db83c0a7ec2b43e8c2bfd28ce49a905e",
+  "verifier_sha256": "041138ad1d7b403691bb549c2c60f4d6b95c186828c6f15b000cf651a9b245fd",
+  "public_gripper_projection": {
+    "policy_conversion": "Dream-1 + public gripper saturation [0,1] on all returned rows",
+    "adapter_sha256": "b525f6c889d0accbfa7ac3183371150138d4b717a6ea5814f45e4dc2f8eeac06",
+    "projection_chunks": 751,
+    "projected_gripper_values": 1348,
+    "all_returned_rows_preserved": true,
+    "arm_bytes_preserved": true,
+    "projection_journal_sha256": "66723e7644836d004e621ef105a5b8e89e829ae005c92ff65a85fe06f85a20d4"
+  },
+  "policy_conversion": "Dream-1 + public gripper saturation [0,1] on all returned rows"
+}

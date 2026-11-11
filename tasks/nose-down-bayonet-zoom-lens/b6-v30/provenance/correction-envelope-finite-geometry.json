@@ -1,0 +1,3437 @@
+{
+  "scope": "Finite CPU convex-collider intersections, ideal measured-FK rigid grips only.\nNo simulation initialization. Positive LP interior radius is an intersection\nwitness, not a physical contact measurement or swept-clearance certificate.\n",
+  "finger_pose_assumption": "Actual240/300 and61 points across measured-to-nominal-to-max projected correction ray. CONDITIONAL rigid grasp; finite points not continuous swept or physical proof",
+  "physical": false,
+  "samples": 63,
+  "all_urdf_links": [
+    "left/base",
+    "left/gripper",
+    "left/link1",
+    "left/link2",
+    "left/link3",
+    "left/link4",
+    "left/link5",
+    "left/tip_left",
+    "left/tip_right",
+    "right/base",
+    "right/gripper",
+    "right/link1",
+    "right/link2",
+    "right/link3",
+    "right/link4",
+    "right/link5",
+    "right/tip_left",
+    "right/tip_right"
+  ],
+  "robot_collision_components_per_arm": 315,
+  "broadphase_candidate_pairs": 630,
+  "LP_checks": 630,
+  "witnesses": [
+    {
+      "control": 0,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336744324765,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23486209570957603,
+        0.05372486740040916,
+        0.8245035757825776
+      ]
+    },
+    {
+      "control": 0,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411432754756,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2347913374698687,
+        0.054118691728173775,
+        0.8219108837188251
+      ]
+    },
+    {
+      "control": 0,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689687583448e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.29699479218215574,
+        0.05314448012985897,
+        0.8235127607748598
+      ]
+    },
+    {
+      "control": 0,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789714271498,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.29707106687205426,
+        0.054360805771102055,
+        0.8234204362413704
+      ]
+    },
+    {
+      "control": 4,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010792201112713729,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23421394462816528,
+        0.05270045989602693,
+        0.8242256816492448
+      ]
+    },
+    {
+      "control": 4,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013711957605917757,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23413597875028758,
+        0.05308442821002549,
+        0.8216330525752686
+      ]
+    },
+    {
+      "control": 4,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.672095490186999e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2963377410130676,
+        0.05212227781730169,
+        0.8230659656476227
+      ]
+    },
+    {
+      "control": 4,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.0001545315479948798,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2964138115185613,
+        0.053341954942261904,
+        0.8229677563267952
+      ]
+    },
+    {
+      "control": 8,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336744324765,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23486209570957603,
+        0.05372486740040916,
+        0.8245035757825776
+      ]
+    },
+    {
+      "control": 8,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411432754756,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2347913374698687,
+        0.054118691728173775,
+        0.8219108837188251
+      ]
+    },
+    {
+      "control": 8,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689687583448e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.29699479218215574,
+        0.05314448012985897,
+        0.8235127607748598
+      ]
+    },
+    {
+      "control": 8,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789714271498,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.29707106687205426,
+        0.054360805771102055,
+        0.8234204362413704
+      ]
+    },
+    {
+      "control": 12,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.0001063633674455132,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2350697835474847,
+        0.05402500341080273,
+        0.8251409960955272
+      ]
+    },
+    {
+      "control": 12,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411432963617,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23500131011424932,
+        0.05442193574420019,
+        0.8225487166779702
+      ]
+    },
+    {
+      "control": 12,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689687414659e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2972031838735169,
+        0.053433361834308454,
+        0.8242023487245178
+      ]
+    },
+    {
+      "control": 12,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789714055698,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2972797793393896,
+        0.0546497814975377,
+        0.8241115409558478
+      ]
+    },
+    {
+      "control": 16,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336744771283,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.235276850940876,
+        0.054324303915039715,
+        0.8257790853582896
+      ]
+    },
+    {
+      "control": 16,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411433159293,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23521066191844403,
+        0.05472434375724055,
+        0.8231872243271048
+      ]
+    },
+    {
+      "control": 16,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689687250381e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.29741090828571976,
+        0.05372134811758582,
+        0.8248925771004727
+      ]
+    },
+    {
+      "control": 16,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789713855511,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2974878231877219,
+        0.0549378599470449,
+        0.8248032866757292
+      ]
+    },
+    {
+      "control": 20,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.0001063633674500096,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23548329719186714,
+        0.05462276794439413,
+        0.8264178418076137
+      ]
+    },
+    {
+      "control": 20,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411433368154,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2354193921794997,
+        0.05502591479169918,
+        0.8238264049019758
+      ]
+    },
+    {
+      "control": 20,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689687066327e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.29761796476044156,
+        0.054008438063268153,
+        0.8255834440264893
+      ]
+    },
+    {
+      "control": 20,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789713631732,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2976951977580888,
+        0.0552250402023023,
+        0.8254956715212576
+      ]
+    },
+    {
+      "control": 24,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336745221617,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23568912160442143,
+        0.05492039453260095,
+        0.8270572636781451
+      ]
+    },
+    {
+      "control": 24,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411433564525,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23562750019631107,
+        0.055326647874443684,
+        0.824466256636224
+      ]
+    },
+    {
+      "control": 24,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689686897885e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.29782435264130663,
+        0.05429463075753052,
+        0.8262749476243609
+      ]
+    },
+    {
+      "control": 24,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789713415239,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2979019023934782,
+        0.05551132134858219,
+        0.8261886936107028
+      ]
+    },
+    {
+      "control": 28,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336745451988,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23589432348435074,
+        0.05521718271585897,
+        0.8276973492024332
+      ]
+    },
+    {
+      "control": 28,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411433775467,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23583498526962227,
+        0.055626542034807054,
+        0.8251067777613799
+      ]
+    },
+    {
+      "control": 28,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689686722331e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.29803007127388786,
+        0.05457992528915007,
+        0.8269670860139193
+      ]
+    },
+    {
+      "control": 28,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789713208113,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2981079364388302,
+        0.055796702473767355,
+        0.8268823510603704
+      ]
+    },
+    {
+      "control": 32,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.0001063633674567438,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23609890213931775,
+        0.05551313153283397,
+        0.828338096610936
+      ]
+    },
+    {
+      "control": 32,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.0001354541143398294,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23604184670202905,
+        0.055925596304589556,
+        0.8257479665068592
+      ]
+    },
+    {
+      "control": 32,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689686547124e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.298235120005709,
+        0.054864320749507374,
+        0.8276598573130381
+      ]
+    },
+    {
+      "control": 32,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789712990752,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2983132992410388,
+        0.05608118266835074,
+        0.8275766419846068
+      ]
+    },
+    {
+      "control": 36,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336745896077,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23630285687883715,
+        0.05580824002466175,
+        0.8289795041320251
+      ]
+    },
+    {
+      "control": 36,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411434182086,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23624808379798073,
+        0.05622380971806383,
+        0.8263898210999865
+      ]
+    },
+    {
+      "control": 36,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689686377641e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2984394981862461,
+        0.055147816232591323,
+        0.8283532596376384
+      ]
+    },
+    {
+      "control": 36,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.0001505778971277582,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2985179901489534,
+        0.05636476102543419,
+        0.828271564495803
+      ]
+    },
+    {
+      "control": 40,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336746125755,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23650618701427897,
+        0.0561025072349501,
+        0.8296215699919931
+      ]
+    },
+    {
+      "control": 40,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411434388865,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2364536958637827,
+        0.05652118131197447,
+        0.8270323397659971
+      ]
+    },
+    {
+      "control": 40,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689686194801e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2986432051669299,
+        0.05543041083499895,
+        0.8290472911016974
+      ]
+    },
+    {
+      "control": 40,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789712561928,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.298722008513382,
+        0.05664743664073484,
+        0.8289671167044048
+      ]
+    },
+    {
+      "control": 44,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336746349187,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2367088918588699,
+        0.056395932209783554,
+        0.8302642924150561
+      ]
+    },
+    {
+      "control": 44,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411434593563,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23665868220759856,
+        0.056817710125545345,
+        0.8276755207280339
+      ]
+    },
+    {
+      "control": 44,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689686024365e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2988462403011479,
+        0.05571210365594123,
+        0.829741949817249
+      ]
+    },
+    {
+      "control": 44,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789712337195,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.29892535368709194,
+        0.05692920861258616,
+        0.8296632967189126
+      ]
+    },
+    {
+      "control": 48,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336746582507,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23691097072769574,
+        0.05668851399772446,
+        0.8309076696233614
+      ]
+    },
+    {
+      "control": 48,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.000135454114348052,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23686304213945178,
+        0.05711339520047898,
+        0.8283193622071582
+      ]
+    },
+    {
+      "control": 48,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689685859132e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2990486029442459,
+        0.05599289379724262,
+        0.8304372338943942
+      ]
+    },
+    {
+      "control": 48,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789712134666,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2991280250248127,
+        0.05721007604194028,
+        0.8303601026458914
+      ]
+    },
+    {
+      "control": 52,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336746803858,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23711242293770335,
+        0.05698025164981785,
+        0.8315516998369944
+      ]
+    },
+    {
+      "control": 52,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411435002264,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23706677497122816,
+        0.05740823558096024,
+        0.8289638624223542
+      ]
+    },
+    {
+      "control": 52,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689685675599e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.29925029245353024,
+        0.056272780363347194,
+        0.8311331414413063
+      ]
+    },
+    {
+      "control": 52,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789711919213,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2993300218832375,
+        0.05749003803237684,
+        0.8310575325899775
+      ]
+    },
+    {
+      "control": 56,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336747027464,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2373132478077026,
+        0.057271144219593,
+        0.8321963812739792
+      ]
+    },
+    {
+      "control": 56,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411435209737,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2372698800166777,
+        0.05770223031366229,
+        0.8296090195905357
+      ]
+    },
+    {
+      "control": 56,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689685517739e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.29945130818826976,
+        0.05655176246132059,
+        0.8318296705642335
+      ]
+    },
+    {
+      "control": 56,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789711713648,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2995313436210249,
+        0.05776909369009359,
+        0.8317555846538797
+      ]
+    },
+    {
+      "control": 60,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336747261305,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2375134446583686,
+        0.05756119076306596,
+        0.8328417121502885
+      ]
+    },
+    {
+      "control": 60,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411435417903,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23747235659141694,
+        0.05799537844774539,
+        0.8302548319265539
+      ]
+    },
+    {
+      "control": 60,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689685327266e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.29965164950969686,
+        0.056829839200849885,
+        0.8325268193675076
+      ]
+    },
+    {
+      "control": 60,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.0001505778971148137,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.29973198959880093,
+        0.05804724212392149,
+        0.8324542569383883
+      ]
+    },
+    {
+      "control": 64,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336747475196,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23771301281224433,
+        0.057850390338744874,
+        0.8334876906798492
+      ]
+    },
+    {
+      "control": 64,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411435608723,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2376742040129313,
+        0.05828767903486199,
+        0.8309012976431959
+      ]
+    },
+    {
+      "control": 64,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689685164983e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.29985131578101143,
+        0.05710700969424843,
+        0.8332245859535499
+      ]
+    },
+    {
+      "control": 64,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789711283394,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2999319591791622,
+        0.05832448244531624,
+        0.8331535475423814
+      ]
+    },
+    {
+      "control": 68,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336747699669,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23791195159374137,
+        0.05813874200762975,
+        0.8341343150745442
+      ]
+    },
+    {
+      "control": 68,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411435818971,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23787542160057604,
+        0.058579131129158774,
+        0.8315484149511995
+      ]
+    },
+    {
+      "control": 68,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689685001398e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3000503063673804,
+        0.05738327305646083,
+        0.8339229684228746
+      ]
+    },
+    {
+      "control": 68,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789711066336,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3001312517266754,
+        0.0586008137683762,
+        0.8338534545628284
+      ]
+    },
+    {
+      "control": 72,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336747924316,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23811026032914348,
+        0.05842624483321827,
+        0.8347815835442218
+      ]
+    },
+    {
+      "control": 72,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411436022975,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23807600867557982,
+        0.05886973378728213,
+        0.8321961820592495
+      ]
+    },
+    {
+      "control": 72,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689684816715e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.30024862063594104,
+        0.05765862840505953,
+        0.8346219648740977
+      ]
+    },
+    {
+      "control": 72,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789710853833,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3003298666078815,
+        0.05887623520982753,
+        0.8345539760947981
+      ]
+    },
+    {
+      "control": 76,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336748149396,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23830793834660768,
+        0.05871289788150648,
+        0.8354294942966998
+      ]
+    },
+    {
+      "control": 76,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411436228366,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23827596456104574,
+        0.05915948606837764,
+        0.8328445971739896
+      ]
+    },
+    {
+      "control": 76,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689684655061e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3004462579558031,
+        0.05793307486025591,
+        0.8353215734039401
+      ]
+    },
+    {
+      "control": 76,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789710643866,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.30052780319129646,
+        0.05915074588904117,
+        0.8352551102314626
+      ]
+    },
+    {
+      "control": 80,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336748375778,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23850498497616632,
+        0.058998700220992774,
+        0.8360780455377698
+      ]
+    },
+    {
+      "control": 80,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.000135454114364289,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2384752885819535,
+        0.05944838703409381,
+        0.8334936585000204
+      ]
+    },
+    {
+      "control": 80,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689684467938e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3006432176980493,
+        0.05820661154489468,
+        0.8360217921072352
+      ]
+    },
+    {
+      "control": 80,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789710420022,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3007250608474133,
+        0.059424344928023946,
+        0.8359568550641047
+      ]
+    },
+    {
+      "control": 84,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336748597562,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23870139954972971,
+        0.059283650922681,
+        0.8367272354712053
+      ]
+    },
+    {
+      "control": 84,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411436630337,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2386739800651621,
+        0.05973643574858698,
+        0.8341433642399217
+      ]
+    },
+    {
+      "control": 84,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689684304983e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.30083949923573877,
+        0.05847923758446373,
+        0.8367226190769332
+      ]
+    },
+    {
+      "control": 84,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789710219667,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.30092163894870416,
+        0.059697031451429156,
+        0.8366592086821218
+      ]
+    },
+    {
+      "control": 88,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336748824637,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23889718140108784,
+        0.05956774906008229,
+        0.8373770622987659
+      ]
+    },
+    {
+      "control": 88,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411436842458,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23887203833941134,
+        0.06002363127852167,
+        0.8347937125942372
+      ]
+    },
+    {
+      "control": 88,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.30068968412649e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.301035101943908,
+        0.058750952107087674,
+        0.8374240524041094
+      ]
+    },
+    {
+      "control": 88,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789709998267,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.30111753686962206,
+        0.0599688045865606,
+        0.8373621691730351
+      ]
+    },
+    {
+      "control": 92,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336749053621,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23909232986591217,
+        0.05985099370921939,
+        0.8380275242202024
+      ]
+    },
+    {
+      "control": 92,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411437043686,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2390694627353238,
+        0.06030997269307604,
+        0.8354447017614929
+      ]
+    },
+    {
+      "control": 92,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689683953018e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.301230025199573,
+        0.05902175424354438,
+        0.8381260901779674
+      ]
+    },
+    {
+      "control": 92,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789709793873,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3013127539866031,
+        0.060239663463365095,
+        0.8380657346224915
+      ]
+    },
+    {
+      "control": 96,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336749273887,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2392868442817583,
+        0.06013338394862826,
+        0.8386786194332632
+      ]
+    },
+    {
+      "control": 96,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411437249077,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23926625258540735,
+        0.06059545906394235,
+        0.836096329938199
+      ]
+    },
+    {
+      "control": 96,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689683772347e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.30142426838173114,
+        0.05929164312725212,
+        0.8388287304858455
+      ]
+    },
+    {
+      "control": 96,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.0001505778970956684,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3015072896780677,
+        0.060509607214448896,
+        0.8387699031142719
+      ]
+    },
+    {
+      "control": 100,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.0001063633674949462,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23948072398806697,
+        0.060414918859361226,
+        0.8393303461336992
+      ]
+    },
+    {
+      "control": 100,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411437443367,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2394624072240565,
+        0.06088008946533193,
+        0.8367485953188527
+      ]
+    },
+    {
+      "control": 100,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689683598614e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.301617830871363,
+        0.05956061789428475,
+        0.8395319714132246
+      ]
+    },
+    {
+      "control": 100,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789709341804,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.301701143324423,
+        0.0607786349750674,
+        0.8394746727302966
+      ]
+    },
+    {
+      "control": 104,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.0001063633674972303,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23967396832616739,
+        0.06069559752499027,
+        0.8399827025152704
+      ]
+    },
+    {
+      "control": 104,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411437651533,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2396579259875555,
+        0.061163862973974574,
+        0.8374014960959616
+      ]
+    },
+    {
+      "control": 104,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689683432211e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3018107120514344,
+        0.059828677683366034,
+        0.8402358110437301
+      ]
+    },
+    {
+      "control": 104,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789709139622,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3018943143080647,
+        0.06104674588313365,
+        0.84018004155063
+      ]
+    },
+    {
+      "control": 108,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336749948933,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23986657663927816,
+        0.06097541903160955,
+        0.8406356867697516
+      ]
+    },
+    {
+      "control": 108,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411437859006,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.23985280821407914,
+        0.0614467786691267,
+        0.838055030460016
+      ]
+    },
+    {
+      "control": 108,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689683260256e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.30200291130689794,
+        0.06009582163587522,
+        0.8409402474591435
+      ]
+    },
+    {
+      "control": 108,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789708921524,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3020868020133785,
+        0.061313939079224555,
+        0.8408860076534893
+      ]
+    },
+    {
+      "control": 112,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336750172951,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2400585482725099,
+        0.06125438246783879,
+        0.8412892970869367
+      ]
+    },
+    {
+      "control": 112,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.0001354541143805954,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24004705324369566,
+        0.061728835632570256,
+        0.8387091965995227
+      ]
+    },
+    {
+      "control": 112,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689683078544e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.30219442802469504,
+        0.06036204889585195,
+        0.8416452787394024
+      ]
+    },
+    {
+      "control": 112,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.000150577897086987,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3022786058267425,
+        0.0615802137065777,
+        0.841592569115247
+      ]
+    },
+    {
+      "control": 116,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336750393521,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24024988257286642,
+        0.06153248692482446,
+        0.8419435316546439
+      ]
+    },
+    {
+      "control": 116,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411438269095,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2402406604183678,
+        0.06201003294861622,
+        0.8393639927010006
+      ]
+    },
+    {
+      "control": 116,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689682914179e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3023852615937576,
+        0.06062735860999559,
+        0.8423509029626092
+      ]
+    },
+    {
+      "control": 116,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.0001505778970849747,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3024697251365283,
+        0.06184556891109469,
+        0.8422997240104385
+      ]
+    },
+    {
+      "control": 120,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336750613137,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24044057888924794,
+        0.06180973149624484,
+        0.8425983886587245
+      ]
+    },
+    {
+      "control": 120,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.0001354541143845922,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24043362908195612,
+        0.06229036970410786,
+        0.8400194169489843
+      ]
+    },
+    {
+      "control": 120,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689682743829e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3025754114050102,
+        0.06089174992766917,
+        0.843057118205038
+      ]
+    },
+    {
+      "control": 120,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789708286182,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3026601593331037,
+        0.062110003841350056,
+        0.8430074704117693
+      ]
+    },
+    {
+      "control": 124,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336750848453,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24063063657245282,
+        0.06208611527831121,
+        0.8432538662830653
+      ]
+    },
+    {
+      "control": 124,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.0001354541143866253,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24062595858022043,
+        0.06256984498842415,
+        0.8406754675260381
+      ]
+    },
+    {
+      "control": 124,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689682558908e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3027648768513718,
+        0.06115522200090209,
+        0.8437639225411376
+      ]
+    },
+    {
+      "control": 124,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789708079923,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.30284990780883425,
+        0.062373517648582864,
+        0.843715806390117
+      ]
+    },
+    {
+      "control": 128,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336751066681,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24082005497517792,
+        0.06236163736977148,
+        0.8439099627095956
+      ]
+    },
+    {
+      "control": 128,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411438877983,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24081764826082092,
+        0.06284845789348134,
+        0.8413321426127583
+      ]
+    },
+    {
+      "control": 128,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.3006896823909e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3029536573277573,
+        0.06141777398439315,
+        0.84447131404354
+      ]
+    },
+    {
+      "control": 128,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789707848858,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3030389699580842,
+        0.06263610948671039,
+        0.8444247300145418
+      ]
+    },
+    {
+      "control": 132,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336751296705,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24100883345202292,
+        0.06263629687191212,
+        0.844566676118293
+      ]
+    },
+    {
+      "control": 132,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411439075047,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24100869747332127,
+        0.06312620751373695,
+        0.8419894403877523
+      ]
+    },
+    {
+      "control": 132,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.30068968221153e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3031417522310794,
+        0.061679405035509886,
+        0.845179290783065
+      ]
+    },
+    {
+      "control": 132,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.0001505778970763219,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3032273451772201,
+        0.06289777851232173,
+        0.8451342393522884
+      ]
+    },
+    {
+      "control": 136,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336751517275,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24119697135949086,
+        0.06291009288856238,
+        0.8452240046871875
+      ]
+    },
+    {
+      "control": 136,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411439281133,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24119910556919044,
+        0.06340309294619166,
+        0.8426473590277049
+      ]
+    },
+    {
+      "control": 136,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689682041873e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.30332916096025087,
+        0.06194011431429806,
+        0.8458878508287256
+      ]
+    },
+    {
+      "control": 136,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.0001505778970742177,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.30341503286461086,
+        0.06315852388468689,
+        0.8458443324687949
+      ]
+    },
+    {
+      "control": 140,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.0001063633675173585,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24138446805599018,
+        0.0631830245260955,
+        0.8458819465923705
+      ]
+    },
+    {
+      "control": 140,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411439486177,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2413888719018041,
+        0.06367911329039262,
+        0.8433058967073267
+      ]
+    },
+    {
+      "control": 140,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689681871003e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3035158829161855,
+        0.06219990098347576,
+        0.8465969922477362
+      ]
+    },
+    {
+      "control": 140,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789707202847,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3036020324206301,
+        0.06341834476575754,
+        0.8465550074276976
+      ]
+    },
+    {
+      "control": 144,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336751963273,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24157132290183736,
+        0.06345509089343251,
+        0.8465405000079964
+      ]
+    },
+    {
+      "control": 144,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411439683241,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24157799582644718,
+        0.06395426764843659,
+        0.8439650515993706
+      ]
+    },
+    {
+      "control": 144,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689681692153e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.303701917501801,
+        0.06245876420844113,
+        0.8473067131055158
+      ]
+    },
+    {
+      "control": 144,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.000150577897069867,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.30378834324765897,
+        0.06367724032016378,
+        0.8472662622908359
+      ]
+    },
+    {
+      "control": 148,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336752186358,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24175753525925803,
+        0.06372629110204435,
+        0.8471996631062906
+      ]
+    },
+    {
+      "control": 148,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411439887592,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24176647670031534,
+        0.0642285551249708,
+        0.8446248218746764
+      ]
+    },
+    {
+      "control": 148,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689681524059e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3038872641220197,
+        0.06271670315727555,
+        0.8480170114656947
+      ]
+    },
+    {
+      "control": 148,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789706764656,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.30397396475008603,
+        0.06393520971522812,
+        0.8479780951182597
+      ]
+    },
+    {
+      "control": 152,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336752409617,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24194310449238965,
+        0.06399662426595543,
+        0.8478594340575556
+      ]
+    },
+    {
+      "control": 152,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411440096453,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24195431388251745,
+        0.06450197482719837,
+        0.8452852057021257
+      ]
+    },
+    {
+      "control": 152,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689681341392e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.30407192218377116,
+        0.06297371700074321,
+        0.8487278853901223
+      ]
+    },
+    {
+      "control": 152,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.0001505778970655302,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.30415889633431104,
+        0.06419225212095828,
+        0.8486905039682345
+      ]
+    },
+    {
+      "control": 156,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336752628366,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24212802996728305,
+        0.06426608950174549,
+        0.8485198110301752
+      ]
+    },
+    {
+      "control": 156,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411440291089,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24214150673407717,
+        0.06477452586487999,
+        0.8459462012486689
+      ]
+    },
+    {
+      "control": 156,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689681174512e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3042558910959935,
+        0.06322980491229512,
+        0.8494393329388701
+      ]
+    },
+    {
+      "control": 156,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789706343291,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3043431374087451,
+        0.06444836671005381,
+        0.8494034868972482
+      ]
+    },
+    {
+      "control": 160,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336752855094,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24231231105190432,
+        0.06453468592855297,
+        0.8491807921906208
+      ]
+    },
+    {
+      "control": 160,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.0001354541144049301,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.242328054617935,
+        0.06504620735033481,
+        0.8466078066793451
+      ]
+    },
+    {
+      "control": 160,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689681002948e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.30443917026963546,
+        0.063484966068072,
+        0.8501513521702402
+      ]
+    },
+    {
+      "control": 160,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.0001505778970612888,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.30452668738381355,
+        0.06470355265790732,
+        0.8501170419600166
+      ]
+    },
+    {
+      "control": 164,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.0001063633675307419,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24249594711613703,
+        0.06480241266807725,
+        0.8498423757034571
+      ]
+    },
+    {
+      "control": 164,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411440703606,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24251395689895014,
+        0.06531701839844754,
+        0.8472700201572733
+      ]
+    },
+    {
+      "control": 164,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.30068968083468e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3046217591176574,
+        0.06373919964690435,
+        0.8508639411407687
+      ]
+    },
+    {
+      "control": 164,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789705913253,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.30470954567195674,
+        0.06495780914260996,
+        0.8508311672094876
+      ]
+    },
+    {
+      "control": 168,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336753301959,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24267893753178352,
+        0.06506926884458167,
+        0.8505045597313485
+      ]
+    },
+    {
+      "control": 168,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411440893385,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24269921294390226,
+        0.06558695812666572,
+        0.847932839843632
+      ]
+    },
+    {
+      "control": 168,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689680649237e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.30480365705503404,
+        0.06399250483031971,
+        0.8515770979052348
+      ]
+    },
+    {
+      "control": 168,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.0001505778970570231,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.30489171168763285,
+        0.06521113534494814,
+        0.8515458606968512
+      ]
+    },
+    {
+      "control": 172,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336753528514,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24286128167256796,
+        0.06533525358489642,
+        0.8511673424350632
+      ]
+    },
+    {
+      "control": 172,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411441117858,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24288382212149434,
+        0.0658560256550068,
+        0.8485962638977433
+      ]
+    },
+    {
+      "control": 172,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689680488429e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.30498486349875636,
+        0.06424488080254039,
+        0.8522908205166635
+      ]
+    },
+    {
+      "control": 172,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789705485297,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.30507318484731905,
+        0.06546353044841217,
+        0.852261120471541
+      ]
+    },
+    {
+      "control": 176,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336753750211,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24304297891413695,
+        0.06560036601842109,
+        0.8518307219734809
+      ]
+    },
+    {
+      "control": 176,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411441324984,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.243067783802353,
+        0.06612422010606087,
+        0.849260290476967
+      ]
+    },
+    {
+      "control": 176,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689680304895e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3051653778678317,
+        0.0644963267504886,
+        0.8530051070263337
+      ]
+    },
+    {
+      "control": 176,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.0001505778970527713,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.30525396456951315,
+        0.06571499363919517,
+        0.8529769445812431
+      ]
+    },
+    {
+      "control": 180,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.0001063633675397295,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24322402863406237,
+        0.06586460527712663,
+        0.8524946965035961
+      ]
+    },
+    {
+      "control": 180,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.0001354541144149464,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2432510973590321,
+        0.0663915406049889,
+        0.8499249177367946
+      ]
+    },
+    {
+      "control": 180,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689680131422e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3053451995832873,
+        0.06474684186378701,
+        0.8537199554837831
+      ]
+    },
+    {
+      "control": 180,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.0001505778970505231,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.30543405027473536,
+        0.0659655241061987,
+        0.8536933310719009
+      ]
+    },
+    {
+      "control": 184,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336754191872,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24340443021184271,
+        0.06612797049555966,
+        0.8531592641805263
+      ]
+    },
+    {
+      "control": 184,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411441735072,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24343376216601345,
+        0.06665798627952818,
+        0.8505901438308697
+      ]
+    },
+    {
+      "control": 184,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689679961767e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3055243280681714,
+        0.0649964253347656,
+        0.8544353639368155
+      ]
+    },
+    {
+      "control": 184,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.0001505778970484692,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3056134413855308,
+        0.0662151210410248,
+        0.8544102779877214
+      ]
+    },
+    {
+      "control": 188,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336754420508,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24358418302890547,
+        0.06639046081084328,
+        0.853824423157516
+      ]
+    },
+    {
+      "control": 188,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411441907157,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.243615777599709,
+        0.06692355625999886,
+        0.8512559669108497
+      ]
+    },
+    {
+      "control": 188,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689679783437e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3057027627475545,
+        0.06524507635845694,
+        0.8551513304315047
+      ]
+    },
+    {
+      "control": 188,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789704617935,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3057921373264699,
+        0.06646378363799815,
+        0.8551277833711816
+      ]
+    },
+    {
+      "control": 192,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.0001063633675463839,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24376328646860834,
+        0.06665207536268135,
+        0.8544901715859438
+      ]
+    },
+    {
+      "control": 192,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.0001354541144214065,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24379714303846312,
+        0.06718824967929946,
+        0.8519223851266322
+      ]
+    },
+    {
+      "control": 192,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689679606495e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3058805030485315,
+        0.06549279413260531,
+        0.8558678530122021
+      ]
+    },
+    {
+      "control": 192,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789704404217,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.30597013752415125,
+        0.06671151109414922,
+        0.8558458452630328
+      ]
+    },
+    {
+      "control": 196,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/14",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00010636336754860434,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.2439417399162418,
+        0.06691281329335995,
+        0.8551565076153261
+      ]
+    },
+    {
+      "control": 196,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_left/15",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00013545411442317593,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.24397785786255405,
+        0.06745206567291676,
+        0.8525893966261244
+      ]
+    },
+    {
+      "control": 196,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/5",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 7.300689679431288e-05,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.3060575484002236,
+        0.06573957785766578,
+        0.8565849297215421
+      ]
+    },
+    {
+      "control": 196,
+      "phase": "right_proof_lift",
+      "pair": [
+        "right/tip_right/8",
+        "lens_blue_barrel"
+      ],
+      "interior_ball_radius_m": 0.00015057789704184948,
+      "expected_finger_payload_contact": true,
+      "witness_point_m": [
+        0.30614744140720257,
+        0.06695830260922478,
+        0.8565644617023084
+      ]
+    }
+  ],
+  "contact_summary": {
+    "right_proof_lift|right/tip_left/14|lens_blue_barrel": {
+      "first": {
+        "control": 0,
+        "phase": "right_proof_lift",
+        "pair": [
+          "right/tip_left/14",
+          "lens_blue_barrel"
+        ],
+        "interior_ball_radius_m": 0.00010636336744324765,
+        "expected_finger_payload_contact": true,
+        "witness_point_m": [
+          0.23486209570957603,
+          0.05372486740040916,
+          0.8245035757825776
+        ]
+      },
+      "count": 63,
+      "max_interior_ball_radius_m": 0.00010792201112713729
+    },
+    "right_proof_lift|right/tip_left/15|lens_blue_barrel": {
+      "first": {
+        "control": 0,
+        "phase": "right_proof_lift",
+        "pair": [
+          "right/tip_left/15",
+          "lens_blue_barrel"
+        ],
+        "interior_ball_radius_m": 0.00013545411432754756,
+        "expected_finger_payload_contact": true,
+        "witness_point_m": [
+          0.2347913374698687,
+          0.054118691728173775,
+          0.8219108837188251
+        ]
+      },
+      "count": 63,
+      "max_interior_ball_radius_m": 0.00013711957605917757
+    },
+    "right_proof_lift|right/tip_right/5|lens_blue_barrel": {
+      "first": {
+        "control": 0,
+        "phase": "right_proof_lift",
+        "pair": [
+          "right/tip_right/5",
+          "lens_blue_barrel"
+        ],
+        "interior_ball_radius_m": 7.300689687583448e-05,
+        "expected_finger_payload_contact": true,
+        "witness_point_m": [
+          0.29699479218215574,
+          0.05314448012985897,
+          0.8235127607748598
+        ]
+      },
+      "count": 63,
+      "max_interior_ball_radius_m": 7.672095490186999e-05
+    },
+    "right_proof_lift|right/tip_right/8|lens_blue_barrel": {
+      "first": {
+        "control": 0,
+        "phase": "right_proof_lift",
+        "pair": [
+          "right/tip_right/8",
+          "lens_blue_barrel"
+        ],
+        "interior_ball_radius_m": 0.00015057789714271498,
+        "expected_finger_payload_contact": true,
+        "witness_point_m": [
+          0.29707106687205426,
+          0.054360805771102055,
+          0.8234204362413704
+        ]
+      },
+      "count": 63,
+      "max_interior_ball_radius_m": 0.0001545315479948798
+    }
+  },
+  "unexpected_count": 0,
+  "unexpected": [],
+  "witness_limit": 200,
+  "witness_limit_reached": true,
+  "grasp_checks": [],
+  "phases": [
+    "right_proof_lift"
+  ],
+  "consumed_sha256": {
+    "/opt/yam-arena/yam_arena/assets/yam/collision/base/base_000.stl": "bec77c68a29ab8429f0923a05b727000fec631b395b8adc38fa43699b4f8f87d",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/base/base_001.stl": "b28e2d76a94e22024b3b214848664c1b68964d1a14b4a6b09f68c533f2c18d31",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/base/base_002.stl": "38e2b9ba882e6bdc8348e4ec0267895b7b85a5d8ca63900c986f7edb05cf57ca",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/base/base_003.stl": "de85fcd19def1a491acdf69321292d3c7b8232e6bfaf3a9b7e897091b3253420",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/base/base_004.stl": "fa41d2610867d9e6fb5f923e1f14af6589b673bead315341f14e2d0943ce4923",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/base/base_005.stl": "5df95319401e48eeeecaa1b27895295159ceb4dc4aa2cf2adb8861adc8286eb3",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/base/base_006.stl": "64fe0b9b20121bdf6664457e781a5dc3791ed67f75bb7f4bd243aed690af3569",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/base/base_007.stl": "3922148f242f0a1dd8cf1935a64135ee50d457a1ca187b81e19f77c04c74c9aa",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/base/base_008.stl": "cef227af7b459af65011f1e57dc5d24aa2f763408ce4c1b73617999f9e1fde9b",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/base/base_009.stl": "83ad56ddc3e9046b8409b23d6b6b8e39f4c0a9b79016398a250d7f05576f5a94",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/base/base_010.stl": "c9c61c243e16c56a41961a28be8b622efeb31a6e144466ff15e6d5f8a8cca9a4",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/base/base_011.stl": "a0c4069763e4bd88fb5b522beb82529481a50b4f39b59d6df38c8655f6d1683a",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/base/base_012.stl": "3f73d0d776b3661d2b13c858a5ce1510c97bf2dcc89cdce6b3e40e7dc3482aae",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/base/base_013.stl": "e6bc5ff9210991440eb571e81d84c3059917ce056ba8facb81bab342731c8c7f",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/base/base_014.stl": "7693f1483d119541b6bf9c70d132906858eec58e13727f97b313385d4199d0ff",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/base/base_015.stl": "cfb84683ec8f47add28c07e683c009059668b48dfc2b0a70ebc95d21560171a0",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/base/base_016.stl": "c1ccb53d24efb091a3cc05b617f8f23d794698680b5642e007489905f3c88339",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/base/base_017.stl": "4e210d6f0bb28d7ab15649d3be3d679ed7926229d28b232636facdf032a51bb5",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/base/base_018.stl": "f3432f1f3aa35b989572d3336734ef16f4209b726d1ecd8cd3af70267239067d",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/base/base_019.stl": "fbaa960c4b9ff45faa1ade589a23c472abcf52486c92de5713d4c883ceeebcd7",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/base/base_020.stl": "73deb2352a47099f296d7cd68fd64ece0b4799da17bdab1c72062f65a4628192",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/base/base_021.stl": "49f608ae23b6705e8076700cce8325cb32a93b5811a81b2e798cd09f4ab07108",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/base/base_022.stl": "c4a8d43fb0ccc6e2523cf2194df5c0aff03c939f39a8b33c83b5254659e36f64",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/base/base_023.stl": "472a492462e0b0a6d15f90e8bb095cca93dc765626983a7f923f8aa3258ebee5",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/base/base_024.stl": "868ef18bc42b6247bbb6c5e036c84539c01f95ff186180c0e8efb6a6d9ee23d7",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/base/base_025.stl": "74029de7bdca5b930bf44f2522f0059099ab81aa16d7d3adfdc28265cc1825bf",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_000.stl": "0a57159ae09853766071a5acd3117beed9bb4cb1e506fde338b438aa06a59c2b",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_001.stl": "ca7ed50a0909b919b848c46f2c21929114b00447c690c6a966f16a921825316f",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_002.stl": "e61a62141b752ed10bec12d760581518a3e9129f8b9da019e91609b471957678",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_003.stl": "1801edf4c4cec9d31274822a5095dd59cd3a73490e26199520d6f97b386f9af9",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_004.stl": "d0c4902034af47649f487fcfaaff45dbca159eb9ecb14ccb6e9580ac25f4db20",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_005.stl": "6acfb691b491ca0a8ecaf7a4ce762f0f252e23c640344d7a78955f4e051a68f3",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_006.stl": "8fd2748099ad1e126ea274fb3e17b7a3da88e6db1b5e86d2340c880e4ab32d11",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_007.stl": "01426dd6e77c50ab59f86ec0bd93cbcca9e3983cce91f6e906626084982bdaad",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_008.stl": "b10a48b7cb9d6e56a84e6466556a9c5d16b8747764b25ab35e6f37e98e411f99",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_009.stl": "dec7da9a07b403b8de2ade6c44330c4bf9a0fcfefb19a864538427051a5fc52b",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_010.stl": "1749b42f914c191b426d6538daeeb42f7a7b522547d87bb16c80bdf22a958c7f",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_011.stl": "8f0d38cec5cbd8e4fe3bbd3579cba4a4d49322329a069c85beba9544ff2d596c",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_012.stl": "9a37ba48c79b1cf2a30cdeca8a11948398707f62c247fc75b3bc5146d5acfb42",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_013.stl": "67c2bf44bbbee2b393b3f08eac561caa0c49faee6dca986c200bb89d4519a39b",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_014.stl": "6c4f873c8ae42f4d4d1d88e6bc042598d8136dfb1e58a9cef1cbd4ef3deb9ccc",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_015.stl": "43654295301c5dae1129d7d5768226919666dfde3a5243ed51c2fcf6a190fc9a",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_016.stl": "884a58bf8a22d06b7256a8a010ef27b2d702e82d892af0c9669d5d5680087407",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_017.stl": "2e9f28717e9a7855aca70f52d5d639de8605a14c2323b17161ece228267b51ca",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_018.stl": "08b6aadae3049fa6a41172ed7d9aabcaa81379222d588660e4511be275285179",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_019.stl": "08a7ca1f93aa17d041b5b93be0fbcb762323122275646d57209b8226b5c678d2",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_020.stl": "06c4b4d977c8c5a3411c98f5045cc9d08ff46d6afd4fe2561a241334a76cde3f",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_021.stl": "19a298fafc5a07807622b049c10ee1d57aa160cf022065999b306a6d8136f2c9",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_022.stl": "b42dbe14be259066cad83da01007b4921e46b3f0afd40a9dfb39a66bee29184e",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_023.stl": "b56ffd90b85949a563eaaf512693ee56a81bc67840560cd80db03c5ef88371f9",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_024.stl": "c43c9f4d3dc6dfdc144fa1b2a8be423a89e140305277c56fcf292900428a219d",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_025.stl": "2cf5295934ec2b6f08304ff1ed264cda59dd8e503d247c08ff90a911984e48a2",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_026.stl": "9c7f6b2fcb4b8032be42c53e1ea3b9c4e3f3dd9d1306d3103c8a635d5c26b6f8",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_027.stl": "a6452d11dc267bb24b4553ee4a06de0952d7ef3b7bdb847019f617a4b4521b69",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_028.stl": "51bdceac38dc6ff01f6a977e7a00e22124d6b96d97315236044cffcf1f6bbecc",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_029.stl": "7ca96c4bf804b987c890af9e8a14154279bc601cab33a1ca060ae8509e9ac23b",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_030.stl": "1fad0b6f64e66d2b34be5a1801b065ab5c5d4d7d6bf859416706a07a70c3041e",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_031.stl": "4ef0071b15f217b5331870b5cc956cafc28d1ac3317343dffbcd655d02cc84ed",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_032.stl": "3271f5be30c0e2aca5df952c84f9d10fc80ea4d468960abf779248efc7dd7625",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_033.stl": "b0e4b0f7c750b67b15112a0313cd33bdda064b7926eb18f851ec595ee2ce653f",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_034.stl": "4910559e1d4d65c23cc57c6a8396a23f5e557691fe62a5692c0b042aa93155d2",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_035.stl": "1c9461e1f51d9ce7f8be1e6a9a8ecebc9e5f697078d82b3bbf250015a6529c59",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_036.stl": "5c5e6ace65197815b43ff2f90b5b6c56694594cf35c446ff7e4b1a9a314cb351",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_037.stl": "10c11523d5b7d49951c530c5736798ff6bc41b25275cc8448f1394d9e342bd9f",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_038.stl": "5c620f23ec2c8eb7f917875ab71c6a0d1266ea9e6607c0a2075e17bbf94c9408",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_039.stl": "178425e68498727a2dc024143951374d32d0b33f4258352b04e0fd752a540cdd",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_040.stl": "888375b5f9ff54f2f632d376df74e26b15e92abd1f7b52caa77f93dc08be1af0",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_041.stl": "c9ab93a5eb9af7611b7b0c9855d2ae7279b3180825ccde017f4529edfc812abc",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_042.stl": "4b889a6195697211810c3eacbacb4fba10be1914d14054b657c7cce1f6bfed13",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/gripper/gripper_043.stl": "4acfea627950ea08286108826a90d33c95a2948298b67ad4ea95584804953c44",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_000.stl": "f375bdb7d238a96b165f68dc04d0b9c537d2387c3d68b4adfd8f21bd9e349f88",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_001.stl": "0a6af4aff57dea755026c0bfb7da10f919928937148fa75b0a3a00a3f406891a",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_002.stl": "2de3f8f4237c937aa8d7144a5b57d533bee38e13872224e6ef30f91e21de5ac0",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_003.stl": "bbd415524dddb722283d68b0c7b8d5c8afb9d6e70184a6d81ac61bbf45389d40",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_004.stl": "7a8a92e5d933b681b5007fbac1c532e27eeccc081fad4204c67b2b3a03a4d333",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_005.stl": "e39210153778623e25a34b7a2dc99b0f277337ea99b4897a2ea0ae69dc20d595",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_006.stl": "2bbc8d2fa6bd2a27a2ba55bff56e56fef62e2631d7dc820d93fbdc5419034cb5",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_007.stl": "571896b3f1748de9693150333b10b45b81079024bad1973d8b451316ba097d01",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_008.stl": "8d895c76c491179adfa1d4fe7fec9107075630121dd6ded6a43602e78e72e81e",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_009.stl": "78a1a937fe69b99696f267afd40898a2e1f7e2f57a6d02c34c1204a5e5caa19c",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_010.stl": "d2bdd20352cb2ecbe412f66d31f6e0d30f6743b2d4791a971bcf4e50c1a40c83",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_011.stl": "a3882a81259b91c97d903bd2fafc96f5c5de40c301d5b154a24ba8fc8eb9fe6e",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_012.stl": "202c87da3093b5019ab20f3f1c9e544c271698c104ed67f996f1d8a0d437fe08",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_013.stl": "749a660850cc05f6c6d52267542b3dd7842ec744ea2f681b0bb542550f50fed7",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_014.stl": "f9703f58916c9fa2c954c0a92535c335fe764e14dc51dfcbef731b8ecf23ed42",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_015.stl": "cc1d0dc448b00e48f5ba7d92b2f68db3035a28c0eaed0a0f19d03973066e0264",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_016.stl": "8324c8ee903f75f49ff364342e4a12c461d3c8ad6dab772a459a387d3dff5c3c",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_017.stl": "23d88d4d63c9be5c6cfa6f42eb7061b34ea25dc1d23b0a484f54df41ac0ad89f",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_018.stl": "7dcb70f2008aeb1a3d1571536a632bdb1e9c58e349f3cdb6d7273784091e8141",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_019.stl": "a0abf2222afa7a30708bb7f6fd2078daf93b23651a8b84271c6f3062fb1b0c82",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_020.stl": "1e2901857e34f64a672cfd9e491550357fff53f4464e7ec9859b296747c6775e",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_021.stl": "3e7f8fac74b46897d7688d650b12975e24645cf79831713e179a449282e5eba0",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_022.stl": "e7e201b7179da8141b6ef924f5e7575b054b06e448e143fe3570970def9b559f",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_023.stl": "b0aa8a4e1f28a7c57cead340a43e6f2e4320b1454e7e8ab8da948b09ad07bb39",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_024.stl": "96518b37c2ed1db0e565dd4370ca3b8c8ec6285b7805d8e722227e3d1fa4e28c",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_025.stl": "7c8886957983e5751bf318887e8a19741f87715fbaedf68eab47c0a2e254f7b6",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_026.stl": "da9d4c8e49d7d443e3a077a9e36dc7f667b2e9829384efa9a891c3645f32d100",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_027.stl": "b576fe9a6e1b3d6b7e778cb3dc90503e7a39ec1bc22ab198c86d94768acb2250",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_028.stl": "af7abfe46219768153035349abce681048198093d0178097b6ee09e8d62cb77e",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_029.stl": "423f23b89fc87fb29acae54da9e2748b8bc0a7e4fe00fa2670056751154b753f",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_030.stl": "4dc05e9b77b921a5b253b344a882c457a113e5c49a70bca6100d0deb669c490f",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_031.stl": "54fe0071680c6ca7207af4bee45b2057bd90676a2ec07964cfe422c44eeb08ec",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_032.stl": "3d26d0975725283da8c6b49a0758a18014ac00ea29655d44b8fe200032fb29e6",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_033.stl": "853b71e15efa3373e1295b4ec1fc1da5758ca7c977b86c47f468bc5d219fad7d",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_034.stl": "095aa6fae8f7ef526d97427c0dab6d95fb08f87e73b82dab737003812a045bb8",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_035.stl": "276098da13f919d426401363db321bf95a8f7f62e61298b9a8c51563bb2591c3",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_036.stl": "5dd34d1ef53429d27c2ee5fedfe11b99d75bc68dde695db6cb47de3d2229e575",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_037.stl": "fa5f2e7388eba15c228fdec1f72538fc135544ea7a8bc7a014cb047535df5531",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_038.stl": "c4af0385ddc843bdb8f2fa7a9fa8cd184308167fb55754dcbc63dd73422342d5",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_039.stl": "61f99b8321fcf4369944d98f38170b65c8fd351996b89c26517609dd534437e6",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_040.stl": "03d1f6e4aa5c2859087cccbd9423d4df686186c59fcc4dd55bd603b886f6ca57",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_041.stl": "be6202185292bcd1612895770eb5a4a88b91672b9a310b4f8f9d4163ea92a6a4",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_042.stl": "63b301518b1249fe61d5ccd1b46e563a02a0cbdc55a7896fc8555dbaa03baaa8",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_043.stl": "614591a4ad25e6d3347badacf2042543fcf926890bc000f5986bb11da07fcfdc",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_044.stl": "110f3ecf8440afd6a40f431eda7d77891ee54314887fc2e4e45330b9d45f84a1",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_045.stl": "3d23e4493fa19b4317767af12ef81b13c9e35ed33f896f77fad530eb10fd073a",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_046.stl": "d9806aa79267beefbfcc6b59e78013a18359ba7c42acd6dd1a3f04d742aef589",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_047.stl": "7facb15d4e02007543ee23cef20becc71e5bd64793cd9c8e3060dd4a51205dd3",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_048.stl": "99ec1d06fe2a3f03826ee4f3a1c6f022ab6f30440be17222be33f191239667fa",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_049.stl": "7f501e9544c3acecafc57fddc8b730110d50ecd65848692dd69a7d6972d31c93",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_050.stl": "21512d20a6e4834525e26f9aa33865bae0ce8896a2707274a1687582fff59cbd",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_051.stl": "80f62c33bc9940614144340e992e5f62e1e0cc31eb51c654f21e6d58bec51671",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_052.stl": "82b959f06163194ae332a7a65bb23058f89ca903b950a00a32de8aaa565f32aa",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_053.stl": "db9c6fefef39f60ee7a4ab4362949b1d4dcec7590fb7c76946ba402b705176c6",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_054.stl": "8054f84dfaac2aeebae9d4d6ea7a0e5f5da8008b65bb93544cf5e34d8acc0c84",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_055.stl": "7c6bebeca4413ae21b0cdf6cc081ac5d6a93b7bec2ee9eafae1058d44a9337a0",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_056.stl": "04070e01899567aef46694b284b778f1c80299912442362e9d9146fec4e14e88",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_057.stl": "043284b73e2cdb0462da18ed5176b8f446eb41092915f6d915bca8f3dc41554b",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_058.stl": "efadd4512729e5610c90978826a0bb38190fe245db58de46115e2dc6cef897c8",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_059.stl": "a4615399d38cce4e3adbccea7de6aa91d26801287d72d46b4e55320cdb88cc54",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_060.stl": "4d199bd17739608b1aadb82745841fd0cb38f47ac309d767a097cb32edb434b4",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_061.stl": "5daead4e8c9eecabd6b384062f15c5bbd5dd2b2e6b3617f8e675e2238125283d",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_062.stl": "150bfe48ce9e3bcf02d8e4406c24fb624d4806f0595b792770086e7a280a288f",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_063.stl": "74c138e1fff2381b41099a5a7a63b4f3fe1ce326f43882adb9c471d1bd69497a",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_064.stl": "859a82dbb2368f3a26048cfdef418fc9ce7b358d304b1ad229c81bd4746c6c26",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_065.stl": "ab05e40e2cab0ecfa10b01d1c573b3b291a711c9580c8586019ba72c86aaeae7",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_066.stl": "485d79dad29e312db89b4edab16cb5e29f5703f38ba9552c288b796765bfb3f9",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_067.stl": "e0d2688ba3e03eebdc0e6e9d8c43e69a561380c93f62e55e17524be2f6224c54",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_068.stl": "502d88a33b84a5eb356bbdcf9de7beb26dc9414a525535dbe31938fe501f1c84",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_069.stl": "bb09720312b44b1d3fc99dba615c410295082c7562d53071ede4d413bb9dda7b",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_070.stl": "58c64eb6e1b9b8d7c4ef6735b04985efe71ee8999e721916d3730dc493e727a9",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_071.stl": "eb5ba65a238637a261abffaa72e13c3d292e5d3cfc44f247f8b68d306a8081b2",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_072.stl": "67fb102cfd1394fef243258c867a248acfc5156da10a7eec016d74f465fdadae",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_073.stl": "bcbda8642ffedcf6edcb2eb6a0b7d894e9e2ccfde7a99f0ef1b0a1388da1afa1",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_074.stl": "b6bdbb76ed1411e0d53b2ef4a4a05c0e850b495edf9d50b6c3a64d534ed247b4",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_075.stl": "3a5541bce4d06f5a4e8d4c870e7903e9fa7840b48a4aff6ea6dcaa80191c7bf7",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_076.stl": "a3116fa20070b8dbd2cba05ebc7a0fbbe9fdaad87fadf94f62baba308366efc2",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_077.stl": "82ac6ad4188b31a3b60f8bf940204ed9a634e1794025aea3779f3c6574735e89",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_078.stl": "033bba4acfb6dc915e09bff37dd97ac6e630cc409fcc11384db1c5f04be4c892",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_079.stl": "c7b25fa1eb9a786edda7f1ed991a0fee7f9f90f29424a8d6c899223c4abc14b9",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_080.stl": "f7173d4e88f1dde54b6dbe577ee7d97cd5098bb67d7973a5b41b2e338aa0d8ad",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_081.stl": "2895a5236d342eebd6bfd4c7704bcf1e83756feb31be6de01a3f0d57bf0f13ef",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_082.stl": "517773ccb4b3b2fab136833db6c56f7986a19c56baee35b883afc8dbfa29b804",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_083.stl": "05728fca2c5411ba6b5fb7594b662756234309ec1fd5877f0510119b0bc0b607",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_084.stl": "eeae5b725887c064c0ddf0ef9d99c54efcd8e598394409a467c6403cdb163352",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_085.stl": "48b2c2d6cf1d41066d053b0f3138a0193c3fb29544fb154f4f3f9166514c8ecf",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_086.stl": "368913f872893f8087fb493a469fa2ae984118c80c5eb34cbd44b85b710c03e6",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_087.stl": "07dc9f45b632cf052ca5643a8e6cbbe08b3e25b0394f500707cce51e7391a92b",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_088.stl": "bc97171310b4958f39922f19c47ddc1ff8455d38d878f04c4a411d400d0fa4ec",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_089.stl": "adb2e70b5fd113b408d27be53a22099ab3b16b9cff2e76c285d290cbc904ee40",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_090.stl": "3e0d21c2af6d247ac99d5d05c791917990af29d154cdad79e02d0cd8ff1c51a1",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_091.stl": "e043efd8975dfe1dded6f1ffaefac572d5bc4d0d886e03da771dd33ef12e51e6",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_092.stl": "8134ab4f31de00b24adfd63efe4d7718907f68584fc165469439632b3278c626",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_093.stl": "2564490c2ad59b5ca6959bb1a5444dc12c5bfb945211a218c78e053e7f27fd40",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_094.stl": "4d14b4394391125bff16363582d67c8db530a16afd413868be25c7f5dd99bab9",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_095.stl": "7bc5442747966714f5b151c52c17a9ae75487404fd39a2912183e454967d4f4a",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_096.stl": "d8526a8ab2b9807466342ba164b921f15024101a1fa4cc8303b3ac02ab48ed46",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_097.stl": "7b35cb7f694303ec351ce3e5b564c4277030cb8f5a7530d7ec708574f719d367",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_098.stl": "be6f601cbd8fa9e5cb9f6ec4734c392cda30f924d7752baec733076a0392d974",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_099.stl": "38d967fc2f55729363feab0a27d8ad976071a8c407a309867c3fe312f27b7775",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_100.stl": "823e317051ae85d69649f34abd7bafeed243ff95efcaeba42ee573d67a9b7e88",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_101.stl": "80b7727c93d5a5a765430da061b108d18ad4abc9e36313e08b35271c0dd691bb",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_102.stl": "7352b328d5ca5832e493f00fc8af1953979863bee6206d66074f14a05899872e",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_103.stl": "de003c2e996aba34351d0425a4d931c07634f59f1ebc14d3422b21deff8fd53e",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link1/link1_104.stl": "b614b81b315abab1e42a3029af6f4b039ccd3b241f2e476cf6e90e9ae5528d7a",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link2/link2_000.stl": "638a832ba5ebcd6f0c408b922dbf2bc93072fb8ef048b5e4f623d00352cb44f1",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link2/link2_001.stl": "cd6821db2d272db20b8c74f8a3cad2197888ba5793cc66662454a4c984efe81d",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link2/link2_002.stl": "60855192df65c32238ba7f05b0c40c92effba6a1751fcddd4e6c40d450449f1e",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link2/link2_003.stl": "1fcd2950c9cf39e423cc34d16d94f21b898c96531f34d452bbead95a35ab8974",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link2/link2_004.stl": "60068e3a775470151eb539724b049e6387c915720539c244eea97e3fa8ee02f4",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link2/link2_005.stl": "a8d7379c007a96587a8ea24da4fbe209f541c6f300678135d0c513c9815084d0",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link2/link2_006.stl": "5437fd8187a91da851954e2a9db976d9efb449b8583c7fc60fa04f037a51d257",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link2/link2_007.stl": "12dad5e50fdd9fcee5bf82b480c6f7dc4c12be44a929882f35a6870348039250",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link3/link3_000.stl": "5167604727d23187098bfed2fc3212f8a202d6ab0120c6d4ae23e7df1adcde0a",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link3/link3_001.stl": "f39462e8def32ba26651d88f3f8eebd0b9d56f3f9205f319e68eddf9ab099f99",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link3/link3_002.stl": "ac62d5e9a24c9a0e16d7b5245c07bf1ec550565822ca4a5634b488eec0d1112a",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link3/link3_003.stl": "b6caa46ce0a045552dad0fce64c138e91703dfa8bbcbc7635ee0160303a0711d",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link3/link3_004.stl": "b6ca06c2b125899f08202baf3680b2d5dcaeff89749aea706f7416c87b1383ae",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link3/link3_005.stl": "2d39117b4c69b3e36f66fbe9728910bfc1af9c4b836700922bdb3dee49c2c699",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link3/link3_006.stl": "6b9400f3eff39daa54f330a3dd6ff46182db0074502c258f80d1140484daa707",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link3/link3_007.stl": "a0b4e5dd5772a0384ecc7909d2d895bfedcd767cda6bfb99ad99d328a9473f6c",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link3/link3_008.stl": "70a40131a36fa70eabd485852bb1b5a30d9211e70e94488ac8b45745873b3c69",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link3/link3_009.stl": "598fb0619c39b051ed17cde55800fd563c7ca9fd493ece3790f5d27283264a4e",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link3/link3_010.stl": "f681af1e351d41c05427253c3072cf748684c6265dbf70007527bc2c563d3bb2",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link3/link3_011.stl": "89f180780dc97317b2695692c71b6ab218d7715b722958b0a3d4ae744e09292d",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link4/link4_000.stl": "99f71cd666b11acdfcf7eb224fd978f11299924af3a3b59a1db350006dc6ced9",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link4/link4_001.stl": "e85a68cee0492016568af58e1b425b94ecb7524791029fb64b2da39e50105e8a",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link4/link4_002.stl": "24e45259e8fdf9165bd3400c763956d36b01f46070e81f7279e95f96376ad8aa",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link4/link4_003.stl": "af7c0c7d24aec7d2b16ec5967b5ef121c76cd32d08cbc49f1e0fefee79c67242",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link4/link4_004.stl": "cd0a681b5011ebf05fab712d05fa288f40f1e4afdaa8df4c6847203876060be3",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link4/link4_005.stl": "d307ce03021d0aa498ac48b9937c25e5554f2aa60b20c0b7a0cef8951c55cc87",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link4/link4_006.stl": "7a68d127b099ee3557e929f6bdedef8764665f9e2fb0139821f9100e4a303b42",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link4/link4_007.stl": "3f57b04f2d207402d3f0ee0419fed83efc87c76052872c1b54040715c93ad0ce",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link4/link4_008.stl": "34af549de4c7c8d3e7a36dd1d8c2c3fec8d058e07160dd496bc266902fd5eaa3",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link4/link4_009.stl": "2d5ae1f7ff292c75ee3197f5da1bd5aa764dd3f5fe82d30d1078578425576865",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link4/link4_010.stl": "9502a3228c8b6b01290a2ef1e2ecf26f2a8ec5f7c23aaf2166e7cd44adc49ead",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link4/link4_011.stl": "573a9587630a385e8d5a749872ea53f1d3ac34f16701fd3a227619dd7871e563",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link5/link5_000.stl": "345ffd2e683c91c1e300b0bf29e5908932f47d29d633e6ba4b2c865f8640ab9f",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link5/link5_001.stl": "362dbc80d3210de63afb8d282b2a16227cd219302356e09443bb2ae77933d110",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link5/link5_002.stl": "c871965a70ec455fee27d4b534794b13e9e1fa1efaa4fa792584baddf4682f57",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link5/link5_003.stl": "80c46f45cd3f3dbc6166f65736d5e125d6d987cf199ff8f5c407ef5f7eded622",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link5/link5_004.stl": "8963134d495d41b6765485686975874a14c838afb0a767994e3af903a733aeb1",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link5/link5_005.stl": "c92bbf586152c3a428f38bc525cc544bc499445e4b1e14877c5feeb182e1ac6b",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link5/link5_006.stl": "f8e89ae1a46af01d73a99d72358150d83113d1ca318e3c08df0ae3904d4c3b03",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link5/link5_007.stl": "3346f03de2a0a45f3c63667135cebc97817ad2b5511f84224d12a048e651f406",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link5/link5_008.stl": "b772c5a8c633f7be7b4f6a2e5f165d8fa1e44470c16026723927527d4faa0847",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link5/link5_009.stl": "f956a776eda080a054726fc396486eedc1c5a2791ca864a5001911d64f877950",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link5/link5_010.stl": "c6f8d4b984432943bf1ba72a8deb4c3c4465b73fa8bba7a5eeca567b71b15a67",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link5/link5_011.stl": "ac4cddce544afcc36e2e38bdcc31b66ddbad4792c90332ebdbf92f2b51d46688",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link5/link5_012.stl": "b3befa8da27acf935cb812226c01da60cfef778687dc27cecce9f9257e014a0e",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link5/link5_013.stl": "0c702fe856c25c2fc1c2176c9c2dcb2a76386db8b3fbb1cef08ac230cc80567a",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link5/link5_014.stl": "88b86baeb6cca72c79a7806362472fc480fd7f51db1383c25e626c39b775a47c",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/link5/link5_015.stl": "c767897586423d56d1601d8a08b226654ed05f001309311c1a1a6d068e7b9bab",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_000.stl": "8395a06a60c6f07bd034fdff6edcd1b991d7111fd3628d7c1853e8b46c6efea9",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_001.stl": "52077d55a7e94a30d111a2413c5475716a07a39fa3b8631c1b20cf46a3049a2f",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_002.stl": "5d96c2c95b1c95a84a7a4121d81d3b5e45adf7f16c9b5c77515441190f12b278",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_003.stl": "751734d3a886c6049b26a0cc540afb013a168762b26237b8b43e3bdb7c4d14be",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_004.stl": "d1f89189646fdc7ec9b931a2f51f3757b9cb5ed427bcca015042bebe1a296669",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_005.stl": "1f0b38546762f33db9cce9bf3986c8451a132ded17d4f13d5d6379709fb51cef",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_006.stl": "36f8e09ee3aa0c4058938ea6e47d3dbe6608453f26b89960180e83775f28d423",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_007.stl": "6b1d4cdb56c9e5d429dd3cc282c6c1d4abc654dc1b7b9c5ca7df8b5bc98f4f5c",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_008.stl": "29aedf1e1a06492d46dd7c40c48dd9242c869817b2a0e3ea55d8ba3730a89035",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_009.stl": "1ec3c52b72e9bc8073feae8f0af598cf85259ec3165b9d7276af569ba8109ee9",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_010.stl": "294b5d94f1214dd468cf2f590f70a345ef5dfc736df76232386f29c264f7a71c",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_011.stl": "0accb8adc4eeb98d1b57f7033e4415599512cc966ef8f32ab3254c957f988877",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_012.stl": "82aa1e85385c4be4fabacde65e5b754bb8ba77eb4b8e51b09050f14bdc473d48",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_013.stl": "038e7fd4c6080e96727bc22778a11cc6edca3855c81507c5c19a3c44ff1a2061",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_014.stl": "0c83f350da07ecf120daa6821f1c238b7161773bb3c81cccb139b4ec535921c0",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_015.stl": "08047456ed951dda0608a222d7a84c90cc96113b0b1410f61eddd48ac5761e33",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_016.stl": "e32e4c5d2540fe2f7a11e886559dea1d47839f31c867caf6adfccf8af17c4f88",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_017.stl": "38c9b7280417bfdb919c2161eb39ca624742904e1a949a700fdd588173e58146",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_018.stl": "4567828dda851f1ecd0a06edf0f824555a948a1869f5d75434314f18b83f98e2",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_019.stl": "1e46c88f9d249cbf968750ad223c5d0f4093a180eb1fdb2541db775409f95fcb",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_020.stl": "c08afa7642ced624bb0102c31a88ff1a20be2497e429745b6c0f98eb5eb3c072",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_021.stl": "8c82090311c56c2dfb303dfe8338427e269a71b42ac04e3adee49401090f8f23",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_022.stl": "dd7f99d836b4f9f2603a42854437596b9c7724889545c61bc61e69171a41f0a3",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_023.stl": "8771d1a9db74983fc12d9c3d42f6f44f997c6ddd115f45b4be9938097421b532",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_024.stl": "6b9afd5162bc7fc244285461795f886b1bc0a5c7a0be5875a3731febfade9f01",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_025.stl": "26fa6d1d537d08b14b3b8c9b5dde7a797affa36f8a80f34834bbff1d9f4650bf",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_026.stl": "c9b3115aab031e873331160fa8c7a312404d01eada49eedb9c99d2f476c2baaa",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_027.stl": "fec6b3839c53161501450c85d2ee39f2b2e7c9332f955553a7d939e70c1c869f",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_028.stl": "4e858d578cf0e39fbd0a9b044d08021b1fe4c04a95fbb3cbf8e9d9dadfec144b",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_029.stl": "ef4590e53193dfce239e01f28c94745c2329cc111045a9459cf73ba320b6d992",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_030.stl": "b2d3aea691ef0209091c126d0a8f484779b035fd97e511c31d4e76190d953ae7",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_031.stl": "39bd33f0a650f879bdfb03322e508c20919d7aa3921e81b1e380e23aef142a64",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_032.stl": "799526da2194400bf8a2bf9d9a73567740957672b2f28fb578592b362c830b3b",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_033.stl": "936d88fe9e0d3a281e09f1ca43eeb85b73a25ab5ab0edb42c3e5fb2cc1452611",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_034.stl": "d9700cc1c515b1e91b1aae4f7f9c9ab58e509617d37f9a8fb3f7d46f8aaa309e",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_035.stl": "ab92de1b339c3994bc4acd882a5f6dcd9d4fbfa2dd0f98488177cacdeaa4d657",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_036.stl": "20eea1fa90db99b49bec56d150f43302bfcf9a6d4fc5702d2f2f83bfcca28144",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_037.stl": "a9e0fe4b4d5c88957f05dd821b3fae9f6581022ffce108a7a355ad89eae477bc",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_038.stl": "45dd5fbf167479f4d287406e2179e3381f6127dc7a8d64ca2b5e6a12c4012a8e",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_039.stl": "883bde02da283f5f6ec622e6f054e26cf487e4971694afa75ddc543e8d50e30f",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_040.stl": "f62cc3536c9219f614c6f62149f8e574718ca78b938aab2bb8bfc2332c6aec1b",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_041.stl": "c3f00a85e8329b7c26e220e9eb47b8d5117e1c9c6b64967d4ea41be50eb0e169",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_042.stl": "39d52dc9ac519b60618e1a5bfc7f7cbfc1f89e943cc5f78da0025b5ffa6c4480",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_043.stl": "7cf99a278811922864ef5ff2787364a1fb347d62eb0a03f850f751fa52c565fe",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_044.stl": "7ecb610513ade7d61141b70dda807ce38618bc3e66f29eb519a4db0a0b2fbc84",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_000.stl": "9bcb14014ec0f54deb4198ce8799c339cfe5186a29cd45b37d768452f39e90f4",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_001.stl": "fa6815b47bbc37c1d95d1b915cc2a075004988035764733a3ff9ecaadeba46cc",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_002.stl": "e64d2a25d225b0fad47eb53df37a566c2cedb9a5da49b3877265ba9c6c0280b0",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_003.stl": "25fed3ac82a6f16c63f3674d7c19ad0fadf894f7dd9bfd32a4b68702369a5632",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_004.stl": "d0c2f00ff42686bbc7a37232468390517db037d8a80952735e1971fd1a078b70",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_005.stl": "31d90c991372621db95efe025a004edf2d0bc8730b9805c69e604f2fd136487b",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_006.stl": "ce1d91979d593e7e2fde0a492e6efde7848096b83240057b781e71ee49c0038c",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_007.stl": "0bd88183c14df3c17b01515cc72de39c80b0dc8da31821faa5c1fceb758aca3c",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_008.stl": "bbe3a61c205d772d1eb819bf743a49faf640a74f83d7a9249654fda2303204f8",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_009.stl": "70346168eb7ba1df1555530df7c6abd7c5c06f23b82255b87fbe0cd55fc3ab08",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_010.stl": "c3f604cb3df255b7a643d563885bc554e1a1e6ee53a4599f2ada77c59620a0b4",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_011.stl": "947848e3b7d8ab09181eec0d73c68a8d9eb9479f4b4672a066f020387e71c164",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_012.stl": "9efd152119a73329af51ac9ede71fef364123c3f35226a0cdaf0c4b7c7172996",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_013.stl": "3d05f1f5e8a215c97e5314cf453ec2baf2305e13fb7f620b44bbf98e1b09399b",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_014.stl": "68eb2dd9018ca4e9b84cc5fa2bdf773f06dc72bfe2906277e39b87d6bcb9408d",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_015.stl": "19b090ade1bebcbe7e42503b7df5d464870e3c038bcd9430bca45d99bde68b83",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_016.stl": "24e0fe89eb40364addd00d1690ba9dcb4e0aa09dd5e5b70a4b94a49cff9719d6",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_017.stl": "658a121c2e8f1acb35f6b91ba8c72d33da4001dd9a3d6b6f3c5c004808181435",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_018.stl": "af887149316f97e84a7e73f9a3e6b71b9be4f40d3a4fc4db659b92e0391076dd",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_019.stl": "73a99d122a7ed4dd41b5a4ede257b1c3208c24d9098d62de1097bd317da35de0",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_020.stl": "6040264e6981fcae9f07ff50eb0fa9d0ce33092afbccb3cff73be894d0a23898",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_021.stl": "08c82007e4a446c5f7073d9292b89a9797f56260c2d0504036afdc8df4be9b85",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_022.stl": "83668fe476e80bbfa6bced2e7e63c95b7b06893d4e32a6740257a9a8e0bff78d",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_023.stl": "2ac2f25103b42051a29afaa713f0f28f87f2a3aa7922e5db6b81f3f8764992cc",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_024.stl": "7d9d82332b7a83ae0d6d8e43154ee373913f85be275d3b7006137eeaffd99260",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_025.stl": "99b76ba8a87d09c1bb5c71a71edc65b533b7e3f24651fc23e889e1079d7a366f",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_026.stl": "270eec5289a07c3f782636487c06717f8d1537f16df8eb2319be5498300498a5",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_027.stl": "381e38159e5fc312309e2c226064f0ee3ba8ede3154373a30577fbcbe2e5e1fa",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_028.stl": "9ae4e9cf736b4b91927f7852e3126a1bb71e92f0fdf71cc621c85392ed436695",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_029.stl": "d43ee7889b2f96f89161d5c436bf9ebdc82bb33239f67d9dcc2157e514ff5b5c",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_030.stl": "8b94d84f64a81ae3d770f87f1a318205782029af8bc2af15ebc08d98af9184e8",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_031.stl": "19213d76a588cf58f1e3fc872588253323971f66883d22dc7c63a08ed5d49b0e",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_032.stl": "ddffbc91ed848755b56cb90f865be1e933d8438d5fe80565432ca01c38117633",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_033.stl": "2ecb7530a74a702698d11e26f20b30a723cbb40c743852895899de21f6f7041b",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_034.stl": "eb794e92431f12d8f5b2ad47591b897d7e0bb0b62b679135097425a1fde26bce",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_035.stl": "1caaadc2b26bfe53f39ffc5bb423aa814fe91c1e581f203a26e980a896886255",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_036.stl": "f796ed4364f62eca03cada789d0f6afcf2492a71eb1831520527b7d37a35b5a4",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_037.stl": "eb21f29b7f8dd8307c31b483eb0876eacffafc6f3ed4ba0267afc56f13c6f143",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_038.stl": "1608b5a82426171e1aa30ba17406da0cc013f3a16a8704886f7c113323a505b5",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_039.stl": "4c1127594630edc1621d8fcd59ef64373061f9e40978f55bb91b4b52ed713621",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_040.stl": "25b75259dcf4147de856bce5af0518138739401e77ddd685e3980f56eecf0156",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_041.stl": "e1c0eaa40b277c14a9933d6fcf47f142383115a7567ec89b096ddbfdb3b15dba",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_042.stl": "ca635b9624a3cfb5536ddc71c5b8d261a641b15f5efb956f9b290b3f609e1ee4",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_043.stl": "625379faeff83cd20e843cd58e5022076ac917b06ca6e37c4052b568d75c90b1",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_044.stl": "31fbf28f96529606e32a5928f69da579d0e18ee1c60fef48e106260d0ea7b1b6",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_045.stl": "220e337760cc60769f6853e3de33e4ea1f751306c39ec77e3fe26a2ed300da03",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_046.stl": "120f0784375c481c0e67709a72dd39a7dcec6df3342ea602776228d45480ca84",
+    "/opt/yam-arena/yam_arena/assets/yam/yam_arm.urdf": "d6cc3fca8d6848aad36c0d2bb8798de391fcf5ef8f41180fe7618eda141f0bef"
+  },
+  "wall_seconds": 8.674836775287986,
+  "clearance_verified": false
+}

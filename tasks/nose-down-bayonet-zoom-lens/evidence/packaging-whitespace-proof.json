@@ -1,0 +1,18 @@
+{
+  "status": "PASS_BYTEEXACT_SOURCE_SCOPED_EOF_ATTRIBUTES",
+  "UTC": "2026-11-11T07:30:06.213972+00:00",
+  "exact_scoped_paths": [
+    "b6-v30/candidate/assets/body_left.usda",
+    "b6-v30/candidate/assets/body_right.usda",
+    "b6-v30/candidate/assets/lens_blue.usda",
+    "b6-v30/candidate/assets/lens_orange.usda",
+    "b6-v30/candidate/assets/lens_purple.usda",
+    "b6-v30/candidate/assets/tray_left.usda",
+    "b6-v30/candidate/assets/tray_right.usda",
+    "b6-v30/provenance/job43897/contacts.py",
+    "b6-v30/provenance/v21-contacts.py"
+  ],
+  "source_byte_changes": 0,
+  "gitattributes_sha256": "80cf65e3dd0d8f2f1167f445628922d59a6178b6ba57ea822a2fcad46e32a5c7",
+  "git_diff_check": "PASS"
+}

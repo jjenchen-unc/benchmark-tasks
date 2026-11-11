@@ -1,0 +1,37 @@
+{
+  "at": "2026-11-10T15:26:57.951516+00:00",
+  "job_id": 43967,
+  "status": "ROOT_ACTUAL_CHANGED_FIRST_LIFT_AND_RETENTION_PASS_ONLY",
+  "source_unchanged": true,
+  "controls": 297,
+  "samples": 7425,
+  "wall_s": 230.362144947052,
+  "native_failure": null,
+  "measurement_error": null,
+  "metrics": {
+    "control": 297,
+    "lens_rise_m": 0.01966559886932373,
+    "actual_nominal_tcp_error_m": 0.002388908499171518,
+    "actual_nominal_rotation_error_rad": 0.009645974110309685,
+    "relative_grasp_translation_m": 0.0006195665498441676,
+    "relative_grasp_rotation_rad": 0.012668200588427441,
+    "raw8": [
+      0.9342442750930786,
+      2.4331183433532715,
+      1.8073738813400269,
+      -0.9578564763069153,
+      0.0041535780765116215,
+      -0.6325373649597168,
+      -0.030971691012382507,
+      -0.030924120917916298
+    ],
+    "servo_ticks": 47,
+    "retention_ticks": 10
+  },
+  "public_score": 0,
+  "full_goal_verified": false,
+  "genuine_robot_first_lift_verified": true,
+  "channel_approval": false,
+  "details": "47correctioncontrols reachedunchanged5consecutive3mm/.03rad then10retentioncontrols. Lens19.6656mm>=15mm. Fullflip/handoff/seat/zoom/native20shold remainfinalaffectedvalidation; component43897positiveonlydoesnottransferrobotgoal.",
+  "Brev_operations": 0
+}

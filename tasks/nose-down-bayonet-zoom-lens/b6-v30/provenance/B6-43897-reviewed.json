@@ -1,0 +1,32 @@
+{
+  "at": "2026-11-10T15:16:52.130804+00:00",
+  "job_id": 43897,
+  "status": "ROOT_ACTUAL_COMPONENT_DIAGNOSTIC_PASS_ONLY",
+  "checks": {
+    "original_button_predicate_releases": true,
+    "release_restores_exact_limits": true,
+    "relatches_at_current_angle": true,
+    "no_measurement_error": true,
+    "credit_stays_disabled": true,
+    "reset_loaded_capture_pin": true,
+    "reset_native_limits": true,
+    "reset_task_joints": true,
+    "loaded_zoom_native_hold_20s": true,
+    "helix_residual_bounded_0p25mm": true,
+    "hold_controls_complete": true,
+    "short_lock_retention": true,
+    "short_zoom_measurement_finite": true
+  },
+  "controls": 401,
+  "samples": 10025,
+  "hold_full_s": 20.05,
+  "wall_s": 257.6555404663086,
+  "source_unchanged": true,
+  "evaluator_placement": true,
+  "native_measured_rubric": 1,
+  "public_score": 0,
+  "physics_fullgoal": false,
+  "genuine_robot_fullgoal": false,
+  "details": "Component placement+loads/button only, notrobotpickup/flip/capture/fullgoal. Reuseunchangednativecomponents/sourceifbound; no blanketactivationofall9channels.",
+  "Brev_operations": 0
+}

@@ -1,0 +1,61 @@
+#usda 1.0
+(
+    defaultPrim = "B6"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "B6"
+{
+    quatd xformOp:orient = (1, 0, 0, 0)
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+    def "links"
+    {
+        def Xform "tray_left" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0, 0)
+            float3 physics:diagonalInertia = (0.003536, 0.0007696, 0.004264)
+            bool physics:kinematicEnabled = 1
+            float physics:mass = 0.624
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cube "tray_left_foam" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B6/materials/mu_1_2> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.1, 0.11, 0.13)]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.12, 0.26, 0.02)
+                double3 xformOp:translate = (0, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+        }
+    }
+
+    def "materials"
+    {
+        def Material "mu_1_2" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.2
+            float physics:restitution = 0
+            float physics:staticFriction = 1.2
+        }
+    }
+}
+

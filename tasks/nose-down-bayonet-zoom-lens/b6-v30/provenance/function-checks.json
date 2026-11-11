@@ -1,0 +1,22 @@
+{
+  "synthetic_only": true,
+  "actual_controller_function": true,
+  "cases": {
+    "converges": {
+      "controls": 28,
+      "error": null
+    },
+    "never_settles": {
+      "controls": 60,
+      "error": "right_proof_lift_integral: bounded integral tracking failed"
+    },
+    "grasp_drift": {
+      "controls": 1,
+      "error": "drift"
+    },
+    "compression_lost": {
+      "controls": 1,
+      "error": "compression"
+    }
+  }
+}

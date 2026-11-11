@@ -1,0 +1,50 @@
+{
+  "status": "ACTUAL_SYNCHRONIZED_THREE_VIEW_MONTAGES_FULLY_DECODED",
+  "UTC": "2026-11-11T07:40:52.907965+00:00",
+  "media": {
+    "demo.mp4": {
+      "bytes": 2623416,
+      "sha256": "00f8bdf5d0e55950ad4ef5de34134819c3edb7c532b75e99122651356e479334",
+      "frames": 2403,
+      "fps": 20,
+      "size": [
+        960,
+        176
+      ],
+      "codec": "h264",
+      "fully_decoded": true
+    },
+    "model_run.mp4": {
+      "bytes": 4467405,
+      "sha256": "0494946304915de57eac14ff1c4b9e8c44b29f4c1bcb7d3dd4bf64a8a3f3c9cf",
+      "frames": 3035,
+      "fps": 20,
+      "size": [
+        960,
+        176
+      ],
+      "codec": "h264",
+      "fully_decoded": true
+    },
+    "setup.png": {
+      "bytes": 131663,
+      "sha256": "179b24fdc70be8a494fe82617837610e6551e8172123c385b91ffaef6f7aca7c",
+      "source": "original source-bound reference reset observation, no state/pose changes"
+    }
+  },
+  "source_cameras_sha256": {
+    "demo": {
+      "top_cam.mp4": "978b4ed62a1fe60005990b7102e59279fffd8eaadf44996d385a095d33740829",
+      "left_cam.mp4": "2abd16aadfbbddea54ba6bc13c7c05088dda133898add1d14e7efae541f930ac",
+      "right_cam.mp4": "64f730ff6ed8426854b90015f71dcd1a7dbd98510392249a5807d54a24598c8c"
+    },
+    "model_run": {
+      "top_cam.mp4": "d0134999050ef4b7634e579f98daec313fd281da30740ecbf26cbb76689127f3",
+      "left_cam.mp4": "8e95ec83892c9308173eeeed0a8420e13c09e0b8fe0e23424ac86e3ac35a8141",
+      "right_cam.mp4": "89aa82dfdfb28d03430ef9fa905666f97061f586fc58755b8826a977aed11829"
+    }
+  },
+  "processing": "hstack original top,left,right at20fps; no added labels/frames/holds;H264yuv420p",
+  "blind_pixel_review_pending": true,
+  "new_model_or_sim_calls": 0
+}

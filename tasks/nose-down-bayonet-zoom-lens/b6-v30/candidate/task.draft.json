@@ -1,0 +1,25 @@
+{
+  "title": "Mount a zoom lens nose-down and retain 50 mm",
+  "category": "Impact on jobs",
+  "keywords": [
+    "camera servicing",
+    "bayonet",
+    "zoom creep",
+    "bimanual"
+  ],
+  "instruction": "Choose one zoom lens compatible with the right camera, mount it on the downward-facing camera, align the index marks, and turn it to the physical lock. Set it to 50 mm and release all cameras and lenses. Keep the focal length within 48\u201352 mm for the final continuous 20 seconds with hands off. A seated but unlocked lens earns nothing. Do not overload a mount or drop any lens.",
+  "context": "Camera servicing requires compatible lens selection and retention against gravity; the two compatible lenses have different zoom friction.",
+  "setup": "One fixed source-seed-42 physical case: two original camera bodies, three free zoom lenses, two foam trays and an overhead bracket. Every task shape receives the translation (0.25, 0, -0.0525) m. The right mount seat is (0.40, 0.28, 1.2475) m and faces down. Two genuine six-joint YAM arms stand at (0, +/-0.305, 0.90) m on 200 x 200 x 152.5 mm rigid supports. Fingers retain 40 N; total shoulder/wrist limits including gravity are 27/7 N m. Exact dimensions, masses, materials, poses, station parts and reset are in setup-inventory.json, fixture.json and README.md. Support and clearance are unverified.",
+  "scoring": "1.0: a compatible lens is seated (axial gap <=1 mm, radial offset <=2.5 mm, tilt <=4 degrees), physically captured and pin-locked within 4 degrees, at 48\u201352 mm throughout the final continuous 20 seconds without robot contact on any camera or lens. 0.5: a compatible lens is seated and locked throughout that final hands-off period, but the focal setting is not maintained in 48\u201352 mm. Otherwise 0. Any unmounted/unheld lens falling downward faster than 0.6 m/s, stop/pin reaction above 1.5 N m for 50 ms, wrist force above 80 N for 100 ms, or invalid/missing telemetry vetoes all credit. Runtime credit remains disabled until actual B6 channels are validated.",
+  "run_limit": "3,034 genuine 14D controls at 20 Hz (151.7 simulation seconds), including the final 20-second hold. Failure, validated full success or timeout ends the episode; stepping after termination raises before physics.",
+  "reset_notes": "Every Inspect seed, including harness-derived episode IDs, restores the same documented source-seed-42 case; object_jitter=0. No exact-42-only rejection. Restore all roots and ten joints/velocities, disable capture and pin constraints, set zoom to 18 mm, and restore ready/open arms. Settle before clearing history for the new episode. Runtime reset after engaged constraints remains unverified.",
+  "fidelity": "Custom rigid training mockup with PhysX contacts, hinges/slides and conditional physical capture/pin constraints. A balanced finite-stiffness zoom helix substitutes the source equality. Contact-normal-only pull measurement omits friction; hinge torque basis, joint friction and dynamic capture enablement need foundation validation. See DEVIATIONS.md. Source-native success is design evidence only.",
+  "scores": "Dream-1: not run. Robot reference: not run. Arena physics: unverified. No score is claimed.",
+  "media": null,
+  "status": "draft only; not submission-ready",
+  "official_rule_version": "robocurve-official-v2.1",
+  "representative_goal": "nose_down_zoom",
+  "model_route": "Real final Dream-1 required for two parallel-gripper YAM arms; no exemption",
+  "physical_case_source_seed": 42,
+  "not_final_task_json": true
+}

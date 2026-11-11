@@ -1,0 +1,32 @@
+{
+  "status": "PASS_SOURCE_CACHE_NEGATIVES_RESTORED_POSITIVE",
+  "UTC": "2026-11-11T07:25:56.029670+00:00",
+  "checks": {
+    "source_positive": true,
+    "source_tamper": {
+      "rejected": true,
+      "error": "submitted source mismatch: b6-v30/strict_json.py"
+    },
+    "cached_receipt_tamper": {
+      "rejected": true,
+      "error": "cached file changed: credit-review/ROOT-APPROVED.json"
+    },
+    "extra_cached_file": {
+      "rejected": true,
+      "error": "cache file set mismatch"
+    },
+    "cached_symlink": {
+      "rejected": true,
+      "error": "unsafe cached path"
+    },
+    "wrong_offline_archive": {
+      "rejected": true,
+      "error": "archive size/SHA256 mismatch"
+    },
+    "restored_cache_positive": true
+  },
+  "simulation_calls": 0,
+  "model_calls": 0,
+  "no_core_or_envelope_final_changes": true,
+  "run_sha256": "c8ea304eba99abadf3f9ee39d05d1777b9b1ae1218d232fb8f545d16049ffd4d"
+}

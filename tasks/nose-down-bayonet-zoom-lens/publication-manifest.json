@@ -1,6 +1,6 @@
 {
   "schema": "B6_FINAL_SOURCE_FOR_ROOT_UPLOAD_REVIEW",
-  "UTC": "2026-11-11T07:59:52.525575+00:00",
+  "UTC": "2026-11-11T08:09:13.592900+00:00",
   "source_fingerprint": "f7db7f019989b30f88921430caeded1aed0df1f108061b72c0c21afd17a43994",
   "model_score": 0.0,
   "demo_score": 1.0,
@@ -8,8 +8,8 @@
   "core_and_four_model_envelope_files_byteexact": true,
   "files": {
     "task.json": {
-      "bytes": 3380,
-      "sha256": "3bb77bc5118e841e558361ad60db32deaf0300cef98f3603c1d5773abd3645d3"
+      "bytes": 3326,
+      "sha256": "483a1b4dcf4c8b1d2658e4387e9bde7ea8de71fadde66679170f21891007966f"
     },
     "README.md": {
       "bytes": 11593,
@@ -508,7 +508,7 @@
       "sha256": "d2ce9127d7617adf3038b532ca2ba1bd5b31480346f47aa1f0f1d6911e18557a"
     }
   },
-  "source_bytes": 3587230,
+  "source_bytes": 3587176,
   "git_diff_check": "PASS",
   "code_secret_scan": "PASS",
   "media_outside_Git": true,
@@ -516,5 +516,6 @@
   "remaining": "Single-folder commit, PR, official receiver and served-media SHA verification",
   "fidelity_chars": 465,
   "scores_chars": 138,
-  "media_id": "M-X6XHD3"
+  "media_id": "M-X6XHD3",
+  "run_limit_chars": 156
 }

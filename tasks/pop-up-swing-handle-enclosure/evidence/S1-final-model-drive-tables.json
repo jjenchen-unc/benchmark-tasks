@@ -1,0 +1,126 @@
+{
+  "at": "2026-11-11T02:20:52.476455+00:00",
+  "status": "ACTUAL_FINAL_MODEL_BOTH_ARM_FINGER_DRIVE_TABLES_PASS",
+  "actual_final_trial": "model-explicit-target-v2-v2",
+  "console_name": "model-explicit-target-v2-run2-console.log",
+  "actual_console_table_rows_sha256": "565ec9d015ddab93cae68bd9796e6c7778af780763f00b0126b1cb7d6706a9c7",
+  "groups": [
+    [
+      {
+        "index": 0,
+        "name": "joint1",
+        "K": 80.0,
+        "D": 5.0,
+        "effort_ceiling": 27.0
+      },
+      {
+        "index": 1,
+        "name": "joint2",
+        "K": 80.0,
+        "D": 5.0,
+        "effort_ceiling": 27.0
+      },
+      {
+        "index": 2,
+        "name": "joint3",
+        "K": 80.0,
+        "D": 5.0,
+        "effort_ceiling": 27.0
+      },
+      {
+        "index": 3,
+        "name": "joint4",
+        "K": 10.0,
+        "D": 1.5,
+        "effort_ceiling": 7.0
+      },
+      {
+        "index": 4,
+        "name": "joint5",
+        "K": 10.0,
+        "D": 1.5,
+        "effort_ceiling": 7.0
+      },
+      {
+        "index": 5,
+        "name": "joint6",
+        "K": 10.0,
+        "D": 1.5,
+        "effort_ceiling": 7.0
+      },
+      {
+        "index": 6,
+        "name": "joint7",
+        "K": 5000.0,
+        "D": 100.0,
+        "effort_ceiling": 50.0
+      },
+      {
+        "index": 7,
+        "name": "joint8",
+        "K": 5000.0,
+        "D": 100.0,
+        "effort_ceiling": 50.0
+      }
+    ],
+    [
+      {
+        "index": 0,
+        "name": "joint1",
+        "K": 80.0,
+        "D": 5.0,
+        "effort_ceiling": 27.0
+      },
+      {
+        "index": 1,
+        "name": "joint2",
+        "K": 80.0,
+        "D": 5.0,
+        "effort_ceiling": 27.0
+      },
+      {
+        "index": 2,
+        "name": "joint3",
+        "K": 80.0,
+        "D": 5.0,
+        "effort_ceiling": 27.0
+      },
+      {
+        "index": 3,
+        "name": "joint4",
+        "K": 10.0,
+        "D": 1.5,
+        "effort_ceiling": 7.0
+      },
+      {
+        "index": 4,
+        "name": "joint5",
+        "K": 10.0,
+        "D": 1.5,
+        "effort_ceiling": 7.0
+      },
+      {
+        "index": 5,
+        "name": "joint6",
+        "K": 10.0,
+        "D": 1.5,
+        "effort_ceiling": 7.0
+      },
+      {
+        "index": 6,
+        "name": "joint7",
+        "K": 5000.0,
+        "D": 100.0,
+        "effort_ceiling": 50.0
+      },
+      {
+        "index": 7,
+        "name": "joint8",
+        "K": 5000.0,
+        "D": 100.0,
+        "effort_ceiling": 50.0
+      }
+    ]
+  ],
+  "arm_total_includes_gravity": true
+}

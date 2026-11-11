@@ -1,0 +1,18 @@
+{
+  "title": "Open an electrical enclosure with a pop-up swing handle",
+  "category": "Impact on jobs",
+  "keywords": [
+    "enclosure access",
+    "swing handle",
+    "sequential interlock"
+  ],
+  "instruction": "Box 1 is the enclosure on the robot's right (negative Y). Press its red cap, lift and turn its swing handle to release the multipoint lock, then open its lid past 60 degrees and leave every part of that box untouched by both robot arms for 20 seconds.",
+  "context": "Opening industrial enclosure swing handles requires release, lift and turn operations rather than a simple hinge pull.",
+  "setup": "Three bench-bolted steel-like enclosures (200 x 220 x 112 mm), 200 x 200 x 12 mm lids, 125 x 22 x 14 mm handles, 12 mm red caps and rubber-like gaskets. Box 1 is on the robot's right at (0.25,-0.32,0.7975) m; box 2 is in the middle at y=-0.08 m and box 3 on its left at y=0.16 m. Tabletop Z=0.7475 m; stock YAM bases at (0,+/-0.305,0.75) m. All bodies, primitives, materials and actual settled poses are in setup-inventory.json.",
+  "scoring": "Sticky zero if either untared wrist force exceeds 80 N continuously for 0.1 s. Otherwise final tier: 1.0 for lid >60 degrees and all robot links clear of every target part for 20 s; 0.5 for final opening >60 degrees without that hold; 0.25 for a released lock and final opening >10 degrees; otherwise 0.",
+  "run_limit": "4,198 controls (209.9 seconds at 20 Hz).",
+  "reset_notes": "One declared native physical case42, no jitter; arbitrary Inspect episode IDs/seeds accepted without parameter changes. Restore all roots/joints and mechanism memory, settle using actualSDK, then zero task clock/history.",
+  "fidelity": "Rigid primitives and finite-compliance cams/catches approximate source interlocks, SI joint friction, springs and gasket torque. No explicit multipoint rods, flexible seals or fracture. One fixed layout; a state-aware scripted controller issues real joint targets. YAM total 27/7 Nm includes gravity; fingers are capped at 50 N each. Six measured channels reviewed. Dream grippers use native 0-1 saturation; arm joints are unchanged. No hardware calibration claim.",
+  "scores": "Dream-1 beta: 0.0 (4,198 controls; 1,042 requests; one continuous session, no evaluation error). Scripted demo: 1.0 (1,530 controls; 20.048 s hands off).",
+  "media": "M-6VZ9VD"
+}

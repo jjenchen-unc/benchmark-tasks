@@ -1,0 +1,5 @@
+These task-specific primitive dimensions, mechanism parameters and variant definitions derive from the standalone `S1_swinghandle--swinghandle_cycle` snapshot, itself ported from the historical TinkerBench 28-bench delivery. That original project is not a runtime dependency. Detailed file hashes and original provenance are preserved with the preparation evidence.
+
+No Panda, robosuite, Robotiq, STL, texture or other third-party robot assets are bundled in this Arena folder. The original native asset notice and deviations are retained as historical evidence outside this portable runtime. Robotiq Menagerie BSD licensing applies to that excluded native model, not to a fictitious new Arena asset. Runtime YAM assets are obtained from the pinned SDK and retain its actual i2rt notice; they are not relicensed here.
+
+The task-local total-effort adapter and tensor-contact reader are derived from the project's B5/D3 verified examples. They require fresh S1 runtime checks. USD shapes and shaders are generated from local JSON. No new universal asset-license prerequisite is asserted. Existing upstream notices are not replaced or removed.

@@ -1,0 +1,18 @@
+{
+  "all_checks_passed": true,
+  "checks": {
+    "reject_instruction": true,
+    "reject_target_box": true,
+    "reject_physical_core_fingerprint": true,
+    "exact_cli_registration_replacement": true,
+    "reject_actual_wrong_prompt": true,
+    "actual_prompt_hash": true,
+    "actual_exit0_error_trial_rejected": true,
+    "decoder_unchanged": true,
+    "real_child_native_argument_handoff": true
+  },
+  "wrapper_sha256": "07700da7a05a55302647115fd30caf2e1615196fe0c007cff7c4330c26a37824",
+  "input_sha256": "8281a150034a92d1ad6e5d5285dd5c60f9beb171595dba72580c39433b222010",
+  "simulator_initializations": 0,
+  "model_calls": 0
+}

@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-11T01:51:50.669904+00:00",
+  "status": "S1_PUBLIC_URL_AND_FINAL_DECLARED_INPUT_LOADER_VERIFIED",
+  "asset_url": "https://github.com/jjenchen-unc/benchmark-tasks/releases/download/s1-review-20261110/S1-v7-frozen-physical-review.tgz",
+  "asset_sha256": "4c1757616db0459f9642cb28ae5c017bbf587bb076459cb00f13a85c4dba4c09",
+  "asset_bytes": 29288085,
+  "submitted_source_pins": 60,
+  "root_review_sha256": "bceabdca5a78f97a180a671cba9edc075903796488f3d69802d33449422712f5",
+  "cache_tamper_rejected": "cached file changed: review/ROOT-REVIEW.json",
+  "restored_cache_verified": true,
+  "final_model_entry": "s1-v7-model-explicit-target-v2.py",
+  "instruction_input_sha256": "8281a150034a92d1ad6e5d5285dd5c60f9beb171595dba72580c39433b222010",
+  "simulator_initializations": 0,
+  "model_calls": 0
+}

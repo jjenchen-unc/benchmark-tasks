@@ -1,0 +1,72 @@
+{
+  "at": "2026-11-10T23:54:30.419096+00:00",
+  "status": "ACTUAL_CREDITED_DEMO_FULL_GOAL_VERIFIED",
+  "source_fingerprint": "6d47a7ff48fe7349ef8bba5768f77a371d00394308d652586a7ff95320ec152f",
+  "runtime": {
+    "passed": true,
+    "targeted_sources": 74,
+    "whole_sdk_scan": false,
+    "sdk_imported": false
+  },
+  "controls": 1530,
+  "samples": 76500,
+  "actual_status": {
+    "score": 1.0,
+    "measured_candidate_score": 1.0,
+    "missing_verified_channels": [],
+    "hold_s": 20.04800000000152,
+    "elapsed_s": 76.50000000000122,
+    "max_open_deg": 63.58926010131836,
+    "wrist_over_s_max": 0.0,
+    "failure": null
+  },
+  "restored_native_joint_dtype": "float32",
+  "every_status_row_recomputed": true,
+  "actual_contact_samples": 37334,
+  "last_contact_s": 56.451999999959135,
+  "peak_wrist_force_n": [
+    6.79375696182251,
+    67.61373138427734
+  ],
+  "max_independent_FK_error_m": 0.0,
+  "public_score": 1.0,
+  "actual_max_cap_m": 0.0025621613021939993,
+  "actual_max_pop_rad": 0.5585052371025085,
+  "actual_max_swing_rad": 1.7606947422027588,
+  "observed_mechanism_events": {
+    "cap_release": {
+      "control": 251,
+      "phase": "cap_feedback",
+      "elapsed_s": 12.549999999998484
+    },
+    "swing_unlocked": {
+      "control": 253,
+      "phase": "cap_feedback",
+      "elapsed_s": 12.649999999998428
+    },
+    "cam_released": {
+      "control": 608,
+      "phase": "unlock_turn",
+      "elapsed_s": 30.40000000001417
+    },
+    "lid_above60": {
+      "control": 945,
+      "phase": "lever_lid_lift",
+      "elapsed_s": 47.24999999998058
+    }
+  },
+  "score": 1.0,
+  "hold_s": 20.04800000000152,
+  "native_runtime_promoted_channels_literal_is_historical": true,
+  "actual_channels": [
+    "clock",
+    "joint_state",
+    "motor_total_limits",
+    "passive_mechanisms",
+    "robot_all_box_contacts",
+    "wrist_force"
+  ],
+  "automatic_channel_approval": false,
+  "simulator_initializations": 0,
+  "model_calls": 0
+}

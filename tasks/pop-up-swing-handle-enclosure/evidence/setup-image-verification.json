@@ -1,0 +1,16 @@
+{
+  "status": "ACTUAL_MODEL_RESET_SETUP_IMAGE_AND_DEMO_POSES_PASS",
+  "png_sha256": "d43e21176d6ad06cbfd3091a485db2313407cdc2d55c219cb5e5941c73e36238",
+  "bytes": 263655,
+  "size": [
+    1280,
+    720
+  ],
+  "source": "ActualInspect immutableframe0 fromall3cameras; staticsetuptextfourthpanel. No AI/fabricatedcamera image or extra simulator/model calls.",
+  "model_demo_max_fixture_position_difference_m": 0.0,
+  "model_demo_max_fixture_quaternion_component_difference": 0.0,
+  "identical_fixed_physical_case": true,
+  "visual_review_pending": false,
+  "portable_59_source_pins_and_cached_ROOT_receipt_pass": true,
+  "ROOT_visual_review": "Actualcleanresetthreeviews andcaption visuallyreviewed; boxnumbering negativeYrobotright matchesactualstation; no teamidentity/username/path. Allbodyposesexacttodemo."
+}

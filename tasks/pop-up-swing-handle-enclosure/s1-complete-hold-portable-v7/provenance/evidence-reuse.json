@@ -1,0 +1,70 @@
+{
+  "physical_job": 43761,
+  "control_rows": 1130,
+  "max_cap_m": 0.00042327999835833907,
+  "min_pop_rad": 0.0009425446623936296,
+  "max_pop_rad": 0.0009448827477172017,
+  "old_guard_sha256": "f64630247588e1e659a3a3a973c4deb455341bd3e46ff3b88cd72a291762e907",
+  "new_guard_sha256": "f64630247588e1e659a3a3a973c4deb455341bd3e46ff3b88cd72a291762e907",
+  "guard_byte_identical": true,
+  "reused_guard_results_path": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s1-actual-zero-open-v4-20261110-0635/guard-results.json",
+  "reused_guard_results_sha256": "e8a3b95edfea7b31afae221434eabda03b5b70388d6529643ab273fe8a668d0b",
+  "reused_escape_cases": [
+    {
+      "case": "raw_spawn",
+      "exitcode": 87,
+      "expected": 87,
+      "passed": true,
+      "stderr": ""
+    },
+    {
+      "case": "execv",
+      "exitcode": 87,
+      "expected": 87,
+      "passed": true,
+      "stderr": ""
+    },
+    {
+      "case": "execve",
+      "exitcode": 87,
+      "expected": 87,
+      "passed": true,
+      "stderr": ""
+    },
+    {
+      "case": "popen",
+      "exitcode": 87,
+      "expected": 87,
+      "passed": true,
+      "stderr": ""
+    },
+    {
+      "case": "spawn",
+      "exitcode": 87,
+      "expected": 87,
+      "passed": true,
+      "stderr": ""
+    },
+    {
+      "case": "cleanup",
+      "exitcode": 86,
+      "expected": 86,
+      "passed": true,
+      "stderr": ""
+    },
+    {
+      "case": "raw_fork",
+      "exitcode": 87,
+      "expected": 87,
+      "passed": true,
+      "stderr": ""
+    },
+    {
+      "case": "ctypes_spawn",
+      "exitcode": 87,
+      "expected": 87,
+      "passed": true,
+      "stderr": ""
+    }
+  ]
+}

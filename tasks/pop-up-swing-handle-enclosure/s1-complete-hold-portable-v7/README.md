@@ -1,0 +1,3 @@
+S1 private portable v6 input bundle. Read OPERATOR.md for exact final replay, setup and model commands. Native controller/core26 files are byte exact to ROOT's dispatched43823 receipt. All five native assets/goals remain preserved; representative full-route controller supports SH-T1 only.
+
+This bundle adds a relocatable genuine-controller runtime, synchronized real RGB capture, raw8/all-link/FK/contact/native-substep journals and fresh source-bound ROOT review before score credit/model. No physical full goal is established. CPU contract/synthetic tests are separate from physical evidence. Brev stays OFF until user opens it; queued43823 stays immutable.

@@ -1,0 +1,7 @@
+# Preserve the exact already-tested frozen source bytes.
+s1-complete-hold-portable-v7/candidate/assets/A_box3.usda whitespace=-blank-at-eof
+s1-complete-hold-portable-v7/candidate/assets/SH-T1.usda whitespace=-blank-at-eof
+s1-complete-hold-portable-v7/candidate/assets/SH-T2.usda whitespace=-blank-at-eof
+s1-complete-hold-portable-v7/candidate/assets/SH-T3.usda whitespace=-blank-at-eof
+s1-complete-hold-portable-v7/candidate/assets/SH-T4.usda whitespace=-blank-at-eof
+s1-complete-hold-portable-v7/candidate/contacts.py whitespace=-blank-at-eof

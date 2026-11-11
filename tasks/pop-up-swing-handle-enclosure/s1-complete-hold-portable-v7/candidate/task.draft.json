@@ -1,0 +1,28 @@
+{
+  "title": "Open an electrical enclosure with a pop-up swing handle",
+  "category": "Impact on jobs",
+  "keywords": [
+    "enclosure access",
+    "swing handle",
+    "sequential interlock"
+  ],
+  "instruction": "Press box 1's red cap, lift and turn its swing handle to release the multipoint lock, then open its lid past 60 degrees and leave every part of that box untouched by both robot arms for 20 seconds.",
+  "context": "Opening industrial enclosure swing handles requires release, lift and turn operations rather than a simple hinge pull.",
+  "setup": "Three bench-bolted 200 x 220 x 112 mm steel-like rigid enclosures with 200 x 200 x 12 mm lids, 125 x 22 x 14 mm handles, 12 mm red caps and rubber-like gaskets. Table z=0.7475m; shell centres x=0.25m,y=-0.32/-0.08/0.16m,z=0.7975m. All poses, primitive inventory, masses and materials in fixture.json and README. Actual station YAM bases and cameras unchanged.",
+  "scoring": "Sticky zero if either raw untared wrist force exceeds80N for0.1s. Otherwise final tier:1.0 for lid>60deg and no robot contact with any part of target box continuously20s;0.5 for final>60deg without20s hold;0.25 for lock released and final>10deg;else0. Numeric runtime credit remains gated pending actual channel validation.",
+  "run_limit": "4198 genuine14D controls at20Hz (209.9 seconds)",
+  "reset_notes": "One declared native physical case42, no jitter; arbitrary Inspect episode IDs/seeds accepted without parameter changes. Restore all roots/joints and mechanism memory, settle using actualSDK, then zero task clock/history.",
+  "fidelity": "Rigid primitive geometry transferred exactly by one translation; passive finite-compliance cam/catch substitute for native equality constraints, source joint friction and gasket spring. Simplified material/contact properties; no rod continuum or fracture. YAM50N fingers instead of native235N Robotiq; actual feasibility unverified.",
+  "scores": "Dream-1: unverified; Arena scripted reference: unverified. Native historical results are design evidence only.",
+  "media": null,
+  "status": "development draft; not publication ready",
+  "representative_goal": "SH-T1",
+  "native_case": 42,
+  "preserved_other_goals": [
+    "A_box3",
+    "SH-T2",
+    "SH-T3",
+    "SH-T4"
+  ],
+  "not_submission_task_json": true
+}

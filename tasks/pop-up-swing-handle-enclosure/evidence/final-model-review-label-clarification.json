@@ -1,0 +1,10 @@
+{
+  "kind": "Metadata field-label clarification only",
+  "before_sha256": "d7dfb4f5e12f6e6d2b07c334d7f78b3dcb11e62d322acaab4a82ec856af8d8ff",
+  "after_sha256": "47bd27caafe77b926af46ca59c28529716dd6d696492dc56fc72e6e2096f38c3",
+  "renamed_field": {
+    "full_unused_forecast_original_decoder_rejections": "whole_raw_forecast_original_decoder_rejections"
+  },
+  "all_values_and_checks_unchanged": true,
+  "reason": "Original counter checks complete forecasts, including consumed values; it is not restricted to unused predictions."
+}

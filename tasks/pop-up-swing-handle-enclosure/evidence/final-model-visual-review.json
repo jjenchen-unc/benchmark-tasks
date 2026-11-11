@@ -1,0 +1,24 @@
+{
+  "at": "2026-11-11T02:40:56.820303+00:00",
+  "reviewed": true,
+  "frames": [
+    0,
+    500,
+    1500,
+    2800,
+    4198
+  ],
+  "media_sha256": "f3d165bc882956994e97e28a9039506a80f9d6342126dc048c90ae23db439939",
+  "selected_frame_sha256": {
+    "model-frame-0.png": "2a4eaafd7dbd5e599a6d929950c01462aa172f9c2860e355ef423f2e4aae65b8",
+    "model-frame-500.png": "ceb65144cb54e062188e60b71979c90c14d6fd1a342436c6b4f56b29939a5438",
+    "model-frame-1500.png": "54ee3458e8a8a3a4f042e2523264d10403876439219e9cc68a5d2893184d9d35",
+    "model-frame-2800.png": "99c53e456634dbac4e397c170526c3bebc0b63b5e6612680a57d72d9ca83b046",
+    "model-frame-4198.png": "b497a92264e31a2faf912bb9592da6cc3a4bff2419a0403eb58e67331e94f21b"
+  },
+  "identifying_overlays_seen": false,
+  "score_text_matches_actual": true,
+  "observation": "Both arms move around the enclosures; no target lid opening is visible. The final0.00 panel agrees with the independently recomputed0.0 score.",
+  "panel": "Static final-result text in fourth quadrant; allthree camera streams retained forentire trial.",
+  "limitations": "Native320x176 cameras enlarged2x; some wrist views are occluded by nearby objects/robot."
+}

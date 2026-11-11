@@ -1,0 +1,144 @@
+{
+  "at": "2026-11-10T23:47:21.035807+00:00",
+  "board_snapshot": {
+    "at": "2026-11-10T23:44:54.218395+00:00",
+    "tasks": 1522,
+    "sha256": "12351eb0f322eec58e22e289a981f2afc052381279e707b6d20c88fe7726ec73",
+    "role": "team",
+    "team": "T-05",
+    "submission_window_open": true,
+    "credentials_persisted": false
+  },
+  "search_scope": "All1522records title/keywords/instruction/context searched for swinghandle/swing handle/multipoint/enclosure/pop-up/lift-and-turn and broaderlatch/lid/panel terms; nearest full definitions read. No exact swinghandle title found. Keywordabsence is not proof ofmechanicalabsence.",
+  "neighbors": [
+    {
+      "id": "TK-93XYH2",
+      "title": "Lock a multipoint back door: lift the handle before the key will turn",
+      "status": "pending",
+      "comparison": "Shares multipoint locking and a handle-dependent interlock. It raises a separate lever to permit key rotation and locks a fixed door mock-up. S1 releases a flush handle with a cap, pivots that same handle out, rotates its spindle to unload/release a cam, then actually opens a hinged lid. Generic mechanical sequencing or multipoint terminology is not claimed new.",
+      "reviewed_fields": [
+        "title",
+        "instruction",
+        "setup",
+        "scoring",
+        "fidelity",
+        "context"
+      ],
+      "source_record_sha256": "fc250234e03e86c2a09294dd87b6e6d3580642a27bcba3239b2bcdbff60c7e0c"
+    },
+    {
+      "id": "TK-HFBF5J",
+      "title": "Open a panel held shut by a spring plunger",
+      "status": "pending",
+      "comparison": "Shares release-before-opening. Its separate spring plunger must remain withdrawn while another hand swings the panel clear. S1 has a cap catch that releases handle pop-up and a distinct spindle rotation/decompression stage; it does not require holding a separate plunger throughout opening.",
+      "reviewed_fields": [
+        "title",
+        "instruction",
+        "setup",
+        "scoring",
+        "fidelity",
+        "context"
+      ],
+      "source_record_sha256": "ed9ccb1fb2d6b741f9b5c512e57207456d54a5fd9d702119bd229090195e2860"
+    },
+    {
+      "id": "TK-RSPMXH",
+      "title": "Release a two-latch lid and lift it out with both hands",
+      "status": "accepted",
+      "comparison": "Shares latched-cover access. It holds two independent sliding latches inward simultaneously, removes the lid and places it elsewhere. S1 has a sequential cap/pivot/spindle mechanism on one captive swinghandle and a hinged lid, with no lid removal.",
+      "reviewed_fields": [
+        "title",
+        "instruction",
+        "setup",
+        "scoring",
+        "fidelity",
+        "context"
+      ],
+      "source_record_sha256": "8189cea27b3ee0002a700aadb8147f7bc250aa44cf680d0ab54bfcdeee80e010"
+    },
+    {
+      "id": "TK-97TCV5",
+      "title": "Open the lift landing door with the drop key",
+      "status": "pending",
+      "comparison": "Shares interlock release and door opening. It uses a loose hooked key through a wall slot to lift an unseen gravity bar, coordinating with a sliding door. S1 operates an exposed captive cap and flush handle, changing manipulation axes before opening a hinged lid.",
+      "reviewed_fields": [
+        "title",
+        "instruction",
+        "setup",
+        "scoring",
+        "fidelity",
+        "context"
+      ],
+      "source_record_sha256": "da1d9c27bbfced670852985d217c84ff89806531204ffd52aaf104008e8e26d8"
+    },
+    {
+      "id": "TK-GH3363",
+      "title": "Adjust and retain an equipment enclosure compression latch",
+      "status": "pending",
+      "comparison": "Same broad equipment-enclosure family, already ours and frozen. It adjusts an unloaded threaded grip-length knob, closes a wing cam and demonstrates retained clamp force/gap. S1 opens an already-latched enclosure by releasing a pop-up pivot and rotating the handle to disengage its cam. Duration, colors and layout are not the distinction.",
+      "reviewed_fields": [
+        "title",
+        "instruction",
+        "setup",
+        "scoring",
+        "fidelity",
+        "context"
+      ],
+      "source_record_sha256": "7f802d66e75d84f85c18f9dd23c16b5bc2139aa8cbe4e5e0c3ec38526089527c"
+    },
+    {
+      "id": "TK-4D4BN7",
+      "title": "Open a bottle with a detented safety loop and rocker latch",
+      "status": "pending",
+      "comparison": "Already ours and frozen. Both require releasing mechanical restraints before opening. The bottle is a free object requiring upright stabilization and separate safety-loop/rocker-latch manipulation. S1 is bench-bolted and requires pressing a cap to release a flush pop-up handle, pivot lift to unlock a spindle, then load-bearing cam rotation. Industrial naming or a larger box alone is not a novelty claim.",
+      "reviewed_fields": [
+        "title",
+        "instruction",
+        "setup",
+        "scoring",
+        "fidelity",
+        "context"
+      ],
+      "source_record_sha256": "e36c2be3105180b9ee5577bd82655e6e913dd10c82bee288b6d1ababb77bbdbc"
+    },
+    {
+      "id": "TK-EU2J3R",
+      "title": "Close and bolt a double-door enclosure whose astragal forces the leaf order",
+      "status": "pending",
+      "comparison": "Shares enclosure access hardware. It closes two leaves in the astragal-imposed order and throws a bolt; S1 releases a single cap/pop/swing assembly to open a hinged lid, with no dual-leaf overlap or separate top bolt.",
+      "reviewed_fields": [
+        "title",
+        "instruction",
+        "setup",
+        "scoring",
+        "fidelity",
+        "context"
+      ],
+      "source_record_sha256": "a5334dbafdbeb0d65f05f4b5251c52ae9965dbedf14e31a0b0d1148f1d0ac18c"
+    },
+    {
+      "id": "TK-KFLBVM",
+      "title": "Release a cabinet remote latch and retrieve a parts box",
+      "status": "pending",
+      "comparison": "Already ours and frozen. Its spatially separate side paddle releases a rotary door latch before cargo retrieval. S1 has no mapped remote actuator or cargo retrieval; its dependency is local cap release, handle pop-out and spindle rotation.",
+      "reviewed_fields": [
+        "title",
+        "instruction",
+        "setup",
+        "scoring",
+        "fidelity",
+        "context"
+      ],
+      "source_record_sha256": "7a4cc6f5be31f9b1f5bb1f1632b68825e6946ae1b81c16f765dbd20c6dde5d23"
+    }
+  ],
+  "generic_claims_rejected": [
+    "opening a box",
+    "sequential interlocks alone",
+    "a20secondhold",
+    "differentcolor/layout/industrylabel"
+  ],
+  "proposed_distinction": "Coupled cap catch, handle-pop pivot, rotational spindle/cam and lid-opening dependency, with passive loaded contact mechanics. Officialreviewers may judge differences insufficient.",
+  "official_novelty_verdict": false,
+  "fresh_board_required_before_publication": true
+}

@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-11T01:40:01.319877+00:00",
+  "kind": "ROOT_S1_TARGET_IDENTIFICATION_CLARIFICATION",
+  "old_instruction": "Press box 1's red cap, lift and turn its swing handle to release the multipoint lock, then open its lid past 60 degrees and leave every part of that box untouched by both robot arms for 20 seconds.",
+  "new_instruction": "Box 1 is the enclosure on the robot's right (negative Y). Press its red cap, lift and turn its swing handle to release the multipoint lock, then open its lid past 60 degrees and leave every part of that box untouched by both robot arms for 20 seconds.",
+  "source_instruction_sha256": "492ac4f1db3ff3f8f2dc018acbd4d34f94fb5c1aeccf9a4ee6a9d0f5efe4db34",
+  "input_file_sha256": "8281a150034a92d1ad6e5d5285dd5c60f9beb171595dba72580c39433b222010",
+  "physical_target_unchanged": "SH-T1 / box1 atnegativeY",
+  "physics_assets_mechanisms_scorer_caps_and_control_budget_byte_unchanged": true,
+  "native_credited_demo_still_same_selected_physical_goal": true,
+  "new_actual_model_trial_required": true,
+  "old_model_score_transferred": false
+}

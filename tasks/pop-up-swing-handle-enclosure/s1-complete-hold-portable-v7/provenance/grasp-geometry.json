@@ -1,0 +1,22 @@
+{
+  "kind": "CPU synthetic finite grasp geometry, no achieved grasp/force proof",
+  "raw_finger_positions_m": [
+    -0.011,
+    -0.011
+  ],
+  "lever_halfwidth_m": 0.011,
+  "lever_halfthickness_m": 0.007,
+  "lever_length_m": 0.125,
+  "rows": [
+    {
+      "link": "tip_left",
+      "min_x_over_finite_bar_yz_m": 0.011031081741570312,
+      "max_x_over_finite_bar_yz_m": 0.018175550772047574
+    },
+    {
+      "link": "tip_right",
+      "min_x_over_finite_bar_yz_m": -0.018172559225893347,
+      "max_x_over_finite_bar_yz_m": -0.011031718427723424
+    }
+  ]
+}

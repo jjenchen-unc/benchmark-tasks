@@ -1,0 +1,683 @@
+#usda 1.0
+(
+    defaultPrim = "SwingBoxes"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "SwingBoxes" (
+    prepend apiSchemas = ["PhysicsArticulationRootAPI", "PhysxArticulationAPI"]
+)
+{
+    bool physxArticulation:enabledSelfCollisions = 1
+    int physxArticulation:solverPositionIterationCount = 64
+    int physxArticulation:solverVelocityIterationCount = 8
+    quatd xformOp:orient = (1, 0, 0, 0)
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+    def "links"
+    {
+        def Xform "support" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            float physics:mass = 0.001
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+        }
+
+        def Xform "box_4" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI", "PhysicsFilteredPairsAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0, -0.009707265)
+            float3 physics:diagonalInertia = (0.016246263, 0.010725846, 0.009385441)
+            rel physics:filteredPairs = [
+                </SwingBoxes/links/door_4>,
+                </SwingBoxes/links/swing_4>,
+                </SwingBoxes/links/lever_4>,
+                </SwingBoxes/links/cap_4>,
+            ]
+            float physics:mass = 1.511808
+            quatf physics:principalAxes = (0.5, 0.5, -0.5, 0.5)
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0, -0.08, 0.85)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cube "b4_bottom" (
+                prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+            )
+            {
+                rel material:binding = </SwingBoxes/links/box_4/b4_bottom_visual>
+                rel material:binding:physics = </SwingBoxes/links/box_4/b4_bottom_physical> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.78, 0.76, 0.7)]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.1, 0.11, 0.005)
+                double3 xformOp:translate = (0, 0, -0.045)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Material "b4_bottom_visual"
+            {
+                token outputs:surface.connect = </SwingBoxes/links/box_4/b4_bottom_visual/shader.outputs:surface>
+
+                def Shader "shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.78, 0.76, 0.7)
+                    token outputs:surface
+                }
+            }
+
+            def Material "b4_bottom_physical" (
+                prepend apiSchemas = ["PhysicsMaterialAPI"]
+            )
+            {
+                float physics:dynamicFriction = 1
+                float physics:restitution = 0
+                float physics:staticFriction = 1
+            }
+
+            def Cube "b4_near" (
+                prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+            )
+            {
+                rel material:binding = </SwingBoxes/links/box_4/b4_near_visual>
+                rel material:binding:physics = </SwingBoxes/links/box_4/b4_near_physical> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.78, 0.76, 0.7)]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.005, 0.11, 0.05)
+                double3 xformOp:translate = (-0.095, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Material "b4_near_visual"
+            {
+                token outputs:surface.connect = </SwingBoxes/links/box_4/b4_near_visual/shader.outputs:surface>
+
+                def Shader "shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.78, 0.76, 0.7)
+                    token outputs:surface
+                }
+            }
+
+            def Material "b4_near_physical" (
+                prepend apiSchemas = ["PhysicsMaterialAPI"]
+            )
+            {
+                float physics:dynamicFriction = 1
+                float physics:restitution = 0
+                float physics:staticFriction = 1
+            }
+
+            def Cube "b4_far" (
+                prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+            )
+            {
+                rel material:binding = </SwingBoxes/links/box_4/b4_far_visual>
+                rel material:binding:physics = </SwingBoxes/links/box_4/b4_far_physical> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.78, 0.76, 0.7)]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.005, 0.11, 0.05)
+                double3 xformOp:translate = (0.095, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Material "b4_far_visual"
+            {
+                token outputs:surface.connect = </SwingBoxes/links/box_4/b4_far_visual/shader.outputs:surface>
+
+                def Shader "shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.78, 0.76, 0.7)
+                    token outputs:surface
+                }
+            }
+
+            def Material "b4_far_physical" (
+                prepend apiSchemas = ["PhysicsMaterialAPI"]
+            )
+            {
+                float physics:dynamicFriction = 1
+                float physics:restitution = 0
+                float physics:staticFriction = 1
+            }
+
+            def Cube "b4_left" (
+                prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+            )
+            {
+                rel material:binding = </SwingBoxes/links/box_4/b4_left_visual>
+                rel material:binding:physics = </SwingBoxes/links/box_4/b4_left_physical> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.78, 0.76, 0.7)]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.1, 0.005, 0.05)
+                double3 xformOp:translate = (0, 0.105, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Material "b4_left_visual"
+            {
+                token outputs:surface.connect = </SwingBoxes/links/box_4/b4_left_visual/shader.outputs:surface>
+
+                def Shader "shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.78, 0.76, 0.7)
+                    token outputs:surface
+                }
+            }
+
+            def Material "b4_left_physical" (
+                prepend apiSchemas = ["PhysicsMaterialAPI"]
+            )
+            {
+                float physics:dynamicFriction = 1
+                float physics:restitution = 0
+                float physics:staticFriction = 1
+            }
+
+            def Cube "b4_right" (
+                prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+            )
+            {
+                rel material:binding = </SwingBoxes/links/box_4/b4_right_visual>
+                rel material:binding:physics = </SwingBoxes/links/box_4/b4_right_physical> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.78, 0.76, 0.7)]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.1, 0.005, 0.05)
+                double3 xformOp:translate = (0, -0.105, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Material "b4_right_visual"
+            {
+                token outputs:surface.connect = </SwingBoxes/links/box_4/b4_right_visual/shader.outputs:surface>
+
+                def Shader "shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.78, 0.76, 0.7)
+                    token outputs:surface
+                }
+            }
+
+            def Material "b4_right_physical" (
+                prepend apiSchemas = ["PhysicsMaterialAPI"]
+            )
+            {
+                float physics:dynamicFriction = 1
+                float physics:restitution = 0
+                float physics:staticFriction = 1
+            }
+
+            def Cube "b4_gasket" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </SwingBoxes/links/box_4/b4_gasket_visual>
+                color3f[] primvars:displayColor = [(0.05, 0.05, 0.05)]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.096, 0.106, 0.002)
+                double3 xformOp:translate = (0, 0, 0.048)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Material "b4_gasket_visual"
+            {
+                token outputs:surface.connect = </SwingBoxes/links/box_4/b4_gasket_visual/shader.outputs:surface>
+
+                def Shader "shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.05, 0.05, 0.05)
+                    token outputs:surface
+                }
+            }
+
+            def Cube "b4_inside" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </SwingBoxes/links/box_4/b4_inside_visual>
+                color3f[] primvars:displayColor = [(0.35, 0.45, 0.35)]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.088, 0.098, 0.001)
+                double3 xformOp:translate = (0, 0, -0.039)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Material "b4_inside_visual"
+            {
+                token outputs:surface.connect = </SwingBoxes/links/box_4/b4_inside_visual/shader.outputs:surface>
+
+                def Shader "shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.35, 0.45, 0.35)
+                    token outputs:surface
+                }
+            }
+        }
+
+        def Xform "door_4" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI", "PhysicsFilteredPairsAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0.1, 0, -0.006)
+            float3 physics:diagonalInertia = (0.0016726666, 0.0016726666, 0.0033333334)
+            rel physics:filteredPairs = [
+                </SwingBoxes/links/box_4>,
+                </SwingBoxes/links/swing_4>,
+                </SwingBoxes/links/lever_4>,
+                </SwingBoxes/links/cap_4>,
+            ]
+            float physics:mass = 0.5
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (-0.1, -0.08, 0.912)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cube "d4_plate" (
+                prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+            )
+            {
+                rel material:binding = </SwingBoxes/links/door_4/d4_plate_visual>
+                rel material:binding:physics = </SwingBoxes/links/door_4/d4_plate_physical> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.8, 0.78, 0.72)]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.1, 0.1, 0.006)
+                double3 xformOp:translate = (0.1, 0, -0.006)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Material "d4_plate_visual"
+            {
+                token outputs:surface.connect = </SwingBoxes/links/door_4/d4_plate_visual/shader.outputs:surface>
+
+                def Shader "shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.8, 0.78, 0.72)
+                    token outputs:surface
+                }
+            }
+
+            def Material "d4_plate_physical" (
+                prepend apiSchemas = ["PhysicsMaterialAPI"]
+            )
+            {
+                float physics:dynamicFriction = 1
+                float physics:restitution = 0
+                float physics:staticFriction = 1
+            }
+
+            def Cube "d4_housing" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </SwingBoxes/links/door_4/d4_housing_visual>
+                color3f[] primvars:displayColor = [(0.22, 0.22, 0.24)]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.022, 0.105, 0.0004)
+                double3 xformOp:translate = (0.165, -0.015, -0.0002)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Material "d4_housing_visual"
+            {
+                token outputs:surface.connect = </SwingBoxes/links/door_4/d4_housing_visual/shader.outputs:surface>
+
+                def Shader "shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.22, 0.22, 0.24)
+                    token outputs:surface
+                }
+            }
+        }
+
+        def Xform "swing_4" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI", "PhysicsFilteredPairsAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0, 0.014)
+            float3 physics:diagonalInertia = (0.000004779167, 0.000004779167, 0.000003025)
+            rel physics:filteredPairs = [
+                </SwingBoxes/links/box_4>,
+                </SwingBoxes/links/door_4>,
+                </SwingBoxes/links/lever_4>,
+                </SwingBoxes/links/cap_4>,
+            ]
+            float physics:mass = 0.05
+            quatf physics:principalAxes = (6.123234e-17, 1, 0, 0)
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.065, -0.009999999999999995, 0.912)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cylinder "s4_hub" (
+                prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.028
+                rel material:binding = </SwingBoxes/links/swing_4/s4_hub_visual>
+                rel material:binding:physics = </SwingBoxes/links/swing_4/s4_hub_physical> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.12, 0.12, 0.13)]
+                double radius = 0.011
+                quatd xformOp:orient = (6.123233995736766e-17, 1, 0, 0)
+                double3 xformOp:translate = (0, 0, 0.014)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Material "s4_hub_visual"
+            {
+                token outputs:surface.connect = </SwingBoxes/links/swing_4/s4_hub_visual/shader.outputs:surface>
+
+                def Shader "shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.12, 0.12, 0.13)
+                    token outputs:surface
+                }
+            }
+
+            def Material "s4_hub_physical" (
+                prepend apiSchemas = ["PhysicsMaterialAPI"]
+            )
+            {
+                float physics:dynamicFriction = 1
+                float physics:restitution = 0
+                float physics:staticFriction = 1
+            }
+        }
+
+        def Xform "lever_4" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI", "PhysicsFilteredPairsAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, -0.057692308, 0)
+            float3 physics:diagonalInertia = (0.00019783019, 0.0001946727, 0.0000074825)
+            rel physics:filteredPairs = [
+                </SwingBoxes/links/box_4>,
+                </SwingBoxes/links/door_4>,
+                </SwingBoxes/links/swing_4>,
+                </SwingBoxes/links/cap_4>,
+            ]
+            float physics:mass = 0.13
+            quatf physics:principalAxes = (0.5, 0.5, -0.5, 0.5)
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.065, -0.009999999999999995, 0.9400000000000001)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cube "l4_bar" (
+                prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+            )
+            {
+                rel material:binding = </SwingBoxes/links/lever_4/l4_bar_visual>
+                rel material:binding:physics = </SwingBoxes/links/lever_4/l4_bar_physical> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.12, 0.12, 0.13)]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.011, 0.0625, 0.007)
+                double3 xformOp:translate = (0, -0.0625, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Material "l4_bar_visual"
+            {
+                token outputs:surface.connect = </SwingBoxes/links/lever_4/l4_bar_visual/shader.outputs:surface>
+
+                def Shader "shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.12, 0.12, 0.13)
+                    token outputs:surface
+                }
+            }
+
+            def Material "l4_bar_physical" (
+                prepend apiSchemas = ["PhysicsMaterialAPI"]
+            )
+            {
+                float physics:dynamicFriction = 1.1
+                float physics:restitution = 0
+                float physics:staticFriction = 1.1
+            }
+
+            def Cylinder "l4_pivot" (
+                prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.024
+                rel material:binding = </SwingBoxes/links/lever_4/l4_pivot_visual>
+                rel material:binding:physics = </SwingBoxes/links/lever_4/l4_pivot_physical> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.12, 0.12, 0.13)]
+                double radius = 0.009
+                quatd xformOp:orient = (0.7071067811865476, 0, -0.7071067811865475, 0)
+                double3 xformOp:translate = (0, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Material "l4_pivot_visual"
+            {
+                token outputs:surface.connect = </SwingBoxes/links/lever_4/l4_pivot_visual/shader.outputs:surface>
+
+                def Shader "shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.12, 0.12, 0.13)
+                    token outputs:surface
+                }
+            }
+
+            def Material "l4_pivot_physical" (
+                prepend apiSchemas = ["PhysicsMaterialAPI"]
+            )
+            {
+                float physics:dynamicFriction = 1
+                float physics:restitution = 0
+                float physics:staticFriction = 1
+            }
+        }
+
+        def Xform "cap_4" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI", "PhysicsFilteredPairsAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0, 0.007)
+            float3 physics:diagonalInertia = (2.5333333e-7, 2.5333333e-7, 1.8e-7)
+            rel physics:filteredPairs = [
+                </SwingBoxes/links/box_4>,
+                </SwingBoxes/links/door_4>,
+                </SwingBoxes/links/swing_4>,
+                </SwingBoxes/links/lever_4>,
+            ]
+            float physics:mass = 0.01
+            quatf physics:principalAxes = (6.123234e-17, 1, 0, 0)
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.065, -0.165, 0.912)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cylinder "c4_cap" (
+                prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.014
+                rel material:binding = </SwingBoxes/links/cap_4/c4_cap_visual>
+                rel material:binding:physics = </SwingBoxes/links/cap_4/c4_cap_physical> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.55, 0.08, 0.08)]
+                double radius = 0.006
+                quatd xformOp:orient = (6.123233995736766e-17, 1, 0, 0)
+                double3 xformOp:translate = (0, 0, 0.007)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Material "c4_cap_visual"
+            {
+                token outputs:surface.connect = </SwingBoxes/links/cap_4/c4_cap_visual/shader.outputs:surface>
+
+                def Shader "shader"
+                {
+                    uniform token info:id = "UsdPreviewSurface"
+                    color3f inputs:diffuseColor = (0.55, 0.08, 0.08)
+                    token outputs:surface
+                }
+            }
+
+            def Material "c4_cap_physical" (
+                prepend apiSchemas = ["PhysicsMaterialAPI"]
+            )
+            {
+                float physics:dynamicFriction = 1
+                float physics:restitution = 0
+                float physics:staticFriction = 1
+            }
+        }
+    }
+
+    def "joints"
+    {
+        def PhysicsFixedJoint "world"
+        {
+            point3f physics:localPos0 = (0.25, 0, -0.0525)
+            rel physics:body1 = </SwingBoxes/links/support>
+        }
+
+        def PhysicsFixedJoint "fixed_box_4"
+        {
+            rel physics:body0 = </SwingBoxes/links/support>
+            rel physics:body1 = </SwingBoxes/links/box_4>
+            point3f physics:localPos0 = (0, -0.08, 0.85)
+        }
+
+        def PhysicsRevoluteJoint "door_4" (
+            prepend apiSchemas = ["PhysxJointAPI", "PhysxJointAxisAPI:angular"]
+        )
+        {
+            uniform token physics:axis = "X"
+            rel physics:body0 = </SwingBoxes/links/support>
+            rel physics:body1 = </SwingBoxes/links/door_4>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (-0.1, -0.08, 0.912)
+            quatf physics:localRot0 = (0.70710677, 0, 0, -0.70710677)
+            quatf physics:localRot1 = (0.70710677, 0, 0, -0.70710677)
+            float physics:lowerLimit = -1.5756339
+            float physics:upperLimit = 100.26762
+            float physxJoint:armature = 0.01
+            float physxJointAxis:angular:dynamicFrictionEffort = 0.8
+            float physxJointAxis:angular:staticFrictionEffort = 0.8
+        }
+
+        def PhysicsRevoluteJoint "swing_4" (
+            prepend apiSchemas = ["PhysxJointAPI", "PhysxJointAxisAPI:angular"]
+        )
+        {
+            uniform token physics:axis = "X"
+            rel physics:body0 = </SwingBoxes/links/door_4>
+            rel physics:body1 = </SwingBoxes/links/swing_4>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0.165, 0.07, 0)
+            quatf physics:localRot0 = (0.70710677, -0, 0.70710677, 0)
+            quatf physics:localRot1 = (0.70710677, -0, 0.70710677, 0)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 119.99999
+            float physxJoint:armature = 0.01
+            float physxJointAxis:angular:dynamicFrictionEffort = 0.1
+            float physxJointAxis:angular:staticFrictionEffort = 0.1
+        }
+
+        def PhysicsRevoluteJoint "pop_4" (
+            prepend apiSchemas = ["PhysxJointAPI", "PhysxJointAxisAPI:angular"]
+        )
+        {
+            uniform token physics:axis = "X"
+            rel physics:body0 = </SwingBoxes/links/swing_4>
+            rel physics:body1 = </SwingBoxes/links/lever_4>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0, 0, 0.028)
+            quatf physics:localRot0 = (0, 0, 0, 1)
+            quatf physics:localRot1 = (0, 0, 0, 1)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 31.999979
+            float physxJoint:armature = 0.002
+            float physxJointAxis:angular:dynamicFrictionEffort = 0
+            float physxJointAxis:angular:staticFrictionEffort = 0
+        }
+
+        def PhysicsPrismaticJoint "cap_4" (
+            prepend apiSchemas = ["PhysxJointAPI", "PhysxJointAxisAPI:linear"]
+        )
+        {
+            uniform token physics:axis = "X"
+            rel physics:body0 = </SwingBoxes/links/door_4>
+            rel physics:body1 = </SwingBoxes/links/cap_4>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0.165, -0.085, 0)
+            quatf physics:localRot0 = (0.70710677, -0, 0.70710677, 0)
+            quatf physics:localRot1 = (0.70710677, -0, 0.70710677, 0)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 0.003
+            float physxJoint:armature = 0.02
+            float physxJointAxis:linear:dynamicFrictionEffort = 0
+            float physxJointAxis:linear:staticFrictionEffort = 0
+        }
+    }
+}
+

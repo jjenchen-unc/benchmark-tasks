@@ -1,0 +1,24 @@
+{
+  "at": "2026-11-11T00:30:03.703272+00:00",
+  "status": "ROOT_S1_DEMO_BLIND_VISUAL_REVIEW_PASS",
+  "video_sha256": "e25b66362966b57b39cb0e14043689c19eac520f38fae064b5a84c267670176e",
+  "video_bytes": 33852330,
+  "decoded_frame_binding": {
+    "video_sha256": "e25b66362966b57b39cb0e14043689c19eac520f38fae064b5a84c267670176e",
+    "frames": {
+      "demo-frame-0.png": "bef211a8868e8b213b4092f9458fd49d21b69154c25f43ab21620cdf31a38456",
+      "demo-frame-251.png": "e2ace7ed7f7d1577979d07528580827e263b27dedf0e63f439e44dc1e6f69208",
+      "demo-frame-608.png": "73a4bf915bfd48c5770d6b98bc02b083678da4c7a811eb64998d1e5f1b08a219",
+      "demo-frame-945.png": "35411fb6fa96fae06526efe79fb46c6270754466c1b039fbff24a64dca697528",
+      "demo-frame-1530.png": "f54aedda7ef4dc865a804b49b0f8dd55ba60bff9e89b3b4cebe72c8646634417"
+    },
+    "source": "decoded current complete encodedvideo; reset/cap/turn/open/final"
+  },
+  "whole_trial_retained": true,
+  "final_open_degrees": 62.41817550378177,
+  "peak_open_degrees": 63.58926010131836,
+  "all_three_synchronized_views": true,
+  "grainy_CPU_RTX_disclosed": true,
+  "identifying_text_or_team_marks_seen": false,
+  "actual_scripted_score": 1
+}

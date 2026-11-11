@@ -1,0 +1,28 @@
+{
+  "status": "S1_NATIVE_EQUIVALENT_GRIPPER_ADAPTER_AND_PARENT_VERIFICATION_PREFLIGHT_PASS",
+  "wrapper_sha256": "34202a942ce6718aa446924478bdf2886bca75eb2301f6b4d56d5ad16d7c7e09",
+  "checks": {
+    "valid_native_decoding_exact": true,
+    "actual_failed_reply_same_physical_native_embodiment_packet": true,
+    "random_finite_vectors_exact_native_saturation_equivalence": true,
+    "six_joint_predictions_per_arm_unchanged": true,
+    "nonfinite_any_row_rejected": true,
+    "mismatched_arms_rejected": true,
+    "wrong_DOF_rejected": true,
+    "oversize_rejected": true,
+    "missing_arm_rejected": true,
+    "child_exit0_with_errored_trial_not_accepted": true
+  },
+  "all_checks_passed": true,
+  "native_gripper_saturation": [
+    0.0,
+    1.0
+  ],
+  "maximum_physical_packet_difference": 0.0,
+  "rows_per_request": 4,
+  "source_physics_controller_score_limits_unchanged": true,
+  "simulator_initializations": 0,
+  "model_calls": 0,
+  "preflight_stdout": "{\"status\": \"S1_BOUNDED_GRIPPER_PARENT_CHILD_PREFLIGHT_PASS\", \"source\": \"6d47a7ff48fe7349ef8bba5768f77a371d00394308d652586a7ff95320ec152f\", \"rows_per_request\": 4, \"runtime\": {\"passed\": true, \"targeted_sources\": 74, \"whole_sdk_scan\": false, \"sdk_imported\": false}, \"simulator_initializations\": 0, \"model_calls\": 0}",
+  "old_trials_remain_unscored": true
+}

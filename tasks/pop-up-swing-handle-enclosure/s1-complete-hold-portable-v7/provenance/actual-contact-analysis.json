@@ -1,0 +1,296 @@
+{
+  "kind": "CPU finite convex mesh/cap geometry using actual raw8, base, fixture poses; no physical validation",
+  "phases": [
+    {
+      "phase": "cap_descend",
+      "q": {
+        "door_1": -0.017851851880550385,
+        "door_2": -0.015858523547649384,
+        "door_3": -0.017686529085040092,
+        "swing_1": 2.004651651077438e-05,
+        "cap_1": 0.00016150003648363054,
+        "swing_2": 2.6537105441093445e-05,
+        "swing_3": 2.6432291633682325e-05,
+        "pop_1": 0.0009438072447665036,
+        "pop_2": -3.64671574187847e-12,
+        "push_3": 1.962482443218505e-08,
+        "pop_3": -1.4274479168130405e-11
+      },
+      "finite_disk_mesh_candidates": [
+        {
+          "link": "tip_left",
+          "mesh": "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_014.stl",
+          "min_z_over_cap_disk_m": 0.01400013702780203,
+          "top_gap_m": 1.3702780203052323e-07,
+          "point_cap_local": [
+            -0.0008131139956583085,
+            0.005196390934053708,
+            0.01400013702780203
+          ]
+        },
+        {
+          "link": "tip_left",
+          "mesh": "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_015.stl",
+          "min_z_over_cap_disk_m": 0.014005291469989297,
+          "top_gap_m": 5.291469989296763e-06,
+          "point_cap_local": [
+            -0.0008130925619830307,
+            -5.062787384604073e-05,
+            0.014005291469989297
+          ]
+        },
+        {
+          "link": "tip_right",
+          "mesh": "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_005.stl",
+          "min_z_over_cap_disk_m": 0.01400884350466476,
+          "top_gap_m": 8.843504664759333e-06,
+          "point_cap_local": [
+            -0.0032166666113346105,
+            0.005064884590147744,
+            0.01400884350466476
+          ]
+        },
+        {
+          "link": "tip_right",
+          "mesh": "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_008.stl",
+          "min_z_over_cap_disk_m": 0.01401462079729014,
+          "top_gap_m": 1.462079729014007e-05,
+          "point_cap_local": [
+            -0.003216904648366841,
+            0.0005441344378008506,
+            0.01401462079729014
+          ]
+        }
+      ],
+      "tcp": [
+        0.3128191694426278,
+        -0.40473685000384174,
+        0.8832910591795793
+      ],
+      "raw_fingers": [
+        -6.838945409981534e-08,
+        -2.9386197297753824e-07
+      ]
+    },
+    {
+      "phase": "cap_press",
+      "q": {
+        "door_1": -0.017867406830191612,
+        "door_2": -0.015858523547649384,
+        "door_3": -0.0176865067332983,
+        "swing_1": 2.004756242968142e-05,
+        "cap_1": 3.1641542591387406e-05,
+        "swing_2": 2.6769936084747314e-05,
+        "swing_3": 2.8029051463818178e-05,
+        "pop_1": 0.0009435245883651078,
+        "pop_2": -3.66571790283432e-12,
+        "push_3": -4.4103217078372836e-08,
+        "pop_3": -1.6501312469219265e-11
+      },
+      "finite_disk_mesh_candidates": [
+        {
+          "link": "tip_left",
+          "mesh": "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_014.stl",
+          "min_z_over_cap_disk_m": 0.014000146751813016,
+          "top_gap_m": 1.4675181301583573e-07,
+          "point_cap_local": [
+            -0.0008014901924480268,
+            0.00519447437658309,
+            0.014000146751813016
+          ]
+        },
+        {
+          "link": "tip_right",
+          "mesh": "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_005.stl",
+          "min_z_over_cap_disk_m": 0.014000953176667054,
+          "top_gap_m": 9.531766670539676e-07,
+          "point_cap_local": [
+            -0.003204709155850541,
+            0.0050724588948198035,
+            0.014000953176667054
+          ]
+        },
+        {
+          "link": "tip_left",
+          "mesh": "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_015.stl",
+          "min_z_over_cap_disk_m": 0.014010537047277666,
+          "top_gap_m": 1.0537047277665856e-05,
+          "point_cap_local": [
+            -0.000802405491755471,
+            -5.2536615783810824e-05,
+            0.014010537047277666
+          ]
+        },
+        {
+          "link": "tip_right",
+          "mesh": "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_008.stl",
+          "min_z_over_cap_disk_m": 0.014011261374055782,
+          "top_gap_m": 1.1261374055781398e-05,
+          "point_cap_local": [
+            -0.0032057610457840646,
+            0.0005426479008774035,
+            0.014011261374055782
+          ]
+        }
+      ],
+      "tcp": [
+        0.31278984484430994,
+        -0.4047256164422908,
+        0.8834178339874085
+      ],
+      "raw_fingers": [
+        1.0115232207397185e-08,
+        -2.3671478110998123e-09
+      ]
+    },
+    {
+      "phase": "lever_grasp",
+      "q": {
+        "door_1": -0.01776011474430561,
+        "door_2": -0.015858523547649384,
+        "door_3": -0.017686443403363228,
+        "swing_1": 3.839752753265202e-05,
+        "cap_1": 1.173190078418429e-08,
+        "swing_2": 3.049522638320923e-05,
+        "swing_3": 5.0628867029445246e-05,
+        "pop_1": 0.0009434421663172543,
+        "pop_2": -3.6463852770562966e-12,
+        "push_3": 2.1089494595116776e-08,
+        "pop_3": -1.1715088968355936e-11
+      },
+      "finite_disk_mesh_candidates": [],
+      "tcp": [
+        0.316327809331272,
+        -0.33785659893776676,
+        0.9398189909863559
+      ],
+      "raw_fingers": [
+        -2.84028783426038e-06,
+        -1.0712166442772286e-07
+      ]
+    }
+  ],
+  "pop_units": "radians (not metres)",
+  "pop_joint": {
+    "name": "pop_1",
+    "kind": "hinge",
+    "axis": [
+      -1.0,
+      0.0,
+      0.0
+    ],
+    "range": [
+      0.0,
+      0.558505
+    ],
+    "damping": 0.004,
+    "friction": 0.0,
+    "stiffness": 0.25,
+    "springref": 1.05,
+    "armature": 0.002
+  },
+  "native_cap_release_m": 0.0024,
+  "native_pop_unlock_rad": 0.3839724354387525,
+  "required_cap_static_force_at_release_N": 6.599999999999999,
+  "passive_pop_static_equilibrium_caught_rad": 0.0009434457418726591,
+  "old_assumed_pop_rad": 0.5585053606381855,
+  "measured_pop_rad": 0.0009434421663172543,
+  "consumed_files_sha256": {
+    "/opt/yam-arena/yam_arena/assets/yam/yam_arm.urdf": "d6cc3fca8d6848aad36c0d2bb8798de391fcf5ef8f41180fe7618eda141f0bef",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_000.stl": "8395a06a60c6f07bd034fdff6edcd1b991d7111fd3628d7c1853e8b46c6efea9",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_001.stl": "52077d55a7e94a30d111a2413c5475716a07a39fa3b8631c1b20cf46a3049a2f",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_002.stl": "5d96c2c95b1c95a84a7a4121d81d3b5e45adf7f16c9b5c77515441190f12b278",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_003.stl": "751734d3a886c6049b26a0cc540afb013a168762b26237b8b43e3bdb7c4d14be",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_004.stl": "d1f89189646fdc7ec9b931a2f51f3757b9cb5ed427bcca015042bebe1a296669",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_005.stl": "1f0b38546762f33db9cce9bf3986c8451a132ded17d4f13d5d6379709fb51cef",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_006.stl": "36f8e09ee3aa0c4058938ea6e47d3dbe6608453f26b89960180e83775f28d423",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_007.stl": "6b1d4cdb56c9e5d429dd3cc282c6c1d4abc654dc1b7b9c5ca7df8b5bc98f4f5c",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_008.stl": "29aedf1e1a06492d46dd7c40c48dd9242c869817b2a0e3ea55d8ba3730a89035",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_009.stl": "1ec3c52b72e9bc8073feae8f0af598cf85259ec3165b9d7276af569ba8109ee9",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_010.stl": "294b5d94f1214dd468cf2f590f70a345ef5dfc736df76232386f29c264f7a71c",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_011.stl": "0accb8adc4eeb98d1b57f7033e4415599512cc966ef8f32ab3254c957f988877",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_012.stl": "82aa1e85385c4be4fabacde65e5b754bb8ba77eb4b8e51b09050f14bdc473d48",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_013.stl": "038e7fd4c6080e96727bc22778a11cc6edca3855c81507c5c19a3c44ff1a2061",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_014.stl": "0c83f350da07ecf120daa6821f1c238b7161773bb3c81cccb139b4ec535921c0",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_015.stl": "08047456ed951dda0608a222d7a84c90cc96113b0b1410f61eddd48ac5761e33",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_016.stl": "e32e4c5d2540fe2f7a11e886559dea1d47839f31c867caf6adfccf8af17c4f88",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_017.stl": "38c9b7280417bfdb919c2161eb39ca624742904e1a949a700fdd588173e58146",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_018.stl": "4567828dda851f1ecd0a06edf0f824555a948a1869f5d75434314f18b83f98e2",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_019.stl": "1e46c88f9d249cbf968750ad223c5d0f4093a180eb1fdb2541db775409f95fcb",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_020.stl": "c08afa7642ced624bb0102c31a88ff1a20be2497e429745b6c0f98eb5eb3c072",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_021.stl": "8c82090311c56c2dfb303dfe8338427e269a71b42ac04e3adee49401090f8f23",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_022.stl": "dd7f99d836b4f9f2603a42854437596b9c7724889545c61bc61e69171a41f0a3",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_023.stl": "8771d1a9db74983fc12d9c3d42f6f44f997c6ddd115f45b4be9938097421b532",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_024.stl": "6b9afd5162bc7fc244285461795f886b1bc0a5c7a0be5875a3731febfade9f01",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_025.stl": "26fa6d1d537d08b14b3b8c9b5dde7a797affa36f8a80f34834bbff1d9f4650bf",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_026.stl": "c9b3115aab031e873331160fa8c7a312404d01eada49eedb9c99d2f476c2baaa",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_027.stl": "fec6b3839c53161501450c85d2ee39f2b2e7c9332f955553a7d939e70c1c869f",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_028.stl": "4e858d578cf0e39fbd0a9b044d08021b1fe4c04a95fbb3cbf8e9d9dadfec144b",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_029.stl": "ef4590e53193dfce239e01f28c94745c2329cc111045a9459cf73ba320b6d992",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_030.stl": "b2d3aea691ef0209091c126d0a8f484779b035fd97e511c31d4e76190d953ae7",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_031.stl": "39bd33f0a650f879bdfb03322e508c20919d7aa3921e81b1e380e23aef142a64",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_032.stl": "799526da2194400bf8a2bf9d9a73567740957672b2f28fb578592b362c830b3b",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_033.stl": "936d88fe9e0d3a281e09f1ca43eeb85b73a25ab5ab0edb42c3e5fb2cc1452611",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_034.stl": "d9700cc1c515b1e91b1aae4f7f9c9ab58e509617d37f9a8fb3f7d46f8aaa309e",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_035.stl": "ab92de1b339c3994bc4acd882a5f6dcd9d4fbfa2dd0f98488177cacdeaa4d657",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_036.stl": "20eea1fa90db99b49bec56d150f43302bfcf9a6d4fc5702d2f2f83bfcca28144",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_037.stl": "a9e0fe4b4d5c88957f05dd821b3fae9f6581022ffce108a7a355ad89eae477bc",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_038.stl": "45dd5fbf167479f4d287406e2179e3381f6127dc7a8d64ca2b5e6a12c4012a8e",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_039.stl": "883bde02da283f5f6ec622e6f054e26cf487e4971694afa75ddc543e8d50e30f",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_040.stl": "f62cc3536c9219f614c6f62149f8e574718ca78b938aab2bb8bfc2332c6aec1b",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_041.stl": "c3f00a85e8329b7c26e220e9eb47b8d5117e1c9c6b64967d4ea41be50eb0e169",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_042.stl": "39d52dc9ac519b60618e1a5bfc7f7cbfc1f89e943cc5f78da0025b5ffa6c4480",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_043.stl": "7cf99a278811922864ef5ff2787364a1fb347d62eb0a03f850f751fa52c565fe",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_left/tip_left_044.stl": "7ecb610513ade7d61141b70dda807ce38618bc3e66f29eb519a4db0a0b2fbc84",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_000.stl": "9bcb14014ec0f54deb4198ce8799c339cfe5186a29cd45b37d768452f39e90f4",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_001.stl": "fa6815b47bbc37c1d95d1b915cc2a075004988035764733a3ff9ecaadeba46cc",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_002.stl": "e64d2a25d225b0fad47eb53df37a566c2cedb9a5da49b3877265ba9c6c0280b0",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_003.stl": "25fed3ac82a6f16c63f3674d7c19ad0fadf894f7dd9bfd32a4b68702369a5632",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_004.stl": "d0c2f00ff42686bbc7a37232468390517db037d8a80952735e1971fd1a078b70",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_005.stl": "31d90c991372621db95efe025a004edf2d0bc8730b9805c69e604f2fd136487b",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_006.stl": "ce1d91979d593e7e2fde0a492e6efde7848096b83240057b781e71ee49c0038c",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_007.stl": "0bd88183c14df3c17b01515cc72de39c80b0dc8da31821faa5c1fceb758aca3c",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_008.stl": "bbe3a61c205d772d1eb819bf743a49faf640a74f83d7a9249654fda2303204f8",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_009.stl": "70346168eb7ba1df1555530df7c6abd7c5c06f23b82255b87fbe0cd55fc3ab08",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_010.stl": "c3f604cb3df255b7a643d563885bc554e1a1e6ee53a4599f2ada77c59620a0b4",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_011.stl": "947848e3b7d8ab09181eec0d73c68a8d9eb9479f4b4672a066f020387e71c164",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_012.stl": "9efd152119a73329af51ac9ede71fef364123c3f35226a0cdaf0c4b7c7172996",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_013.stl": "3d05f1f5e8a215c97e5314cf453ec2baf2305e13fb7f620b44bbf98e1b09399b",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_014.stl": "68eb2dd9018ca4e9b84cc5fa2bdf773f06dc72bfe2906277e39b87d6bcb9408d",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_015.stl": "19b090ade1bebcbe7e42503b7df5d464870e3c038bcd9430bca45d99bde68b83",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_016.stl": "24e0fe89eb40364addd00d1690ba9dcb4e0aa09dd5e5b70a4b94a49cff9719d6",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_017.stl": "658a121c2e8f1acb35f6b91ba8c72d33da4001dd9a3d6b6f3c5c004808181435",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_018.stl": "af887149316f97e84a7e73f9a3e6b71b9be4f40d3a4fc4db659b92e0391076dd",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_019.stl": "73a99d122a7ed4dd41b5a4ede257b1c3208c24d9098d62de1097bd317da35de0",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_020.stl": "6040264e6981fcae9f07ff50eb0fa9d0ce33092afbccb3cff73be894d0a23898",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_021.stl": "08c82007e4a446c5f7073d9292b89a9797f56260c2d0504036afdc8df4be9b85",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_022.stl": "83668fe476e80bbfa6bced2e7e63c95b7b06893d4e32a6740257a9a8e0bff78d",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_023.stl": "2ac2f25103b42051a29afaa713f0f28f87f2a3aa7922e5db6b81f3f8764992cc",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_024.stl": "7d9d82332b7a83ae0d6d8e43154ee373913f85be275d3b7006137eeaffd99260",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_025.stl": "99b76ba8a87d09c1bb5c71a71edc65b533b7e3f24651fc23e889e1079d7a366f",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_026.stl": "270eec5289a07c3f782636487c06717f8d1537f16df8eb2319be5498300498a5",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_027.stl": "381e38159e5fc312309e2c226064f0ee3ba8ede3154373a30577fbcbe2e5e1fa",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_028.stl": "9ae4e9cf736b4b91927f7852e3126a1bb71e92f0fdf71cc621c85392ed436695",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_029.stl": "d43ee7889b2f96f89161d5c436bf9ebdc82bb33239f67d9dcc2157e514ff5b5c",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_030.stl": "8b94d84f64a81ae3d770f87f1a318205782029af8bc2af15ebc08d98af9184e8",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_031.stl": "19213d76a588cf58f1e3fc872588253323971f66883d22dc7c63a08ed5d49b0e",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_032.stl": "ddffbc91ed848755b56cb90f865be1e933d8438d5fe80565432ca01c38117633",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_033.stl": "2ecb7530a74a702698d11e26f20b30a723cbb40c743852895899de21f6f7041b",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_034.stl": "eb794e92431f12d8f5b2ad47591b897d7e0bb0b62b679135097425a1fde26bce",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_035.stl": "1caaadc2b26bfe53f39ffc5bb423aa814fe91c1e581f203a26e980a896886255",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_036.stl": "f796ed4364f62eca03cada789d0f6afcf2492a71eb1831520527b7d37a35b5a4",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_037.stl": "eb21f29b7f8dd8307c31b483eb0876eacffafc6f3ed4ba0267afc56f13c6f143",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_038.stl": "1608b5a82426171e1aa30ba17406da0cc013f3a16a8704886f7c113323a505b5",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_039.stl": "4c1127594630edc1621d8fcd59ef64373061f9e40978f55bb91b4b52ed713621",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_040.stl": "25b75259dcf4147de856bce5af0518138739401e77ddd685e3980f56eecf0156",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_041.stl": "e1c0eaa40b277c14a9933d6fcf47f142383115a7567ec89b096ddbfdb3b15dba",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_042.stl": "ca635b9624a3cfb5536ddc71c5b8d261a641b15f5efb956f9b290b3f609e1ee4",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_043.stl": "625379faeff83cd20e843cd58e5022076ac917b06ca6e37c4052b568d75c90b1",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_044.stl": "31fbf28f96529606e32a5928f69da579d0e18ee1c60fef48e106260d0ea7b1b6",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_045.stl": "220e337760cc60769f6853e3de33e4ea1f751306c39ec77e3fe26a2ed300da03",
+    "/opt/yam-arena/yam_arena/assets/yam/collision/tip_right/tip_right_046.stl": "120f0784375c481c0e67709a72dd39a7dcec6df3342ea602776228d45480ca84",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/root-s1-s4-final-review-20261110-0650/S1-native-anchor-whole-v4/job-43761/trial/controller-stream.jsonl": "164b12cffa0962f9a3c804b6f29dc56f8d81ce1bbd9c7b7b15a0cb2838b94e0f",
+    "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s1-actual-pop-contact-whole-v5-20261110-0900/source/fixture.json": "207c0bb82f817092bd4c3cf5aebfeaca5ef0ae73a1a154b911eeb40f68eb401c"
+  },
+  "wall_s": 3.5934399273246527
+}

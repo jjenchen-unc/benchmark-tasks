@@ -1,0 +1,70 @@
+{
+  "kind": "CPU conditional/synthetic, no physical/fullgoal evidence",
+  "checks": {
+    "native_exact_cap_threshold_stays_caught": true,
+    "native_cap_above_threshold_releases": true,
+    "popped_does_not_recatch_and_swing_unlocks": true,
+    "stationary_actual_like_cap_aborts_before_turn": true,
+    "asymmetric_empty_grasp_rejected": true,
+    "synthetic_whole_route_finishes_under_budget": true,
+    "controller_import_from_frozen_source": true,
+    "bounded_cap_target": true,
+    "native_physics_and_assets_unchanged": true,
+    "controller_no_task_or_process_writes": true
+  },
+  "all_passed": true,
+  "synthetic_controls": 1275,
+  "phase_first_controls": [
+    {
+      "phase": "cap_approach",
+      "first_control": 1
+    },
+    {
+      "phase": "cap_descend",
+      "first_control": 61
+    },
+    {
+      "phase": "cap_feedback",
+      "first_control": 101
+    },
+    {
+      "phase": "cap_retreat",
+      "first_control": 196
+    },
+    {
+      "phase": "lever_approach",
+      "first_control": 236
+    },
+    {
+      "phase": "lever_descend",
+      "first_control": 296
+    },
+    {
+      "phase": "lever_grasp",
+      "first_control": 336
+    },
+    {
+      "phase": "unlock_turn",
+      "first_control": 346
+    },
+    {
+      "phase": "lever_lid_lift",
+      "first_control": 544
+    },
+    {
+      "phase": "release_lever",
+      "first_control": 756
+    },
+    {
+      "phase": "lift_retreat",
+      "first_control": 796
+    },
+    {
+      "phase": "hands_off_hold",
+      "first_control": 856
+    }
+  ],
+  "stationary_abort": "measured progress deadline: cap_feedback",
+  "max_controller_controls": 1680,
+  "wall_s": 6.018084382638335
+}

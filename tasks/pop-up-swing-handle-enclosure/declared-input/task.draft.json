@@ -1,0 +1,13 @@
+{
+  "instruction": "Box 1 is the enclosure on the robot's right (negative Y). Press its red cap, lift and turn its swing handle to release the multipoint lock, then open its lid past 60 degrees and leave every part of that box untouched by both robot arms for 20 seconds.",
+  "physical_core_fingerprint": "6d47a7ff48fe7349ef8bba5768f77a371d00394308d652586a7ff95320ec152f",
+  "physical_target": "SH-T1",
+  "target_box": 1,
+  "target_shell_center_m": [
+    0.25,
+    -0.32,
+    0.7975
+  ],
+  "source_instruction_sha256": "492ac4f1db3ff3f8f2dc018acbd4d34f94fb5c1aeccf9a4ee6a9d0f5efe4db34",
+  "change": "Explicit spatial definition of existing target only; no changed goal or physics."
+}

@@ -1,0 +1,102 @@
+{
+  "at": "2026-11-10T23:46:51.190693+00:00",
+  "unit": "S1_swinghandle",
+  "target_requirement": "Press cap to release flush pivot handle, lift it to unlock spindle, rotate it against cam/gasket load, then open hinged lid>60deg and leave all target parts untouched20s.",
+  "manufacturer_reference": {
+    "url": "https://southco.com/en_us_int/latches/swinghandle-multipoint-systems/actuators-and-integrated-systems/h3-swinghandle-multi-point-system",
+    "inference": "Industrial enclosure handles nest and pop up before swinging to actuate a cam or multipoint linkage. Simulator is a disclosed finite-compliance functional approximation, not a product-exact H3 mechanism."
+  },
+  "benchmarks": [
+    {
+      "benchmark": "LIBERO",
+      "coverage": "130 entries in the official five-suite task map",
+      "primary_url": "https://github.com/Lifelong-Robot-Learning/LIBERO/blob/master/libero/libero/benchmark/libero_suite_task_map.py",
+      "nearest": [
+        "open_the_middle_drawer_of_the_cabinet",
+        "open_the_top_drawer_and_put_the_bowl_inside",
+        "pick_up_the_black_bowl_in_the_top_drawer_of_the_wooden_cabinet_and_place_it_on_the_plate"
+      ],
+      "source_files_sha256": {
+        "arena-bounded-motor-20261109/novelty-primary-20261110/LIBERO-task-map.source": "0c950df0a785aa55de968bb38ccd865d2017f71ddbe6f48cfd05ac0742b6d62d"
+      },
+      "comparison_inference": "Published taskmap includes cabinet/drawer opening and storage access. Its tasknames do not specify a cap-release\u2192handle-pop\u2192handle-turn mechanical interlock before hinged-lid opening. Generic opening is shared; no exhaustive asset-mechanics absence claim."
+    },
+    {
+      "benchmark": "RoboCasa365",
+      "coverage": "65 atomic plus300 composite descriptions in the complete current official JSON",
+      "primary_url": "https://robocasa.ai/docs/build/html/static/task_attributes.json?v=2",
+      "nearest": [
+        "OpenCabinet",
+        "OpenMicrowave",
+        "CloseCabinet"
+      ],
+      "source_files_sha256": {
+        "arena-bounded-motor-20261109/novelty-primary-20261110/RoboCasa-task-attributes.json": "33c4859b9cc611ee14f856d7a00b231872dccb50a01e7fbaab555f51cce27e8a"
+      },
+      "comparison_inference": "Published365 descriptions include OpenCabinet and OpenMicrowave. They require opening appliances/storage doors; no described cap/handle-pop/turn multipoint-release dependency. This is a description-level comparison, not an audit of every fixture asset."
+    },
+    {
+      "benchmark": "SimplerEnv",
+      "coverage": "10 base interfaces in official current-environments table, with documented orientation/drawer aliases",
+      "primary_url": "https://github.com/simpler-env/SimplerEnv/blob/main/README.md",
+      "nearest": [
+        "google_robot_open_drawer",
+        "google_robot_close_drawer",
+        "google_robot_place_in_closed_drawer"
+      ],
+      "source_files_sha256": {
+        "arena-bounded-motor-20261109/novelty-primary-20261110/SimplerEnv-README.source": "81aaa39d59e41c6b60d6ccdf09c17b1f0ca284ce7cb780b62b908afac6c0dc28"
+      },
+      "comparison_inference": "Published drawer opening/closing interfaces share articulated storage access. They do not specify this flush handle release/lift/turn sequence; no novelty is claimed for the hinge pull alone."
+    },
+    {
+      "benchmark": "BEHAVIOR-1K",
+      "coverage": "Pinned repository e5aad1d66a497cf17ad3e3bbcf628022a187dc70;1018 BDDL files across1017 directories including extra definitions; not a claim of1017 benchmark tasks",
+      "primary_url": "https://github.com/StanfordVL/BEHAVIOR-1K/tree/e5aad1d66a497cf17ad3e3bbcf628022a187dc70/bddl3/bddl/activity_definitions",
+      "nearest": [
+        "cleaning_out_drawers",
+        "organizing_file_cabinet",
+        "cleaning_kitchen_cupboard",
+        "outfit_a_basic_toolbox"
+      ],
+      "source_files_sha256": {
+        "arena-bounded-motor-20261109/novelty-primary-20261110/BEHAVIOR-scan.json": "89d045a4054b695178ffd5a68975c865192abf4c1225ef21c6b2602dd945c0d5"
+      },
+      "comparison_inference": "Pinned BDDL coverage includes drawers/cupboards/toolbox storage and goals. These goal descriptions do not specify this coupled cap/pop/swing sequence. Object asset mechanics were not exhaustively audited, so no global mechanism absence claim."
+    },
+    {
+      "benchmark": "DataCenterBench Tier1",
+      "coverage": "Public ten-task release and19 considered candidates on the official page",
+      "primary_url": "https://robocurve.org/datacenterbench/",
+      "nearest": [
+        "Lift a protective cover",
+        "Turn a key",
+        "Turn a knob"
+      ],
+      "source_files_sha256": {
+        "arena-bounded-motor-20261109/novelty-primary-20261110/DataCenterBench.source": "c0eab2cf4506f00215657a80e1f12de6abe5caeede5af670b1f5f1fe1e52c219",
+        "arena-bounded-motor-20261109/novelty-primary-20261110/DataCenterBench-setups.source": "24de51f5a9d0b21ea97bc317a7ec2a442098217a4902dec96b1fc74e4b7f521f"
+      },
+      "comparison_inference": "Current publicten single-step tasks include protective-cover lift, knob rotation and key interlock operation. S1 combines a released flush handle, pivot lift, cam rotation/decompression and actual lid opening. Individual lift/turn/cover motions are existing primitives; private tasks excluded."
+    },
+    {
+      "benchmark": "RoboDojo",
+      "coverage": "42 main sim tasks plus1DLC page and18 real pages in current official catalogs; nearest instructions/scoring reviewed",
+      "primary_url": "https://robodojo-benchmark.com/doc/sim-tasks/",
+      "nearest": [
+        "Store Tools In Toolbox",
+        "Pack Objects Into Box",
+        "Pack Objects Into Backpack"
+      ],
+      "source_files_sha256": {
+        "arena-bounded-motor-20261109/novelty-primary-20261110/RoboDojo-sim-catalog.source": "5c0b397725f1fe200ed16f0401fce34af12d6aee68cdfde0fce920dea9efe62c",
+        "arena-bounded-motor-20261109/novelty-primary-20261110/RoboDojo-DLC.source": "33176244036e6f36eb1cdb6a20c3f4a1bde18b4da1c65445d01a5fcac76dbc20",
+        "arena-bounded-motor-20261109/novelty-primary-20261110/RoboDojo-real-catalog.source": "041ed17d9d9bc0c2adb36c385ada617b20cc11dd7f39a76d89f79a7317da8e3b",
+        "arena-bounded-motor-20261109/novelty-primary-20261110/RoboDojo-toolbox.source": "1d1a2ed1fb2104afc7c123a69a0dfeb49b7f09c6ee812d1ff52550e700b06813"
+      },
+      "comparison_inference": "Current43sim and18real catalog descriptions include toolbox/box covering and tool storage. Inspected nearest definitions do not specify a captive handle that must pop out before cam rotation and lid opening. Asset-mechanics coverage is incomplete."
+    }
+  ],
+  "official_importance_or_ownership_verdict": false,
+  "fresh_board_required_before_publication": true
+}

@@ -1,0 +1,17 @@
+{
+  "at": "2026-11-11T02:20:52.475791+00:00",
+  "status": "FINAL_INPUT_RESET_EXACTLY_MATCHES_VERIFIED_SETUP_SOURCE",
+  "actual_final_trial": "model-explicit-target-v2-v2",
+  "actual_old_observer_reset_sha256": "f95177ab6cf38069d911fbde446bb660b5ba7b08b7b33928618c4972d3553f1b",
+  "actual_final_observer_reset_sha256": "f95177ab6cf38069d911fbde446bb660b5ba7b08b7b33928618c4972d3553f1b",
+  "all_observer_fields_exact": true,
+  "maximum_differences": {
+    "body_pos_w": 0.0,
+    "body_quat_w_xyzw": 0.0
+  },
+  "native_qv_exact": true,
+  "robot_reset_exact": true,
+  "verified_setup_reusable": true,
+  "physical_case": 42,
+  "jitter": 0
+}

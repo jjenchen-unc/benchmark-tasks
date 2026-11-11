@@ -1,0 +1,10 @@
+{
+  "at": "2026-11-11T01:00:32.958326+00:00",
+  "status": "ROOT_BLIND_ACTUAL_SETUP_REVIEW_PASS",
+  "sha256": "d43e21176d6ad06cbfd3091a485db2313407cdc2d55c219cb5e5941c73e36238",
+  "bytes": 263655,
+  "box_numbering_explicit": true,
+  "actual_camera_pixels_only": true,
+  "model_demo_pose_difference_zero": true,
+  "team_identity_seen": false
+}

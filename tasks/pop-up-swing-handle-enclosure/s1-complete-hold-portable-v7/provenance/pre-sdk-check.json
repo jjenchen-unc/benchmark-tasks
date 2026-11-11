@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "isolated": true,
+  "no_wrapper_target_path_injection": true,
+  "actual_task_constructed": true,
+  "stopped_at": "isaaclab.app",
+  "simulator_started": false,
+  "guard_exit_code": 86,
+  "persistent_audit_guard": true,
+  "strict_json_checked": true,
+  "telemetry_origin": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/s1-actual-pop-contact-whole-v5-20261110-0900/source/telemetry_json.py",
+  "consumed_map_fingerprint": "1ce7a924cc2c0880252321ca86a83176f3246490c412a7dbdb2379e26ae26ee6"
+}

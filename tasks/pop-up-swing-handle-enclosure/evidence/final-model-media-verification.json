@@ -1,0 +1,27 @@
+{
+  "status": "ACTUAL_S1_MODEL_COMPOSITE_FULL_DECODE_PASS",
+  "score": 0.0,
+  "frames": 4199,
+  "fps": 20,
+  "duration_s": 209.95,
+  "size": [
+    1280,
+    720
+  ],
+  "codec": "h264",
+  "bytes": 13327132,
+  "sha256": "f3d165bc882956994e97e28a9039506a80f9d6342126dc048c90ae23db439939",
+  "source": "Complete threeactualsynchronizedcamerastreams plusstaticfinalresultpanel. No trimmed/repeated/fabricatedcamera frames.",
+  "selected_frame_sha256": {
+    "model-frame-0.png": "2a4eaafd7dbd5e599a6d929950c01462aa172f9c2860e355ef423f2e4aae65b8",
+    "model-frame-500.png": "ceb65144cb54e062188e60b71979c90c14d6fd1a342436c6b4f56b29939a5438",
+    "model-frame-1500.png": "54ee3458e8a8a3a4f042e2523264d10403876439219e9cc68a5d2893184d9d35",
+    "model-frame-2800.png": "99c53e456634dbac4e397c170526c3bebc0b63b5e6612680a57d72d9ca83b046",
+    "model-frame-4198.png": "b497a92264e31a2faf912bb9592da6cc3a4bff2419a0403eb58e67331e94f21b"
+  },
+  "native_review_sha256": "47bd27caafe77b926af46ca59c28529716dd6d696492dc56fc72e6e2096f38c3",
+  "visual_review_pending": false,
+  "native_review_original_sha256": "d7dfb4f5e12f6e6d2b07c334d7f78b3dcb11e62d322acaab4a82ec856af8d8ff",
+  "native_review_label_clarification_sha256": "fd752e0e6a2b3dd55d8fc9cc8a3ec30c0fd71d55084b43497949eaf705e7b99b",
+  "visual_review_sha256": "5f8b5b3d609f4daf1934c561592bbb0255beeb1bc679ae539a55f7455ba9f800"
+}

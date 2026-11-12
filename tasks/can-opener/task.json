@@ -1,0 +1,21 @@
+{
+  "title": "Bench can opener: one hand holds the sprung cutter lever down while the other cranks; the cut itself is invisible",
+  "category": "Impact on jobs",
+  "keywords": [
+    "bimanual",
+    "tool use",
+    "can opener",
+    "crank",
+    "kitchen",
+    "food preparation"
+  ],
+  "instruction": "Open the can with the bench can opener and put the lid in the wooden tray.",
+  "context": "Bench can openers are standard in commercial kitchens, where food preparation workers open dozens of cans a shift. The cut itself cannot be seen: the lid looks the same until the whole rim has passed under the cutter, and it stays fixed to the can until then. The robot has to judge progress from the can turning, using the white stripe on its label, which faces the robot at the start and comes back after one full turn of the can (three crank turns). Let the lever rise, or turn the crank the wrong way, and that part of the rim is not cut. Unlike cranking a hose reel while the other hand guides the hose, here one hand must keep a steady push on a sprung lever without moving while the other turns a crank, and unlike prying a paint-tin lid or popping a bottle cap on a mounted opener, no single push or lever action frees the lid.",
+  "setup": "Positions in cm from the midpoint between the two arm bases, on the table (x forward, y left). Can opener, fixed to the table: a dark cast-iron base plate (16 x 20 x 1.2 cm) from x 24 to 40 and y -12 to 8. Food can: steel, 6.8 cm wide, 7.5 cm tall, 0.35 kg, red paper label with a white vertical stripe (1.2 cm wide) that faces the robot at the start, standing in the opener's seat at x 30, y 0; it turns about its own axis one third of a turn for each turn of the crank. Lid: tinplate with its seam, 7.2 cm wide, 8 mm thick, 15 g, on top of the can. Cutter lever: a steel bar 17.5 cm long on a hinge 11 cm above the table at x 37.5, y 6, on a 3 x 3 cm post behind and left of the can; it points toward the robot with a black rubber handle (5 x 2.4 x 2.2 cm) at its front end, near x 23. A spring holds it raised about 20 degrees; pushed down to horizontal (its stop; holding it there takes about 5 N at the handle) it brings the cutter head onto the left edge of the lid. Crank: a 4.5 cm steel arm on a vertical shaft on top of a 3.5 x 3 x 8.7 cm gear housing right of the can at x 30, y -9, with a wooden knob (2.2 cm wide, 3 cm tall, top 14.1 cm above the table) that spins freely on the arm; the knob starts pointing right, at y -13.5. Turning the crank takes about 0.2 N m at one turn every 3 s. Tray: wooden, 12 x 12 cm inside, 0.8 cm walls 2.5 cm tall, centred at x 18, y -17, fixed.",
+  "scoring": "Measured at the end with a photo of the tray; the cut is judged from the video. 1.0 if the lid lies on the tray floor, flat within 20 degrees and still, with its centre inside the walls. 0.75 if the cut lid was lifted at least 3 cm above where it sat on the can but is not in the tray. 0.5 if the lid was cut free (the whole rim passed under the cutter) but never lifted 3 cm. 0.25 if at least half of the rim was cut. Otherwise 0. The cutter cuts only while the lever is held within 3 degrees of horizontal and the can turns clockwise seen from above (crank turned clockwise); turning back over a cut part, or turning with the lever up, cuts nothing, so three full crank turns with the lever held down free the lid. Until the whole rim is cut the lid cannot be lifted.",
+  "run_limit": "1,200 steps (1 minute at 20 Hz)",
+  "reset_notes": "Put a new sealed can in the seat with the stripe facing the robot, let the lever up and turn the crank so its knob points right.",
+  "fidelity": "Rigid bodies. The opener is fixed, with a sprung lever, a damped crank and a free knob; a stiff drive turns the can at one third of the crank's angle in place of the gears. Metal cutting is not simulated: the rim is tracked in 1-degree steps, cut as it passes the closed cutter, and a fixed joint holds the lid until all of it is cut. Spring and crank effort are lighter than on a real opener.",
+  "scores": "Dream-1 run: 0.0 (1200 steps); demo: 1.0 (722 steps)",
+  "media": "M-APJRU3"
+}

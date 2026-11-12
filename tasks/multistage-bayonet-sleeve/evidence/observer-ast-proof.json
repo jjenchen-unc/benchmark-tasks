@@ -1,0 +1,5 @@
+{
+  "passive_sample_result_exact": true,
+  "scoring_byte_exact": true,
+  "sole_change": "Observer.__init__ strict source-bound receipt lookup"
+}

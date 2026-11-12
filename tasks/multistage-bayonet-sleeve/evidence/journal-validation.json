@@ -1,0 +1,723 @@
+{
+  "evidence_class": "independent CPU source/journal audit of recorded CPU PhysX execution; no new physical run",
+  "samples": 37250,
+  "controls": 1490,
+  "duration_s": 74.5,
+  "budget": 6000,
+  "groups_25": true,
+  "hold_s": 26.849999999995998,
+  "peak_hold_s": 26.849999999995998,
+  "eligible_segments": [
+    {
+      "first_sample": 23806,
+      "last_sample": 23806,
+      "duration_s": 0.002
+    },
+    {
+      "first_sample": 23808,
+      "last_sample": 23819,
+      "duration_s": 0.024000000000000007
+    },
+    {
+      "first_sample": 23826,
+      "last_sample": 37250,
+      "duration_s": 26.849999999995998
+    }
+  ],
+  "final_native_goal": true,
+  "public_score": 0.0,
+  "peak_wrist_force_N": [
+    44.79941177368164,
+    6.793754577636719
+  ],
+  "maximum_continuous_over80_s": [
+    0.0,
+    0.0
+  ],
+  "native_abort": ">80N continuously>=0.1s",
+  "min_final_eligible_tray_margin_m": 0.03976008350766793,
+  "max_eligible_speed_mps_radps": [
+    0.0006402216566443767,
+    0.015413959568405996
+  ],
+  "contact_summary": {
+    "post": {
+      "count": 115079,
+      "peak_N": 42.997825622558594,
+      "point_min": [
+        0.2549999952316284,
+        0.004410476423799992,
+        0.8132764101028442
+      ],
+      "point_max": [
+        0.3050002157688141,
+        0.03556898608803749,
+        0.8884533047676086
+      ]
+    },
+    "robot": {
+      "count": 428323,
+      "peak_N": 72.48328399658203,
+      "point_min": [
+        0.25432971119880676,
+        -0.010465502738952637,
+        0.7991225123405457
+      ],
+      "point_max": [
+        0.2980155348777771,
+        0.4470686912536621,
+        0.9796264171600342
+      ]
+    },
+    "floor": {
+      "count": 6608104,
+      "peak_N": 26.108917236328125,
+      "point_min": [
+        0.24982428550720215,
+        0.3766791522502899,
+        0.7594990134239197
+      ],
+      "point_max": [
+        0.30787667632102966,
+        0.4464741051197052,
+        0.7596002817153931
+      ]
+    }
+  },
+  "phase_summary": {
+    "approach": {
+      "samples": 3250,
+      "post": 3250,
+      "robot": 0,
+      "floor": 0,
+      "q_min": -0.015000316314399242,
+      "q_max": -0.01499991212040186,
+      "z_min": 0.7955000400543213,
+      "z_max": 0.7955000400543213
+    },
+    "descend": {
+      "samples": 1500,
+      "post": 1500,
+      "robot": 0,
+      "floor": 0,
+      "q_min": -0.015000330284237862,
+      "q_max": -0.014999915845692158,
+      "z_min": 0.7955000400543213,
+      "z_max": 0.7955000400543213
+    },
+    "close_40N_fingers": {
+      "samples": 1000,
+      "post": 1000,
+      "robot": 622,
+      "floor": 0,
+      "q_min": -0.015775732696056366,
+      "q_max": -0.014999891631305218,
+      "z_min": 0.794765830039978,
+      "z_max": 0.7955002784729004
+    },
+    "grip_settle": {
+      "samples": 375,
+      "post": 375,
+      "robot": 375,
+      "floor": 0,
+      "q_min": -0.015097355470061302,
+      "q_max": -0.015070313587784767,
+      "z_min": 0.7954281568527222,
+      "z_max": 0.7954482436180115
+    },
+    "stage_0": {
+      "samples": 750,
+      "post": 750,
+      "robot": 750,
+      "floor": 0,
+      "q_min": -0.02929546684026718,
+      "q_max": -0.0150712626054883,
+      "z_min": 0.7812045216560364,
+      "z_max": 0.7954475283622742
+    },
+    "stage_1": {
+      "samples": 900,
+      "post": 900,
+      "robot": 900,
+      "floor": 0,
+      "q_min": -0.02956017106771469,
+      "q_max": -0.029300838708877563,
+      "z_min": 0.7809407711029053,
+      "z_max": 0.7811995148658752
+    },
+    "aim_1": {
+      "samples": 750,
+      "post": 750,
+      "robot": 750,
+      "floor": 0,
+      "q_min": -0.029562953859567642,
+      "q_max": -0.029160236939787865,
+      "z_min": 0.7809381484985352,
+      "z_max": 0.781340479850769
+    },
+    "stage_2": {
+      "samples": 750,
+      "post": 610,
+      "robot": 750,
+      "floor": 0,
+      "q_min": -0.029188835993409157,
+      "q_max": -0.0006184772355481982,
+      "z_min": 0.7813163995742798,
+      "z_max": 0.8174502849578857
+    },
+    "aim_2": {
+      "samples": 1500,
+      "post": 41,
+      "robot": 1500,
+      "floor": 0,
+      "q_min": -0.0007939675124362111,
+      "q_max": -0.0007939038332551718,
+      "z_min": 0.8169021010398865,
+      "z_max": 0.8178185224533081
+    },
+    "stage_3": {
+      "samples": 1750,
+      "post": 6,
+      "robot": 1750,
+      "floor": 0,
+      "q_min": -0.0007939501665532589,
+      "q_max": -0.0007939501665532589,
+      "z_min": 0.8165164589881897,
+      "z_max": 0.8170745372772217
+    },
+    "aim_3": {
+      "samples": 750,
+      "post": 3,
+      "robot": 750,
+      "floor": 0,
+      "q_min": -0.0007939501665532589,
+      "q_max": -0.0007939501665532589,
+      "z_min": 0.8165141344070435,
+      "z_max": 0.8180002570152283
+    },
+    "stage_4": {
+      "samples": 1525,
+      "post": 168,
+      "robot": 1525,
+      "floor": 0,
+      "q_min": -0.0010070991702377796,
+      "q_max": -0.00028903596103191376,
+      "z_min": 0.8179976344108582,
+      "z_max": 0.8938779830932617
+    },
+    "lift_clear": {
+      "samples": 1250,
+      "post": 0,
+      "robot": 1250,
+      "floor": 0,
+      "q_min": -0.0007939476636238396,
+      "q_max": -0.0007939476636238396,
+      "z_min": 0.8938615322113037,
+      "z_max": 0.9242691993713379
+    },
+    "carry_to_tray": {
+      "samples": 3600,
+      "post": 0,
+      "robot": 3600,
+      "floor": 0,
+      "q_min": -0.0007939476636238396,
+      "q_max": -0.0007939476636238396,
+      "z_min": 0.9233289957046509,
+      "z_max": 0.9245083928108215
+    },
+    "tray_descend": {
+      "samples": 1750,
+      "post": 0,
+      "robot": 1750,
+      "floor": 0,
+      "q_min": -0.0007939476636238396,
+      "q_max": -0.0007939476636238396,
+      "z_min": 0.7795172929763794,
+      "z_max": 0.9233654737472534
+    },
+    "tray_rest": {
+      "samples": 1750,
+      "post": 0,
+      "robot": 1750,
+      "floor": 0,
+      "q_min": -0.0007939476636238396,
+      "q_max": -0.0007939476636238396,
+      "z_min": 0.760887086391449,
+      "z_max": 0.7795146107673645
+    },
+    "release": {
+      "samples": 1000,
+      "post": 0,
+      "robot": 652,
+      "floor": 697,
+      "q_min": -0.0007939476636238396,
+      "q_max": -0.0007939476636238396,
+      "z_min": 0.7594996690750122,
+      "z_max": 0.7608854174613953
+    },
+    "retreat": {
+      "samples": 2100,
+      "post": 0,
+      "robot": 0,
+      "floor": 2100,
+      "q_min": -0.0007939476636238396,
+      "q_max": -0.0007939476636238396,
+      "z_min": 0.7594999670982361,
+      "z_max": 0.7594999670982361
+    },
+    "hands_off_hold": {
+      "samples": 11000,
+      "post": 0,
+      "robot": 0,
+      "floor": 11000,
+      "q_min": -0.0007939476636238396,
+      "q_max": -0.0007939476636238396,
+      "z_min": 0.7594999670982361,
+      "z_max": 0.7594999670982361
+    }
+  },
+  "quat_matrix_max_abs_error": 5.9262884488653356e-08,
+  "raw8_FK_max_position_error_m": 4.1052522423730644e-07,
+  "raw8_TCP_max_position_error_m": 4.406627469225269e-07,
+  "spring_feedforward_controls": 681,
+  "spring_contact_compensation_controls": 119,
+  "spring_target_recompute_max_rad": 2.220446049250313e-16,
+  "minimum_pad_cap_error_m": 1.1503696439874034e-08,
+  "sampled_grasp_release": [
+    {
+      "control": 245,
+      "phase": "grip_settle",
+      "raw8q": [
+        -0.7935090661048889,
+        2.23760986328125,
+        1.4570298194885254,
+        -0.7901706695556641,
+        0.0007198181701824069,
+        -0.8007703423500061,
+        -0.028994552791118622,
+        -0.029022950679063797
+      ],
+      "tcp": [
+        0.2801657622299972,
+        0.02008435875037685,
+        0.8475791525840759
+      ],
+      "sleeve": [
+        0.27989861369132996,
+        0.01998252607882023,
+        0.7954477071762085
+      ],
+      "plunger_q": -0.015070932917296886,
+      "robot_contact": true,
+      "post_contact": true
+    },
+    {
+      "control": 275,
+      "phase": "stage_0",
+      "raw8q": [
+        -0.7929620742797852,
+        2.2673399448394775,
+        1.443979024887085,
+        -0.7493944764137268,
+        0.0016890973784029484,
+        -0.801870584487915,
+        -0.028862066566944122,
+        -0.02915544994175434
+      ],
+      "tcp": [
+        0.2801050353427418,
+        0.020223363547818736,
+        0.8335028581619263
+      ],
+      "sleeve": [
+        0.27973321080207825,
+        0.020027419552206993,
+        0.7813724875450134
+      ],
+      "plunger_q": -0.029127858579158783,
+      "robot_contact": true,
+      "post_contact": true
+    },
+    {
+      "control": 341,
+      "phase": "aim_1",
+      "raw8q": [
+        -0.7933009266853333,
+        2.2678630352020264,
+        1.444695234298706,
+        -0.7507631778717041,
+        0.0008234558044932783,
+        -0.25372180342674255,
+        -0.028622550889849663,
+        -0.029394857585430145
+      ],
+      "tcp": [
+        0.2800052981735207,
+        0.020341101684141903,
+        0.833455326795578
+      ],
+      "sleeve": [
+        0.2794265151023865,
+        0.020169368013739586,
+        0.7813250422477722
+      ],
+      "plunger_q": -0.029181277379393578,
+      "robot_contact": true,
+      "post_contact": true
+    },
+    {
+      "control": 431,
+      "phase": "aim_2",
+      "raw8q": [
+        -0.7945448756217957,
+        2.1956212520599365,
+        1.4827994108200073,
+        -0.8555136322975159,
+        -0.0027825383003801107,
+        -0.26772913336753845,
+        -0.02957535721361637,
+        -0.028442351147532463
+      ],
+      "tcp": [
+        0.2803129347804934,
+        0.02019166475837119,
+        0.869194034576416
+      ],
+      "sleeve": [
+        0.2804131507873535,
+        0.02084324322640896,
+        0.8170572519302368
+      ],
+      "plunger_q": -0.0007939501665532589,
+      "robot_contact": true,
+      "post_contact": false
+    },
+    {
+      "control": 592,
+      "phase": "stage_4",
+      "raw8q": [
+        -0.7943905591964722,
+        2.0935893058776855,
+        1.6435414552688599,
+        -1.1111129522323608,
+        -0.0014372384175658226,
+        -1.326399326324463,
+        -0.046949975192546844,
+        -0.011067703366279602
+      ],
+      "tcp": [
+        0.28107291886396707,
+        0.019180107451044023,
+        0.9460997414588928
+      ],
+      "sleeve": [
+        0.2720579504966736,
+        0.03407832235097885,
+        0.8938027024269104
+      ],
+      "plunger_q": -0.0007939476636238396,
+      "robot_contact": true,
+      "post_contact": false
+    },
+    {
+      "control": 786,
+      "phase": "carry_to_tray",
+      "raw8q": [
+        0.32664379477500916,
+        1.6837961673736572,
+        1.2171316146850586,
+        -1.1079591512680054,
+        0.005205674096941948,
+        0.31247493624687195,
+        -0.04695003107190132,
+        -0.011067315936088562
+      ],
+      "tcp": [
+        0.27933704853011293,
+        0.3987049721460789,
+        0.975579656124115
+      ],
+      "sleeve": [
+        0.2785801291465759,
+        0.4162590503692627,
+        0.9233346581459045
+      ],
+      "plunger_q": -0.0007939476636238396,
+      "robot_contact": true,
+      "post_contact": false
+    },
+    {
+      "control": 926,
+      "phase": "tray_rest",
+      "raw8q": [
+        0.3299230933189392,
+        2.022117853164673,
+        0.9022893309593201,
+        -0.45244163274765015,
+        0.004583803005516529,
+        0.3200688064098358,
+        -0.046950023621320724,
+        -0.011067269369959831
+      ],
+      "tcp": [
+        0.2798786328500137,
+        0.4000227282922715,
+        0.8131152539253235
+      ],
+      "sleeve": [
+        0.27930590510368347,
+        0.4176497459411621,
+        0.7608928084373474
+      ],
+      "plunger_q": -0.0007939476636238396,
+      "robot_contact": true,
+      "post_contact": false
+    },
+    {
+      "control": 966,
+      "phase": "release",
+      "raw8q": [
+        0.3267022967338562,
+        2.022350788116455,
+        0.9006991982460022,
+        -0.4468744695186615,
+        -0.003774452256038785,
+        0.3259211480617523,
+        -0.04567702114582062,
+        -0.04567810893058777
+      ],
+      "tcp": [
+        0.2803087561230641,
+        0.4006601121146232,
+        0.8127953822612762
+      ],
+      "sleeve": [
+        0.27885186672210693,
+        0.40570470690727234,
+        0.7594999670982361
+      ],
+      "plunger_q": -0.0007939476636238396,
+      "robot_contact": false,
+      "post_contact": false
+    },
+    {
+      "control": 1050,
+      "phase": "retreat",
+      "raw8q": [
+        0.3267022967338562,
+        1.6609385013580322,
+        1.431444525718689,
+        -1.3360389471054077,
+        -0.002451794221997261,
+        0.32597583532333374,
+        -0.04694971814751625,
+        -0.04694993048906326
+      ],
+      "tcp": [
+        0.28141397529654205,
+        0.40079845034796746,
+        1.0355277404785157
+      ],
+      "sleeve": [
+        0.2788518965244293,
+        0.40570464730262756,
+        0.7594999670982361
+      ],
+      "plunger_q": -0.0007939476636238396,
+      "robot_contact": false,
+      "post_contact": false
+    },
+    {
+      "control": 1490,
+      "phase": "hands_off_hold",
+      "raw8q": [
+        0.3267022967338562,
+        1.6597927808761597,
+        1.4325007200241089,
+        -1.3425354957580566,
+        -0.0018790422473102808,
+        0.3259756565093994,
+        -0.04694928601384163,
+        -0.04694994166493416
+      ],
+      "tcp": [
+        0.2801627675381023,
+        0.4002719860030338,
+        1.0361068890094758
+      ],
+      "sleeve": [
+        0.2788519561290741,
+        0.40570467710494995,
+        0.7594999670982361
+      ],
+      "plunger_q": -0.0007939476636238396,
+      "robot_contact": false,
+      "post_contact": false
+    }
+  ],
+  "foundation_core_comparison": {
+    "fixture.json": {
+      "expected": "8e739f142f34736ec659c80bc25620b561526b2ac7f51fb6ddb204372a297b21",
+      "actual": "8e739f142f34736ec659c80bc25620b561526b2ac7f51fb6ddb204372a297b21",
+      "equal": true
+    },
+    "fixture.xml": {
+      "expected": "07ceb65f420fddbe16153c5c510a0f7a51f79fddb4e84dac8f5c01d5c399feeb",
+      "actual": "07ceb65f420fddbe16153c5c510a0f7a51f79fddb4e84dac8f5c01d5c399feeb",
+      "equal": true
+    },
+    "native_source.py": {
+      "expected": "cb73e69bf23e8df0fa4deee1bf8cfdd77843df3cd8e7d241c9fb6dcc6a7abb46",
+      "actual": "cb73e69bf23e8df0fa4deee1bf8cfdd77843df3cd8e7d241c9fb6dcc6a7abb46",
+      "equal": true
+    },
+    "source_geometry.py": {
+      "expected": "a995c2d764f80ca9ed5e752b135b3a47e9d6dd6c865fddbe2196339197f80775",
+      "actual": "a995c2d764f80ca9ed5e752b135b3a47e9d6dd6c865fddbe2196339197f80775",
+      "equal": true
+    },
+    "coupling-fixture.usda": {
+      "expected": "d6d550178af1001bc30c15d16029924787fd8d384b4f66d0fc54cb5bb0005725",
+      "actual": "d6d550178af1001bc30c15d16029924787fd8d384b4f66d0fc54cb5bb0005725",
+      "equal": true
+    },
+    "coupling-sleeve.usda": {
+      "expected": "166c7ab612303423158d0ffa80bfe6718fb4f12133a4bb2d0459b47870a2fcd1",
+      "actual": "166c7ab612303423158d0ffa80bfe6718fb4f12133a4bb2d0459b47870a2fcd1",
+      "equal": true
+    },
+    "kit.py": {
+      "expected": "85b47aae136f501a1801d0ee0da526f81540da8d49c55042091a75926d78ddef",
+      "actual": "85b47aae136f501a1801d0ee0da526f81540da8d49c55042091a75926d78ddef",
+      "equal": true
+    },
+    "scoring.py": {
+      "expected": "23468761d59ec55d3920feadf72717145f9e5b15abcec896a8a71f8a4573d371",
+      "actual": "23468761d59ec55d3920feadf72717145f9e5b15abcec896a8a71f8a4573d371",
+      "equal": true
+    },
+    "observer.py": {
+      "expected": "956b40753364c3abdce24273fda8019408e175a4cd34e8e45c0e9acbf8382feb",
+      "actual": "956b40753364c3abdce24273fda8019408e175a4cd34e8e45c0e9acbf8382feb",
+      "equal": true
+    },
+    "contacts.py": {
+      "expected": "a6041d218790309a60abcf4e77d46589cb5b9f18ab6d654f2d2c16b12c15cbc5",
+      "actual": "a6041d218790309a60abcf4e77d46589cb5b9f18ab6d654f2d2c16b12c15cbc5",
+      "equal": true
+    },
+    "motor_limits.py": {
+      "expected": "bfd1c83e63fb70f9cae5db11eb7e8eef2f2037cc2ae80b37d7087c793132b050",
+      "actual": "bfd1c83e63fb70f9cae5db11eb7e8eef2f2037cc2ae80b37d7087c793132b050",
+      "equal": true
+    },
+    "step_guard.py": {
+      "expected": "472656c1ef603cabce9fb24702ea4d8dd2f5fdfc7e32c6727358b8a59d72c167",
+      "actual": "472656c1ef603cabce9fb24702ea4d8dd2f5fdfc7e32c6727358b8a59d72c167",
+      "equal": true
+    },
+    "task.py": {
+      "expected": "b98aa8e50256b5ac05d9b856bd893338634fdbfafaff3356c775171e1f91e932",
+      "actual": "b98aa8e50256b5ac05d9b856bd893338634fdbfafaff3356c775171e1f91e932",
+      "equal": true
+    }
+  },
+  "foundation_core_byteexact": true,
+  "foundation_sdk_byteexact": true,
+  "foundation_checks": {
+    "25_substeps": true,
+    "action14": true,
+    "actual27_7Nm_40N_drives": true,
+    "reset_no_credit": true,
+    "initial_post_contact": true,
+    "initial_no_robot_or_floor_contact": true,
+    "spring_initial_q": true,
+    "three_RGB_views": true,
+    "seated_straight_pull_blocked": true,
+    "wrong_branch_cannot_release": true,
+    "prepared_tray_floor_contact": true,
+    "prepared_tray_clear_no_robot_contact": true,
+    "prepared_unbroken20s": true,
+    "unverified_score_gated": true,
+    "outside_zero": true,
+    "actual_wrist80N100ms_abort": true,
+    "step_after_termination_blocked": true
+  },
+  "channel_coverage": {
+    "motor_limits": {
+      "supported": true,
+      "evidence": [
+        "actual27_7Nm_40N_drives",
+        "all actual substep checked flags"
+      ]
+    },
+    "substeps": {
+      "supported": true,
+      "evidence": [
+        "25_substeps",
+        "1490 groups of25 actual samples"
+      ]
+    },
+    "release_track": {
+      "supported": true,
+      "evidence": [
+        "seated_straight_pull_blocked",
+        "wrong_branch_cannot_release",
+        "actual multistage C extraction"
+      ]
+    },
+    "tray_floor_contact": {
+      "supported": true,
+      "evidence": [
+        "prepared_tray_floor_contact",
+        "outside_zero",
+        "actual finite footprint and support"
+      ]
+    },
+    "sleeve_post_contact": {
+      "supported": true,
+      "evidence": [
+        "initial_post_contact",
+        "seated_straight_pull_blocked",
+        "actual release transition"
+      ]
+    },
+    "sleeve_robot_contact": {
+      "supported": true,
+      "evidence": [
+        "initial_no_robot_or_floor_contact",
+        "prepared_tray_clear_no_robot_contact",
+        "actual positive grasp contacts then none in final hold"
+      ]
+    },
+    "pose_velocity": {
+      "supported": true,
+      "evidence": [
+        "native finite footprint",
+        "quaternion correspondence",
+        "actual raw8 FK",
+        "prepared_unbroken20s",
+        "observed low-speed hold"
+      ]
+    },
+    "wrist_force": {
+      "supported": false,
+      "evidence": [
+        "actual_wrist80N100ms_abort",
+        "actual fullgoal below80N"
+      ],
+      "gap": "Known applied120N proves abort response; no settled low-load magnitude comparison in 17 checks."
+    },
+    "plunger_spring": {
+      "supported": false,
+      "evidence": [
+        "spring_initial_q",
+        "source passive force unchanged",
+        "actual pad/cap and spring-compensated trajectory"
+      ],
+      "gap": "Foundation spring_diagnostics logs prediction and displacement but asserts no force/slope check."
+    }
+  },
+  "calibration_promoted": false,
+  "submission_ready": false
+}

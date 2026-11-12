@@ -1,0 +1,832 @@
+{
+  "isaaclab/isaaclab/sensors/joint_wrench/joint_wrench_sensor.py": {
+    "sha256": "af4e08a2895d32761e64db1f8492085534e6dba775360dada9ad4cb751dbd6d6",
+    "lines": []
+  },
+  "isaaclab/isaaclab/sensors/joint_wrench/joint_wrench_sensor_data.py": {
+    "sha256": "7eb9b670ef5c126bf3b0363e13b46ce6d5af2023d6efc47ed3d686f36566068d",
+    "lines": []
+  },
+  "isaaclab_physx/isaaclab_physx/sensors/joint_wrench/joint_wrench_sensor.py": {
+    "sha256": "ea3d40e4b42bc0373eb7eed2afbf86d166d719ff40ed625ebfd481d4254f643b",
+    "lines": [
+      {
+        "line": 38,
+        "text": "    The sensor reads PhysX's incoming joint wrench for every articulation link"
+      },
+      {
+        "line": 39,
+        "text": "    and exposes the linear force [N] and angular torque [N\u00b7m] components in"
+      },
+      {
+        "line": 40,
+        "text": "    the child-side joint frame, with torque referenced at the child-side joint"
+      },
+      {
+        "line": 67,
+        "text": "        self._raw_incoming_joint_wrench: wp.array | None = None"
+      },
+      {
+        "line": 87,
+        "text": "        \"\"\"Ordered names of the bodies whose incoming joint wrench is reported.\"\"\""
+      },
+      {
+        "line": 107,
+        "text": "        if self._data._force is None or self._data._torque is None:"
+      },
+      {
+        "line": 114,
+        "text": "            inputs=[env_mask, self._data._force, self._data._torque],"
+      },
+      {
+        "line": 146,
+        "text": "        self._create_joint_frame_buffers()"
+      },
+      {
+        "line": 152,
+        "text": "    def _create_joint_frame_buffers(self) -> None:"
+      },
+      {
+        "line": 153,
+        "text": "        \"\"\"Create child-side joint frame transforms indexed by PhysX link order.\"\"\""
+      },
+      {
+        "line": 190,
+        "text": "        \"\"\"Read PhysX incoming joint wrenches and split them into force / torque buffers."
+      },
+      {
+        "line": 201,
+        "text": "            raise RuntimeError(f\"Joint wrench sensor '{self.cfg.prim_path}': joint frame buffers are not initialized.\")"
+      },
+      {
+        "line": 207,
+        "text": "        incoming_joint_wrench = self._root_view.get_link_incoming_joint_force()"
+      },
+      {
+        "line": 208,
+        "text": "        if self._raw_incoming_joint_wrench is None:"
+      },
+      {
+        "line": 209,
+        "text": "            self._raw_incoming_joint_wrench = incoming_joint_wrench.view(wp.spatial_vectorf)"
+      },
+      {
+        "line": 210,
+        "text": "        elif incoming_joint_wrench.ptr != self._raw_incoming_joint_wrench.ptr:"
+      },
+      {
+        "line": 241,
+        "text": "                self._raw_incoming_joint_wrench,"
+      },
+      {
+        "line": 245,
+        "text": "                self._data._force,"
+      },
+      {
+        "line": 263,
+        "text": "        self._raw_incoming_joint_wrench = None"
+      },
+      {
+        "line": 265,
+        "text": "        self._data._force = None"
+      },
+      {
+        "line": 268,
+        "text": "        self._data._force_ta = None"
+      }
+    ]
+  },
+  "isaaclab/isaaclab/utils/wrench_composer.py": {
+    "sha256": "16914d155c28e0d02ab7135b2627112042bd420b023bfabd9eae1dc3c69960ce",
+    "lines": [
+      {
+        "line": 18,
+        "text": "    add_forces_to_dual_buffers_index_kernel,"
+      },
+      {
+        "line": 19,
+        "text": "    add_forces_to_dual_buffers_mask,"
+      },
+      {
+        "line": 21,
+        "text": "    compose_wrench_to_body_frame,"
+      },
+      {
+        "line": 24,
+        "text": "    set_forces_to_dual_buffers_index_kernel,"
+      },
+      {
+        "line": 25,
+        "text": "    set_forces_to_dual_buffers_mask,"
+      },
+      {
+        "line": 36,
+        "text": "        This class composes forces and torques applied to rigid bodies. Forces and torques can be"
+      },
+      {
+        "line": 37,
+        "text": "        specified in either the global (world) frame or the local (body) frame. Internally, they are"
+      },
+      {
+        "line": 38,
+        "text": "        stored in separate global and local input buffers. When the final composed wrench is needed,"
+      },
+      {
+        "line": 39,
+        "text": "        the global contributions are rotated into the body frame and combined with the local"
+      },
+      {
+        "line": 40,
+        "text": "        contributions to produce the output force and torque expressed in the body frame."
+      },
+      {
+        "line": 44,
+        "text": "        - ``global_force_w``: Global forces [N] (world frame)."
+      },
+      {
+        "line": 45,
+        "text": "        - ``global_torque_w``: Global torques [N\u00b7m] (world frame), including moment contributions"
+      },
+      {
+        "line": 46,
+        "text": "          from positional forces (``cross(P, F)``)."
+      },
+      {
+        "line": 47,
+        "text": "        - ``global_force_at_com_w``: Global forces [N] applied at the body's CoM (world frame, no positional torque)."
+      },
+      {
+        "line": 48,
+        "text": "        - ``local_force_b``: Local forces [N] (body frame)."
+      },
+      {
+        "line": 49,
+        "text": "        - ``local_torque_b``: Local torques [N\u00b7m] (body frame)."
+      },
+      {
+        "line": 53,
+        "text": "        - ``out_force_b``: Composed force [N] in body frame."
+      },
+      {
+        "line": 54,
+        "text": "        - ``out_torque_b``: Composed torque [N\u00b7m] in body frame."
+      },
+      {
+        "line": 79,
+        "text": "        self._global_force_w = wp.zeros((self.num_envs, self.num_bodies), dtype=wp.vec3f, device=self.device)"
+      },
+      {
+        "line": 80,
+        "text": "        self._global_torque_w = wp.zeros((self.num_envs, self.num_bodies), dtype=wp.vec3f, device=self.device)"
+      },
+      {
+        "line": 81,
+        "text": "        self._global_force_at_com_w = wp.zeros((self.num_envs, self.num_bodies), dtype=wp.vec3f, device=self.device)"
+      },
+      {
+        "line": 82,
+        "text": "        self._local_force_b = wp.zeros((self.num_envs, self.num_bodies), dtype=wp.vec3f, device=self.device)"
+      },
+      {
+        "line": 86,
+        "text": "        self._out_force_b = wp.zeros((self.num_envs, self.num_bodies), dtype=wp.vec3f, device=self.device)"
+      },
+      {
+        "line": 90,
+        "text": "        self._out_force_b_ta = ProxyArray(self._out_force_b)"
+      },
+      {
+        "line": 107,
+        "text": "        \"\"\"Whether the wrench composer is active (has pending forces/torques)."
+      },
+      {
+        "line": 116,
+        "text": "        compared to scanning the buffers every frame."
+      },
+      {
+        "line": 121,
+        "text": "    def global_force_w(self) -> wp.array:"
+      },
+      {
+        "line": 122,
+        "text": "        \"\"\"Global force buffer [N] (world frame), dtype ``wp.vec3f``. Shape: ``(num_envs, num_bodies)``."
+      },
+      {
+        "line": 127,
+        "text": "            ``add_*`` or ``set_*`` methods to modify forces."
+      },
+      {
+        "line": 129,
+        "text": "        return self._global_force_w"
+      },
+      {
+        "line": 132,
+        "text": "    def global_torque_w(self) -> wp.array:"
+      },
+      {
+        "line": 133,
+        "text": "        \"\"\"Global torque buffer [N\u00b7m] (world frame), dtype ``wp.vec3f``. Shape: ``(num_envs, num_bodies)``."
+      },
+      {
+        "line": 135,
+        "text": "        Stores user-supplied torques plus moment contributions from positional forces (``cross(P, F)``)."
+      },
+      {
+        "line": 138,
+        "text": "            Read-only reference. See :attr:`global_force_w` for caveats on direct writes."
+      },
+      {
+        "line": 140,
+        "text": "        return self._global_torque_w"
+      },
+      {
+        "line": 143,
+        "text": "    def global_force_at_com_w(self) -> wp.array:"
+      },
+      {
+        "line": 144,
+        "text": "        \"\"\"Global force at body's CoM buffer [N] (world frame, no positional torque)."
+      },
+      {
+        "line": 149,
+        "text": "            Read-only reference. See :attr:`global_force_w` for caveats on direct writes."
+      },
+      {
+        "line": 151,
+        "text": "        return self._global_force_at_com_w"
+      },
+      {
+        "line": 154,
+        "text": "    def local_force_b(self) -> wp.array:"
+      },
+      {
+        "line": 155,
+        "text": "        \"\"\"Local force buffer [N] (body frame), dtype ``wp.vec3f``. Shape: ``(num_envs, num_bodies)``."
+      },
+      {
+        "line": 158,
+        "text": "            Read-only reference. See :attr:`global_force_w` for caveats on direct writes."
+      },
+      {
+        "line": 160,
+        "text": "        return self._local_force_b"
+      },
+      {
+        "line": 164,
+        "text": "        \"\"\"Local torque buffer [N\u00b7m] (body frame), dtype ``wp.vec3f``. Shape: ``(num_envs, num_bodies)``."
+      },
+      {
+        "line": 167,
+        "text": "            Read-only reference. See :attr:`global_force_w` for caveats on direct writes."
+      },
+      {
+        "line": 172,
+        "text": "    def out_force_b(self) -> ProxyArray:"
+      },
+      {
+        "line": 173,
+        "text": "        \"\"\"Composed output force [N] in the body frame."
+      },
+      {
+        "line": 182,
+        "text": "        return self._out_force_b_ta"
+      },
+      {
+        "line": 186,
+        "text": "        \"\"\"Composed output torque [N\u00b7m] in the body frame."
+      },
+      {
+        "line": 198,
+        "text": "    def composed_force(self) -> ProxyArray:"
+      },
+      {
+        "line": 199,
+        "text": "        \"\"\"Composed force in the body frame."
+      },
+      {
+        "line": 202,
+        "text": "            Use :attr:`out_force_b` instead."
+      },
+      {
+        "line": 205,
+        "text": "            \"The property 'composed_force' is deprecated. Use 'out_force_b' instead.\","
+      },
+      {
+        "line": 209,
+        "text": "        return self.out_force_b"
+      },
+      {
+        "line": 213,
+        "text": "        \"\"\"Composed torque in the body frame."
+      },
+      {
+        "line": 229,
+        "text": "    def add_forces_and_torques_index("
+      },
+      {
+        "line": 231,
+        "text": "        forces: wp.array | torch.Tensor | None = None,"
+      },
+      {
+        "line": 236,
+        "text": "        is_global: bool = False,"
+      },
+      {
+        "line": 238,
+        "text": "        \"\"\"Add forces and torques into the input buffers using index-based selection."
+      },
+      {
+        "line": 241,
+        "text": "        body frame when the output properties are accessed."
+      },
+      {
+        "line": 244,
+        "text": "            forces: Forces [N]. Shape: (len(env_ids), len(body_ids), 3). Defaults to None."
+      },
+      {
+        "line": 246,
+        "text": "            positions: The positions [m] at which forces act. If `is_global` is True, these are global"
+      },
+      {
+        "line": 247,
+        "text": "                positions expressed in the world frame. If `is_global` is False, these are offsets from the"
+      },
+      {
+        "line": 248,
+        "text": "                body's CoM expressed in the body frame. If None, forces are assumed to act at the body's"
+      },
+      {
+        "line": 249,
+        "text": "                CoM, independent of the `is_global` flag."
+      },
+      {
+        "line": 253,
+        "text": "            is_global: Whether the forces and torques are expressed in the global world frame or the local body frame."
+      },
+      {
+        "line": 258,
+        "text": "        if forces is None and torques is None:"
+      },
+      {
+        "line": 260,
+        "text": "                \"No forces or torques provided. No force will be added.\","
+      },
+      {
+        "line": 270,
+        "text": "            add_forces_to_dual_buffers_index_kernel(env_ids, body_ids),"
+      },
+      {
+        "line": 275,
+        "text": "                forces,"
+      },
+      {
+        "line": 278,
+        "text": "                self._global_force_w,"
+      },
+      {
+        "line": 279,
+        "text": "                self._global_torque_w,"
+      },
+      {
+        "line": 280,
+        "text": "                self._global_force_at_com_w,"
+      },
+      {
+        "line": 281,
+        "text": "                self._local_force_b,"
+      },
+      {
+        "line": 283,
+        "text": "                is_global,"
+      },
+      {
+        "line": 288,
+        "text": "    def set_forces_and_torques_index("
+      },
+      {
+        "line": 290,
+        "text": "        forces: wp.array | torch.Tensor | None = None,"
+      },
+      {
+        "line": 295,
+        "text": "        is_global: bool = False,"
+      },
+      {
+        "line": 297,
+        "text": "        \"\"\"Set forces and torques into the input buffers using index-based selection."
+      },
+      {
+        "line": 300,
+        "text": "        previously accumulated forces/torques for the targeted environments while leaving other"
+      },
+      {
+        "line": 304,
+        "text": "            forces: Forces [N]. Shape: (len(env_ids), len(body_ids), 3). Defaults to None."
+      },
+      {
+        "line": 306,
+        "text": "            positions: The positions [m] at which forces act. If `is_global` is True, these are global"
+      },
+      {
+        "line": 307,
+        "text": "                positions expressed in the world frame. If `is_global` is False, these are offsets from the"
+      },
+      {
+        "line": 308,
+        "text": "                body's CoM expressed in the body frame. If None, forces are assumed to act at the body's"
+      },
+      {
+        "line": 309,
+        "text": "                CoM, independent of the `is_global` flag."
+      },
+      {
+        "line": 313,
+        "text": "            is_global: Whether the forces and torques are expressed in the global world frame or the local body frame."
+      },
+      {
+        "line": 318,
+        "text": "        if forces is None and torques is None:"
+      },
+      {
+        "line": 320,
+        "text": "                \"No forces or torques provided. No force will be set.\","
+      },
+      {
+        "line": 333,
+        "text": "            set_forces_to_dual_buffers_index_kernel(env_ids, body_ids),"
+      },
+      {
+        "line": 338,
+        "text": "                forces,"
+      },
+      {
+        "line": 341,
+        "text": "                self._global_force_w,"
+      },
+      {
+        "line": 342,
+        "text": "                self._global_torque_w,"
+      },
+      {
+        "line": 343,
+        "text": "                self._global_force_at_com_w,"
+      },
+      {
+        "line": 344,
+        "text": "                self._local_force_b,"
+      },
+      {
+        "line": 346,
+        "text": "                is_global,"
+      },
+      {
+        "line": 351,
+        "text": "    def add_forces_and_torques_mask("
+      },
+      {
+        "line": 353,
+        "text": "        forces: wp.array | torch.Tensor | None = None,"
+      },
+      {
+        "line": 358,
+        "text": "        is_global: bool = False,"
+      },
+      {
+        "line": 360,
+        "text": "        \"\"\"Add forces and torques into the input buffers using mask-based selection."
+      },
+      {
+        "line": 365,
+        "text": "            forces: Forces [N]. Shape: (num_envs, num_bodies, 3). Defaults to None."
+      },
+      {
+        "line": 367,
+        "text": "            positions: The positions [m] at which forces act. If `is_global` is True, these are global"
+      },
+      {
+        "line": 368,
+        "text": "                positions expressed in the world frame. If `is_global` is False, these are offsets from the"
+      },
+      {
+        "line": 369,
+        "text": "                body's CoM expressed in the body frame. If None, forces are assumed to act at the body's"
+      },
+      {
+        "line": 370,
+        "text": "                CoM, independent of the `is_global` flag."
+      },
+      {
+        "line": 374,
+        "text": "            is_global: Whether the forces and torques are expressed in the global world frame or the local body frame."
+      },
+      {
+        "line": 381,
+        "text": "        if forces is None and torques is None:"
+      },
+      {
+        "line": 383,
+        "text": "                \"No forces or torques provided. No force will be added.\","
+      },
+      {
+        "line": 393,
+        "text": "            add_forces_to_dual_buffers_mask,"
+      },
+      {
+        "line": 398,
+        "text": "                forces,"
+      },
+      {
+        "line": 401,
+        "text": "                self._global_force_w,"
+      },
+      {
+        "line": 402,
+        "text": "                self._global_torque_w,"
+      },
+      {
+        "line": 403,
+        "text": "                self._global_force_at_com_w,"
+      },
+      {
+        "line": 404,
+        "text": "                self._local_force_b,"
+      },
+      {
+        "line": 406,
+        "text": "                is_global,"
+      },
+      {
+        "line": 411,
+        "text": "    def set_forces_and_torques_mask("
+      },
+      {
+        "line": 413,
+        "text": "        forces: wp.array | torch.Tensor | None = None,"
+      },
+      {
+        "line": 418,
+        "text": "        is_global: bool = False,"
+      },
+      {
+        "line": 420,
+        "text": "        \"\"\"Set forces and torques into the input buffers using mask-based selection."
+      },
+      {
+        "line": 423,
+        "text": "        previously accumulated forces/torques for the masked environments while leaving other"
+      },
+      {
+        "line": 427,
+        "text": "            forces: Forces [N]. Shape: (num_envs, num_bodies, 3). Defaults to None."
+      },
+      {
+        "line": 429,
+        "text": "            positions: The positions [m] at which forces act. If `is_global` is True, these are global"
+      },
+      {
+        "line": 430,
+        "text": "                positions expressed in the world frame. If `is_global` is False, these are offsets from the"
+      },
+      {
+        "line": 431,
+        "text": "                body's CoM expressed in the body frame. If None, forces are assumed to act at the body's"
+      },
+      {
+        "line": 432,
+        "text": "                CoM, independent of the `is_global` flag."
+      },
+      {
+        "line": 436,
+        "text": "            is_global: Whether the forces and torques are expressed in the global world frame or the local body frame."
+      },
+      {
+        "line": 443,
+        "text": "        if forces is None and torques is None:"
+      },
+      {
+        "line": 445,
+        "text": "                \"No forces or torques provided. No force will be set.\","
+      },
+      {
+        "line": 458,
+        "text": "            set_forces_to_dual_buffers_mask,"
+      },
+      {
+        "line": 463,
+        "text": "                forces,"
+      },
+      {
+        "line": 466,
+        "text": "                self._global_force_w,"
+      },
+      {
+        "line": 467,
+        "text": "                self._global_torque_w,"
+      },
+      {
+        "line": 468,
+        "text": "                self._global_force_at_com_w,"
+      },
+      {
+        "line": 469,
+        "text": "                self._local_force_b,"
+      },
+      {
+        "line": 471,
+        "text": "                is_global,"
+      },
+      {
+        "line": 501,
+        "text": "                other._global_force_w,"
+      },
+      {
+        "line": 502,
+        "text": "                other._global_torque_w,"
+      },
+      {
+        "line": 503,
+        "text": "                other._global_force_at_com_w,"
+      },
+      {
+        "line": 504,
+        "text": "                other._local_force_b,"
+      },
+      {
+        "line": 506,
+        "text": "                self._global_force_w,"
+      },
+      {
+        "line": 507,
+        "text": "                self._global_torque_w,"
+      },
+      {
+        "line": 508,
+        "text": "                self._global_force_at_com_w,"
+      },
+      {
+        "line": 509,
+        "text": "                self._local_force_b,"
+      },
+      {
+        "line": 515,
+        "text": "    def compose_to_body_frame(self):"
+      },
+      {
+        "line": 516,
+        "text": "        \"\"\"Compose the five input buffers into the two output buffers in body frame."
+      },
+      {
+        "line": 518,
+        "text": "        This corrects world-frame torques for the body's CoM position, rotates global forces and torques into the"
+      },
+      {
+        "line": 519,
+        "text": "        body frame, then adds local-frame contributions. After this call, ``out_force_b`` and ``out_torque_b``"
+      },
+      {
+        "line": 528,
+        "text": "            compose_wrench_to_body_frame,"
+      },
+      {
+        "line": 531,
+        "text": "                self._global_force_w,"
+      },
+      {
+        "line": 532,
+        "text": "                self._global_torque_w,"
+      },
+      {
+        "line": 533,
+        "text": "                self._global_force_at_com_w,"
+      },
+      {
+        "line": 534,
+        "text": "                self._local_force_b,"
+      },
+      {
+        "line": 538,
+        "text": "                self._out_force_b,"
+      },
+      {
+        "line": 565,
+        "text": "            self._global_force_w.zero_()"
+      },
+      {
+        "line": 566,
+        "text": "            self._global_torque_w.zero_()"
+      },
+      {
+        "line": 567,
+        "text": "            self._global_force_at_com_w.zero_()"
+      },
+      {
+        "line": 568,
+        "text": "            self._local_force_b.zero_()"
+      },
+      {
+        "line": 570,
+        "text": "            self._out_force_b.zero_()"
+      },
+      {
+        "line": 580,
+        "text": "                    self._global_force_w,"
+      },
+      {
+        "line": 581,
+        "text": "                    self._global_torque_w,"
+      },
+      {
+        "line": 582,
+        "text": "                    self._global_force_at_com_w,"
+      },
+      {
+        "line": 583,
+        "text": "                    self._local_force_b,"
+      },
+      {
+        "line": 585,
+        "text": "                    self._out_force_b,"
+      },
+      {
+        "line": 601,
+        "text": "                    self._global_force_w,"
+      },
+      {
+        "line": 602,
+        "text": "                    self._global_torque_w,"
+      },
+      {
+        "line": 603,
+        "text": "                    self._global_force_at_com_w,"
+      },
+      {
+        "line": 604,
+        "text": "                    self._local_force_b,"
+      },
+      {
+        "line": 606,
+        "text": "                    self._out_force_b,"
+      },
+      {
+        "line": 617,
+        "text": "    def add_forces_and_torques("
+      },
+      {
+        "line": 619,
+        "text": "        forces: wp.array | torch.Tensor | None = None,"
+      },
+      {
+        "line": 624,
+        "text": "        is_global: bool = False,"
+      },
+      {
+        "line": 626,
+        "text": "        \"\"\"Deprecated, same as :meth:`add_forces_and_torques_index`."
+      },
+      {
+        "line": 629,
+        "text": "            Use :meth:`add_forces_and_torques_index` instead."
+      },
+      {
+        "line": 632,
+        "text": "            \"The function 'add_forces_and_torques' is deprecated. Please use 'add_forces_and_torques_index' instead.\","
+      },
+      {
+        "line": 636,
+        "text": "        self.add_forces_and_torques_index(forces, torques, positions, body_ids, env_ids, is_global)"
+      },
+      {
+        "line": 638,
+        "text": "    def set_forces_and_torques("
+      },
+      {
+        "line": 640,
+        "text": "        forces: wp.array | torch.Tensor | None = None,"
+      },
+      {
+        "line": 645,
+        "text": "        is_global: bool = False,"
+      },
+      {
+        "line": 647,
+        "text": "        \"\"\"Deprecated, same as :meth:`set_forces_and_torques_index`."
+      },
+      {
+        "line": 650,
+        "text": "            Use :meth:`set_forces_and_torques_index` instead."
+      },
+      {
+        "line": 653,
+        "text": "            \"The function 'set_forces_and_torques' is deprecated. Please use 'set_forces_and_torques_index' instead.\","
+      },
+      {
+        "line": 657,
+        "text": "        self.set_forces_and_torques_index(forces, torques, positions, body_ids, env_ids, is_global)"
+      },
+      {
+        "line": 723,
+        "text": "            self.compose_to_body_frame()"
+      }
+    ]
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "controls": 510,
+  "immutable_actual_source": {
+    "contacts.py": "a6041d218790309a60abcf4e77d46589cb5b9f18ab6d654f2d2c16b12c15cbc5",
+    "coupling-fixture.usda": "d6d550178af1001bc30c15d16029924787fd8d384b4f66d0fc54cb5bb0005725",
+    "coupling-sleeve.usda": "166c7ab612303423158d0ffa80bfe6718fb4f12133a4bb2d0459b47870a2fcd1",
+    "fixture.json": "8e739f142f34736ec659c80bc25620b561526b2ac7f51fb6ddb204372a297b21",
+    "fixture.xml": "07ceb65f420fddbe16153c5c510a0f7a51f79fddb4e84dac8f5c01d5c399feeb",
+    "kinematics.py": "28647278118e9011fe61fd2919b28451f6809dff097b579aa7a192c9df5c60e2",
+    "kit.py": "85b47aae136f501a1801d0ee0da526f81540da8d49c55042091a75926d78ddef",
+    "motor_limits.py": "bfd1c83e63fb70f9cae5db11eb7e8eef2f2037cc2ae80b37d7087c793132b050",
+    "native_source.py": "cb73e69bf23e8df0fa4deee1bf8cfdd77843df3cd8e7d241c9fb6dcc6a7abb46",
+    "numeric.py": "608815a35e25e14fdfc0924e551e34a59ccee4305d9c4c3ee799688ac31d35fa",
+    "reference.py": "33f59b01d4d4a8e49037241149d7d2b5a0b131277f8bb1b6363c384d3fc59ece",
+    "scoring.py": "23468761d59ec55d3920feadf72717145f9e5b15abcec896a8a71f8a4573d371",
+    "source_geometry.py": "a995c2d764f80ca9ed5e752b135b3a47e9d6dd6c865fddbe2196339197f80775",
+    "spring_ff.py": "d344496c2751699e452ae5676673d73bdbf3d2965b0f2a14ee3730e4f5cddc7e",
+    "step_guard.py": "472656c1ef603cabce9fb24702ea4d8dd2f5fdfc7e32c6727358b8a59d72c167",
+    "task.py": "b98aa8e50256b5ac05d9b856bd893338634fdbfafaff3356c775171e1f91e932"
+  },
+  "samples": 12750,
+  "scope": "CPU PhysX fixed purple remove_C; loaded-minus-baseline wrist norm, not world-vector or hardware calibration",
+  "spring": [
+    {
+      "delta_error": 0.0,
+      "load": 0.0,
+      "mean": -0.0007939489441923797,
+      "post": false,
+      "span": 0.0
+    },
+    {
+      "delta_error": -4.371943681212576e-09,
+      "load": 2.0,
+      "mean": -0.007268540561199188,
+      "post": false,
+      "span": 0.0
+    },
+    {
+      "delta_error": 1.1878272858714678e-07,
+      "load": 6.0,
+      "mean": -0.020217591896653175,
+      "post": false,
+      "span": 0.0
+    }
+  ],
+  "spring_k_N_m": 308.9,
+  "wrist": [
+    {
+      "delta_norm_N": 19.015341321866163,
+      "label": "EVAL_wrist20N_0_-1.0",
+      "span_N": 0.00015598318369361544
+    },
+    {
+      "delta_norm_N": 19.39407519485396,
+      "label": "EVAL_wrist20N_0_1.0",
+      "span_N": 0.0001632696370938079
+    },
+    {
+      "delta_norm_N": 19.522316729356877,
+      "label": "EVAL_wrist20N_1_-1.0",
+      "span_N": 0.018664109937638576
+    },
+    {
+      "delta_norm_N": 19.513637293283907,
+      "label": "EVAL_wrist20N_1_1.0",
+      "span_N": 0.03444789426333284
+    },
+    {
+      "delta_norm_N": 20.40671497095378,
+      "label": "EVAL_wrist20N_2_-1.0",
+      "span_N": 0.0004910450490288196
+    },
+    {
+      "delta_norm_N": 19.595951549122567,
+      "label": "EVAL_wrist20N_2_1.0",
+      "span_N": 0.00015113681696961756
+    }
+  ]
+}

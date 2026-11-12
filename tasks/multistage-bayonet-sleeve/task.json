@@ -1,0 +1,18 @@
+{
+  "category": "Impact on jobs",
+  "context": "Spring-loaded bayonet couplings, like the bayonet caps on spring-loaded sensor probes or the coupling rings of circular connectors, hold a sleeve on two pins through a J-shaped track hidden inside it. This sleeve has a two-stage track: it must be pressed down against its spring, turned, lifted, turned back the other way, and only then pulled off. A straight pull or a single turn stops at a ledge. Unlike turning a keyed part out of its housing, the robot must feel its way through a push-turn-lift-reverse sequence it cannot see, then put the loose sleeve in a tray.",
+  "fidelity": "Rigid primitives (290 for the sleeve) reproduce the two-pin track with its original dimensions, clearances and stages. Spring 308.9 N/m with 1.5 N s/m damping. Materials and friction are estimates; no fracture, plastic deformation or wear. Arm torque limits including gravity: 27 N m (proximal joints), 7 N m (distal joints), 40 N per finger. Not calibrated against hardware. See FIDELITY.md.",
+  "instruction": "Take the purple sleeve with three white bars off its fixed shaft and put it in the green tray. Leave the shaft clear and the sleeve resting wholly inside the tray without robot contact for 20 seconds.",
+  "keywords": [
+    "mechanical servicing",
+    "bayonet",
+    "multistage release"
+  ],
+  "reset_notes": "Reset seats the sleeve on the shaft with the plunger preloaded 15 mm, empties the tray and returns both arms to their ready pose with grippers open; the settling time earns no hold. Nothing is consumed.",
+  "run_limit": "6,000 steps (300 seconds at 20 Hz)",
+  "scores": "Dream-1 run: 0.0 (6,000 steps, time limit); demo: 1.0 (1,490 steps, final hold 26.85 seconds)",
+  "scoring": "0.5 while the whole sleeve is inside the tray interior, resting on the tray floor, touching neither the shaft nor the robot, and moving slower than 20 mm/s and 0.10 rad/s. 1.0 once that state has held without interruption for 20 seconds. Otherwise 0. A wrist force above 80 N for 0.1 s, an invalid measurement or an episode failure sets the score to 0.",
+  "setup": "One fixed layout. Coordinates in metres from the midpoint between the arm bases, x forward, y left, z up; table top at z = 0.7475. A metal base plate, 120 x 110 x 16 mm, is bolted at (0.28, 0.02). Its steel shaft is 31 mm in diameter and 85 mm tall, with two opposed 6 mm pins at 70 mm. The 250 g aluminium sleeve (58 mm outside diameter, 80 mm long, purple band, three white bars on its cap) starts seated over the shaft; its bore has a hidden two-stage pin track with a false seat and a blind ledge. A spring-loaded steel plunger (25 g, 32 mm stroke, 308.9 N/m, 15 mm preload at reset) pushes the sleeve up. A fixed green plastic tray at (0.28, 0.40) has a 200 x 150 mm interior, floor top 12 mm above the table and 28 mm walls. Two six-joint YAM arms with parallel grippers (40 N per finger) stand on fixed 0.14 x 0.14 x 0.15 m metal extensions, bases at (0, +/-0.305, 0.90). Every body, collider, mass, pose, material estimate and track dimension is in setup-inventory.json and fixture.json.",
+  "title": "Take a spring-loaded bayonet coupling sleeve off its shaft: push down, turn, lift, turn back, pull off",
+  "media": "M-Y682WB"
+}

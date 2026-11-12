@@ -1,19 +1,20 @@
 {
-  "title": "Adjust and retain an equipment enclosure compression latch",
+  "title": "Find a compression latch's hidden grip length by trial, then lock it so the enclosure lid stays sealed",
   "category": "Impact on jobs",
-  "instruction": "Adjust the unloaded grip-length knob, turn the wing handle clockwise to its locked position, then leave both hands off every enclosure part for 20 seconds.",
-  "setup": "Fixed steel enclosure at root (0.28,0,0.7475)m, yaw -105deg, on standard Arena table. Exact 13 primitives, four passive joints, materials, initial poses, robot/station/camera/support dimensions are in setup-inventory.json. Both YAM bases (0,+/-0.305,0.9)m on fixed 240x120mm supports. Lid 300x400x4mm; 6.8mm gasket; adjustment knob radius15mm/height18mm; pawl24x20x6mm. No jitter.",
-  "scoring": "Terminal continuous20s hands-off: handle>=175deg and pawl/flange clamp>20N throughout. Gap<1mm:1.0; gap<2mm:0.5; otherwise locked:0.25. Any missing/nonfinite measurement, cam stripped at any time, or80N wrist-force persistence0.1s:0. Cam draw torque>3Nm for0.1s strips cam permanently. Knob locks above2N pawl clamp and releases below0.5N.",
-  "run_limit": "3848 genuine14D YAM controls at20Hz (192.4s); physics500Hz",
-  "reset_notes": "Full reset clears mechanism and guard; source42 fixture fixed, object_jitter=0; Inspect-derived trial seeds accepted.",
+  "instruction": "Lock the compression latch on the enclosure lid so that the lid is sealed tight against its gasket and stays sealed with nothing holding it. Do not force the latch.",
+  "setup": "Standard station table (top 0.7475 m) and cameras; both arm bases raised 150 mm on fixed grey steel supports (240 x 120 x 150 mm) under the standard base positions (x 0, y +-0.305 m). Fixed steel equipment enclosure, centre of its base at (0.28, 0, 0.7475) m, turned -105 degrees about vertical: shell 300 x 400 x 127.5 mm, steel flange 2.5 mm thick on top, two steel hinge knuckles (12 mm diameter, 40 mm long, fixed). Black rubber gasket 288 x 388 x 6.8 mm on the flange, a spring of 33.4 N/mm that bottoms out over its last 0.5 mm. Steel lid 300 x 400 x 4 mm, 1.45 kg, guided to move only straight down onto the gasket; it rests on the gasket with a 6.33 mm gap to the flange. Compression latch on the lid, 120 mm from its centre on the long axis: round steel plate 44 mm diameter, 4 mm thick; black steel wing handle 8 x 50 x 25 mm on a 24 mm hub, 0.09 kg, with a white mark, turns clockwise from 0 to a stop at 180 degrees; it drives a cam that pulls the pawl 6.4 mm between 90 and 172 degrees and backs it off 0.15 mm to the stop (over centre). Steel pawl 24 x 20 x 6 mm under the flange (not visible). Brass knob 30 mm diameter, 18 mm tall, 0.03 kg, 90 mm from the handle, white 2.4 x 12 mm mark, threaded adjuster: one clockwise turn shortens the grip by 1 mm; it turns only while the pawl is not pressing on the flange (it locks above 2 N). Hidden setting: at the start knob position the locked gap is 2.5 mm; about 1.6 to 2 turns clockwise give a gap under 1 mm. The cam strips if its torque stays above 3 N m for 0.1 s and then holds nothing until reset. Start: handle at 0 degrees, knob at its start mark, both arms in the ready pose, grippers open. Fixed layout, no jitter.",
+  "scoring": "Measured with a feeler-gauge set, a protractor (or a mark on the plate at 175 degrees) and the video. The lid counts as held for a moment when the handle is at 175 degrees or more and no part of either robot touches the enclosure, lid, handle or knob. 1.0 when the gap between lid and flange next to the latch stays under 1 mm (a 1 mm feeler gauge does not enter) for 20 s in a row while the lid is held this way; the episode ends then. Otherwise, at the end of the episode: 0.5 if the gap has stayed under 2 mm for the last 20 s while held, 0.25 if it has stayed under 5.5 mm, else 0. Forcing the latch scores 0 for the rest of the episode: the handle turned past 172 degrees (over centre) while the knob is more than 2 turns clockwise from its start mark, counted on the video. A measurement that cannot be read scores 0. The simulator checks these conditions every 2 ms physics step.",
+  "run_limit": "3,848 steps (192.4 s at 20 Hz)",
+  "reset_notes": "Unlock the handle to 0 degrees, turn the knob back to its start mark, let the lid rise onto the gasket. Fixed layout (object_jitter=0); the latch state resets with the scene.",
   "keywords": [
-    "adjustable compression latch",
-    "contact force",
-    "threaded adjustment",
-    "equipment enclosure"
+    "compression latch",
+    "hidden grip length",
+    "trial and adjustment",
+    "equipment enclosure",
+    "gasket seal"
   ],
-  "context": "Equipment enclosure latches must keep a gasket compressed after the operator lets go. This task couples unloaded threaded grip-length adjustment to cam closure, clamp force and a strict gap limit; forcing the cam can permanently strip it.",
-  "fidelity": "CPU PhysX with GPU RTX cameras. Source fixture geometry, body masses/inertias and passive thresholds are retained. Cam/screw equalities use balanced finite compliance; contact friction and solver dynamics differ. Generalized armatures are numerical inertia, not mass. Seven runtime channels have source-bound validation. YAM uses total 27/7Nm including gravity, left50N/right40N fingers. The scripted demo replays genuine saved joint actions.",
-  "scores": "Dream-1: 0.0 (3848 controls, 954 requests, one session). Scripted demo: 1.0 (1959 controls; 25.398s hands-off).",
+  "context": "Equipment and electrical enclosures are sealed with adjustable compression latches whose grip length must match the lid and gasket. The pawl that clamps sits under the flange and cannot be seen, so the right grip length is hidden: at the start setting the locked lid still shows a 2.5 mm gap, and with the grip set too short the handle jams part way and the cam is overloaded. The knob only turns while the latch is unlocked, so the setting is found by trying: lock, look at the gap, unlock, turn the knob, lock again. Unlike an ordinary quarter-turn latch or a draw latch, which only has to be turned or hooked shut, this latch must first be set to the right grip length, and that setting cannot be seen.",
+  "fidelity": "Rigid parts; CPU physics at 2 ms. The gasket is a spring on the lid's straight slide, not a deformable body; the cam and the threaded knob are stiff compliant constraints computed each step, the knob lock is a stiff restraint while the pawl presses, and stripping removes the cam force. Standard YAM arms (27 / 7 N m joints, 50 N grippers) on 150 mm supports.",
+  "scores": "Dream-1 run: 0.0 (3848 steps); demo: 1.0 (1803 steps)",
   "media": "M-GL5JEW"
 }

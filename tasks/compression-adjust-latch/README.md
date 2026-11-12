@@ -1,52 +1,146 @@
-# Adjustable enclosure compression latch
+# Find a compression latch's hidden grip length by trial, then lock it so the enclosure lid stays sealed
 
-Adjust the unloaded grip-length knob, turn the wing handle clockwise to its locked position, then leave both hands off every enclosure part for 20 seconds.
+A grey steel equipment enclosure is fixed on the table in front of the two arms. Its lid lies on a rubber gasket
+and is closed with an adjustable compression latch: a black wing handle that turns a cam, and a brass knob that
+sets the latch's grip length (1 mm per turn). The pawl that clamps sits under the flange, so the right grip length
+cannot be seen. At the start setting the locked lid still has a 2.5 mm gap; with the grip set too short the handle
+jams part way and the cam is overloaded. The knob only turns while the latch is unlocked. The robot has to lock
+the latch, see that the lid is not sealed, unlock it, turn the knob, lock it again, and let go.
 
-The fixture is a metal equipment enclosure with an adjustable compression latch. The knob sets the pawl reach while unloaded; the wing handle rotates the cam to clamp the flange. Forcing the cam beyond the specified torque/time limit irreversibly strips it until reset. All equipment is fixed and unpowered.
+## Files
 
-## Measured results
+| File | What |
+|---|---|
+| `task.py` | The yam_arena task file: objects and the scorer (`score()`, `success()`) |
+| `latch.py` | The enclosure and latch: loads `latch.usda`, runs the gasket, cam, threaded knob and cam stripping every 2 ms, and records the measured quantities for the scorer |
+| `latch.usda` | Geometry, masses and joints of the enclosure and latch |
+| `demo.py` | Scripted full-score demo (open loop) with the cheap-strategy variants and video recording |
+| `validate.py` | Produces the grip-length table below |
+| `LICENSE.i2rt` | License of the YAM arm model (see the last section) |
 
-| Trial | Score | Controls | Evidence |
-| --- | --- | --- | --- |
-| Dream-1 (`dreamlabs/dream-1-beta`) | 0.0 | 3848 | Completed Inspect trial, time limit, 954 requests, one continuous session; 3849 actual frames per camera |
-| Saved-action YAM demonstration | 1.0 | 1959 | 48,975 physical 2ms samples, 97.95 simulated seconds, final qualifying hold 25.398s |
+## Run a trial
 
-Both trials ran on the pinned Arena/YAM stack with CPU PhysX and an NVIDIA L40S for RTX cameras. The demo ended with gap 0.761059mm, clamp186.1036N, handle3.1415901rad and no damage/failure/robot contact. The full original3848-control limit is retained. Model score0 is an actual completed model evaluation, not an infrastructure error. A preceding missing-credential failure happened before any model session; it was excluded, and only the subsequent single completed model trial is reported.
-
-The demonstration replays measured14D actions through the normal robot API. Its original planner read simulator state; replay does not set task state. The model used only the declared observations through Inspect. No native/Panda score is substituted for these YAM results. Actual source bindings, results, continuity log, setup state/clock checks and a compressed Inspect record are under `evidence/`.
-
-## Reproduction
-
-Use Python3.12.16 and the exact installed versions/source commits in `dependency-pins.json`; no historical development directory is required. IsaacSim6.1.0.0, IsaacLab17.0.2, Arena0.3.0, Inspect1.0/YAM0.38/Dream0.1, Torch2.11.0+cu128, NumPy2.3.1 and SciPy1.17.0 were verified. CPU physics still requires an RTX-capable GPU for the three cameras. FFmpeg/libx264 or imageio-ffmpeg, NumPy and Pillow provide capture. MuJoCo3.3.7 is optional for source recompilation and is not needed by replay. Existing SDK assets retain their licenses; `LICENSE.i2rt` and notices are included.
-
-After activating that environment, run from this task directory:
+In the Isaac Lab-Arena environment, from this folder:
 
 ```bash
-python -B run_demo.py --preflight-only --out /absolute/unused
-python -B run_model.py --preflight-only --out /absolute/unused
-python -B capture_setup.py --preflight-only --out /absolute/unused
-python -B run_demo.py --out /absolute/new/demo
-python -B capture_setup.py --out /absolute/new/setup
-python -B run_model.py --out /absolute/new/model
-python -B tools/check_package.py
+inspect-robots run --embodiment yam_arena --policy dream -P model=dreamlabs/dream-1-beta -P rows_per_request=4 \
+  -E task=task.py -E device=cpu -E object_jitter=0 -E control_hz=20 -E cam_width=320 -E cam_height=176 \
+  --instruction "$(python -c 'import json;print(json.load(open("task.json"))["instruction"])')" \
+  --scorer task_score --max-steps 3848 --store-frames --log-dir out-dream
 ```
 
-Every output path must be new and outside the task directory. Dream credentials use the installed client's environment/credential-file mechanism. `run_model.py` invokes genuine Inspect Dream-1,3848 maximum controls,20Hz, CPU,320x176 cameras, four rows/request, seed42 and no jitter. The fixture remains the disclosed physical source42 when Inspect derives an episode seed. Continuity rejects session changes, restarts and fallback; the verifier requires a completed error-free record and steps+1 synchronized frames. Wall runtime depends on hardware and model latency; the measured full model trial completed within the90-minute resource window.
+`task_score` gives 1.0 when the episode ends in success, otherwise `score()` at the last step. The layout is fixed
+(`object_jitter=0`), so there are no seeds to choose. Physics runs on the CPU at 2 ms steps; the cameras need an RTX
+GPU. A full 3,848-step trial takes about 20 to 25 minutes of simulation plus model time.
 
-`run_demo.py` freezes a task copy, verifies the29 runtime files and ten calibration bindings, resets once and sends the exact1959 saved absolute joint/jaw actions. It requires terminal score1.0 and records actual three-camera H264/yuv420p20Hz videos. Both arms have six joints plus one normalized jaw. The published overview demo has1960frames/98s; the extra frame is the initial observation. No frames, labels or terminal holds were fabricated.
+## Scoring
 
-`capture_setup.py` uses the same reset and40 render-only warmups. The submitted setup image was additionally checked with direct physics-counter/DT/observation-time reads: counter250 before/after, DT0.002, time0, zero episode actions/samples and every robot/body/joint state unchanged. Setup and demo use640x360 RGB. Optional demo/setup `--driver-check-override`, or model environment `S4_DRIVER_CHECK_OVERRIDE=1`, changes only that process's RTX driver-check argument.
+Everything the scorer uses can be checked on real hardware with a feeler-gauge set, a protractor (or a mark on
+the handle plate at 175 degrees) and the video. No force or torque is measured.
 
-## Setup and scoring
+- Held: the handle is at 175 degrees or more (its locked stop is 180) and no part of either robot touches the
+  enclosure, lid, handle or knob.
+- 1.0: the gap between lid and flange next to the latch stays under 1 mm (a 1 mm feeler gauge does not enter) for
+  20 s in a row while held. The episode ends there with success.
+- Otherwise, at the end of the episode: 0.5 if the gap has stayed under 2 mm for the last 20 s while held, 0.25 if
+  it has stayed under 5.5 mm, else 0. The lid resting on the gasket alone shows 6.33 mm.
+- Forcing the latch scores 0 for the rest of the episode: the handle turned past 172 degrees (the cam's over-centre
+  point) while the knob is more than 2 turns clockwise from its start mark (counted from the knob's white mark on
+  the video).
+- A measurement that cannot be read scores 0.
 
-`setup-inventory.json` gives every primitive, body, material, principal inertia, passive joint, support and camera calibration. The13 fixture primitives are the300x400x127.5mm metal shell;300x400x2.5mm flange;288x388x6.8mm visual elastomer gasket; two radius6mm/height40mm hinge knuckles;300x400x4mm lid; radius22mm/height4mm escutcheon; radius12mm/height6mm hub;8x50x25mm wing;6x6x0.6mm painted wing mark; radius15mm/height18mm knob;2.4x12x0.6mm knob mark;24x20x6mm pawl tip. Gasket and painted marks are noncolliding; gasket compression uses the disclosed force law. All other fixture surfaces use the retained metal/contact approximations.
+The simulator checks these every 2 ms physics step, so a gripper still on the handle or pressing the lid at any
+moment of the 20 s restarts the count. A stripped cam holds nothing, so the lid rises back to 6.33 mm and cannot
+score.
 
-The root is(0.28,0,0.7475)m/yaw-105deg on the standard Arena table. Two YAM bases are(0,+/-0.305,0.9)m on fixed240x120mm supports whose tops meet the actual base-mesh undersides. The installed station, camera stand and three cameras are included in the inventory. Body masses are enclosure16.36890699kg(fixed), lid1.45kg, handle0.09kg, knob0.03kg, pawl0.03kg. Authored zero-joint poses are distinguished from actual gravity-settled reset poses. There is no object jitter.
+## How the hidden property can be observed
 
-Every credited tier requires20 continuous terminal seconds with handle>=175degrees, clamp>20N and no robot contact on any enclosure part. Gap<1mm earns1; gap<2mm earns0.5; otherwise a locked latch earns0.25. Any missing/nonfinite measurement, cam stripping or wrist>80N persisting100ms yields0. Cam torque>3Nm for100ms strips permanently. Knob locks above2N pawl clamp and releases below0.5N. Full reset restores mechanism and history; nothing is consumed. YAM total drive limits27/7Nm include gravity, with left50N/right40N fingers; native235N capability is not claimed.
+The grip length shows as the gap after locking. `validate.py` runs the demo's motions with different numbers of
+knob turns, then locks the handle, lets go and waits 20 s. Two columns are internal simulator values (read only
+by `validate.py`) that the previous version of this task scored on: pawl clamp force above 20 N, and cam torque
+above 3 N m for 0.1 s strips the cam. "Old score" applies that previous rule to the same run.
 
-## Fidelity and provenance
+| Knob turns (measured) | Handle (deg) | Gap (mm) | Score | Pawl clamp (N) | Peak cam torque (N m) | Old score |
+|---|---|---|---|---|---|---|
+| 0.00 | 180 | 2.51 | 0.25 | 126 | 0.62 | 0.25 |
+| 0.48 | 180 | 2.03 | 0.25 | 144 | 0.69 | 0.25 |
+| 0.98 | 180 | 1.54 | 0.5 | 160 | 0.77 | 0.5 |
+| 1.47 | 180 | 1.05 | 0.5 | 177 | 0.84 | 0.5 |
+| 1.76 (demo) | 180 | 0.76 | 1.0 | 188 | 0.88 | 1.0 |
+| 1.95 | 180 | 0.56 | 1.0 | 193 | 1.00 | 1.0 |
+| 2.20 | jams at 32, springs back | 6.33 | 0 | 0 | 5.25 | 0 |
+| 2.45 | jams at 32, springs back | 6.33 | 0 | 0 | 5.20 | 0 |
+| 2.69 | jams at 39, springs back | 6.33 | 0 | 0 | 5.91 | 0 |
+| 2.93 | jams at 32, springs back | 6.33 | 0 | 0 | 5.15 | 0 |
 
-Geometry, physical masses/inertias, passive thresholds, scoring and genuine controller inputs are unchanged from the verified runtime. Balanced finite-compliance cam and screw restraints approximate native equality; contact friction, solver and effective numerical inertia differ. Lid armature20 and pawl250 are generalized numerical inertias, not extra physical masses. Details are in `runtime/DEVIATIONS.md`.
+Each knob turn closes the locked gap by about 1 mm, so trying a setting and looking at the gap tells which way
+and how far to turn. The new rule gives the same score as the old one in every run:
 
-The29-file `runtime/` subtree, all ten calibration-bound inputs, native provenance and saved actions are byte-identical to the measured successful source. Historical draft/development files remain as provenance and may describe earlier pending work or placements; this README, final `task.json` and final evidence describe the submitted configuration. Those historical paths are not runtime dependencies. `runtime-manifest.json` binds runtime; `package-manifest.json` binds portable files. `tools/check_package.py` checks integrity and serialization, not hardware fidelity or task acceptance.
+- Clamp: every locked latch clamps 126 N or more, and an unclamped lid rests at 6.33 mm, so "gap under 5.5 mm while
+  locked" corresponds to the old "clamp above 20 N" (20 N of clamp corresponds to a gap of about 5.8 mm).
+- Torque: settings up to 1.95 turns stay at or below 1.0 N m. From 2.2 turns the handle jams near 30 to 40
+  degrees with brief torque peaks of 5.2 to 5.9 N m (above the old 3 N m limit, but each shorter than 0.1 s, so the
+  cam did not strip) and the arm cannot turn it further. The 2-turn knob limit separates the two groups, so a latch
+  forced past over-centre with a too-short grip scores 0 even if a stronger robot could do it.
+
+Command used (A6000 GPU, CPU physics; the 2.25 to 3 settings in a second run):
+`python validate.py task.py val 0 0.5 1 1.5 1.8 2`
+
+## Scripted demo
+
+```bash
+python demo.py task.py demo_out                                   # demo.mp4, setup.png, actions.jsonl, result.json
+DEMO_VARIANT=nothing python demo.py task.py out --no-record
+DEMO_VARIANT=no_adjust python demo.py task.py out --no-record     # lock without adjusting: grip too long
+DEMO_VARIANT=force python demo.py task.py out --no-record         # knob 3 turns, then force the handle: grip too short
+DEMO_VARIANT=keep_holding python demo.py task.py out --no-record  # full demo, gripper stays on the handle
+DEMO_VARIANT=press python demo.py task.py out --no-record         # press the lid down next to the latch and keep pressing
+```
+
+The demo is open loop from the fixed layout. Its joint targets are inverse-kinematics solutions for the left arm at
+the fixed knob and handle positions. While it runs it reads nothing from the simulator: no part poses, latch
+state, forces or physical parameters. It turns the knob 1.8 turns clockwise in regrasps of at most 150 degrees
+(the knob slips slightly in the fingers and ends at 1.76 turns), turns the handle 180 degrees clockwise onto its
+stop, lets go, moves the arm away and waits. It goes straight to a good setting instead of trying the start
+setting first; the table above shows that the setting can be found from the gap.
+
+Measured results (Isaac Sim, CPU physics):
+
+| Run | Score | Steps |
+|---|---|---|
+| Demo (on an A6000 and on the evaluation machine's L40S) | 1.0 | 1,803 |
+| Dream-1 (`dreamlabs/dream-1-beta`, the command above) | 0.0 | 3,848 (step limit) |
+| `nothing` | 0 | 3,848 |
+| `no_adjust` (grip too long; the 0-turn row of the table) | 0.25 | 805 |
+| `force` (grip too short; the 3-turn row of the table, handle jams near 32 degrees) | 0 | 2,605 |
+| `keep_holding` | 0 | 3,848 |
+| `press` | 0 | 3,848 |
+
+## Fidelity
+
+All parts are rigid. The gasket is a spring (33.4 N/mm, eight times stiffer over its last 0.5 mm) on the lid's
+straight vertical slide, not a deformable body, and the lid does not swing open. The cam and the threaded knob are
+stiff compliant constraints computed every 2 ms; the knob lock is a stiff restraint while the pawl presses on the
+flange; stripping removes the cam force until reset. The arms are the platform's standard YAM arms (27 N m
+shoulder and 7 N m wrist joints, 50 N grippers), raised 150 mm on supports so they reach the latch.
+
+## Real-world build
+
+A steel wall-mount enclosure about 300 x 400 x 130 mm with a 7 mm sponge-rubber gasket and an adjustable-grip
+compression latch (wing handle, grip-adjusting screw of about 1 mm per turn), fixed to the table. Paint a mark on
+the knob and on the handle plate at 175 degrees. Judge with feeler gauges of 1 mm, 2 mm and 5.5 mm next to the
+latch, and the video for the 20 s hold, the knob turns and robot contact.
+
+## Third-party assets and licenses
+
+- YAM arm and gripper model: from i2rt (https://github.com/i2rt-robotics/i2rt), MIT license; copy in
+  `LICENSE.i2rt`. It is loaded from the installed SDK, not copied here.
+- Station scene: loaded from the installed yam-isaac-lab-arena SDK
+  (https://github.com/kairosiann/yam-isaac-lab-arena, revision 0059d02a1a91bc6834c1d0846022891df0c78730). For a
+  task file its scene and station modules build, from primitive shapes and lights: the floor and table (boxes), a
+  dome light and a sphere lamp, and the top-camera stand (a foot and a housing as boxes, a mast and an arm as capsules). No object-library
+  models are spawned in this task. The SDK's README says the repository has no license yet ("Placeholder"): it is
+  mostly ported from YAM-inspect-Isaac (https://github.com/ttpierson/YAM-inspect-Isaac), which has none. Only its
+  YAM model carries a license (MIT, above).
+- Everything in this folder other than `LICENSE.i2rt` (enclosure, gasket, lid and latch geometry and mechanics,
+  scorer, demo) is the authors' own work, submitted with this task. It uses no third-party models or textures.

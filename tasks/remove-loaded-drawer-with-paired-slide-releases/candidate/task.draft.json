@@ -1,0 +1,28 @@
+{
+  "title": "Remove a loaded drawer using paired slide releases",
+  "category": "Impact on jobs",
+  "keywords": [
+    "bimanual",
+    "slide disconnect",
+    "fragile contents",
+    "loaded drawer"
+  ],
+  "instruction": "Take the red-tab drawer completely out of the chest and set it level on the table. Keep its sealed box inside and both jars intact. The target jar may stand upright on the table outside cabinets. Release the drawer for one second.",
+  "context": "Furniture service requires releasing both slides and controlling a loaded drawer without breaking fragile contents.",
+  "setup": "See inventory.json and fixture.json for every primitive, physical mass/COM/inertia, material coefficient and fixed starting pose. Two source260x200x70mm loaded drawers side-by-side, two wooden carcasses, an empty adjacent slot, spring-loaded paired red tabs and orange pinch plates, steel runners/channels/stops/hooks, one blue ballasted box and jar per drawer. All geometry receives Rz(pi) and translation(.42,-.17,-.05)m. SDK tabletop/YAM bases unchanged.",
+  "scoring": "Global zero on either jar damage (non-pad force>15N, normal closing speed>0.3m/s, tilt>30deg), out-of-bounds object/drop, or wrist force>80N continuously for0.1s. Otherwise0.25 when every actual target-drawer part, runner noses/tails and tabs included, has native maxX<0.12m, box inside, target jar in drawer or upright on table and not touched.0.5 additionally native centreZ within6mm of0.835m, native centreX+0.1<0.10m and every part in front of every cabinet face.1.0 additionally tilt<3deg and no drawer-hand contact for1s. End-state scoring at3586steps; candidate history cannot override invalid current state. Runtime credit remains0 until all channels validated.",
+  "run_limit": "3586 genuine14D robot actions at20Hz (179.3s); reject further steps after termination",
+  "reset_notes": "Restore all free bodies, velocities, paddle/lever positions, springs and stop masks; reset damage/hold/safety/clock/score history. All seed values accepted for this single immutable physical case; harness seed is not physical randomization.",
+  "fidelity": "USD/PhysX embodiment adaptation preserving native internal fixture geometry, masses, friction, spring laws, conditional stop/hook masks, thresholds and scoring. Fixed transform Rz(pi), translation(.42,-.17,-.05)m; unchanged YAM/table placement. Jar force/speed exclude the finite union of actual distal tip collision solids clipped at tip-local z<=-0.0372m, tolerance0.5um, using independently measured moving jaws; all other contacts remain included. This is a functional geometric approximation. Native soft-foot/torsional-friction approximation remains disclosed. Total motor PD+gravity caps27/27/27/7/7/7Nm,40N per finger. Model credit requires source-bound ROOT review of fresh affected adapter replay; historical selected-path credit alone is insufficient. CPU geometry/math checks establish no physical task score.",
+  "scores": "Historical selected genuine reference: native1/public0, not transferred. Fresh affected replay and Dream-1 pending; no new score claimed.",
+  "media": null,
+  "status": "private final-validation inputs; awaiting ROOT review and fresh physical evidence; NOT submission-ready",
+  "representative_goal": "DR-T1/S physical seed42",
+  "rubric": "robocurve-official-v2.1",
+  "model_requirement": "Actual Dream-1 required for two parallel-gripper arms; no non-YAM exemption.",
+  "submission_blockers": [
+    "Fresh affected replay and source-bound ROOT review",
+    "Final Dream-1 and media validation/media ID",
+    "Current ownership and PR/upload linkage review before publication"
+  ]
+}

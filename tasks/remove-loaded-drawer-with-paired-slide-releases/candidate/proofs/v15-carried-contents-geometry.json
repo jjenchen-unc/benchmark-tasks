@@ -1,0 +1,59 @@
+{
+  "kind": "CPU_CONDITIONAL_RETAINED_CONTENTS_NOT_PHYSICS",
+  "controls": 183,
+  "summary": {
+    "left": {
+      "control": 118,
+      "label": "release",
+      "pair": [
+        "tip_right#3",
+        "U_jar/U_jar/U_jar_lid"
+      ],
+      "signed_separation_bound_m": 0.008529408144917094
+    },
+    "right": {
+      "control": 118,
+      "label": "release",
+      "pair": [
+        "tip_left#15",
+        "U_box/U_box/U_box_g"
+      ],
+      "signed_separation_bound_m": 0.012701467036682568
+    }
+  },
+  "overlaps": [],
+  "support_checks": [
+    {
+      "group": "support_fixed_carcasses",
+      "pairs": 184,
+      "full_sat_pairs": 0,
+      "minimum": {
+        "pair": [
+          "left_mount_beam",
+          "carcasses/cabinet_2/cabinet_2_top"
+        ],
+        "signed_separation_bound_m": 0.008000000000000118
+      },
+      "overlaps": []
+    },
+    {
+      "group": "support_table",
+      "pairs": 4,
+      "full_sat_pairs": 0,
+      "minimum": {
+        "pair": [
+          "left_mount_post",
+          "table"
+        ],
+        "signed_separation_bound_m": 0.05999999999999994
+      },
+      "overlaps": []
+    }
+  ],
+  "wall_s": 5.3242184314876795,
+  "limitations": [
+    "ideal retained rigid contents; actual grasp, jar damage and dynamics unproved",
+    "all finger/content geometry included; original task jar contact limits unchanged",
+    "conservative jar primitives; full discrete controller samples, no swept-volume proof"
+  ]
+}

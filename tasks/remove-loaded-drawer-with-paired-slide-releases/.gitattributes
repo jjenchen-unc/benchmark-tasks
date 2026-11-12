@@ -1,0 +1,9 @@
+# Preserve exact reviewed source bytes; exempt only inherited blank lines at EOF.
+candidate/L_box.usda whitespace=-blank-at-eof
+candidate/L_jar.usda whitespace=-blank-at-eof
+candidate/U_box.usda whitespace=-blank-at-eof
+candidate/U_jar.usda whitespace=-blank-at-eof
+candidate/carcasses.usda whitespace=-blank-at-eof
+candidate/contacts.py whitespace=-blank-at-eof
+candidate/drawer_L.usda whitespace=-blank-at-eof
+candidate/drawer_U.usda whitespace=-blank-at-eof

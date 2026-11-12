@@ -1,0 +1,20 @@
+{
+  "last_bump_centre_native_x_m": 0.1851463770866394,
+  "last_bump_rear_x_m": 0.1881463770866394,
+  "disarm_threshold_x_m": 0.22799999999999998,
+  "native_fully_passed": true,
+  "terminal_regrasp_shortfall_mm": 0.18983125686643926,
+  "last_paddles_m": {
+    "drawer_U_paddle_left_j": 0.004942919593304396,
+    "drawer_U_paddle_right_j": 0.004972402937710285
+  },
+  "last_armed": {
+    "slot_U": false,
+    "slot_L": true,
+    "slot_E": true
+  },
+  "last_stop_on": {
+    "slot_U": false,
+    "slot_L": true
+  }
+}

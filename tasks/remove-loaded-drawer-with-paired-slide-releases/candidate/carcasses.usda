@@ -1,0 +1,1082 @@
+#usda 1.0
+(
+    defaultPrim = "Asset"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "Asset"
+{
+    quatd xformOp:orient = (1, 0, 0, 0)
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+    def Xform "world"
+    {
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+        def Cube "slot_U_ledge_lo_minus_1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.22, 0.012, 0.006)
+            double3 xformOp:translate = (0.25, -0.3085, 0.85)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_U_ledge_hi_minus_1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.22, 0.012, 0.006)
+            double3 xformOp:translate = (0.25, -0.3085, 0.87)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_U_rwall_minus_1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.22, 0.004, 0.028)
+            double3 xformOp:translate = (0.25, -0.3155, 0.86)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_U_flare_lo_minus_1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (0.9819562839817985, 0, -0.18910805469005731, 0)
+            float3 xformOp:scale = (0.0215406, 0.012, 0.006)
+            double3 xformOp:translate = (0.13, -0.3085, 0.846)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_U_flare_hi_minus_1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (0.9819562839817985, 0, 0.18910805469005731, 0)
+            float3 xformOp:scale = (0.0215406, 0.012, 0.006)
+            double3 xformOp:translate = (0.13, -0.3085, 0.874)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_U_flare_w_minus_1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (0.9951333252580072, 0, 0, 0.09853763220689436)
+            float3 xformOp:scale = (0.020396, 0.004, 0.028)
+            double3 xformOp:translate = (0.13, -0.3175, 0.86)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_U_stop_minus_1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.8, 0.1, 0.1)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.008, 0.012, 0.012)
+            double3 xformOp:translate = (0.233, -0.306, 0.86)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_U_ledge_lo1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.22, 0.012, 0.006)
+            double3 xformOp:translate = (0.25, -0.0315, 0.85)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_U_ledge_hi1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.22, 0.012, 0.006)
+            double3 xformOp:translate = (0.25, -0.0315, 0.87)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_U_rwall1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.22, 0.004, 0.028)
+            double3 xformOp:translate = (0.25, -0.0245, 0.86)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_U_flare_lo1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (0.9819562839817985, 0, -0.18910805469005731, 0)
+            float3 xformOp:scale = (0.0215406, 0.012, 0.006)
+            double3 xformOp:translate = (0.13, -0.0315, 0.846)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_U_flare_hi1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (0.9819562839817985, 0, 0.18910805469005731, 0)
+            float3 xformOp:scale = (0.0215406, 0.012, 0.006)
+            double3 xformOp:translate = (0.13, -0.0315, 0.874)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_U_flare_w1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (0.9951333252580072, 0, 0, -0.09853763220689436)
+            float3 xformOp:scale = (0.020396, 0.004, 0.028)
+            double3 xformOp:translate = (0.13, -0.0225, 0.86)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_U_stop1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.8, 0.1, 0.1)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.008, 0.012, 0.012)
+            double3 xformOp:translate = (0.233, -0.034, 0.86)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_L_ledge_lo_minus_1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.22, 0.012, 0.006)
+            double3 xformOp:translate = (0.25, 0.0315, 0.834)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_L_ledge_hi_minus_1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.185, 0.012, 0.006)
+            double3 xformOp:translate = (0.2675, 0.0315, 0.854)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_L_rwall_minus_1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.22, 0.004, 0.028)
+            double3 xformOp:translate = (0.25, 0.0245, 0.844)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_L_flare_lo_minus_1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (0.9819562839817985, 0, -0.18910805469005731, 0)
+            float3 xformOp:scale = (0.0215406, 0.012, 0.006)
+            double3 xformOp:translate = (0.13, 0.0315, 0.83)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_L_flare_hi_minus_1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (0.9819562839817985, 0, 0.18910805469005731, 0)
+            float3 xformOp:scale = (0.0215406, 0.012, 0.006)
+            double3 xformOp:translate = (0.165, 0.0315, 0.858)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_L_flare_w_minus_1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (0.9951333252580072, 0, 0, 0.09853763220689436)
+            float3 xformOp:scale = (0.020396, 0.004, 0.028)
+            double3 xformOp:translate = (0.13, 0.0225, 0.844)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_L_stop_minus_1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.8, 0.1, 0.1)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.008, 0.012, 0.012)
+            double3 xformOp:translate = (0.233, 0.034, 0.844)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_L_hook_minus_1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.1, 0.6, 0.1)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.008, 0.012, 0.012)
+            double3 xformOp:translate = (0.124, 0.034, 0.844)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_L_ledge_lo1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.22, 0.012, 0.006)
+            double3 xformOp:translate = (0.25, 0.3085, 0.834)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_L_ledge_hi1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.185, 0.012, 0.006)
+            double3 xformOp:translate = (0.2675, 0.3085, 0.854)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_L_rwall1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.22, 0.004, 0.028)
+            double3 xformOp:translate = (0.25, 0.3155, 0.844)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_L_flare_lo1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (0.9819562839817985, 0, -0.18910805469005731, 0)
+            float3 xformOp:scale = (0.0215406, 0.012, 0.006)
+            double3 xformOp:translate = (0.13, 0.3085, 0.83)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_L_flare_hi1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (0.9819562839817985, 0, 0.18910805469005731, 0)
+            float3 xformOp:scale = (0.0215406, 0.012, 0.006)
+            double3 xformOp:translate = (0.165, 0.3085, 0.858)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_L_flare_w1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (0.9951333252580072, 0, 0, -0.09853763220689436)
+            float3 xformOp:scale = (0.020396, 0.004, 0.028)
+            double3 xformOp:translate = (0.13, 0.3175, 0.844)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_L_stop1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.8, 0.1, 0.1)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.008, 0.012, 0.012)
+            double3 xformOp:translate = (0.233, 0.306, 0.844)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_L_hook1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.1, 0.6, 0.1)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.008, 0.012, 0.012)
+            double3 xformOp:translate = (0.124, 0.306, 0.844)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_E_ledge_lo_minus_1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.22, 0.012, 0.006)
+            double3 xformOp:translate = (0.33, -0.6485, 0.85)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_E_ledge_hi_minus_1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.22, 0.012, 0.006)
+            double3 xformOp:translate = (0.33, -0.6485, 0.87)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_E_rwall_minus_1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.22, 0.004, 0.028)
+            double3 xformOp:translate = (0.33, -0.6555, 0.86)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_E_flare_lo_minus_1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (0.9819562839817985, 0, -0.18910805469005731, 0)
+            float3 xformOp:scale = (0.0215406, 0.012, 0.006)
+            double3 xformOp:translate = (0.21, -0.6485, 0.846)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_E_flare_hi_minus_1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (0.9819562839817985, 0, 0.18910805469005731, 0)
+            float3 xformOp:scale = (0.0215406, 0.012, 0.006)
+            double3 xformOp:translate = (0.21, -0.6485, 0.874)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_E_flare_w_minus_1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (0.9951333252580072, 0, 0, 0.09853763220689436)
+            float3 xformOp:scale = (0.020396, 0.004, 0.028)
+            double3 xformOp:translate = (0.21, -0.6575, 0.86)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_E_stop_minus_1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.8, 0.1, 0.1)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.008, 0.012, 0.012)
+            double3 xformOp:translate = (0.313, -0.646, 0.86)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_E_ledge_lo1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.22, 0.012, 0.006)
+            double3 xformOp:translate = (0.33, -0.3715, 0.85)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_E_ledge_hi1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.22, 0.012, 0.006)
+            double3 xformOp:translate = (0.33, -0.3715, 0.87)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_E_rwall1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.22, 0.004, 0.028)
+            double3 xformOp:translate = (0.33, -0.3645, 0.86)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_E_flare_lo1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (0.9819562839817985, 0, -0.18910805469005731, 0)
+            float3 xformOp:scale = (0.0215406, 0.012, 0.006)
+            double3 xformOp:translate = (0.21, -0.3715, 0.846)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_E_flare_hi1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (0.9819562839817985, 0, 0.18910805469005731, 0)
+            float3 xformOp:scale = (0.0215406, 0.012, 0.006)
+            double3 xformOp:translate = (0.21, -0.3715, 0.874)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_E_flare_w1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.55, 0.57, 0.6)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (0.9951333252580072, 0, 0, -0.09853763220689436)
+            float3 xformOp:scale = (0.020396, 0.004, 0.028)
+            double3 xformOp:translate = (0.21, -0.3625, 0.86)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "slot_E_stop1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_0_15> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.8, 0.1, 0.1)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.008, 0.012, 0.012)
+            double3 xformOp:translate = (0.313, -0.374, 0.86)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def "materials"
+    {
+        def Material "mu_0_15" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.15
+            float physics:restitution = 0
+            float physics:staticFriction = 0.15
+        }
+
+        def Material "mu_1_0" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1
+            float physics:restitution = 0
+            float physics:staticFriction = 1
+        }
+    }
+
+    def Xform "cabinet_1"
+    {
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+        def Cube "cabinet_1_wall0" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_1_0> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.36, 0.22, 0.13)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.26, 0.02, 0.14)
+            double3 xformOp:translate = (0.25, -0.33, 0.87)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "cabinet_1_wall1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_1_0> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.36, 0.22, 0.13)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.26, 0.02, 0.14)
+            double3 xformOp:translate = (0.25, -0.01, 0.87)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "cabinet_1_wall2" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_1_0> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.36, 0.22, 0.13)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.26, 0.02, 0.14)
+            double3 xformOp:translate = (0.25, 0.01, 0.87)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "cabinet_1_wall3" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_1_0> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.36, 0.22, 0.13)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.26, 0.02, 0.14)
+            double3 xformOp:translate = (0.25, 0.33, 0.87)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "cabinet_1_back" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_1_0> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.36, 0.22, 0.13)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.01, 0.68, 0.14)
+            double3 xformOp:translate = (0.375, 0, 0.87)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "cabinet_1_top" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_1_0> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.36, 0.22, 0.13)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.26, 0.68, 0.012)
+            double3 xformOp:translate = (0.25, 0, 0.946)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def Xform "cabinet_2"
+    {
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+        def Cube "cabinet_2_wall0" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_1_0> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.36, 0.22, 0.13)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.26, 0.02, 0.14)
+            double3 xformOp:translate = (0.33, -0.67, 0.87)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "cabinet_2_wall1" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_1_0> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.36, 0.22, 0.13)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.26, 0.02, 0.14)
+            double3 xformOp:translate = (0.33, -0.35, 0.87)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "cabinet_2_back" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_1_0> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.36, 0.22, 0.13)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.01, 0.34, 0.14)
+            double3 xformOp:translate = (0.455, -0.51, 0.87)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Cube "cabinet_2_top" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            rel material:binding:physics = </Asset/materials/mu_1_0> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            custom float physxCollision:contactOffset = 0.0005
+            custom float physxCollision:restOffset = 0
+            color3f[] primvars:displayColor = [(0.36, 0.22, 0.13)]
+            float[] primvars:displayOpacity = [1]
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (0.26, 0.34, 0.012)
+            double3 xformOp:translate = (0.33, -0.51, 0.946)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+}
+

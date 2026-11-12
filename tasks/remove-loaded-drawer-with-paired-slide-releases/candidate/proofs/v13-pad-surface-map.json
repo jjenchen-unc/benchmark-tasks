@@ -1,0 +1,155 @@
+{
+  "native_excluded_geoms": [
+    "left_finger_a_pad",
+    "left_finger_b_pad",
+    "right_finger_a_pad",
+    "right_finger_b_pad"
+  ],
+  "native_pad_local_box": {
+    "centre_abs_x_m": 0.008,
+    "centre_y_m": 0.0,
+    "centre_z_m": 0.11,
+    "half_extents_m": [
+      0.008,
+      0.016,
+      0.035
+    ]
+  },
+  "yam_actors": {
+    "tip_left": {
+      "collision_meshes": [
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_000.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_001.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_002.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_003.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_004.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_005.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_006.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_007.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_008.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_009.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_010.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_011.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_012.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_013.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_014.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_015.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_016.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_017.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_018.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_019.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_020.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_021.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_022.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_023.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_024.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_025.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_026.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_027.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_028.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_029.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_030.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_031.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_032.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_033.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_034.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_035.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_036.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_037.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_038.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_039.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_040.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_041.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_042.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_043.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_left/tip_left_044.stl"
+      ],
+      "link_local_bounds_m": [
+        [
+          -0.010006791415610313,
+          0.05799147443195343
+        ],
+        [
+          -0.06828538185133934,
+          0.0032854206286430376
+        ],
+        [
+          -0.0901595995349884,
+          0.0036829962806701755
+        ]
+      ],
+      "meaning": "moving jaw actor; not every triangle automatically a native pad",
+      "pad_exemption_enabled": false
+    },
+    "tip_right": {
+      "collision_meshes": [
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_000.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_001.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_002.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_003.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_004.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_005.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_006.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_007.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_008.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_009.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_010.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_011.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_012.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_013.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_014.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_015.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_016.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_017.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_018.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_019.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_020.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_021.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_022.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_023.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_024.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_025.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_026.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_027.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_028.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_029.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_030.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_031.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_032.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_033.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_034.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_035.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_036.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_037.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_038.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_039.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_040.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_041.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_042.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_043.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_044.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_045.stl",
+        "/mnt/bum/jjenchen/robocurve/external/yam-isaac-lab-arena/yam_arena/assets/yam/collision/tip_right/tip_right_046.stl"
+      ],
+      "link_local_bounds_m": [
+        [
+          -0.05799320141561031,
+          0.010006018106269839
+        ],
+        [
+          -0.0032853989646348357,
+          0.0682854038645935
+        ],
+        [
+          -0.0901595995349884,
+          0.0036829962806701755
+        ]
+      ],
+      "meaning": "moving jaw actor; not every triangle automatically a native pad",
+      "pad_exemption_enabled": false
+    }
+  },
+  "observed_active_fingertip_jar_contacts": 0,
+  "observed_other_robot_jar_contacts": 0,
+  "general_surface_mapping_remaining": "Select physically justified collision triangles/region of each moving YAM jaw corresponding to fingertip pad, then test jar-on-pad exclusion and jar-on-other-surface inclusion. No named URDF pad is required. Whole tip actor exemption is not established by its name."
+}

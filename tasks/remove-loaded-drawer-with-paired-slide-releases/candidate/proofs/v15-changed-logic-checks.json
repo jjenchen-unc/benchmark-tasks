@@ -1,0 +1,30 @@
+{
+  "kind": "CPU_CONDITIONAL_NOT_PHYSICAL",
+  "checks": {
+    "prefix897_exact": true,
+    "only_controller_and_readonly_telemetry": true,
+    "conditional_complete": true,
+    "native3586_budget": true,
+    "native2degree_commands": true,
+    "native_hold25": true,
+    "stuck_aborts_before_release": true,
+    "missing_native_hold_rejected": true,
+    "no_task_state_writes": true,
+    "strict_numeric_bool_telemetry": true
+  },
+  "controls": 1044,
+  "prefix_controls": 897,
+  "changed_suffix_controls": 147,
+  "worstcase_bound_controls": 1252,
+  "maximum_requested_tool_tilt_deg": 1.717231796935493,
+  "changed_files": [
+    "binding_foundation.py",
+    "reference.py"
+  ],
+  "conditional_wall_s": 11.070981418713927,
+  "synthetic_final_drawer_world_m": [
+    0.46255312207065347,
+    -1.9403490592595496e-06,
+    0.785
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "/opt/IsaacLab-Arena/.venv/lib/python3.12/site-packages/isaacsim/extscache/omni.physics.tensors-110.3.2+110.3.0.lx64.r.cp312.u7f4/omni/physics/tensors/api.py": {
+    "sha256": "1ba654210857a63b98236512e5f225723c3eb1dee64e867eaa4fade0578ccb7b",
+    "snapshot": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/drawers-native-guard-close-v13-20261110-1145/installed-source/0-api.py"
+  },
+  "/opt/IsaacLab-Arena/submodules/IsaacLab/source/isaaclab_physx/isaaclab_physx/assets/articulation/articulation_data.py": {
+    "sha256": "9f25446dff165278af62147c50d5153cc1a1236ccc308cb83a316892cdeb54bf",
+    "snapshot": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/drawers-native-guard-close-v13-20261110-1145/installed-source/1-articulation_data.py"
+  },
+  "/opt/IsaacLab-Arena/submodules/IsaacLab/source/isaaclab_physx/isaaclab_physx/assets/rigid_object/rigid_object_data.py": {
+    "sha256": "6e03c85172da8712bdebc6e19c89cea7868afb02f9e96259c82a281cca4270b4",
+    "snapshot": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/drawers-native-guard-close-v13-20261110-1145/installed-source/2-rigid_object_data.py"
+  },
+  "/opt/yam-arena/yam_arena/actions.py": {
+    "sha256": "ad100980fdf19521922e3e269ea353f61ae6c6eb5502ea9795be7c3d492d1c43",
+    "snapshot": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/drawers-native-guard-close-v13-20261110-1145/installed-source/3-actions.py"
+  }
+}

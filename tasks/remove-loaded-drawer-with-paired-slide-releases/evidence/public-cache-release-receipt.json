@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-10T19:19:22.463440+00:00",
+  "http_status": 201,
+  "release_id": 440802764,
+  "asset_id": 732638416,
+  "name": "Drawers-v21-frozen-model-inputs-and-zero-setup.tgz",
+  "bytes": 30856983,
+  "sha256": "f5c473b9aafb4a5c754a245cfc9812b10680a56392d3ed81931832b2ae770e19",
+  "GitHub_digest": "sha256:f5c473b9aafb4a5c754a245cfc9812b10680a56392d3ed81931832b2ae770e19",
+  "url": "https://github.com/jjenchen-unc/benchmark-tasks/releases/download/drawers-review-20261110/Drawers-v21-frozen-model-inputs-and-zero-setup.tgz",
+  "UNC_stream_SHA_verified": true,
+  "local_bulk_file_created": false,
+  "credentials_persisted": false
+}

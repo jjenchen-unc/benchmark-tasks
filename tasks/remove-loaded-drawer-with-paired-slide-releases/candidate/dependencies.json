@@ -1,0 +1,46 @@
+{
+  "tested_static_container": {
+    "checks": {
+      "usd_colliders": 116,
+      "all_joint_targets_resolve": true,
+      "cold_task_exec_before_sdk": true
+    },
+    "versions": {
+      "numpy": "2.3.1",
+      "scipy": "1.17.0",
+      "torch": "2.11.0+cu128",
+      "isaacsim": "6.1.0.0",
+      "isaaclab": "17.0.2",
+      "isaaclab-arena": "0.3.0",
+      "inspect-robots": "1.0.0",
+      "yam-arena": "0.1.0"
+    },
+    "usd": [
+      0,
+      25,
+      5
+    ],
+    "physics_executed": false
+  },
+  "pins": {
+    "dependencies": [
+      {
+        "name": "YAM-inspect-Isaac",
+        "url": "https://github.com/ttpierson/YAM-inspect-Isaac.git",
+        "revision": "25a2963d10451265dd2a6cbddea69d6a3b3b9b0d",
+        "path": "external/YAM-inspect-Isaac"
+      },
+      {
+        "name": "yam-isaac-lab-arena",
+        "url": "https://github.com/kairosiann/yam-isaac-lab-arena.git",
+        "revision": "bd62771e60320433893bd1d2df0fc79b5ddcd6d1",
+        "path": "external/yam-isaac-lab-arena"
+      }
+    ],
+    "launchable_stack_pins": {
+      "yam-isaac-lab-arena": "0059d02a1a91bc6834c1d0846022891df0c78730",
+      "inspect-robots-dream": "b5e936a201cec66c54c297e522c920d98445e339"
+    }
+  },
+  "runtime": "No MuJoCo or native support import; only local files plus installed Arena/Inspect/YAM/IsaacLab stack. Offline native compilation uses MuJoCo3.3.7, NumPy2.0.2, SciPy1.13.1."
+}

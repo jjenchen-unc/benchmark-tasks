@@ -74,6 +74,29 @@ It never teleports a fixture, applies evaluator fixture loads, or writes score,
 lock, damage or hold-timer flags. Ordinary episode reset and passive spring
 configuration belong to the task runtime, not the policy.
 
+## Third-party assets and licenses
+
+The SDK is yam-isaac-lab-arena at 0059d02a1a91bc6834c1d0846022891df0c78730, the
+program's official dependency, installed by the user's environment. Nothing from
+it is redistributed here except its I2RT MIT notice (LICENSE.i2rt). Licenses are
+given as each source states them.
+
+| Asset | Used for | Source | License as stated by the source | Bundled |
+|---|---|---|---|---|
+| YAM arm and gripper (URDF, meshes, collision hulls, converted USD) | both arms | SDK `yam_arena/assets/yam/`, from i2rt (SOURCE_COMMIT 120c3c81400171174604e503943f8d1ebc891058) | MIT, Copyright (c) I2RT Robotics | notice only (LICENSE.i2rt) |
+| link2/link3 meshes split into black and white parts | station arm colours | SDK `yam_arena/assets/yam/dream/`, from the dreamlabs 1.0.23 wheel | "MIT, see ../LICENSE.i2rt" (SDK `dream/SOURCE`) | no |
+| Station floor and table | room | SDK `station.py`/`scene.py`: boxes with flat colours generated in code; no mesh or texture file loaded | SDK README: "This repository has no license yet" (Placeholder) | no |
+| Top-camera stand (foot, mast, arm, housing) | room | SDK `station.camera_stand`: boxes and capsules generated in code | as the row above | no |
+| Sky dome light (uniform colour, no HDR image) and lamp | lighting | SDK `scene.py`, using Isaac Lab-Arena's DomeLight and an Isaac Lab sphere light | as the row above | no |
+| top_cam, left_cam, right_cam | policy RGB | SDK pinhole camera sensors at the calibrated poses; no camera mesh | as the row above | no |
+| Station poses, sizes and colours | numbers in the SDK code | SDK README: "Dream Labs' calibrated YAM station, from Dream's MuJoCo replica (dreamlabs 1.0.23, `yam_mujoco`) and the calibration it follows (yamlab at `ec0455d`)" | license not stated by the SDK | no |
+| Station fruit, bowl, plate (Arena object library) and water bottle | not used: this task's own OBJECTS replace them | - | - | no |
+| Monitor, stand, buttons, box, robot pedestals | task fixture | this folder (`monitor.usda`, `task.py`, `kit.py`) | authors' own procedural geometry, submitted with this task | yes |
+
+Isaac Lab-Arena release/0.3.1 (c7edf3a9d5d8276565208f72422f8f8a0806d6cf) ships
+the Apache License 2.0 in its LICENSE.md. Isaac Sim and Isaac Lab are runtime
+dependencies under their own licenses. None of them is redistributed here.
+
 ## Run the scripted demo
 
 From this task folder inside the activated runtime, choose fresh output folders

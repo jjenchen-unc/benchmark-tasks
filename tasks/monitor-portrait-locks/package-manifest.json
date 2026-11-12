@@ -4,8 +4,8 @@
   "scope": "all packaged files except this manifest; source correspondence is separately verified",
   "files": {
     "LICENSE.i2rt": "7cd0a0224a287ebd6c45703eb6623d264c7810f8958d65de8f99e87ccd9f4891",
-    "README.md": "a82db291687c4fae2fbaaa77269afa58701c3336f0db57b63d084302a522a2f2",
-    "THIRD_PARTY_NOTICES.md": "b38e7155ebe49218b5096c6f589be7dd383a4e45cc7df7210fef6224896de67d",
+    "README.md": "c37e2214704b7dcb35dac7b1111995e63445cbcbab94176163edbc12ab55a424",
+    "THIRD_PARTY_NOTICES.md": "ca4d7d2eee0cfc2545ec4b0df7fd11eedeb6dbf9925ad9b817f5ad560592a123",
     "contract.py": "52d8920516dad51213e04aa88aef594dae1fdfa1a4a5e334e82e9b68ca627cb1",
     "controller-parameters.json": "394844df9d62d8dbd4e4c1c54e15d7960974bdb27b739eab050e7efb33334319",
     "dream_continuity.py": "3a72ded4856a4657f24f1d09f93443d8fa4289f921f120bf113c9558cff18911",
@@ -48,7 +48,7 @@
   ],
   "submission_ready": true,
   "remaining": [],
-  "package_fingerprint": "b2b9a208cc10d5cafcaf994c8fafcace54de0c5630294b75126877601152d8fc",
+  "package_fingerprint": "8c9c7375a6e4bfe67f3fa5544f188c136eb2ac2ebfdad85db7246816761d9fc6",
   "official_accepted": false,
   "media_id": "M-HG9KE5"
 }

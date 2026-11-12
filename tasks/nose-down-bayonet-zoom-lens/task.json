@@ -1,0 +1,19 @@
+{
+  "title": "Mount a zoom lens nose-down and keep it at 50 mm",
+  "category": "Impact on jobs",
+  "keywords": [
+    "camera servicing",
+    "bayonet",
+    "zoom creep",
+    "bimanual"
+  ],
+  "instruction": "Choose one zoom lens that fits the overhead camera, whose lens mount faces down. Mount the lens on it, align the index marks and turn the lens until it locks. Set the zoom to 50 mm and let go of all cameras and lenses. The focal length must stay within 48–52 mm for the final continuous 20 seconds with no robot contact. A seated lens that is not locked earns nothing. Do not overload a mount or drop any lens.",
+  "context": "Camera servicing: a lens mounted on a downward-facing camera must be locked and must keep its zoom setting against gravity. Two of the three lenses fit the mount, but their zoom rings have different friction, which cannot be seen. It shows only once a lens hangs nose-down and is let go: one keeps its setting, the other runs out to its end stop within about two seconds. Unlike locking a bayonet cap into a socket, the task is to find the lens that holds, mount it from below and leave it at its setting.",
+  "setup": "Coordinates in metres; x away from the arm bases, y to the robots' left, z up. Table 1.10 x 1.30 x 0.06 m, top at z = 0.7475. Two six-joint YAM arms with parallel grippers, bases at (0, +/-0.305, 0.90) on rigid 200 x 200 x 152.5 mm pedestals; effort limits 27 N m shoulder, 7 N m wrist, 40 N per finger. Overhead camera (0.97 kg; 130 x 90 x 64 mm body, 80 mm diameter mount) hangs upside down from a rigid post and crossbar, mount centre at (0.40, 0.28, 1.2475), facing down; its bayonet locks after a 56.4 degree turn through a 0.32 N m click. Upright camera (1.26 kg, same body on a 70 x 70 x 60 mm stand), mount centre at (0.20, -0.28, 0.8775), facing up, with a different mount type. Three zoom lenses, each a 62 mm diameter x 50 mm barrel with a 58 mm x 20 mm zoom ring and a 52 mm x 20 mm front element that extends 20 mm from 18 mm to 55 mm over a 90 degree ring turn; all start at 18 mm, standing mount-end down: orange (0.34 kg) at (0.37, -0.20) fits only the upright camera; blue (0.47 kg, zoom friction 0.070 N m) at (0.27, 0.06) and purple (0.45 kg, zoom friction 0.010 N m) at (0.27, 0.20) fit the overhead camera. Two rigid foam trays, 120 x 260 x 20 mm, 0.62 kg, at (0.37, -0.27) and (0.27, 0.13) under the lenses. Same layout every reset, no jitter.",
+  "scoring": "1.0: a compatible lens is seated on the overhead camera (gap at most 1 mm, centre offset at most 2.5 mm, tilt at most 4 degrees), captured and pin-locked within 4 degrees, and its focal length stays within 48–52 mm for the final continuous 20 seconds with no robot contact on any camera or lens. 0.5: seated and locked for that final 20 seconds, but the focal length leaves 48–52 mm. Otherwise 0; a seated but unlocked lens earns 0. Any of these scores 0: a lens falling faster than 0.6 m/s while not held or mounted; more than 1.5 N m on a mount stop or pin for 50 ms; more than 80 N at a wrist for 100 ms.",
+  "run_limit": "3,034 steps at 20 Hz (151.7 s), including the final 20-second hands-off hold.",
+  "reset_notes": "Same layout every reset, no jitter: object poses, the ten task joints, ready pose with open grippers, unlocked mounts and 18 mm zoom. The scene settles before scoring starts. Nothing is consumed.",
+  "fidelity": "Rigid PhysX bodies with estimated masses and friction; no optics simulated. Zoom ring and front element are coupled by a stiff helix spring, so gravity on the front element turns the ring against its friction. Bayonet capture is a joint created when a compatible lens is pressed aligned onto the mount; the pin locks at the lock angle. Camera support and pedestals are rigid fixtures.",
+  "scores": "Dream-1 run: 0.0 (3,034 steps); demo: 1.0 (2,285 steps)",
+  "media": "M-S42ZSU"
+}

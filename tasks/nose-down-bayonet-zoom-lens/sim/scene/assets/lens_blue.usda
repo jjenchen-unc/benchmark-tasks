@@ -1,0 +1,412 @@
+#usda 1.0
+(
+    defaultPrim = "B6"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "B6" (
+    prepend apiSchemas = ["PhysicsArticulationRootAPI", "PhysxArticulationAPI"]
+)
+{
+    bool physxArticulation:enabledSelfCollisions = 1
+    int physxArticulation:solverPositionIterationCount = 64
+    int physxArticulation:solverVelocityIterationCount = 8
+    quatd xformOp:orient = (1, 0, 0, 0)
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+    def "links"
+    {
+        def Xform "lens_blue" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0, 0.03)
+            float3 physics:diagonalInertia = (0.0001350966, 0.0001350966, 0.00008105798)
+            float physics:mass = 0.270193
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cylinder "lens_blue_barrel" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.05
+                rel material:binding:physics = </B6/materials/mu_1_0> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.08, 0.08, 0.085)]
+                double radius = 0.031
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0.025)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cylinder "lens_blue_band"
+            {
+                uniform token axis = "Z"
+                double height = 0.006
+                color3f[] primvars:displayColor = [(0.15, 0.45, 0.95)]
+                double radius = 0.0314
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0.044)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cube "lens_blue_scale0"
+            {
+                color3f[] primvars:displayColor = [(0.95, 0.95, 0.95)]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.0008, 0.0024, 0.0024)
+                double3 xformOp:translate = (0.0313, 0, 0.0485)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "lens_blue_scale1"
+            {
+                color3f[] primvars:displayColor = [(0.95, 0.95, 0.95)]
+                double size = 1
+                quatd xformOp:orient = (0.9919004352588768, 0, 0, 0.12701781974687876)
+                float3 xformOp:scale = (0.0008, 0.0024, 0.0024)
+                double3 xformOp:translate = (0.03029004, 0.007886913, 0.0485)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "lens_blue_scale2"
+            {
+                color3f[] primvars:displayColor = [(0.95, 0.95, 0.95)]
+                double size = 1
+                quatd xformOp:orient = (0.9355940105763622, 0, 0, 0.3530776789513008)
+                float3 xformOp:scale = (0.0008, 0.0024, 0.0024)
+                double3 xformOp:translate = (0.02349604, 0.02067912, 0.0485)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "lens_blue_scale3"
+            {
+                color3f[] primvars:displayColor = [(0.95, 0.95, 0.95)]
+                double size = 1
+                quatd xformOp:orient = (0.7780357543184395, 0, 0, 0.6282199972956424)
+                float3 xformOp:scale = (0.0008, 0.0024, 0.0024)
+                double3 xformOp:translate = (0.006594261, 0.03059748, 0.0485)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "lens_blue_scale4"
+            {
+                color3f[] primvars:displayColor = [(0.95, 0.95, 0.95)]
+                double size = 1
+                quatd xformOp:orient = (0.7071067811865476, 0, 0, 0.7071067811865475)
+                float3 xformOp:scale = (0.0008, 0.0024, 0.0024)
+                double3 xformOp:translate = (1.916572e-18, 0.0313, 0.0485)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Sphere "lens_blue_foot0" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B6/materials/mu_0_15> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                prepend rel physics:filteredPairs = [
+                    </B6/links/lens_blue_zoomring/lens_blue_ring>,
+                    </B6/links/lens_blue_front/lens_blue_frontel>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.3, 0.3, 0.3)]
+                double radius = 0.002
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0.0125, 0.02165064, 0.002)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Sphere "lens_blue_foot1" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B6/materials/mu_0_15> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                prepend rel physics:filteredPairs = [
+                    </B6/links/lens_blue_zoomring/lens_blue_ring>,
+                    </B6/links/lens_blue_front/lens_blue_frontel>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.3, 0.3, 0.3)]
+                double radius = 0.002
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (-0.025, 3.061617e-18, 0.002)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Sphere "lens_blue_foot2" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </B6/materials/mu_0_15> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                prepend rel physics:filteredPairs = [
+                    </B6/links/lens_blue_zoomring/lens_blue_ring>,
+                    </B6/links/lens_blue_front/lens_blue_frontel>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.3, 0.3, 0.3)]
+                double radius = 0.002
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0.0125, -0.02165064, 0.002)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cylinder "lens_blue_neck"
+            {
+                uniform token axis = "Z"
+                double height = 0.009
+                color3f[] primvars:displayColor = [(0.6, 0.6, 0.62)]
+                double radius = 0.0205
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, -0.0045)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cube "lens_blue_lug0"
+            {
+                color3f[] primvars:displayColor = [(0.6, 0.6, 0.62)]
+                double size = 1
+                quatd xformOp:orient = (0.9537169507482269, 0, 0, 0.3007057995042731)
+                float3 xformOp:scale = (0.008, 0.012, 0.002)
+                double3 xformOp:translate = (0.02006923, 0.01405262, -0.007)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "lens_blue_lug1"
+            {
+                color3f[] primvars:displayColor = [(0.6, 0.6, 0.62)]
+                double size = 1
+                quatd xformOp:orient = (0.2164396139381029, 0, 0, 0.9762960071199334)
+                float3 xformOp:scale = (0.008, 0.012, 0.002)
+                double3 xformOp:translate = (-0.02220454, 0.01035415, -0.007)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "lens_blue_lug2"
+            {
+                color3f[] primvars:displayColor = [(0.6, 0.6, 0.62)]
+                double size = 1
+                quatd xformOp:orient = (-0.737277336810124, 0, 0, 0.6755902076156604)
+                float3 xformOp:scale = (0.008, 0.012, 0.002)
+                double3 xformOp:translate = (0.002135316, -0.02440677, -0.007)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cylinder "lens_blue_flange"
+            {
+                uniform token axis = "Z"
+                double height = 0.003
+                color3f[] primvars:displayColor = [(0.78, 0.62, 0.25)]
+                double radius = 0.0314
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0.0015)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cube "lens_blue_index"
+            {
+                color3f[] primvars:displayColor = [(0.9, 0.1, 0.1)]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.0016, 0.0036, 0.0036)
+                double3 xformOp:translate = (0.0313, 0, 0.006)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+        }
+
+        def Xform "lens_blue_zoomring" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI", "PhysicsFilteredPairsAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0, 0.01)
+            float3 physics:diagonalInertia = (0.000012179166, 0.000012179166, 0.000021025)
+            prepend rel physics:filteredPairs = </B6/links/lens_blue_front>
+            float physics:mass = 0.05
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0, 0, 0.050000000000000044)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cylinder "lens_blue_ring" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.02
+                rel material:binding:physics = </B6/materials/mu_1_0> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                prepend rel physics:filteredPairs = [
+                    </B6/links/lens_blue/lens_blue_foot0>,
+                    </B6/links/lens_blue/lens_blue_foot1>,
+                    </B6/links/lens_blue/lens_blue_foot2>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.22, 0.22, 0.23)]
+                double radius = 0.029
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0.01)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cube "lens_blue_ringmark"
+            {
+                color3f[] primvars:displayColor = [(0.95, 0.95, 0.95)]
+                double size = 1
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.0012, 0.0016, 0.004)
+                double3 xformOp:translate = (0.0293, 0, 0.002)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+        }
+
+        def Xform "lens_blue_front" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0, 0.01)
+            float3 physics:diagonalInertia = (0.00003035, 0.00003035, 0.0000507)
+            float physics:mass = 0.15
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0, 0, 0.06999999999999995)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cylinder "lens_blue_frontel" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.02
+                rel material:binding:physics = </B6/materials/mu_0_8> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                prepend rel physics:filteredPairs = [
+                    </B6/links/lens_blue/lens_blue_foot0>,
+                    </B6/links/lens_blue/lens_blue_foot1>,
+                    </B6/links/lens_blue/lens_blue_foot2>,
+                ]
+                float physxCollision:contactOffset = 0.0001
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.12, 0.12, 0.14)]
+                double radius = 0.026
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0.01)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cylinder "lens_blue_glass"
+            {
+                uniform token axis = "Z"
+                double height = 0.0012
+                color3f[] primvars:displayColor = [(0.25, 0.35, 0.5)]
+                double radius = 0.022
+                quatd xformOp:orient = (1, 0, 0, 0)
+                double3 xformOp:translate = (0, 0, 0.02)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+        }
+    }
+
+    def "materials"
+    {
+        def Material "mu_1_0" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1
+            float physics:restitution = 0
+            float physics:staticFriction = 1
+        }
+
+        def Material "mu_0_15" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.15
+            float physics:restitution = 0
+            float physics:staticFriction = 0.15
+        }
+
+        def Material "mu_0_8" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.8
+            float physics:restitution = 0
+            float physics:staticFriction = 0.8
+        }
+    }
+
+    def "joints"
+    {
+        def PhysicsRevoluteJoint "lens_blue_zoom" (
+            prepend apiSchemas = ["PhysxJointAPI", "PhysxJointAxisAPI:angular", "PhysicsDriveAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0.000034906585
+            float drive:angular:physics:maxForce = inf
+            float drive:angular:physics:stiffness = 0
+            float drive:angular:physics:targetPosition = 0
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </B6/links/lens_blue>
+            rel physics:body1 = </B6/links/lens_blue_zoomring>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0, 0, 0.05)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0.70710677, 0, -0.70710677, 0)
+            quatf physics:localRot1 = (0.70710677, 0, -0.70710677, 0)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 90
+            float physxJoint:armature = 0.0001
+            float physxJointAxis:angular:dynamicFrictionEffort = 0.0695388
+            float physxJointAxis:angular:staticFrictionEffort = 0.0695388
+        }
+
+        def PhysicsPrismaticJoint "lens_blue_ext" (
+            prepend apiSchemas = ["PhysxJointAPI", "PhysxJointAxisAPI:linear", "PhysicsDriveAPI:linear"]
+        )
+        {
+            float drive:linear:physics:damping = 0.5
+            float drive:linear:physics:maxForce = inf
+            float drive:linear:physics:stiffness = 0
+            float drive:linear:physics:targetPosition = 0
+            uniform token drive:linear:physics:type = "force"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </B6/links/lens_blue>
+            rel physics:body1 = </B6/links/lens_blue_front>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0, 0, 0.07)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0.70710677, 0, -0.70710677, 0)
+            quatf physics:localRot1 = (0.70710677, 0, -0.70710677, 0)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 0.02
+            float physxJoint:armature = 0.001
+            float physxJointAxis:linear:dynamicFrictionEffort = 0
+            float physxJointAxis:linear:staticFrictionEffort = 0
+        }
+    }
+}
+

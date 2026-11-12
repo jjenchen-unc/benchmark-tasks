@@ -1,0 +1,22 @@
+{
+  "title": "Pull a nail from painted trim: first lay a scrap block down as the claw hammer's fulcrum so the paint is never marked",
+  "category": "Impact on jobs",
+  "keywords": [
+    "claw hammer",
+    "nail pulling",
+    "lever",
+    "fulcrum",
+    "surface protection",
+    "tool use",
+    "carpentry"
+  ],
+  "instruction": "Pull the nail out of the white board with the claw hammer without letting the hammer touch the paint.",
+  "context": "Trim carpenters and painters often have to pull a nail from woodwork that is already painted. Here the nail holds more than the robot's arm can pull straight up, so the claw hammer must be rocked as a lever on the rounded back of its head; rocked directly on the board, that claw-back would rest on the paint and mark it. Nothing in the scene says so: the scrap block lies on the table to the side, and the robot must think of laying it beside the nail first, then rock the hammer on it with the head kept on the block throughout. Unlike a plain nail pull with a claw hammer, levering up a block or crate and chocking it, prying a paint-tin lid, or backing a board with scrap before drilling, the ability tested is planning a protective fulcrum before using the tool: the scrap must go down first, and then carry the hammer's pivot while the nail comes out.",
+  "setup": "Positions in cm from the midpoint between the two arm bases, on the table (x forward, y left). Board: white-painted pine trim (14 x 24 x 2 cm) clamped flat to the table, its centre at x 36, y 6. Nail: steel, 3.8 mm shank, 11 mm head, at x 33, y 0, its head 2.4 cm above the paint, 1.7 cm driven into the wood; it slips in the wood only under a pull of 80 N or more (below that the wood gives elastically, 2 mm at 80 N) and is free once its point is out. Claw hammer: 0.45 kg, 30 cm long; a steel head (claw back rounded to a 1.6 cm radius; a split claw 4 cm long with a 4.4 mm slot that closes at its throat) on a wooden handle with a blue rubber grip at the top. It stands head down, claw toward the robot, in a 2 cm tall wooden pocket on the table at x 22, y -12, its handle upright through an open-sided wooden collar 14.5 cm above the table. Scrap block: plywood, 10 x 5 x 1.5 cm, 40 g, lying flat on the bare table at x 22, y 22, long side forward.",
+  "scoring": "0 if at any moment any part of the hammer touches the painted face of the board (seen in the video as the hammer's head resting on the white face; a dent or scuff is visible in a photo afterwards). Otherwise: 1.0 if the nail is out of the wood (raised 17 mm, its point above the paint); 0.5 if the nail is raised at least 5 mm, measured with a ruler from the paint to the underside of its head; 0.25 if the scrap block lies flat on the board with its nearest edge within 2 cm of the nail; else 0. The score at the end of the run counts; touching the paint at any time cannot be undone.",
+  "run_limit": "1,200 steps (1 minute at 20 Hz)",
+  "reset_notes": "Drive the nail back to 2.4 cm proud, check the paint is clean, stand the hammer head down in its pocket, and put the scrap block back on its mark on the table.",
+  "fidelity": "Rigid bodies built from boxes and cylinders; board, pocket and collar are fixed. The nail is a slider whose hold in the wood is a stick-slip model (stiff spring that slips at 80 N), set so the arm cannot pull it straight up but the hammer's lever (about 6 to 1) can. A real 6d common nail in pine holds 100 to 250 N. The nail body is 50 g in simulation for solver stability. Paint marking is judged geometrically (hammer within 1.5 mm of the face).",
+  "scores": "Dream-1 run: 0.0 (1200 steps); demo: 1.0 (559 steps)",
+  "media": "M-7U2R3R"
+}

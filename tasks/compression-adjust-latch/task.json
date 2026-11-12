@@ -16,5 +16,5 @@
   "context": "Equipment and electrical enclosures are sealed with adjustable compression latches whose grip length must match the lid and gasket. The pawl that clamps sits under the flange and cannot be seen, so the right grip length is hidden: at the start setting the locked lid still shows a 2.5 mm gap, and with the grip set too short the handle jams part way and the cam is overloaded. The knob only turns while the latch is unlocked, so the setting is found by trying: lock, look at the gap, unlock, turn the knob, lock again. Unlike an ordinary quarter-turn latch or a draw latch, which only has to be turned or hooked shut, this latch must first be set to the right grip length, and that setting cannot be seen.",
   "fidelity": "Rigid parts; CPU physics at 2 ms. The gasket is a spring on the lid's straight slide, not a deformable body; the cam and the threaded knob are stiff compliant constraints computed each step, the knob lock is a stiff restraint while the pawl presses, and stripping removes the cam force. Standard YAM arms (27 / 7 N m joints, 50 N grippers) on 150 mm supports.",
   "scores": "Dream-1 run: 0.0 (3848 steps); demo: 1.0 (1803 steps)",
-  "media": "M-GL5JEW"
+  "media": "M-Q8HEXC"
 }

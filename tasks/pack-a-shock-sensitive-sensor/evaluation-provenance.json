@@ -1,0 +1,62 @@
+{
+  "kind": "Actual final model and independent final-stack robot demonstration, not native transfer. runtime_manifest records the runtime as evaluated; only runtime/README.md text was reworded afterwards.",
+  "model": {
+    "policy": "dream",
+    "model": "dreamlabs/dream-1-beta",
+    "score": 0.0,
+    "actions": 1604,
+    "termination": "time_limit",
+    "requests": 393,
+    "sessions": 1,
+    "frames_per_camera": 1605
+  },
+  "demo": {
+    "score": 1.0,
+    "platform": "L40S/565.57.01",
+    "controls": 363,
+    "physics_s": 18.15,
+    "frames_per_camera": 364,
+    "all_actual_runtime_checks": {
+      "all_saved_robot_controls_executed": true,
+      "all_runtime_channels_verified": true,
+      "genuine20Hz_within_original_budget": true,
+      "no_guard_or_damage_stop": true,
+      "matching_runtime_fullscore": true,
+      "every_action_has_three_real_rgb": true,
+      "immutable_registered_source": true
+    }
+  },
+  "runtime_files_identical_to_verified_demo": true,
+  "runtime_manifest": {
+    "task.draft.json": "bf3265fbbc6afe047102e933791f3da7d89874414a201d0413dba10be2ba41ea",
+    "README.md": "9ec019fe418eb02aa30b7d92ee6d30df4b64c28239d6c3b86af68936768ef414",
+    "d3_mechanisms.py": "b7763036d1c957ca93ad573735ae52f4a4afb750a47119f37f96ee51d001cd13",
+    "source-provenance.json": "8a800ac59d91a33fb340af9a717e6f875ffcf850b6d5a29e2468c08f7428ed1a",
+    "d3_force_guard.py": "83f239a75673eabdfec350ebc14c6552b6600a6f53f17995a6b5c69f1912c076",
+    "d3_tensor_contacts.py": "2279c03400dad341760c88caad78a41d83f23983eba722a9bf3d4aa3e9b3407d",
+    "d3_rubric.py": "270cd301b9763ef234c59f4233aa6dac3260a86a75e314d617de9d28f9b63e03",
+    "task.py": "2d9fcf6f2a4ce9f9b857509b9967c121550ec5726b705244e362cf4829685b79",
+    "d3_motor_adapter.py": "938725b166ede5f90596c5147515010e012a7c069238639709d9002cc8c7fcf6",
+    "d3_foundation_physics.py": "1a549532f8aa76d6c49b6c73c5317ceb6f4a1c1267fe72febdc2fa3ab534cf25",
+    "d3_shock.py": "b4a7f60c9c655d7a02a011096877a66aba4ae390acb6449009f00e217e763921",
+    "d3_physics.py": "de3a611ece813aa6db7791ae7af3b5a63345f0e621b4c41a86f04d055d7f8304",
+    "d3_kit.py": "74e59c801a9be6e1618c5376ba56fe11bb0e6c587cf27977323d2b529c398bb2",
+    "d3_contacts_math.py": "dc39b175714b87e936e5ad481031f22c573011f222242ba5b657cfef3943a907",
+    "fixture.json": "045073396d0274acee9c2b793f78514babe68e5e21b6be20fa11c07d993a1c00",
+    "d3_material.py": "843ed11f0b4b305a642cb629e462f1ac90fcf97e2c14539bdb1b9bf77af07818",
+    "d3_history.py": "2197483003029b31054a32aba6430bdcb8238f0b2960467afe40377f4271eb2a",
+    "assets/carton-2.usda": "324a65e5aa838a14e1f0ba1946cf1018e13967ccfd6fcfad47029b2f885d7c18",
+    "assets/carton-3.usda": "5d1568fba96ac8fba7ea4129820f2dd7062503375c20b3ae2d6d202c3483baa3",
+    "assets/carton-4.usda": "1fb636fb822808fab63947289406fbf09f1983c11e005b59e3b02fa29292e3aa",
+    "assets/carton-1.usda": "5d73681ef7e2100a648bdf6f8d1acba0a5560a1ca604c4e11138d0a29d55d507"
+  },
+  "result_hashes": {
+    "model-verification.json": "d88ace0d08dd3b8cbfdba9c0cc338ebaaea300ce713c0b50cf7cf748c2d21a11",
+    "continuity.jsonl": "0bea1f154a306a748eebcb9a3ce0ee2e84c78f07bd1fb04dc8de763cc9adbf99",
+    "final-demo/result.json": "729bdba0d99a7a9112064c73718f3c0e00f104d4ebd0354973b327b4d90965c8",
+    "final-demo/source-sha256.json": "719bdd1b1bf5498a62409cd1b9ed62d57cf8bb2f8823a7eca807989948d14896"
+  },
+  "model_frame_manifest_sha256": "44effb6c1a9b020f433fd2194b2b675a9509b4ce9cb7d4fdef8df34ac80422c3",
+  "one_fixed_layout": true,
+  "submission_ready_pending_media_linkage": true
+}

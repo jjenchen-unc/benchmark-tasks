@@ -1,0 +1,28 @@
+{
+  "kind": "D3unsubmittedArena/YAMintegration",
+  "native_source": "artifacts/submission-readiness/d3-arena-preparation-20261109/native-input",
+  "native_source_scene_sha256": "117d609f90f3dcb0afe413b1bdc509f16aa10a601de8d305500c0cf31be0cbda",
+  "copied_components": {
+    "d3_material.py": {
+      "source": "arena-components/global_pad.py",
+      "sha256": "843ed11f0b4b305a642cb629e462f1ac90fcf97e2c14539bdb1b9bf77af07818"
+    },
+    "d3_shock.py": {
+      "source": "arena-components/shock_window.py",
+      "sha256": "b4a7f60c9c655d7a02a011096877a66aba4ae390acb6449009f00e217e763921"
+    },
+    "d3_contacts_math.py": {
+      "source": "arena-components/mobile_contacts.py",
+      "sha256": "dc39b175714b87e936e5ad481031f22c573011f222242ba5b657cfef3943a907"
+    },
+    "d3_motor_adapter.py": {
+      "source": "pad-prototype/motor_adapter.py",
+      "sha256": "938725b166ede5f90596c5147515010e012a7c069238639709d9002cc8c7fcf6",
+      "adaptation": "Onlyrebind foam_kit.arr->d3_kit.arr; all otherASTidentical"
+    }
+  },
+  "component_evidence": "artifacts/submission-readiness/d3-arena-preparation-20261109/global-pad-component-evidence.json",
+  "native_score_transferred": false,
+  "model_run": null,
+  "submission_ready": false
+}

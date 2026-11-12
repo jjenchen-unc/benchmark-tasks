@@ -16,5 +16,5 @@
   "reset_notes": "Take the drawer out, stand it on its marks on the table with the box in it, and clear the closed-and-let-go record. There is one fixed layout; the episode seed does not change the scene.",
   "fidelity": "Rigid boxes. Roller slides are modelled as low-friction (0.05) sliding contacts with a fixed 6 mm roller step at the front of each rail; no self-closing spring or damper. Sizes are real scale for a small desk or bedside drawer unit (300 mm wide drawer box), but the drawer is 202 mm deep, shallower than a 450 mm kitchen drawer, to stay within the arms' reach. The 1.0 kg drawer and 0.8 kg load are realistic for that size, lighter than a full kitchen drawer.",
   "scores": "Dream-1 run: 0.0 (1600 steps); demo: 1.0 (849 steps)",
-  "media": "M-Y62F8K"
+  "media": "M-7JWSU5"
 }

@@ -1,0 +1,13 @@
+{
+  "kind": "CPU SYNTHETIC only",
+  "pass": true,
+  "moving_frame_world_subtraction": true,
+  "all_12_signed_loads": true,
+  "load_controls": 960,
+  "robot_only_setup_controls": 70,
+  "maximum_setup_delta_rad": 0.02,
+  "composer_cleared": true,
+  "actual_function_AST_executed": true,
+  "sampled_external_bracing_rejects": true,
+  "setup_controls_are_synthetic_zero_initial_case": true
+}

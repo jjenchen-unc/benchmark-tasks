@@ -1,0 +1,654 @@
+{
+  "kind": "EVALUATOR_ONLY component/negative/foundation validation; never feasibility/model evidence",
+  "suite": "selected-force",
+  "model_calls": 0,
+  "checks": {
+    "three_station_rgb": true,
+    "14D20Hz": true,
+    "1ms_substeps": true,
+    "all_credit_gated_unverified": true,
+    "actual_pair_filter_matrix": true,
+    "actual_12_pair_only_contacts": true,
+    "actual_contacts_and_substeps": true,
+    "rack20degrees": true,
+    "left_declared_mount_and_FK": true,
+    "right_declared_mount_and_FK": true,
+    "left_27_7Nm_40N_actual_caps": true,
+    "right_27_7Nm_40N_actual_caps": true,
+    "known_5N_xyz_both_arms_magnitude": false,
+    "known_5N_xyz_both_arms_reaction_basis": false
+  },
+  "episodes": [
+    {
+      "label": "foundation",
+      "status": {
+        "score": 0.0,
+        "raw_before_veto": 0.0,
+        "items": [],
+        "required": 1,
+        "qualifying_liners": [],
+        "cup_fell": false,
+        "fell_reason": null,
+        "failure": null,
+        "physics_samples": 500,
+        "physics_s": 0.5000000000000003,
+        "raw_score": 0.0,
+        "gate": "unverified_runtime_channels",
+        "missing": [
+          "contacts_bracing",
+          "dry_slip_hold",
+          "explicit_pair_filters",
+          "genuine_robot_fullgoal",
+          "geometry",
+          "link_guard",
+          "total_motor_limits",
+          "wet_transition",
+          "wrist_force"
+        ],
+        "measurement_error": null,
+        "controls": 10,
+        "wet": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "wrist_max_n": [
+          21.83515739440918,
+          22.16607666015625
+        ],
+        "force_guard_frozen": false,
+        "link20ms_force_n": 0.0,
+        "filter_audit": {
+          "task_colliders": 16,
+          "all_colliders": 665,
+          "exclusions_authored": 5352,
+          "relationship_updates": 8
+        },
+        "submission_ready": false
+      },
+      "contact_examples": [
+        {
+          "sensor": "/World/envs/env_0/liner_1",
+          "other": "/World/envs/env_0/table/geometry/mesh",
+          "force_n": 0.18845996260643005,
+          "separation_m": -2.8617680072784424e-05
+        },
+        {
+          "sensor": "/World/envs/env_0/liner_1",
+          "other": "/World/envs/env_0/table/geometry/mesh",
+          "force_n": 0.17941801249980927,
+          "separation_m": -2.837367355823517e-05
+        },
+        {
+          "sensor": "/World/envs/env_0/liner_1",
+          "other": "/World/envs/env_0/table/geometry/mesh",
+          "force_n": 0.1884569525718689,
+          "separation_m": -2.1765008568763733e-05
+        },
+        {
+          "sensor": "/World/envs/env_0/liner_1",
+          "other": "/World/envs/env_0/table/geometry/mesh",
+          "force_n": 0.17941509187221527,
+          "separation_m": -2.201087772846222e-05
+        },
+        {
+          "sensor": "/World/envs/env_0/liner_2",
+          "other": "/World/envs/env_0/table/geometry/mesh",
+          "force_n": 0.18846218287944794,
+          "separation_m": -2.8617680072784424e-05
+        },
+        {
+          "sensor": "/World/envs/env_0/liner_2",
+          "other": "/World/envs/env_0/table/geometry/mesh",
+          "force_n": 0.17941516637802124,
+          "separation_m": -2.8371810913085938e-05
+        },
+        {
+          "sensor": "/World/envs/env_0/liner_2",
+          "other": "/World/envs/env_0/table/geometry/mesh",
+          "force_n": 0.188459113240242,
+          "separation_m": -2.1763145923614502e-05
+        },
+        {
+          "sensor": "/World/envs/env_0/liner_2",
+          "other": "/World/envs/env_0/table/geometry/mesh",
+          "force_n": 0.17941226065158844,
+          "separation_m": -2.2009015083312988e-05
+        },
+        {
+          "sensor": "/World/envs/env_0/liner_3",
+          "other": "/World/envs/env_0/table/geometry/mesh",
+          "force_n": 0.18845994770526886,
+          "separation_m": -2.8617680072784424e-05
+        },
+        {
+          "sensor": "/World/envs/env_0/liner_3",
+          "other": "/World/envs/env_0/table/geometry/mesh",
+          "force_n": 0.17941804230213165,
+          "separation_m": -2.837367355823517e-05
+        },
+        {
+          "sensor": "/World/envs/env_0/liner_3",
+          "other": "/World/envs/env_0/table/geometry/mesh",
+          "force_n": 0.1884569525718689,
+          "separation_m": -2.1765008568763733e-05
+        },
+        {
+          "sensor": "/World/envs/env_0/liner_3",
+          "other": "/World/envs/env_0/table/geometry/mesh",
+          "force_n": 0.17941506206989288,
+          "separation_m": -2.201087772846222e-05
+        },
+        {
+          "sensor": "/World/envs/env_0/liner_4",
+          "other": "/World/envs/env_0/table/geometry/mesh",
+          "force_n": 0.1884649693965912,
+          "separation_m": -2.8617680072784424e-05
+        },
+        {
+          "sensor": "/World/envs/env_0/liner_4",
+          "other": "/World/envs/env_0/table/geometry/mesh",
+          "force_n": 0.17941300570964813,
+          "separation_m": -2.8371810913085938e-05
+        },
+        {
+          "sensor": "/World/envs/env_0/liner_4",
+          "other": "/World/envs/env_0/table/geometry/mesh",
+          "force_n": 0.18846198916435242,
+          "separation_m": -2.1766871213912964e-05
+        },
+        {
+          "sensor": "/World/envs/env_0/liner_4",
+          "other": "/World/envs/env_0/table/geometry/mesh",
+          "force_n": 0.17941002547740936,
+          "separation_m": -2.201087772846222e-05
+        },
+        {
+          "sensor": "/World/envs/env_0/liner_5",
+          "other": "/World/envs/env_0/table/geometry/mesh",
+          "force_n": 0.18845994770526886,
+          "separation_m": -2.8617680072784424e-05
+        },
+        {
+          "sensor": "/World/envs/env_0/liner_5",
+          "other": "/World/envs/env_0/table/geometry/mesh",
+          "force_n": 0.17941802740097046,
+          "separation_m": -2.837367355823517e-05
+        },
+        {
+          "sensor": "/World/envs/env_0/liner_5",
+          "other": "/World/envs/env_0/table/geometry/mesh",
+          "force_n": 0.1884569674730301,
+          "separation_m": -2.1765008568763733e-05
+        },
+        {
+          "sensor": "/World/envs/env_0/liner_5",
+          "other": "/World/envs/env_0/table/geometry/mesh",
+          "force_n": 0.17941507697105408,
+          "separation_m": -2.201087772846222e-05
+        }
+      ],
+      "cup_pos": [
+        [
+          0.09999989718198776,
+          -0.2800001800060272,
+          0.7824999690055847
+        ],
+        [
+          0.24000002443790436,
+          -0.28000006079673767,
+          0.7824999690055847
+        ]
+      ],
+      "liner_pos": [
+        [
+          0.06999997049570084,
+          0.04999973252415657,
+          0.750474750995636
+        ],
+        [
+          0.07000000029802322,
+          -0.050000280141830444,
+          0.750474750995636
+        ],
+        [
+          0.06999999284744263,
+          -0.15000027418136597,
+          0.750474750995636
+        ],
+        [
+          0.25999999046325684,
+          0.04999971389770508,
+          0.750474750995636
+        ],
+        [
+          0.25999999046325684,
+          -0.05000028759241104,
+          0.750474750995636
+        ],
+        [
+          0.25999999046325684,
+          -0.15000030398368835,
+          0.750474750995636
+        ]
+      ]
+    }
+  ],
+  "interventions": [
+    {
+      "kind": "EVALUATOR_ONLY_known_load",
+      "arm": "left",
+      "force_world_n": [
+        -5.0,
+        0.0,
+        0.0
+      ],
+      "moment_world_nm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "composer_global": true
+    },
+    {
+      "kind": "EVALUATOR_ONLY_known_load",
+      "arm": "left",
+      "force_world_n": [
+        5.0,
+        0.0,
+        0.0
+      ],
+      "moment_world_nm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "composer_global": true
+    },
+    {
+      "kind": "EVALUATOR_ONLY_known_load",
+      "arm": "left",
+      "force_world_n": [
+        0.0,
+        -5.0,
+        0.0
+      ],
+      "moment_world_nm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "composer_global": true
+    },
+    {
+      "kind": "EVALUATOR_ONLY_known_load",
+      "arm": "left",
+      "force_world_n": [
+        0.0,
+        5.0,
+        0.0
+      ],
+      "moment_world_nm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "composer_global": true
+    },
+    {
+      "kind": "EVALUATOR_ONLY_known_load",
+      "arm": "left",
+      "force_world_n": [
+        0.0,
+        0.0,
+        -5.0
+      ],
+      "moment_world_nm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "composer_global": true
+    },
+    {
+      "kind": "EVALUATOR_ONLY_known_load",
+      "arm": "left",
+      "force_world_n": [
+        0.0,
+        0.0,
+        5.0
+      ],
+      "moment_world_nm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "composer_global": true
+    },
+    {
+      "kind": "EVALUATOR_ONLY_known_load",
+      "arm": "right",
+      "force_world_n": [
+        -5.0,
+        0.0,
+        0.0
+      ],
+      "moment_world_nm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "composer_global": true
+    },
+    {
+      "kind": "EVALUATOR_ONLY_known_load",
+      "arm": "right",
+      "force_world_n": [
+        5.0,
+        0.0,
+        0.0
+      ],
+      "moment_world_nm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "composer_global": true
+    },
+    {
+      "kind": "EVALUATOR_ONLY_known_load",
+      "arm": "right",
+      "force_world_n": [
+        0.0,
+        -5.0,
+        0.0
+      ],
+      "moment_world_nm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "composer_global": true
+    },
+    {
+      "kind": "EVALUATOR_ONLY_known_load",
+      "arm": "right",
+      "force_world_n": [
+        0.0,
+        5.0,
+        0.0
+      ],
+      "moment_world_nm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "composer_global": true
+    },
+    {
+      "kind": "EVALUATOR_ONLY_known_load",
+      "arm": "right",
+      "force_world_n": [
+        0.0,
+        0.0,
+        -5.0
+      ],
+      "moment_world_nm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "composer_global": true
+    },
+    {
+      "kind": "EVALUATOR_ONLY_known_load",
+      "arm": "right",
+      "force_world_n": [
+        0.0,
+        0.0,
+        5.0
+      ],
+      "moment_world_nm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "composer_global": true
+    }
+  ],
+  "submission_ready": false,
+  "all_checks_passed": false,
+  "force_approximation": {
+    "kind": "conservative Coulomb upper bound, not measured per-contact vector norm",
+    "effective_mu_upper_bound": 1.0,
+    "actual_stage_material_coefficients": [
+      0.5,
+      0.5,
+      1.0,
+      1.0,
+      0.2021999955177307,
+      0.2021999955177307,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.8600999712944031,
+      0.8600999712944031,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.7922000288963318,
+      0.7922000288963318,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.18310000002384186,
+      0.18310000002384186,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.25029999017715454,
+      0.25029999017715454,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.1881999969482422,
+      0.1881999969482422,
+      1.0,
+      1.0,
+      0.30000001192092896,
+      0.30000001192092896,
+      1.0,
+      1.0,
+      0.30000001192092896,
+      0.30000001192092896,
+      1.0,
+      1.0,
+      0.30000001192092896,
+      0.30000001192092896,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "threshold_n": 50.0,
+    "window_s": 0.02
+  },
+  "initial_actual_positions": {
+    "liner_1": [
+      0.06999997049570084,
+      0.04999973252415657,
+      0.750474750995636
+    ],
+    "cup_1": [
+      0.09999989718198776,
+      -0.2800001800060272,
+      0.7824999690055847
+    ],
+    "tray": [
+      0.699999988079071,
+      0.25,
+      0.7514998912811279
+    ]
+  },
+  "measured_mount_FK": [
+    {
+      "arm": "left",
+      "actual_base": [
+        0.36000001430511475,
+        0.20000001788139343,
+        0.8974999785423279
+      ],
+      "base_R": [
+        [
+          -8.344650268554688e-07,
+          1.0000003576278687,
+          7.038193583497332e-09
+        ],
+        [
+          -1.0000003576278687,
+          -8.344650268554688e-07,
+          -7.038197136211011e-09
+        ],
+        [
+          -7.038193583497332e-09,
+          -7.038197136211011e-09,
+          1.0
+        ]
+      ],
+      "FK_position_error_m": 2.463529025685326e-07,
+      "FK_rotation_error_rad": 7.909929518742415e-07
+    },
+    {
+      "arm": "right",
+      "actual_base": [
+        0.4000000059604645,
+        -0.36000001430511475,
+        0.8974999785423279
+      ],
+      "base_R": [
+        [
+          -1.1920928955078125e-06,
+          -1.0000001192092896,
+          -4.731930403067963e-10
+        ],
+        [
+          1.0000001192092896,
+          -1.1920928955078125e-06,
+          -2.524078013266262e-07
+        ],
+        [
+          2.524077729049168e-07,
+          -4.734630465463852e-10,
+          1.0
+        ]
+      ],
+      "FK_position_error_m": 1.7478997735302932e-07,
+      "FK_rotation_error_rad": 2.5584676318592714e-07
+    }
+  ],
+  "actual_robot_limits": {
+    "left": {
+      "joints": [
+        "joint1",
+        "joint2",
+        "joint3",
+        "joint4",
+        "joint5",
+        "joint6",
+        "joint7",
+        "joint8"
+      ],
+      "effort_limit": [
+        [
+          27.0,
+          27.0,
+          27.0,
+          7.0,
+          7.0,
+          7.0,
+          40.0,
+          40.0
+        ]
+      ],
+      "stiffness": [
+        [
+          80.0,
+          80.0,
+          80.0,
+          10.0,
+          10.0,
+          10.0,
+          5000.0,
+          5000.0
+        ]
+      ],
+      "drive_ceiling_API": "root_view.get_dof_max_forces"
+    },
+    "right": {
+      "joints": [
+        "joint1",
+        "joint2",
+        "joint3",
+        "joint4",
+        "joint5",
+        "joint6",
+        "joint7",
+        "joint8"
+      ],
+      "effort_limit": [
+        [
+          27.0,
+          27.0,
+          27.0,
+          7.0,
+          7.0,
+          7.0,
+          40.0,
+          40.0
+        ]
+      ],
+      "stiffness": [
+        [
+          80.0,
+          80.0,
+          80.0,
+          10.0,
+          10.0,
+          10.0,
+          5000.0,
+          5000.0
+        ]
+      ],
+      "drive_ceiling_API": "root_view.get_dof_max_forces"
+    }
+  },
+  "wall_s": 945.6060925598722
+}

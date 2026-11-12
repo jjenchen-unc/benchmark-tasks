@@ -1,0 +1,334 @@
+{
+  "kind": "genuine14D20Hz state-aware reference attempt",
+  "model_calls": 0,
+  "target": "C1-T1",
+  "seed": 3867854786,
+  "trial_seed": 3867854786,
+  "physical_seed": 42,
+  "public_case": true,
+  "instruction": "Select a suitable liner, lay it on the fixed 20 degree rack, stand one glass on it, release both glass and liner, and leave both hands off for 20 seconds after 0.5 seconds settling, with at most 5 mm displacement and 15 degree normal misalignment.",
+  "full_goal_demonstrated": false,
+  "submission_ready": false,
+  "robot_frame_preflight": [
+    {
+      "arm": 0,
+      "basepos": [
+        0.36000001430511475,
+        0.20000001788139343,
+        0.8974999785423279
+      ],
+      "position_error_m": 3.0117260298412444e-07,
+      "rotation_error_rad": 7.744053979953316e-07
+    },
+    {
+      "arm": 1,
+      "basepos": [
+        0.4000000059604645,
+        -0.36000001430511475,
+        0.8974999785423279
+      ],
+      "position_error_m": 1.8202263481948242e-07,
+      "rotation_error_rad": 9.33658889322982e-08
+    }
+  ],
+  "initial_status_JSON_preflight": true,
+  "status": {
+    "score": 0.0,
+    "raw_before_veto": 1.0,
+    "items": [
+      {
+        "value": 1.0,
+        "liner": 2,
+        "glass": 1,
+        "hold_s": 25.274
+      }
+    ],
+    "required": 1,
+    "qualifying_liners": [
+      2
+    ],
+    "cup_fell": false,
+    "fell_reason": null,
+    "failure": null,
+    "physics_samples": 73450,
+    "physics_s": 73.44999999998666,
+    "raw_score": 1.0,
+    "gate": "unverified_runtime_channels",
+    "missing": [
+      "contacts_bracing",
+      "dry_slip_hold",
+      "explicit_pair_filters",
+      "genuine_robot_fullgoal",
+      "geometry",
+      "link_guard",
+      "total_motor_limits",
+      "wet_transition",
+      "wrist_force"
+    ],
+    "measurement_error": null,
+    "controls": 1469,
+    "wet": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "wrist_max_n": [
+      22.020023345947266,
+      21.604629516601562
+    ],
+    "force_guard_frozen": false,
+    "link20ms_force_n": 0.0,
+    "filter_audit": {
+      "task_colliders": 16,
+      "all_colliders": 665,
+      "exclusions_authored": 5352,
+      "relationship_updates": 8
+    },
+    "submission_ready": false
+  },
+  "plan": {
+    "liners": [
+      2
+    ],
+    "slots": [
+      1
+    ],
+    "wet": false,
+    "planner": "simstate+hidden friction, feasibility only"
+  },
+  "stages": [
+    {
+      "phase": "liner_hover",
+      "controls": 40,
+      "target_m": [
+        0.07000000029802322,
+        -0.050000280141830444,
+        0.9674999713897705
+      ],
+      "actual_error_m": 0.005064666742320028
+    },
+    {
+      "phase": "liner_descend",
+      "controls": 80,
+      "target_m": [
+        0.07000000029802322,
+        -0.050000280141830444,
+        0.762499988079071
+      ],
+      "actual_error_m": 0.0046193638069354686
+    },
+    {
+      "phase": "liner_light_pinch",
+      "controls": 100,
+      "target_m": [
+        0.07199587335437536,
+        -0.045877199539914724,
+        0.7619039855003357
+      ],
+      "actual_error_m": 0.0013097111744156044
+    },
+    {
+      "phase": "liner_lift",
+      "controls": 150,
+      "target_m": [
+        0.07000000029802322,
+        -0.050000280141830444,
+        0.9674999713897705
+      ],
+      "actual_error_m": 0.0026137661912212858
+    },
+    {
+      "phase": "right_park_before_interarm_contact",
+      "controls": 370,
+      "inserted_actions": 201,
+      "target_m": [
+        0.6,
+        -0.3,
+        1.11
+      ],
+      "actual_error_m": 0.00025214653700472706
+    },
+    {
+      "phase": "rack_liner_hover",
+      "controls": 412,
+      "target_m": [
+        0.647947879140046,
+        -0.12,
+        0.9675
+      ],
+      "actual_error_m": 0.004637538630223221
+    },
+    {
+      "phase": "rack_liner_lower",
+      "controls": 452,
+      "target_m": [
+        0.647947879140046,
+        -0.12,
+        0.8988359232946806
+      ],
+      "actual_error_m": 0.0035952089656369948
+    },
+    {
+      "phase": "liner_release",
+      "controls": 468,
+      "target_m": [
+        0.6464053882658481,
+        -0.11796668800525367,
+        0.8963037519454956
+      ],
+      "actual_error_m": 0.0007525143427539569
+    },
+    {
+      "phase": "liner_retreat",
+      "controls": 506,
+      "target_m": [
+        0.647947879140046,
+        -0.12,
+        0.9788359232946806
+      ],
+      "actual_error_m": 0.003056204302536507
+    },
+    {
+      "phase": "park_after_liner",
+      "controls": 546,
+      "target_m": [
+        0.25,
+        -0.05,
+        0.98
+      ],
+      "actual_error_m": 0.00028082761248671617
+    },
+    {
+      "phase": "left_clear_for_rejoin",
+      "controls": 611,
+      "target_m": [
+        0.25,
+        0.2,
+        1.0
+      ],
+      "actual_error_m": 0.0005855975800476469,
+      "route": "measured joint-space endpoint rejoin"
+    },
+    {
+      "phase": "glass_hover",
+      "controls": 722,
+      "target_m": [
+        0.09999989718198776,
+        -0.2800001800060272,
+        0.9674999713897705
+      ],
+      "actual_error_m": 0.0009457981961929317,
+      "route": "measured joint-space endpoint rejoin"
+    },
+    {
+      "phase": "glass_descend",
+      "controls": 752,
+      "target_m": [
+        0.09999989718198776,
+        -0.2800001800060272,
+        0.8104999690055847
+      ],
+      "actual_error_m": 0.007034789852621392
+    },
+    {
+      "phase": "glass_close",
+      "controls": 772,
+      "target_m": [
+        0.10650408845767378,
+        -0.28266189895384014,
+        0.8101853003501892
+      ],
+      "actual_error_m": 0.0016218854991997692
+    },
+    {
+      "phase": "glass_lift",
+      "controls": 812,
+      "target_m": [
+        0.09999989718198776,
+        -0.2800001800060272,
+        0.9674999713897705
+      ],
+      "actual_error_m": 0.0035578056889868405
+    },
+    {
+      "phase": "glass_rack_hover",
+      "controls": 883,
+      "target_m": [
+        0.645895758280092,
+        -0.12,
+        0.9675
+      ],
+      "actual_error_m": 0.005052411467163493,
+      "route": "measured joint-space endpoint rejoin"
+    },
+    {
+      "phase": "glass_lower",
+      "controls": 923,
+      "target_m": [
+        0.645895758280092,
+        -0.12,
+        0.9371432101172804
+      ],
+      "actual_error_m": 0.004833594546556487
+    },
+    {
+      "phase": "glass_release",
+      "controls": 953,
+      "target_m": [
+        0.6428034357521683,
+        -0.12328610575944185,
+        0.9354103839397431
+      ],
+      "actual_error_m": 0.003243031912429792
+    },
+    {
+      "phase": "glass_clear",
+      "controls": 969,
+      "target_m": [
+        0.645895758280092,
+        -0.12,
+        0.9571432101172804
+      ],
+      "actual_error_m": 0.002483668404927533
+    },
+    {
+      "phase": "glass_retreat",
+      "controls": 999,
+      "target_m": [
+        0.5458957582800921,
+        -0.2,
+        0.9971432101172804
+      ],
+      "actual_error_m": 0.0022204145805183985
+    },
+    {
+      "phase": "right_park",
+      "controls": 1039,
+      "target_m": [
+        0.55,
+        -0.15,
+        0.98
+      ],
+      "actual_error_m": 0.0008282741611550012
+    }
+  ],
+  "controls": 1469,
+  "physical_raw_fullscore": true,
+  "wall_s": 1159.4943170989864,
+  "measured_goal_reached": true,
+  "measured_goal_checks": {
+    "raw_score_one": true,
+    "no_error": true,
+    "no_veto": true,
+    "controls_in_budget": true,
+    "required_hold": true,
+    "source_bound": true,
+    "genuine_finite_14D_journal": true,
+    "physical_journal_present": true,
+    "actual_20Hz": true
+  },
+  "evidence_is_submission_certification": false
+}

@@ -1,0 +1,29 @@
+{
+  "kind": "source provenance only, no native score transfer",
+  "native_bench": "ports/packages/C1_liners--wet_slip_prevent/scene/C1_liners/benches/C1_liners.py",
+  "native_bench_sha256": "bc1575530fbdf48f6f621647b9558ed1059b1108cac5a83fb950a446f482c7e6",
+  "repaired_candidate_bench_sha256": "bc1575530fbdf48f6f621647b9558ed1059b1108cac5a83fb950a446f482c7e6",
+  "source_documents": {
+    "ports/packages/C1_liners--wet_slip_prevent/scene/C1_liners/ASSETS.md": "78ecc16408d39b79839ac422b19e54a6cca144c19c47dd7efb449581c03832f9",
+    "ports/packages/C1_liners--wet_slip_prevent/scene/C1_liners/DEVIATIONS.md": "c4033d6bb1fbe3f5497212260ec0641dcec1b1a2a5137a17efdc77d218a9e09a",
+    "ports/packages/C1_liners--wet_slip_prevent/scene/C1_liners/PROVENANCE.json": "e2433ad52ceaddcf26cb7117f05d1585c5263f1361e84faa47e0060761519221",
+    "ports/packages/C1_liners--wet_slip_prevent/scene/C1_liners/SUMMARY.md": "c7df827095cb9141e603f7b9506cc525466a127ce61698cd629389eb9591d86c",
+    "ports/packages/C1_liners--wet_slip_prevent/scene/C1_liners/REVIEW.md": "fb54979ff8bfadddd9b4aec37eb5759e8a788292db1e292187060ec9feb1e2e1"
+  },
+  "native43394": {
+    "result_sha256": "b727e50e674a6b411630cf7f867bd3b9f56a80420644b40084026bc6ed76f1c4",
+    "score": 1.0,
+    "controls": 1598,
+    "hold_s": 25.407,
+    "physics": "native MuJoCo dual Panda, not Arena/YAM"
+  },
+  "reference_helpers": [
+    {
+      "source": "ports/arena-submission/d3-shock-pack/d3_motor_adapter.py",
+      "sha256": "938725b166ede5f90596c5147515010e012a7c069238639709d9002cc8c7fcf6",
+      "use": "task-local copied total-effort G/K adapter; C1 extends safety and filter state, D3 unchanged"
+    }
+  ],
+  "policy": "robocurve-official-v2.1",
+  "submission_ready": false
+}

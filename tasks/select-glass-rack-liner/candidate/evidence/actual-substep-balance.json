@@ -1,0 +1,116 @@
+{
+  "kind": "Actual1ms subset CPU Newton force balance; endpoint COM finite differences are approximate",
+  "case": "left +X5N",
+  "windows": {
+    "before": [
+      5501,
+      6500
+    ],
+    "after": [
+      7501,
+      8500
+    ]
+  },
+  "rows": {
+    "before": {
+      "left": {
+        "mean_incoming_world_n": [
+          0.7487947636177977,
+          -0.14149387168209163,
+          6.80796572117632
+        ],
+        "std_world_n": [
+          0.051007540122885796,
+          0.15926745826025354,
+          0.14668574205875615
+        ],
+        "mean_mass_acceleration_n_from_COM_endpoint_difference": [
+          -0.00017245463551640583,
+          4.137937266099345e-05,
+          -8.204481871665337e-06
+        ],
+        "subtree_mass_kg": 0.692533016204834
+      },
+      "right": {
+        "mean_incoming_world_n": [
+          -0.7488927261891202,
+          0.14152700144257913,
+          6.77958766083162
+        ],
+        "std_world_n": [
+          0.049194370228219306,
+          0.15795708641702877,
+          0.14505237365926918
+        ],
+        "mean_mass_acceleration_n_from_COM_endpoint_difference": [
+          -0.00012604855997855324,
+          0.00013139820140284364,
+          -2.8134520269063046e-06
+        ],
+        "subtree_mass_kg": 0.692533016204834
+      },
+      "both_arms_internal_contact_cancelled_residual_n": [
+        -9.79625713224408e-05,
+        3.312976048749916e-05,
+        5.5604069096659714e-05
+      ],
+      "COM_momentum_corrected_residual_n": [
+        0.00020054062417251828,
+        -0.00013964781357633793,
+        6.662200299523136e-05
+      ]
+    },
+    "after": {
+      "left": {
+        "mean_incoming_world_n": [
+          -2.72601262018561,
+          -0.06131202378773685,
+          6.881297920083008
+        ],
+        "std_world_n": [
+          0.03920421341319779,
+          0.1725688707974223,
+          0.16596423384047412
+        ],
+        "mean_mass_acceleration_n_from_COM_endpoint_difference": [
+          -6.227396068259061e-05,
+          -1.465970494649027e-05,
+          0.0001737573337434739
+        ],
+        "subtree_mass_kg": 0.692533016204834
+      },
+      "right": {
+        "mean_incoming_world_n": [
+          -2.2740831952459946,
+          0.06134688233369621,
+          6.70615854463161
+        ],
+        "std_world_n": [
+          0.0446127418566764,
+          0.17204495071711204,
+          0.16532928094896332
+        ],
+        "mean_mass_acceleration_n_from_COM_endpoint_difference": [
+          -7.902649545865614e-05,
+          3.596499800750941e-05,
+          1.7608783320355315e-06
+        ],
+        "subtree_mass_kg": 0.692533016204834
+      },
+      "both_arms_internal_contact_cancelled_residual_n": [
+        -9.581543160486206e-05,
+        3.485854595935978e-05,
+        -4.1313224224737155e-05
+      ],
+      "COM_momentum_corrected_residual_n": [
+        4.54850245363847e-05,
+        1.355325289834064e-05,
+        -0.0002168314363002466
+      ]
+    }
+  },
+  "source_force_law": "F_incoming = mass_acceleration - mass_gravity - applied_external - contacts",
+  "finger_interarm_contact_is_external_to_each_wrist_but_internal_to_pair": true,
+  "inertia_tensor_not_a_linear_force_source": true,
+  "no_production_sensor_patch_justified": true
+}

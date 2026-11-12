@@ -1,0 +1,30 @@
+{
+  "kind": "ROOT review proposal only",
+  "runtime_gates_promoted": [],
+  "submission_ready": false,
+  "physical_job": 43809,
+  "physical_wall_s": 1068.7539723881055,
+  "proposed_accept_selected_scope": [
+    "geometry",
+    "explicit_pair_filters",
+    "dry_slip_hold",
+    "wet_transition",
+    "contacts_bracing",
+    "total_motor_limits",
+    "genuine_robot_fullgoal"
+  ],
+  "proposed_accept_source_bound": [
+    "link_guard"
+  ],
+  "needs_one_concrete_test": [
+    "wrist_force"
+  ],
+  "limitations": {
+    "genuine_robot_fullgoal": "Historical measured raw1/public0; same unchanged core, 1469 controls; no new public fullscore.",
+    "contacts_bracing": "Actual filtered contact/support history plus source graph counterexamples; not independent calibration of every contact channel.",
+    "link_guard": "Conservative Coulomb upper bound with actual stage coefficients and existing source checks; not measured tangential-vector reconstruction or a claimed 50N physical trigger.",
+    "total_motor_limits": "Actual drive caps and source total-effort mapping, not independently measured actuator torque.",
+    "wrist_force": "Actual abort works, but twelve 5N correspondence checks fail; production remains gated."
+  },
+  "requires_root_review": true
+}

@@ -1,0 +1,8 @@
+{
+  "kind": "actual evidence fail-closed builder check",
+  "job": 43824,
+  "proposal_eligible": false,
+  "reason": "actual 5N means fail; no proposal eligible",
+  "root_approved": false,
+  "runtime_gates_promoted": []
+}

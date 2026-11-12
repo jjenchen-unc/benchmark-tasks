@@ -1,0 +1,20 @@
+{
+  "raw_spawn": true,
+  "cleanup": true,
+  "execv": true,
+  "execve": true,
+  "Popen": true,
+  "spawn": true,
+  "fork": true,
+  "spawnv": true,
+  "task_constructed": {
+    "objects": 21,
+    "scene": "station",
+    "task_sha256": "b52efe6df1d4212b728224587e314a055c4a21d3117666ac4b6b24bda82880f3"
+  },
+  "guard_boundary": "isaaclab.app",
+  "no_guard_path_injection": true,
+  "isolated": true,
+  "clean_sdk_module_cache": true,
+  "full_frozen_SHA_match": true
+}

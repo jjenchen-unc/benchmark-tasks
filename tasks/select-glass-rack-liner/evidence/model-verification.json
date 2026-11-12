@@ -1,0 +1,54 @@
+{
+  "at": "2026-11-10T17:15:10.426849+00:00",
+  "kind": "completed actual Dream-1 C1 v9 trial; source scorer output",
+  "valid_completed_trial": true,
+  "score": 0.0,
+  "steps": 2268,
+  "max_steps": 2268,
+  "termination": {
+    "reason": "time_limit",
+    "detail": null,
+    "terminated": true,
+    "truncated": false
+  },
+  "model": "dreamlabs/dream-1-beta",
+  "continuous_model_evaluation": true,
+  "sessions": 1,
+  "request_count": 559,
+  "transport_retry_events": 12,
+  "session_sha256": "2aaf85495961ecd9820424ad05d51a5e30245b809d6a5a43c937754cd91b61dd",
+  "verified_channels": [
+    "contacts_bracing",
+    "dry_slip_hold",
+    "explicit_pair_filters",
+    "genuine_robot_fullgoal",
+    "geometry",
+    "link_guard",
+    "total_motor_limits",
+    "wet_transition",
+    "wrist_force"
+  ],
+  "frame_counts": {
+    "top_cam": 2269,
+    "left_cam": 2269,
+    "right_cam": 2269
+  },
+  "frame_filename_inventory_sha256": {
+    "top_cam": "21fdf7bf3dc0518c73671e6787a6a0c93b4f5dbbdac63d6c66ba690630102cd0",
+    "left_cam": "76ffb5611a454228e6bed49358afe5f613374791d8a0e1c67199d8dccc3707ab",
+    "right_cam": "9d537c47b5c384129be066473e050c872a2e54b34ba02e7423e05a236092059d"
+  },
+  "source_fingerprint": "a439b3973c7d87d3ef2f40cab5c169fe18a16fd2d02d71795d94d471db80fa1e",
+  "evidence_sha256": {
+    "model/adhoc_c999c218.json": "8b672544d62a0d5cca7a40ad70fb2c3382104a96dabf7d88fe5692af21f2c659",
+    "model/records/20261110_165511_49805af2/scene-0-e0/record.json": "ff67ec2df5ad77820bf19a47c829043ce81893cbb7542c8d7120caec804401b8",
+    "registration.json": "789df8abd08233819617c06318bc85764a085f1b290696bbc49ec18e9cd20cda",
+    "source-sha256.json": "cf2ba6cb5cdb567caa726c1d6adc0d4606ece3796377b6b3396912d74c765451",
+    "seed-contract.json": "864cbdb423b796485585fcffda335a2be27cab0fd1f45ec193ea0242f9ba3515",
+    "continuity.jsonl": "563716518c995747dcd071a8118a6bceec216abfb5cb026cc0961d7c91d91b88",
+    "model-actions.jsonl": "ae280b8e677fa628f71d32d9c6a47324dedc62c832f743e7db10d58ef4bd58d5",
+    "measurements.jsonl": "4fa7916029f5b4dc76a0bfcbd67b7a4af3df45354c8c28b55f63e4e1a3611b46"
+  },
+  "actual_media_encoding_and_visual_review_pending": true,
+  "submission_ready": false
+}

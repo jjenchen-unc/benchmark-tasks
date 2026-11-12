@@ -1,0 +1,96 @@
+{
+  "unit": "C1_actual_selected_feature_close",
+  "status": "selected feature review prepared; only wrist correspondence diagnostic unresolved",
+  "submission_ready": false,
+  "source_fingerprint": "29a9143c24e69c99f0a6112a49028fbdaa96c60842e1b413e4bd678b544325c0",
+  "owned_root": "/mnt/bum/jjenchen/robocurve/artifacts/submission-readiness/c1-actual-selected-feature-close-20261110-0920",
+  "delivery": "/mnt/bum/jjenchen/robocurve/artifacts/continuation/server-s5-hydraulic-c1-finish-20261110-0920/C1_actual_selected_feature_close",
+  "changed_candidate_files": [
+    "evaluator.py",
+    "targeted_readback.py",
+    "portable_entry.py",
+    "manifest.json"
+  ],
+  "production_task_controller_physics_scorer_unchanged": true,
+  "historical_public_score": 0.0,
+  "historical_raw_score": 1.0,
+  "historical_controls": 1469,
+  "historical_samples": 73450,
+  "historical_hold_s": 25.274,
+  "actual_physical_job": 43809,
+  "actual_completed_wall_s": 1068.7539723881055,
+  "actual_failed_checks_preserved": [
+    "known_5N_xyz_both_arms_magnitude",
+    "known_5N_xyz_both_arms_reaction_basis",
+    "physical_slip_cup_liner_contact"
+  ],
+  "resolved_bad_assertions": [
+    "physical_slip_cup_liner_contact: earlier actual contact plus finite geometry proves expected slide-off"
+  ],
+  "remaining_concrete_question": "wrist_force5N correspondence",
+  "reanalysis_max_signed_vector_error_n": 1.8471354280570043,
+  "tolerance_n": 1.0,
+  "runtime_gates_promoted": [],
+  "channel_review": {
+    "kind": "ROOT review proposal only",
+    "runtime_gates_promoted": [],
+    "submission_ready": false,
+    "physical_job": 43809,
+    "physical_wall_s": 1068.7539723881055,
+    "proposed_accept_selected_scope": [
+      "geometry",
+      "explicit_pair_filters",
+      "dry_slip_hold",
+      "wet_transition",
+      "contacts_bracing",
+      "total_motor_limits",
+      "genuine_robot_fullgoal"
+    ],
+    "proposed_accept_source_bound": [
+      "link_guard"
+    ],
+    "needs_one_concrete_test": [
+      "wrist_force"
+    ],
+    "limitations": {
+      "genuine_robot_fullgoal": "Historical measured raw1/public0; same unchanged core, 1469 controls; no new public fullscore.",
+      "contacts_bracing": "Actual filtered contact/support history plus source graph counterexamples; not independent calibration of every contact channel.",
+      "link_guard": "Conservative Coulomb upper bound with actual stage coefficients and existing source checks; not measured tangential-vector reconstruction or a claimed 50N physical trigger.",
+      "total_motor_limits": "Actual drive caps and source total-effort mapping, not independently measured actuator torque.",
+      "wrist_force": "Actual abort works, but twelve 5N correspondence checks fail; production remains gated."
+    },
+    "requires_root_review": true
+  },
+  "cpu_validation": {
+    "actual_selected_entry_clean_I_guard": true,
+    "actual_task_construction_objects": 21,
+    "boundary": "isaaclab.app",
+    "no_guard_path_injection": true,
+    "synthetic_actual_function_moving_frame_oracle": true,
+    "receipt_fail_closed_tests": true,
+    "evidence_is_physical": false,
+    "selected_force_collects_both_failed_checks": true
+  },
+  "gpu_request": {
+    "submitted": false,
+    "file": "selected-force.sbatch",
+    "gpu": 1,
+    "cpu": 4,
+    "ram_gb": 32,
+    "time_min": 30,
+    "estimated_wall_min": [
+      10,
+      18
+    ],
+    "simulated_s": 48,
+    "diagnostic_controls": 960
+  },
+  "operations": {
+    "jobs_submitted": 0,
+    "simulator_initializations": 0,
+    "brev_operations": 0,
+    "model_or_API_calls": 0,
+    "delegations": 0,
+    "canonical_other_owner_sdk_host_global_state_writes": false
+  }
+}

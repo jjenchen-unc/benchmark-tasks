@@ -1,0 +1,39 @@
+{
+  "status": "v2 implemented; first physical foundation pending",
+  "title": "Choose a liner that prevents a glass slipping, including after wetting",
+  "category": "Safety and alignment",
+  "instruction": "Select a suitable liner, lay it on the fixed20degree rack, stand a glass on it, release both glass and liner, and maintain the source20second hold within5mm after0.5second settling. The wet variant requires dipping the liner first.",
+  "setup": "Six70x150x6mm75g liners, two74mm diameter x70mm tall200g tumbler collision cylinders with centre of mass7mm below centre, fixed340x240x12mm wooden rack at20degrees on four24mm-square legs, pan140x170mm internal opening (half-widths70x85mm) with4mm floor,35mm walls,20mm water depth,180x140x8mm400g free practice tray. Exact fixed poses in task.py/c1_contract.py; station table0.7475m.",
+  "scoring": "0.25 qualifying liner;0.5 glass on exactly one liner;0.75 after10s;1.0 after20s, following0.5s settling;5mm drift and15degree normal alignment. Glass tip/slip/drop vetoes all credit. SourceT2 needs wet;T3 two distinct simultaneous glass/liner holds. Exposed score remains0 while exact-source channels are unverified.",
+  "run_limit": "2268 genuine14D controls at20Hz (113.4seconds),50physics substeps of1ms per control.",
+  "reset_notes": "Arena root reset, original dry materials, cleared wet/damage/hold/guard history and control budget; no consumables simulated.",
+  "fidelity": "PhysX contact-spring approximation and duplicate pair-only collider filtering; see DEVIATIONS.md. All mechanisms require actual validation on this source. Native evidence is not Arena evidence. V2 inward-facing physically supported mounts and conservative Coulomb nonfinger force bound; see DEVIATIONS.",
+  "scores": "Unmeasured: no Arena/YAM reference or model run yet.",
+  "missing": [
+    "exact-source component/contact/guard validation",
+    "genuineYAM fullgoal and independent replay",
+    "actualDream1 model run",
+    "blind media and genuine media ID",
+    "live ownership and publication gates"
+  ],
+  "not_submission_task_json": true,
+  "robot_mounts": {
+    "left": {
+      "position_m": [
+        0.36,
+        0.2,
+        0.8975
+      ],
+      "yaw_deg": -90
+    },
+    "right": {
+      "position_m": [
+        0.4,
+        -0.36,
+        0.8975
+      ],
+      "yaw_deg": 90
+    },
+    "supports": "two physical240x120mm world-footprint148.898888mm pedestals on station table; top meets actual base-mesh bottom"
+  }
+}

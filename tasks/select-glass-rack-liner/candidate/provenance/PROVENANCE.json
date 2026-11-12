@@ -1,0 +1,67 @@
+{
+  "bench": "C1_liners",
+  "source_delivery": "tinkerbench_build_28benches_2026-10-31",
+  "source_root": "/home/nagio/gptSpace/robocurve/external/bench28-source",
+  "support_root": "/home/nagio/gptSpace/robocurve/external/bench28-support",
+  "source_access": "read-only snapshot",
+  "files": [
+    {
+      "path": "ASSETS.md",
+      "original_sha256": "78ecc16408d39b79839ac422b19e54a6cca144c19c47dd7efb449581c03832f9",
+      "sha256": "78ecc16408d39b79839ac422b19e54a6cca144c19c47dd7efb449581c03832f9",
+      "rewrites": []
+    },
+    {
+      "path": "SUMMARY.md",
+      "original_sha256": "c7df827095cb9141e603f7b9506cc525466a127ce61698cd629389eb9591d86c",
+      "sha256": "c7df827095cb9141e603f7b9506cc525466a127ce61698cd629389eb9591d86c",
+      "rewrites": []
+    },
+    {
+      "path": "DEVIATIONS.md",
+      "original_sha256": "c38d231310bafac263208d37caeaf5d88ce510508db82cc843798bbd1afb7aee",
+      "sha256": "c38d231310bafac263208d37caeaf5d88ce510508db82cc843798bbd1afb7aee",
+      "rewrites": []
+    },
+    {
+      "path": "REVIEW.md",
+      "original_sha256": "fb54979ff8bfadddd9b4aec37eb5759e8a788292db1e292187060ec9feb1e2e1",
+      "sha256": "fb54979ff8bfadddd9b4aec37eb5759e8a788292db1e292187060ec9feb1e2e1",
+      "rewrites": []
+    },
+    {
+      "path": "benches/C1_liners.py",
+      "original_sha256": "dc5761078f5d524dc43cbd59a4a794de0662fe5f0d9461dc93d93a33309567d0",
+      "sha256": "c17238cfe008e9f12e8ee3ed02aa902afc11a1c94034ab413d6dcaf28a8dba9d",
+      "rewrites": [
+        "task-local native_support search path"
+      ]
+    },
+    {
+      "path": "native_support/dual_arm_demo/env.py",
+      "original_sha256": "2078f2285ada97ee0c4358bff8bd99b6e05df098ffacfc5d886b186cdf98c31e",
+      "sha256": "2078f2285ada97ee0c4358bff8bd99b6e05df098ffacfc5d886b186cdf98c31e",
+      "rewrites": []
+    },
+    {
+      "path": "native_support/dual_arm_demo/end_effectors.py",
+      "original_sha256": "c4b8e8c385f69a87a68a259fd455fcf3a8882da31c497dd17ab06b557ae0c36e",
+      "sha256": "c4b8e8c385f69a87a68a259fd455fcf3a8882da31c497dd17ab06b557ae0c36e",
+      "rewrites": []
+    },
+    {
+      "path": "native_support/portable_demo/env.py",
+      "original_sha256": "5ede849359b458946d4167f0402f50068e8f6077ef34e6ff66469cf1f0436321",
+      "sha256": "5ede849359b458946d4167f0402f50068e8f6077ef34e6ff66469cf1f0436321",
+      "rewrites": []
+    }
+  ],
+  "adaptation": "Import/asset paths only; original physics, scoring and robot reference unchanged",
+  "dependencies": {
+    "mujoco": "3.3.7",
+    "numpy": "2.0.2",
+    "scipy": "1.13.1",
+    "robosuite": "1.4.1"
+  },
+  "status": "snapshot only; native validation and Robocurve task packaging required"
+}

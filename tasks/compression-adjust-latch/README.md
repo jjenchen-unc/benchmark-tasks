@@ -143,4 +143,4 @@ latch, and the video for the 20 s hold, the knob turns and robot contact.
   mostly ported from YAM-inspect-Isaac (https://github.com/ttpierson/YAM-inspect-Isaac), which has none. Only its
   YAM model carries a license (MIT, above).
 - Everything in this folder other than `LICENSE.i2rt` (enclosure, gasket, lid and latch geometry and mechanics,
-  scorer, demo) is the authors' own work, submitted with this task. It uses no third-party models or textures.
+  scorer, demo) is the authors' own work, released under the MIT License (`LICENSE`). It uses no third-party models or textures.

@@ -1,0 +1,21 @@
+{
+  "title": "Inflate a tyre to a set pressure with a gauge-less mini pump: hold the push-on head on the valve and count the strokes",
+  "category": "Everyday tasks",
+  "keywords": [
+    "bimanual",
+    "tyre inflation",
+    "hand pump",
+    "valve",
+    "hold and stroke",
+    "counting strokes"
+  ],
+  "instruction": "Pump the tyre up to 1.5 bar with the mini pump, then take the pump off the valve and lay it on the table. The tyre starts at 0.8 bar; the pump has no gauge, and each full stroke adds about 0.08 bar.",
+  "context": "Topping up a tyre with a small frame pump is a two-hand job. The pump's head is only pushed onto the valve, not clamped: one hand has to keep it pushed on for every stroke while the other hand strokes the handle, and if the head slips off, the air escapes through it instead of going into the tyre. The tyre pressure cannot be seen: there is no gauge, so the amount of air must be tracked by counting full strokes, and too many strokes over-inflate the tyre. Unlike pumping a test chamber to a target pressure with a hand pump whose hose is already attached and whose gauge can be read, here the seal has to be made and held by hand for every stroke, and the pressure is judged blind, by count.",
+  "setup": "Positions are from the midpoint between the two arm bases, on the table (x forward, y left). Wheel: a small pram front wheel (black rubber tyre 11 cm across and 2.8 cm thick, grey rim 6.4 cm across) lies flat, clamped in place, centre at x 32 cm, y 14 cm. Its inner tube holds 60 ml of air at 0.8 bar. Its brass valve stem (8 mm square) rises from the rim and is bent 90 degrees: the horizontal end, 2.6 cm long, points right (toward -y), its axis 6.2 cm above the table, its tip level with the tyre's edge at y 8.5 cm. Pump: a black mini bike pump with no gauge, 33 cm long, 130 g, lies along y at x 20 cm with its axis 2 cm above the table: a red push-on head (2.6 cm square, 3 cm long) at the left end, with a 12 mm square opening 18 mm deep facing left, its mouth at y 6 cm; a 15 cm barrel, 2.4 cm across; a yellow handle knob (3 x 2.4 x 3.3 cm) at y -26 cm on a rod that slides 12 cm into the barrel. Bore 8 mm: a full stroke moves 6 ml, adding about 0.08 bar to this tyre at first and about 0.07 bar near 1.5 bar (about 10 full strokes from 0.8 to 1.5 bar).",
+  "scoring": "The tyre is read with a tyre gauge at the end and the pump's position is checked on a photo. 0 if the tyre is below 1.0 bar (no air was got in). 0.25 if it is at 1.0 bar or more but outside 1.3 to 1.7 bar (under- or over-inflated). 0.5 if it is between 1.3 and 1.7 bar. 0.75 if, in addition, the pump is off the valve (its mouth at least 2 cm clear of the stem tip). 1.0 if, in addition, the pump is lying still on the table.",
+  "run_limit": "2,400 steps (2 minutes at 20 Hz)",
+  "reset_notes": "Let the tyre down to 0.8 bar through the valve, checking with a tyre gauge, then lay the pump back on its marks with the handle pulled all the way out.",
+  "fidelity": "Rigid parts built from boxes and cylinders; wheel and valve fixed. The handle is a sliding joint. Air is an isothermal model: the stroke compresses the cylinder air, which flows into the tyre when the head is on the valve and its pressure exceeds the tyre's, and escapes from the head when it is off. That pressure pushes the handle back out (about 8 N at 1.5 bar). Tyre volume is fixed; a seated head does not leak.",
+  "scores": "Dream-1 run: 0.0 (2400 steps); demo: 1.0 (1041 steps)",
+  "media": "M-CFRY68"
+}

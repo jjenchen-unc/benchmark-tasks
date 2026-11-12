@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "passed": true,
+  "evidence": "CPU analysis of actual43765; no new simulation",
+  "calibration_controls": 540,
+  "calibration_samples": 13500,
+  "abort_controls": 3,
+  "abort_samples": 75,
+  "abort_time_s": 0.15,
+  "readings": 13,
+  "raw_bar_pose_max_error": 0.0,
+  "COM_to_actor_velocity_max_error": 3.639014247271491e-12,
+  "angular_velocity_max_error": 0.0,
+  "velocity_formula": "v_actor = v_COM - omega cross (R_actor @ [round(PARAMETERS.com,6),0,0])",
+  "wrist_delta_norm_min_n": 9.586569099168697,
+  "wrist_delta_norm_max_n": 10.156204891954738,
+  "signed_known_load_cases": 12,
+  "positive_bar_contact_points": 156,
+  "bar_point_count_values": [
+    4
+  ],
+  "bar_filters_per_sensor": 29,
+  "nonfinger_sensors": 12,
+  "nonfinger_filters_per_sensor": 30,
+  "normal_and_friction_ranges_verified": true,
+  "abort_actual": true,
+  "step_after_termination_guard": true,
+  "nonfinger_scope": "same Contacts API with positive bar/table contacts, full source-bound filter coverage; conservative normal+friction triangle bound, not exact native resultant equivalence",
+  "inputs_sha256": {
+    "artifacts/submission-readiness/root-b4-channel-calibration-20261110-0710/B4-paired10N-calibration/job-43765/trial/result.json": "aae5ecd24ed0d93377dd79d97abdc3d8e4031c7c6537245f16451528851f511f",
+    "artifacts/submission-readiness/root-b4-channel-calibration-20261110-0710/B4-paired10N-calibration/job-43765/trial/sourcehashes.json": "a741641ad09ede9731f610bf94f92279d324a7d53b445f3a5ff5aedc5d0c06fa",
+    "artifacts/submission-readiness/root-b4-channel-calibration-20261110-0710/B4-actual120N-abort/job-43765/trial/result.json": "0057d22eb756481eb88455a4a9b3b0f3577746daaecb646b9078be6e8f9cf286",
+    "artifacts/submission-readiness/root-b4-channel-calibration-20261110-0710/B4-actual120N-abort/job-43765/trial/sourcehashes.json": "a741641ad09ede9731f610bf94f92279d324a7d53b445f3a5ff5aedc5d0c06fa"
+  }
+}

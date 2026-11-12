@@ -1,0 +1,181 @@
+{
+  "translation_m": [
+    0.25,
+    -0.15,
+    -0.0525
+  ],
+  "table_top_m": 0.7475,
+  "robot_base_link_poses_m": {
+    "left": [
+      0.0,
+      0.305,
+      0.97
+    ],
+    "right": [
+      0.0,
+      -0.305,
+      0.97
+    ]
+  },
+  "objects": [
+    {
+      "name": "bar_A",
+      "type": "free eccentric rigid bar",
+      "size_m": [
+        0.32,
+        0.05,
+        0.05
+      ],
+      "pos_m": [
+        0.25,
+        -0.44999999999999996,
+        0.7725
+      ],
+      "quat_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "mass_kg": 0.666439,
+      "com_local_m": [
+        0.052404,
+        0,
+        0
+      ],
+      "diagonal_inertia_kg_m2": [
+        0.0002621,
+        0.0024823,
+        0.0024823
+      ],
+      "material": "aluminium tube and sealed steel slug, solid exterior collider",
+      "friction_estimate": 0.6,
+      "color": [
+        0.96,
+        0.56,
+        0.14
+      ]
+    },
+    {
+      "name": "bar_B",
+      "type": "free eccentric rigid bar",
+      "size_m": [
+        0.32,
+        0.05,
+        0.05
+      ],
+      "pos_m": [
+        0.25,
+        -0.33999999999999997,
+        0.7725
+      ],
+      "quat_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "mass_kg": 0.77747,
+      "com_local_m": [
+        -0.086185,
+        0,
+        0
+      ],
+      "diagonal_inertia_kg_m2": [
+        0.0003048,
+        0.0036414,
+        0.0036414
+      ],
+      "material": "aluminium tube and sealed steel slug, solid exterior collider",
+      "friction_estimate": 0.6,
+      "color": [
+        0.12,
+        0.35,
+        0.9
+      ]
+    },
+    {
+      "name": "bar_C",
+      "type": "free eccentric rigid bar",
+      "size_m": [
+        0.32,
+        0.05,
+        0.05
+      ],
+      "pos_m": [
+        0.25,
+        -0.22999999999999998,
+        0.7725
+      ],
+      "quat_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "mass_kg": 0.682144,
+      "com_local_m": [
+        0.075443,
+        0,
+        0
+      ],
+      "diagonal_inertia_kg_m2": [
+        0.0002681,
+        0.0032543,
+        0.0032543
+      ],
+      "material": "aluminium tube and sealed steel slug, solid exterior collider",
+      "friction_estimate": 0.6,
+      "color": [
+        0.65,
+        0.14,
+        0.8
+      ]
+    },
+    {
+      "name": "support",
+      "type": "fixed bolted steel point pedestal",
+      "size_m": [
+        0.028,
+        0.03,
+        0.16
+      ],
+      "pos_m": [
+        0.25,
+        0.03,
+        0.8275
+      ],
+      "friction_estimate": 0.5
+    },
+    {
+      "name": "left_mount_riser",
+      "type": "fixed bolted steel robot support",
+      "size_m": [
+        0.14,
+        0.14,
+        0.213
+      ],
+      "pos_m": [
+        0,
+        0.305,
+        0.854
+      ]
+    },
+    {
+      "name": "right_mount_riser",
+      "type": "fixed bolted steel robot support",
+      "size_m": [
+        0.14,
+        0.14,
+        0.213
+      ],
+      "pos_m": [
+        0,
+        -0.305,
+        0.854
+      ]
+    }
+  ],
+  "station_furniture": "Stock station table/floor/camera-stand/camera/lamp; live collider list recorded by observer; full run inventory pending",
+  "seed_semantics": "fixed native42/S physical case for arbitrary harness seed IDs"
+}

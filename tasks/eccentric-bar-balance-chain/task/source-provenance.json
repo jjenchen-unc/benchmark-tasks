@@ -1,0 +1,15 @@
+{
+  "source": "B4_bars standalone snapshots; readonly",
+  "files": {
+    "ports/packages/B4_bars--offset_stack/scene/B4_bars/benches/B4_bars.py": "8e3e46c581d9e0d8dc2aca26099a41a0223f71c34a6d37baee4db420ad083300",
+    "ports/packages/B4_bars--offset_stack/scoring/partial_credit.py": "02c0eaf38684b2683c2c60009ed31bc25a5e143076b3dc24e12fa0c9d9312c51",
+    "ports/packages/B4_bars--offset_stack/demo/public_stack.py": "d14474f5d67d58078a4cc8edcb1769fe21899a789697a864e63491877efd7d51",
+    "ports/packages/B4_bars--offset_stack/runtime/robocurve_native/motion.py": "d22e5137d446fbb126aaf43ee47baa1a67995a19a368cf5805caa3fb2bb34c92"
+  },
+  "task_assets": "Generated boxes only; no third-party textures/meshes; no Panda assets copied",
+  "helpers": {
+    "contacts.py": "B5 verified contact collector copied task-locally; B4 selections unvalidated",
+    "motor_adapter.py": "D3 task-local total-effort adapter from verified B5/D1 pattern; B4 runtime unverified"
+  },
+  "rubric": "robocurve-official-v2.1"
+}

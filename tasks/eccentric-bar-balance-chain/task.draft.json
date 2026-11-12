@@ -1,0 +1,20 @@
+{
+  "category": "Other",
+  "context": "Tests placing successive eccentric loads so the released combined centre of mass remains over a narrow support, relevant to load handling and assembly. Novelty remains unverified.",
+  "fidelity": "Rigid exterior boxes preserve native rounded eccentric COM and inertia; estimated friction; translated scene and elevated supported YAM mounts. Lower YAM torque caps retained. Nonfinger load is a conservative normal-plus-friction bound, not exact native resultant equivalence; calibration covers fixed42/S only.",
+  "instruction": "Stack orange A, blue B, purple C in that bottom-to-top order on the steel\npoint pedestal. Bars are320 x50 x50mm with sealed eccentric steel weights;\nblack caps mark -X. Long axes along X within10deg, level within0.06rad,\nsix-component velocity norm below0.025; contact only adjacent required bars\nand pedestal; no robot contact with ANY bar. Release for20continuous seconds\nat episode end. Partial credit1/3 or2/3 for an independently valid ordered\nprefix. No damage flag is invented; toppling costs time. Wrist30N/20ms stops\nmotion;80N/100ms aborts.1896 controls at20Hz. Fixed physical case seed42/S;\nharness seeds identify episodes and never expose hidden mass to Dream1.",
+  "keywords": [
+    "balance",
+    "eccentric centre of mass",
+    "ordered stacking",
+    "release"
+  ],
+  "media": null,
+  "reset_notes": "Restore all free bars using Arena reset, fixed-case physical properties/layout independent of harness episode IDs, object_jitter=0. No consumed parts.",
+  "run_limit": "1896 genuine14D YAM controls at20Hz (94.8s).",
+  "scores": "Pending final-source validation: historical public gated score 0.0 is preserved; no final-source replay or Dream-1 score claimed.",
+  "scoring": "Terminal20s continuous hold for an independent valid ordered prefix:k/3; level0.06rad, X heading10degrees, norm(linear m/s,angular rad/s)<0.025. Contact only required adjacent neighbours/support; any robot contact on any bar resets all tiers. Force abort invalidates credit. Source-bound actual-validation receipt required for runtime credit; missing or mismatched receipt gates score to0.",
+  "setup": "See inventory.json and README for all dimensions, materials, fixed poses, eccentric inertias and supported elevated YAM mounts. Physical case42/S fixed for all harness seeds.",
+  "status": "draft; no official score or publication readiness",
+  "title": "Build an ordered balance chain with three eccentric bars"
+}

@@ -1,0 +1,2543 @@
+#usda 1.0
+(
+    defaultPrim = "Case"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "Case" (
+    prepend apiSchemas = ["PhysicsArticulationRootAPI", "PhysxArticulationAPI"]
+)
+{
+    bool physxArticulation:enabledSelfCollisions = 1
+    int physxArticulation:solverPositionIterationCount = 64
+    int physxArticulation:solverVelocityIterationCount = 8
+    quatd xformOp:orient = (1, 0, 0, 0)
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+    def "links"
+    {
+        def Xform "case_A" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (-4.4434514e-20, -0.0020491802, 0.0595)
+            float3 physics:diagonalInertia = (0.0131084295, 0.0126263555, 0.008718872)
+            float physics:mass = 1.22
+            quatf physics:principalAxes = (0.29645693, 0.6419605, 0.29645693, 0.6419605)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cube "A_floor" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m0> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.22, 0.3, 0.4)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.12, 0.08, 0.003)
+                double3 xformOp:translate = (0, 0, 0.003)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "A_wall_f" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.22, 0.3, 0.4)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.12, 0.003, 0.09)
+                double3 xformOp:translate = (0, -0.077, 0.09)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "A_wall_b" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.22, 0.3, 0.4)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.12, 0.003, 0.09)
+                double3 xformOp:translate = (0, 0.077, 0.09)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "A_wall_l" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.22, 0.3, 0.4)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.003, 0.074, 0.09)
+                double3 xformOp:translate = (-0.117, 0, 0.09)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "A_wall_r" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.22, 0.3, 0.4)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.003, 0.074, 0.09)
+                double3 xformOp:translate = (0.117, 0, 0.09)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "A0_base" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.25, 0.27, 0.3)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.013, 0.002, 0.016)
+                double3 xformOp:translate = (-0.065, -0.082, 0.154)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "A0_bracket" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.25, 0.27, 0.3)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.012, 0.005, 0.005)
+                double3 xformOp:translate = (-0.065, -0.086, 0.156)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "A1_base" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.25, 0.27, 0.3)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.013, 0.002, 0.016)
+                double3 xformOp:translate = (0.065, -0.082, 0.154)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "A1_bracket" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.25, 0.27, 0.3)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.012, 0.005, 0.005)
+                double3 xformOp:translate = (0.065, -0.086, 0.156)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+        }
+
+        def Xform "lid_A" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, -0.086841, 0.027514644)
+            float3 physics:diagonalInertia = (0.0046512326, 0.0030122572, 0.0017747591)
+            float physics:mass = 0.478
+            quatf physics:principalAxes = (-0.008128902, 0.70706004, -0.008128902, 0.70706004)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0, 0.08000000000000002, 0.18000000000000005)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cube "A_lid_top" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/A0_lever/A0_lever_side0>,
+                    </Case/links/A0_lever/A0_lever_side1>,
+                    </Case/links/A0_lever/A0_lever_web>,
+                    </Case/links/A0_lever/A0_lever_tab>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_lever_side0>,
+                    </Case/links/A1_lever/A1_lever_side1>,
+                    </Case/links/A1_lever/A1_lever_web>,
+                    </Case/links/A1_lever/A1_lever_tab>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_tab>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_tab>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.22, 0.3, 0.4)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.12, 0.08, 0.003)
+                double3 xformOp:translate = (0, -0.08, 0.037)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "A_lid_f" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/A0_lever/A0_lever_side0>,
+                    </Case/links/A0_lever/A0_lever_side1>,
+                    </Case/links/A0_lever/A0_lever_web>,
+                    </Case/links/A0_lever/A0_lever_tab>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_lever_side0>,
+                    </Case/links/A1_lever/A1_lever_side1>,
+                    </Case/links/A1_lever/A1_lever_web>,
+                    </Case/links/A1_lever/A1_lever_tab>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_tab>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_tab>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.22, 0.3, 0.4)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.12, 0.003, 0.02)
+                double3 xformOp:translate = (0, -0.157, 0.02)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "A_lid_b" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/A0_lever/A0_lever_side0>,
+                    </Case/links/A0_lever/A0_lever_side1>,
+                    </Case/links/A0_lever/A0_lever_web>,
+                    </Case/links/A0_lever/A0_lever_tab>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_lever_side0>,
+                    </Case/links/A1_lever/A1_lever_side1>,
+                    </Case/links/A1_lever/A1_lever_web>,
+                    </Case/links/A1_lever/A1_lever_tab>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_tab>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_tab>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.22, 0.3, 0.4)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.12, 0.003, 0.02)
+                double3 xformOp:translate = (0, -0.003, 0.02)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "A_lid_l" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/A0_lever/A0_lever_side0>,
+                    </Case/links/A0_lever/A0_lever_side1>,
+                    </Case/links/A0_lever/A0_lever_web>,
+                    </Case/links/A0_lever/A0_lever_tab>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_lever_side0>,
+                    </Case/links/A1_lever/A1_lever_side1>,
+                    </Case/links/A1_lever/A1_lever_web>,
+                    </Case/links/A1_lever/A1_lever_tab>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_tab>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_tab>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.22, 0.3, 0.4)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.003, 0.074, 0.02)
+                double3 xformOp:translate = (-0.117, -0.08, 0.02)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "A_lid_r" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/A0_lever/A0_lever_side0>,
+                    </Case/links/A0_lever/A0_lever_side1>,
+                    </Case/links/A0_lever/A0_lever_web>,
+                    </Case/links/A0_lever/A0_lever_tab>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_lever_side0>,
+                    </Case/links/A1_lever/A1_lever_side1>,
+                    </Case/links/A1_lever/A1_lever_web>,
+                    </Case/links/A1_lever/A1_lever_tab>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_tab>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_tab>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.22, 0.3, 0.4)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.003, 0.074, 0.02)
+                double3 xformOp:translate = (0.117, -0.08, 0.02)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "A_lip" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/A0_lever/A0_lever_side0>,
+                    </Case/links/A0_lever/A0_lever_side1>,
+                    </Case/links/A0_lever/A0_lever_web>,
+                    </Case/links/A0_lever/A0_lever_tab>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_lever_side0>,
+                    </Case/links/A1_lever/A1_lever_side1>,
+                    </Case/links/A1_lever/A1_lever_web>,
+                    </Case/links/A1_lever/A1_lever_tab>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_tab>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_tab>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.15, 0.15, 0.16)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.022, 0.012, 0.002)
+                double3 xformOp:translate = (0, -0.172, 0.012)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "A0_keeper" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/A0_lever/A0_lever_side0>,
+                    </Case/links/A0_lever/A0_lever_side1>,
+                    </Case/links/A0_lever/A0_lever_web>,
+                    </Case/links/A0_lever/A0_lever_tab>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_lever_side0>,
+                    </Case/links/A1_lever/A1_lever_side1>,
+                    </Case/links/A1_lever/A1_lever_web>,
+                    </Case/links/A1_lever/A1_lever_tab>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_tab>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_tab>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.25, 0.27, 0.3)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.012, 0.002, 0.014)
+                double3 xformOp:translate = (-0.065, -0.162, 0.018)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cylinder "A0_bar0" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.017999999999999995
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/A0_lever/A0_lever_side0>,
+                    </Case/links/A0_lever/A0_lever_side1>,
+                    </Case/links/A0_lever/A0_lever_web>,
+                    </Case/links/A0_lever/A0_lever_tab>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_lever_side0>,
+                    </Case/links/A1_lever/A1_lever_side1>,
+                    </Case/links/A1_lever/A1_lever_web>,
+                    </Case/links/A1_lever/A1_lever_tab>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_tab>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_tab>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.62, 0.64, 0.67)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.0025
+                quatd xformOp:orient = (0.7071067811865476, 0, -0.7071067811865475, 0)
+                double3 xformOp:translate = (-0.065, -0.1665, 0.011)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cylinder "A0_bar1" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.017999999999999995
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/A0_lever/A0_lever_side0>,
+                    </Case/links/A0_lever/A0_lever_side1>,
+                    </Case/links/A0_lever/A0_lever_web>,
+                    </Case/links/A0_lever/A0_lever_tab>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_lever_side0>,
+                    </Case/links/A1_lever/A1_lever_side1>,
+                    </Case/links/A1_lever/A1_lever_web>,
+                    </Case/links/A1_lever/A1_lever_tab>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_tab>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_tab>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.62, 0.64, 0.67)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.0025
+                quatd xformOp:orient = (0.7071067811865476, 0, -0.7071067811865475, 0)
+                double3 xformOp:translate = (-0.065, -0.1665, 0.017)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cylinder "A0_bar2" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.017999999999999995
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/A0_lever/A0_lever_side0>,
+                    </Case/links/A0_lever/A0_lever_side1>,
+                    </Case/links/A0_lever/A0_lever_web>,
+                    </Case/links/A0_lever/A0_lever_tab>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_lever_side0>,
+                    </Case/links/A1_lever/A1_lever_side1>,
+                    </Case/links/A1_lever/A1_lever_web>,
+                    </Case/links/A1_lever/A1_lever_tab>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_tab>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_tab>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.62, 0.64, 0.67)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.0025
+                quatd xformOp:orient = (0.7071067811865476, 0, -0.7071067811865475, 0)
+                double3 xformOp:translate = (-0.065, -0.1665, 0.023)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cube "A1_keeper" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/A0_lever/A0_lever_side0>,
+                    </Case/links/A0_lever/A0_lever_side1>,
+                    </Case/links/A0_lever/A0_lever_web>,
+                    </Case/links/A0_lever/A0_lever_tab>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_lever_side0>,
+                    </Case/links/A1_lever/A1_lever_side1>,
+                    </Case/links/A1_lever/A1_lever_web>,
+                    </Case/links/A1_lever/A1_lever_tab>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_tab>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_tab>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.25, 0.27, 0.3)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.012, 0.002, 0.014)
+                double3 xformOp:translate = (0.065, -0.162, 0.018)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cylinder "A1_bar0" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.017999999999999995
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/A0_lever/A0_lever_side0>,
+                    </Case/links/A0_lever/A0_lever_side1>,
+                    </Case/links/A0_lever/A0_lever_web>,
+                    </Case/links/A0_lever/A0_lever_tab>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_lever_side0>,
+                    </Case/links/A1_lever/A1_lever_side1>,
+                    </Case/links/A1_lever/A1_lever_web>,
+                    </Case/links/A1_lever/A1_lever_tab>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_tab>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_tab>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.62, 0.64, 0.67)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.0025
+                quatd xformOp:orient = (0.7071067811865476, 0, -0.7071067811865475, 0)
+                double3 xformOp:translate = (0.065, -0.1665, 0.011)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cylinder "A1_bar1" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.017999999999999995
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/A0_lever/A0_lever_side0>,
+                    </Case/links/A0_lever/A0_lever_side1>,
+                    </Case/links/A0_lever/A0_lever_web>,
+                    </Case/links/A0_lever/A0_lever_tab>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_lever_side0>,
+                    </Case/links/A1_lever/A1_lever_side1>,
+                    </Case/links/A1_lever/A1_lever_web>,
+                    </Case/links/A1_lever/A1_lever_tab>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_tab>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_tab>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.62, 0.64, 0.67)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.0025
+                quatd xformOp:orient = (0.7071067811865476, 0, -0.7071067811865475, 0)
+                double3 xformOp:translate = (0.065, -0.1665, 0.017)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+
+            def Cylinder "A1_bar2" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.017999999999999995
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/A0_lever/A0_lever_side0>,
+                    </Case/links/A0_lever/A0_lever_side1>,
+                    </Case/links/A0_lever/A0_lever_web>,
+                    </Case/links/A0_lever/A0_lever_tab>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_lever_side0>,
+                    </Case/links/A1_lever/A1_lever_side1>,
+                    </Case/links/A1_lever/A1_lever_web>,
+                    </Case/links/A1_lever/A1_lever_tab>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_tab>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_tab>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.62, 0.64, 0.67)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.0025
+                quatd xformOp:orient = (0.7071067811865476, 0, -0.7071067811865475, 0)
+                double3 xformOp:translate = (0.065, -0.1665, 0.023)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+        }
+
+        def Xform "A0_lever" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, -0.006, -0.026)
+            float3 physics:diagonalInertia = (0.00001, 0.00001, 0.000002)
+            float physics:mass = 0.035
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (-0.065, -0.09, 0.15600000000000003)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cube "A0_lever_side0" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/lid_A/A_lid_top>,
+                    </Case/links/lid_A/A_lid_f>,
+                    </Case/links/lid_A/A_lid_b>,
+                    </Case/links/lid_A/A_lid_l>,
+                    </Case/links/lid_A/A_lid_r>,
+                    </Case/links/lid_A/A_lip>,
+                    </Case/links/lid_A/A0_keeper>,
+                    </Case/links/lid_A/A0_bar0>,
+                    </Case/links/lid_A/A0_bar1>,
+                    </Case/links/lid_A/A0_bar2>,
+                    </Case/links/lid_A/A1_keeper>,
+                    </Case/links/lid_A/A1_bar0>,
+                    </Case/links/lid_A/A1_bar1>,
+                    </Case/links/lid_A/A1_bar2>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.62, 0.64, 0.67)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.001, 0.004, 0.031)
+                double3 xformOp:translate = (-0.009, -0.004, -0.025)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "A0_lever_side1" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/lid_A/A_lid_top>,
+                    </Case/links/lid_A/A_lid_f>,
+                    </Case/links/lid_A/A_lid_b>,
+                    </Case/links/lid_A/A_lid_l>,
+                    </Case/links/lid_A/A_lid_r>,
+                    </Case/links/lid_A/A_lip>,
+                    </Case/links/lid_A/A0_keeper>,
+                    </Case/links/lid_A/A0_bar0>,
+                    </Case/links/lid_A/A0_bar1>,
+                    </Case/links/lid_A/A0_bar2>,
+                    </Case/links/lid_A/A1_keeper>,
+                    </Case/links/lid_A/A1_bar0>,
+                    </Case/links/lid_A/A1_bar1>,
+                    </Case/links/lid_A/A1_bar2>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.62, 0.64, 0.67)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.001, 0.004, 0.031)
+                double3 xformOp:translate = (0.009, -0.004, -0.025)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "A0_lever_web" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/lid_A/A_lid_top>,
+                    </Case/links/lid_A/A_lid_f>,
+                    </Case/links/lid_A/A_lid_b>,
+                    </Case/links/lid_A/A_lid_l>,
+                    </Case/links/lid_A/A_lid_r>,
+                    </Case/links/lid_A/A_lip>,
+                    </Case/links/lid_A/A0_keeper>,
+                    </Case/links/lid_A/A0_bar0>,
+                    </Case/links/lid_A/A0_bar1>,
+                    </Case/links/lid_A/A0_bar2>,
+                    </Case/links/lid_A/A1_keeper>,
+                    </Case/links/lid_A/A1_bar0>,
+                    </Case/links/lid_A/A1_bar1>,
+                    </Case/links/lid_A/A1_bar2>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.62, 0.64, 0.67)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.01, 0.001, 0.029)
+                double3 xformOp:translate = (0, -0.009, -0.027)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "A0_lever_tab" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m2> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/lid_A/A_lid_top>,
+                    </Case/links/lid_A/A_lid_f>,
+                    </Case/links/lid_A/A_lid_b>,
+                    </Case/links/lid_A/A_lid_l>,
+                    </Case/links/lid_A/A_lid_r>,
+                    </Case/links/lid_A/A_lip>,
+                    </Case/links/lid_A/A0_keeper>,
+                    </Case/links/lid_A/A0_bar0>,
+                    </Case/links/lid_A/A0_bar1>,
+                    </Case/links/lid_A/A0_bar2>,
+                    </Case/links/lid_A/A1_keeper>,
+                    </Case/links/lid_A/A1_bar0>,
+                    </Case/links/lid_A/A1_bar1>,
+                    </Case/links/lid_A/A1_bar2>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.62, 0.64, 0.67)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (0.9537168977019468, 0.3007059677455278, 0, 0)
+                float3 xformOp:scale = (0.012, 0.015, 0.0015)
+                double3 xformOp:translate = (0, -0.0122873, -0.0636036)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cylinder "A0_pivot" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.022
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/case_A/A_floor>,
+                    </Case/links/case_A/A_wall_f>,
+                    </Case/links/case_A/A_wall_b>,
+                    </Case/links/case_A/A_wall_l>,
+                    </Case/links/case_A/A_wall_r>,
+                    </Case/links/case_A/A0_base>,
+                    </Case/links/case_A/A0_bracket>,
+                    </Case/links/case_A/A1_base>,
+                    </Case/links/case_A/A1_bracket>,
+                    </Case/links/lid_A/A_lid_top>,
+                    </Case/links/lid_A/A_lid_f>,
+                    </Case/links/lid_A/A_lid_b>,
+                    </Case/links/lid_A/A_lid_l>,
+                    </Case/links/lid_A/A_lid_r>,
+                    </Case/links/lid_A/A_lip>,
+                    </Case/links/lid_A/A0_keeper>,
+                    </Case/links/lid_A/A0_bar0>,
+                    </Case/links/lid_A/A0_bar1>,
+                    </Case/links/lid_A/A0_bar2>,
+                    </Case/links/lid_A/A1_keeper>,
+                    </Case/links/lid_A/A1_bar0>,
+                    </Case/links/lid_A/A1_bar1>,
+                    </Case/links/lid_A/A1_bar2>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_lever_side0>,
+                    </Case/links/A1_lever/A1_lever_side1>,
+                    </Case/links/A1_lever/A1_lever_web>,
+                    </Case/links/A1_lever/A1_lever_tab>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_tab>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_tab>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.25, 0.27, 0.3)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.003
+                quatd xformOp:orient = (0.7071067811865476, 0, -0.7071067811865475, 0)
+                double3 xformOp:translate = (0, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+        }
+
+        def Xform "A0_link" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, -0.00205356, 0.0256568)
+            float3 physics:diagonalInertia = (0.000004, 0.000004, 1e-7)
+            float physics:mass = 0.012
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (-0.065, -0.08239286999999999, 0.13968650000000005)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cube "A0_link_plate" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m3> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/case_A/A_floor>,
+                    </Case/links/case_A/A_wall_f>,
+                    </Case/links/case_A/A_wall_b>,
+                    </Case/links/case_A/A_wall_l>,
+                    </Case/links/case_A/A_wall_r>,
+                    </Case/links/case_A/A0_base>,
+                    </Case/links/case_A/A0_bracket>,
+                    </Case/links/case_A/A1_base>,
+                    </Case/links/case_A/A1_bracket>,
+                    </Case/links/lid_A/A_lid_top>,
+                    </Case/links/lid_A/A_lid_f>,
+                    </Case/links/lid_A/A_lid_b>,
+                    </Case/links/lid_A/A_lid_l>,
+                    </Case/links/lid_A/A_lid_r>,
+                    </Case/links/lid_A/A_lip>,
+                    </Case/links/lid_A/A0_keeper>,
+                    </Case/links/lid_A/A0_bar0>,
+                    </Case/links/lid_A/A0_bar1>,
+                    </Case/links/lid_A/A0_bar2>,
+                    </Case/links/lid_A/A1_keeper>,
+                    </Case/links/lid_A/A1_bar0>,
+                    </Case/links/lid_A/A1_bar1>,
+                    </Case/links/lid_A/A1_bar2>,
+                    </Case/links/A0_lever/A0_lever_side0>,
+                    </Case/links/A0_lever/A0_lever_side1>,
+                    </Case/links/A0_lever/A0_lever_web>,
+                    </Case/links/A0_lever/A0_lever_tab>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_lever_side0>,
+                    </Case/links/A1_lever/A1_lever_side1>,
+                    </Case/links/A1_lever/A1_lever_web>,
+                    </Case/links/A1_lever/A1_lever_tab>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_tab>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_tab>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.62, 0.64, 0.67)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (0.9992027117527212, 0.03992418848277877, 0, 0)
+                float3 xformOp:scale = (0.002, 0.003, 0.0107388)
+                double3 xformOp:translate = (0, -0.000856794, 0.0107046)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+        }
+
+        def Xform "A0_hook" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, -0.00410713, 0.0513135)
+            float3 physics:diagonalInertia = (0.000001, 0.000001, 1e-7)
+            float physics:mass = 0.01
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (-0.065, -0.08239286999999999, 0.13968650000000005)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cube "A0_hook_shank" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m3> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/case_A/A_floor>,
+                    </Case/links/case_A/A_wall_f>,
+                    </Case/links/case_A/A_wall_b>,
+                    </Case/links/case_A/A_wall_l>,
+                    </Case/links/case_A/A_wall_r>,
+                    </Case/links/case_A/A0_base>,
+                    </Case/links/case_A/A0_bracket>,
+                    </Case/links/case_A/A1_base>,
+                    </Case/links/case_A/A1_bracket>,
+                    </Case/links/lid_A/A_lid_top>,
+                    </Case/links/lid_A/A_lid_f>,
+                    </Case/links/lid_A/A_lid_b>,
+                    </Case/links/lid_A/A_lid_l>,
+                    </Case/links/lid_A/A_lid_r>,
+                    </Case/links/lid_A/A_lip>,
+                    </Case/links/lid_A/A0_keeper>,
+                    </Case/links/lid_A/A0_bar0>,
+                    </Case/links/lid_A/A0_bar1>,
+                    </Case/links/lid_A/A0_bar2>,
+                    </Case/links/lid_A/A1_keeper>,
+                    </Case/links/lid_A/A1_bar0>,
+                    </Case/links/lid_A/A1_bar1>,
+                    </Case/links/lid_A/A1_bar2>,
+                    </Case/links/A0_lever/A0_lever_side0>,
+                    </Case/links/A0_lever/A0_lever_side1>,
+                    </Case/links/A0_lever/A0_lever_web>,
+                    </Case/links/A0_lever/A0_lever_tab>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A1_lever/A1_lever_side0>,
+                    </Case/links/A1_lever/A1_lever_side1>,
+                    </Case/links/A1_lever/A1_lever_web>,
+                    </Case/links/A1_lever/A1_lever_tab>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_tab>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_tab>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.62, 0.64, 0.67)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (0.9992027117527212, 0.03992418848277877, 0, 0)
+                float3 xformOp:scale = (0.002, 0.004, 0.015)
+                double3 xformOp:translate = (0, -0.00771515, 0.0399896)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "A0_hook_nose" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/case_A/A_floor>,
+                    </Case/links/case_A/A_wall_f>,
+                    </Case/links/case_A/A_wall_b>,
+                    </Case/links/case_A/A_wall_l>,
+                    </Case/links/case_A/A_wall_r>,
+                    </Case/links/case_A/A0_base>,
+                    </Case/links/case_A/A0_bracket>,
+                    </Case/links/case_A/A1_base>,
+                    </Case/links/case_A/A1_bracket>,
+                    </Case/links/lid_A/A_lid_top>,
+                    </Case/links/lid_A/A_lid_f>,
+                    </Case/links/lid_A/A_lid_b>,
+                    </Case/links/lid_A/A_lid_l>,
+                    </Case/links/lid_A/A_lid_r>,
+                    </Case/links/lid_A/A_lip>,
+                    </Case/links/lid_A/A0_bar0>,
+                    </Case/links/lid_A/A0_bar1>,
+                    </Case/links/lid_A/A0_bar2>,
+                    </Case/links/lid_A/A1_bar0>,
+                    </Case/links/lid_A/A1_bar1>,
+                    </Case/links/lid_A/A1_bar2>,
+                    </Case/links/A0_lever/A0_lever_side0>,
+                    </Case/links/A0_lever/A0_lever_side1>,
+                    </Case/links/A0_lever/A0_lever_web>,
+                    </Case/links/A0_lever/A0_lever_tab>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A1_lever/A1_lever_side0>,
+                    </Case/links/A1_lever/A1_lever_side1>,
+                    </Case/links/A1_lever/A1_lever_web>,
+                    </Case/links/A1_lever/A1_lever_tab>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_tab>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_tab>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.62, 0.64, 0.67)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (0.9992027117527212, 0.03992418848277877, 0, 0)
+                float3 xformOp:scale = (0.005, 0.00125, 0.002)
+                double3 xformOp:translate = (0, -0.00286111, 0.0514133)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "A0_hook_cap" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/case_A/A_floor>,
+                    </Case/links/case_A/A_wall_f>,
+                    </Case/links/case_A/A_wall_b>,
+                    </Case/links/case_A/A_wall_l>,
+                    </Case/links/case_A/A_wall_r>,
+                    </Case/links/case_A/A0_base>,
+                    </Case/links/case_A/A0_bracket>,
+                    </Case/links/case_A/A1_base>,
+                    </Case/links/case_A/A1_bracket>,
+                    </Case/links/lid_A/A_lid_top>,
+                    </Case/links/lid_A/A_lid_f>,
+                    </Case/links/lid_A/A_lid_b>,
+                    </Case/links/lid_A/A_lid_l>,
+                    </Case/links/lid_A/A_lid_r>,
+                    </Case/links/lid_A/A_lip>,
+                    </Case/links/lid_A/A0_keeper>,
+                    </Case/links/lid_A/A0_bar0>,
+                    </Case/links/lid_A/A0_bar1>,
+                    </Case/links/lid_A/A0_bar2>,
+                    </Case/links/lid_A/A1_keeper>,
+                    </Case/links/lid_A/A1_bar0>,
+                    </Case/links/lid_A/A1_bar1>,
+                    </Case/links/lid_A/A1_bar2>,
+                    </Case/links/A0_lever/A0_lever_side0>,
+                    </Case/links/A0_lever/A0_lever_side1>,
+                    </Case/links/A0_lever/A0_lever_web>,
+                    </Case/links/A0_lever/A0_lever_tab>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A1_lever/A1_lever_side0>,
+                    </Case/links/A1_lever/A1_lever_side1>,
+                    </Case/links/A1_lever/A1_lever_web>,
+                    </Case/links/A1_lever/A1_lever_tab>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_tab>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_tab>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.62, 0.64, 0.67)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (0.9992027117527212, 0.03992418848277877, 0, 0)
+                float3 xformOp:scale = (0.006, 0.0055, 0.0015)
+                double3 xformOp:translate = (0, -0.00546297, 0.0557194)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+        }
+
+        def Xform "A1_lever" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, -0.006, -0.026)
+            float3 physics:diagonalInertia = (0.00001, 0.00001, 0.000002)
+            float physics:mass = 0.035
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.065, -0.09, 0.15600000000000003)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cube "A1_lever_side0" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/lid_A/A_lid_top>,
+                    </Case/links/lid_A/A_lid_f>,
+                    </Case/links/lid_A/A_lid_b>,
+                    </Case/links/lid_A/A_lid_l>,
+                    </Case/links/lid_A/A_lid_r>,
+                    </Case/links/lid_A/A_lip>,
+                    </Case/links/lid_A/A0_keeper>,
+                    </Case/links/lid_A/A0_bar0>,
+                    </Case/links/lid_A/A0_bar1>,
+                    </Case/links/lid_A/A0_bar2>,
+                    </Case/links/lid_A/A1_keeper>,
+                    </Case/links/lid_A/A1_bar0>,
+                    </Case/links/lid_A/A1_bar1>,
+                    </Case/links/lid_A/A1_bar2>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.62, 0.64, 0.67)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.001, 0.004, 0.031)
+                double3 xformOp:translate = (-0.009, -0.004, -0.025)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "A1_lever_side1" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/lid_A/A_lid_top>,
+                    </Case/links/lid_A/A_lid_f>,
+                    </Case/links/lid_A/A_lid_b>,
+                    </Case/links/lid_A/A_lid_l>,
+                    </Case/links/lid_A/A_lid_r>,
+                    </Case/links/lid_A/A_lip>,
+                    </Case/links/lid_A/A0_keeper>,
+                    </Case/links/lid_A/A0_bar0>,
+                    </Case/links/lid_A/A0_bar1>,
+                    </Case/links/lid_A/A0_bar2>,
+                    </Case/links/lid_A/A1_keeper>,
+                    </Case/links/lid_A/A1_bar0>,
+                    </Case/links/lid_A/A1_bar1>,
+                    </Case/links/lid_A/A1_bar2>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.62, 0.64, 0.67)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.001, 0.004, 0.031)
+                double3 xformOp:translate = (0.009, -0.004, -0.025)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "A1_lever_web" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/lid_A/A_lid_top>,
+                    </Case/links/lid_A/A_lid_f>,
+                    </Case/links/lid_A/A_lid_b>,
+                    </Case/links/lid_A/A_lid_l>,
+                    </Case/links/lid_A/A_lid_r>,
+                    </Case/links/lid_A/A_lip>,
+                    </Case/links/lid_A/A0_keeper>,
+                    </Case/links/lid_A/A0_bar0>,
+                    </Case/links/lid_A/A0_bar1>,
+                    </Case/links/lid_A/A0_bar2>,
+                    </Case/links/lid_A/A1_keeper>,
+                    </Case/links/lid_A/A1_bar0>,
+                    </Case/links/lid_A/A1_bar1>,
+                    </Case/links/lid_A/A1_bar2>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.62, 0.64, 0.67)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.01, 0.001, 0.029)
+                double3 xformOp:translate = (0, -0.009, -0.027)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "A1_lever_tab" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m2> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/lid_A/A_lid_top>,
+                    </Case/links/lid_A/A_lid_f>,
+                    </Case/links/lid_A/A_lid_b>,
+                    </Case/links/lid_A/A_lid_l>,
+                    </Case/links/lid_A/A_lid_r>,
+                    </Case/links/lid_A/A_lip>,
+                    </Case/links/lid_A/A0_keeper>,
+                    </Case/links/lid_A/A0_bar0>,
+                    </Case/links/lid_A/A0_bar1>,
+                    </Case/links/lid_A/A0_bar2>,
+                    </Case/links/lid_A/A1_keeper>,
+                    </Case/links/lid_A/A1_bar0>,
+                    </Case/links/lid_A/A1_bar1>,
+                    </Case/links/lid_A/A1_bar2>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.62, 0.64, 0.67)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (0.9537168977019468, 0.3007059677455278, 0, 0)
+                float3 xformOp:scale = (0.012, 0.015, 0.0015)
+                double3 xformOp:translate = (0, -0.0122873, -0.0636036)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cylinder "A1_pivot" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                uniform token axis = "Z"
+                double height = 0.022
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/case_A/A_floor>,
+                    </Case/links/case_A/A_wall_f>,
+                    </Case/links/case_A/A_wall_b>,
+                    </Case/links/case_A/A_wall_l>,
+                    </Case/links/case_A/A_wall_r>,
+                    </Case/links/case_A/A0_base>,
+                    </Case/links/case_A/A0_bracket>,
+                    </Case/links/case_A/A1_base>,
+                    </Case/links/case_A/A1_bracket>,
+                    </Case/links/lid_A/A_lid_top>,
+                    </Case/links/lid_A/A_lid_f>,
+                    </Case/links/lid_A/A_lid_b>,
+                    </Case/links/lid_A/A_lid_l>,
+                    </Case/links/lid_A/A_lid_r>,
+                    </Case/links/lid_A/A_lip>,
+                    </Case/links/lid_A/A0_keeper>,
+                    </Case/links/lid_A/A0_bar0>,
+                    </Case/links/lid_A/A0_bar1>,
+                    </Case/links/lid_A/A0_bar2>,
+                    </Case/links/lid_A/A1_keeper>,
+                    </Case/links/lid_A/A1_bar0>,
+                    </Case/links/lid_A/A1_bar1>,
+                    </Case/links/lid_A/A1_bar2>,
+                    </Case/links/A0_lever/A0_lever_side0>,
+                    </Case/links/A0_lever/A0_lever_side1>,
+                    </Case/links/A0_lever/A0_lever_web>,
+                    </Case/links/A0_lever/A0_lever_tab>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_tab>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_tab>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.25, 0.27, 0.3)]
+                float[] primvars:displayOpacity = [1]
+                double radius = 0.003
+                quatd xformOp:orient = (0.7071067811865476, 0, -0.7071067811865475, 0)
+                double3 xformOp:translate = (0, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+            }
+        }
+
+        def Xform "A1_link" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, -0.00205356, 0.0256568)
+            float3 physics:diagonalInertia = (0.000004, 0.000004, 1e-7)
+            float physics:mass = 0.012
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.065, -0.08239286999999999, 0.13968650000000005)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cube "A1_link_plate" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m3> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/case_A/A_floor>,
+                    </Case/links/case_A/A_wall_f>,
+                    </Case/links/case_A/A_wall_b>,
+                    </Case/links/case_A/A_wall_l>,
+                    </Case/links/case_A/A_wall_r>,
+                    </Case/links/case_A/A0_base>,
+                    </Case/links/case_A/A0_bracket>,
+                    </Case/links/case_A/A1_base>,
+                    </Case/links/case_A/A1_bracket>,
+                    </Case/links/lid_A/A_lid_top>,
+                    </Case/links/lid_A/A_lid_f>,
+                    </Case/links/lid_A/A_lid_b>,
+                    </Case/links/lid_A/A_lid_l>,
+                    </Case/links/lid_A/A_lid_r>,
+                    </Case/links/lid_A/A_lip>,
+                    </Case/links/lid_A/A0_keeper>,
+                    </Case/links/lid_A/A0_bar0>,
+                    </Case/links/lid_A/A0_bar1>,
+                    </Case/links/lid_A/A0_bar2>,
+                    </Case/links/lid_A/A1_keeper>,
+                    </Case/links/lid_A/A1_bar0>,
+                    </Case/links/lid_A/A1_bar1>,
+                    </Case/links/lid_A/A1_bar2>,
+                    </Case/links/A0_lever/A0_lever_side0>,
+                    </Case/links/A0_lever/A0_lever_side1>,
+                    </Case/links/A0_lever/A0_lever_web>,
+                    </Case/links/A0_lever/A0_lever_tab>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_lever_side0>,
+                    </Case/links/A1_lever/A1_lever_side1>,
+                    </Case/links/A1_lever/A1_lever_web>,
+                    </Case/links/A1_lever/A1_lever_tab>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_tab>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_tab>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.62, 0.64, 0.67)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (0.9992027117527212, 0.03992418848277877, 0, 0)
+                float3 xformOp:scale = (0.002, 0.003, 0.0107388)
+                double3 xformOp:translate = (0, -0.000856794, 0.0107046)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+        }
+
+        def Xform "A1_hook" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, -0.00410713, 0.0513135)
+            float3 physics:diagonalInertia = (0.000001, 0.000001, 1e-7)
+            float physics:mass = 0.01
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.065, -0.08239286999999999, 0.13968650000000005)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cube "A1_hook_shank" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m3> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/case_A/A_floor>,
+                    </Case/links/case_A/A_wall_f>,
+                    </Case/links/case_A/A_wall_b>,
+                    </Case/links/case_A/A_wall_l>,
+                    </Case/links/case_A/A_wall_r>,
+                    </Case/links/case_A/A0_base>,
+                    </Case/links/case_A/A0_bracket>,
+                    </Case/links/case_A/A1_base>,
+                    </Case/links/case_A/A1_bracket>,
+                    </Case/links/lid_A/A_lid_top>,
+                    </Case/links/lid_A/A_lid_f>,
+                    </Case/links/lid_A/A_lid_b>,
+                    </Case/links/lid_A/A_lid_l>,
+                    </Case/links/lid_A/A_lid_r>,
+                    </Case/links/lid_A/A_lip>,
+                    </Case/links/lid_A/A0_keeper>,
+                    </Case/links/lid_A/A0_bar0>,
+                    </Case/links/lid_A/A0_bar1>,
+                    </Case/links/lid_A/A0_bar2>,
+                    </Case/links/lid_A/A1_keeper>,
+                    </Case/links/lid_A/A1_bar0>,
+                    </Case/links/lid_A/A1_bar1>,
+                    </Case/links/lid_A/A1_bar2>,
+                    </Case/links/A0_lever/A0_lever_side0>,
+                    </Case/links/A0_lever/A0_lever_side1>,
+                    </Case/links/A0_lever/A0_lever_web>,
+                    </Case/links/A0_lever/A0_lever_tab>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_lever_side0>,
+                    </Case/links/A1_lever/A1_lever_side1>,
+                    </Case/links/A1_lever/A1_lever_web>,
+                    </Case/links/A1_lever/A1_lever_tab>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A0_catch/A0_catch_tab>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_tab>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.62, 0.64, 0.67)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (0.9992027117527212, 0.03992418848277877, 0, 0)
+                float3 xformOp:scale = (0.002, 0.004, 0.015)
+                double3 xformOp:translate = (0, -0.00771515, 0.0399896)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "A1_hook_nose" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/case_A/A_floor>,
+                    </Case/links/case_A/A_wall_f>,
+                    </Case/links/case_A/A_wall_b>,
+                    </Case/links/case_A/A_wall_l>,
+                    </Case/links/case_A/A_wall_r>,
+                    </Case/links/case_A/A0_base>,
+                    </Case/links/case_A/A0_bracket>,
+                    </Case/links/case_A/A1_base>,
+                    </Case/links/case_A/A1_bracket>,
+                    </Case/links/lid_A/A_lid_top>,
+                    </Case/links/lid_A/A_lid_f>,
+                    </Case/links/lid_A/A_lid_b>,
+                    </Case/links/lid_A/A_lid_l>,
+                    </Case/links/lid_A/A_lid_r>,
+                    </Case/links/lid_A/A_lip>,
+                    </Case/links/lid_A/A0_bar0>,
+                    </Case/links/lid_A/A0_bar1>,
+                    </Case/links/lid_A/A0_bar2>,
+                    </Case/links/lid_A/A1_bar0>,
+                    </Case/links/lid_A/A1_bar1>,
+                    </Case/links/lid_A/A1_bar2>,
+                    </Case/links/A0_lever/A0_lever_side0>,
+                    </Case/links/A0_lever/A0_lever_side1>,
+                    </Case/links/A0_lever/A0_lever_web>,
+                    </Case/links/A0_lever/A0_lever_tab>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_lever_side0>,
+                    </Case/links/A1_lever/A1_lever_side1>,
+                    </Case/links/A1_lever/A1_lever_web>,
+                    </Case/links/A1_lever/A1_lever_tab>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A0_catch/A0_catch_tab>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_tab>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.62, 0.64, 0.67)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (0.9992027117527212, 0.03992418848277877, 0, 0)
+                float3 xformOp:scale = (0.005, 0.00125, 0.002)
+                double3 xformOp:translate = (0, -0.00286111, 0.0514133)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "A1_hook_cap" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/case_A/A_floor>,
+                    </Case/links/case_A/A_wall_f>,
+                    </Case/links/case_A/A_wall_b>,
+                    </Case/links/case_A/A_wall_l>,
+                    </Case/links/case_A/A_wall_r>,
+                    </Case/links/case_A/A0_base>,
+                    </Case/links/case_A/A0_bracket>,
+                    </Case/links/case_A/A1_base>,
+                    </Case/links/case_A/A1_bracket>,
+                    </Case/links/lid_A/A_lid_top>,
+                    </Case/links/lid_A/A_lid_f>,
+                    </Case/links/lid_A/A_lid_b>,
+                    </Case/links/lid_A/A_lid_l>,
+                    </Case/links/lid_A/A_lid_r>,
+                    </Case/links/lid_A/A_lip>,
+                    </Case/links/lid_A/A0_keeper>,
+                    </Case/links/lid_A/A0_bar0>,
+                    </Case/links/lid_A/A0_bar1>,
+                    </Case/links/lid_A/A0_bar2>,
+                    </Case/links/lid_A/A1_keeper>,
+                    </Case/links/lid_A/A1_bar0>,
+                    </Case/links/lid_A/A1_bar1>,
+                    </Case/links/lid_A/A1_bar2>,
+                    </Case/links/A0_lever/A0_lever_side0>,
+                    </Case/links/A0_lever/A0_lever_side1>,
+                    </Case/links/A0_lever/A0_lever_web>,
+                    </Case/links/A0_lever/A0_lever_tab>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_lever_side0>,
+                    </Case/links/A1_lever/A1_lever_side1>,
+                    </Case/links/A1_lever/A1_lever_web>,
+                    </Case/links/A1_lever/A1_lever_tab>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A0_catch/A0_catch_tab>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                    </Case/links/A1_catch/A1_catch_tab>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.62, 0.64, 0.67)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (0.9992027117527212, 0.03992418848277877, 0, 0)
+                float3 xformOp:scale = (0.006, 0.0055, 0.0015)
+                double3 xformOp:translate = (0, -0.00546297, 0.0557194)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+        }
+
+        def Xform "A0_catch" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0, 0)
+            float3 physics:diagonalInertia = (1.13333336e-7, 1.13333336e-7, 9.6e-8)
+            float physics:mass = 0.004
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (-0.031, -0.09, 0.09999999999999998)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cube "A0_catch_tab" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m4> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/lid_A/A_lid_top>,
+                    </Case/links/lid_A/A_lid_f>,
+                    </Case/links/lid_A/A_lid_b>,
+                    </Case/links/lid_A/A_lid_l>,
+                    </Case/links/lid_A/A_lid_r>,
+                    </Case/links/lid_A/A_lip>,
+                    </Case/links/lid_A/A0_keeper>,
+                    </Case/links/lid_A/A0_bar0>,
+                    </Case/links/lid_A/A0_bar1>,
+                    </Case/links/lid_A/A0_bar2>,
+                    </Case/links/lid_A/A1_keeper>,
+                    </Case/links/lid_A/A1_bar0>,
+                    </Case/links/lid_A/A1_bar1>,
+                    </Case/links/lid_A/A1_bar2>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.7, 0.7, 0.72)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.006, 0.007)
+                double3 xformOp:translate = (0, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "A0_catch_ridge" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/case_A/A_floor>,
+                    </Case/links/case_A/A_wall_f>,
+                    </Case/links/case_A/A_wall_b>,
+                    </Case/links/case_A/A_wall_l>,
+                    </Case/links/case_A/A_wall_r>,
+                    </Case/links/case_A/A0_base>,
+                    </Case/links/case_A/A0_bracket>,
+                    </Case/links/case_A/A1_base>,
+                    </Case/links/case_A/A1_bracket>,
+                    </Case/links/lid_A/A_lid_top>,
+                    </Case/links/lid_A/A_lid_f>,
+                    </Case/links/lid_A/A_lid_b>,
+                    </Case/links/lid_A/A_lid_l>,
+                    </Case/links/lid_A/A_lid_r>,
+                    </Case/links/lid_A/A_lip>,
+                    </Case/links/lid_A/A0_keeper>,
+                    </Case/links/lid_A/A0_bar0>,
+                    </Case/links/lid_A/A0_bar1>,
+                    </Case/links/lid_A/A0_bar2>,
+                    </Case/links/lid_A/A1_keeper>,
+                    </Case/links/lid_A/A1_bar0>,
+                    </Case/links/lid_A/A1_bar1>,
+                    </Case/links/lid_A/A1_bar2>,
+                    </Case/links/A0_lever/A0_lever_side0>,
+                    </Case/links/A0_lever/A0_lever_side1>,
+                    </Case/links/A0_lever/A0_lever_web>,
+                    </Case/links/A0_lever/A0_lever_tab>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_lever_side0>,
+                    </Case/links/A1_lever/A1_lever_side1>,
+                    </Case/links/A1_lever/A1_lever_web>,
+                    </Case/links/A1_lever/A1_lever_tab>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A1_catch/A1_catch_tab>,
+                    </Case/links/A1_catch/A1_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.25, 0.27, 0.3)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.005, 0.0004, 0.0055)
+                double3 xformOp:translate = (0, -0.0062, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+        }
+
+        def Xform "A1_catch" (
+            prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+        )
+        {
+            point3f physics:centerOfMass = (0, 0, 0)
+            float3 physics:diagonalInertia = (1.13333336e-7, 1.13333336e-7, 9.6e-8)
+            float physics:mass = 0.004
+            quatf physics:principalAxes = (1, 0, 0, 0)
+            float physxRigidBody:maxDepenetrationVelocity = 0.5
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:translate = (0.099, -0.09, 0.09999999999999998)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient"]
+
+            def Cube "A1_catch_tab" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m4> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/lid_A/A_lid_top>,
+                    </Case/links/lid_A/A_lid_f>,
+                    </Case/links/lid_A/A_lid_b>,
+                    </Case/links/lid_A/A_lid_l>,
+                    </Case/links/lid_A/A_lid_r>,
+                    </Case/links/lid_A/A_lip>,
+                    </Case/links/lid_A/A0_keeper>,
+                    </Case/links/lid_A/A0_bar0>,
+                    </Case/links/lid_A/A0_bar1>,
+                    </Case/links/lid_A/A0_bar2>,
+                    </Case/links/lid_A/A1_keeper>,
+                    </Case/links/lid_A/A1_bar0>,
+                    </Case/links/lid_A/A1_bar1>,
+                    </Case/links/lid_A/A1_bar2>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.7, 0.7, 0.72)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.006, 0.006, 0.007)
+                double3 xformOp:translate = (0, 0, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+
+            def Cube "A1_catch_ridge" (
+                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI", "PhysicsFilteredPairsAPI"]
+            )
+            {
+                rel material:binding:physics = </Case/materials/m1> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+                rel physics:filteredPairs = [
+                    </Case/links/case_A/A_floor>,
+                    </Case/links/case_A/A_wall_f>,
+                    </Case/links/case_A/A_wall_b>,
+                    </Case/links/case_A/A_wall_l>,
+                    </Case/links/case_A/A_wall_r>,
+                    </Case/links/case_A/A0_base>,
+                    </Case/links/case_A/A0_bracket>,
+                    </Case/links/case_A/A1_base>,
+                    </Case/links/case_A/A1_bracket>,
+                    </Case/links/lid_A/A_lid_top>,
+                    </Case/links/lid_A/A_lid_f>,
+                    </Case/links/lid_A/A_lid_b>,
+                    </Case/links/lid_A/A_lid_l>,
+                    </Case/links/lid_A/A_lid_r>,
+                    </Case/links/lid_A/A_lip>,
+                    </Case/links/lid_A/A0_keeper>,
+                    </Case/links/lid_A/A0_bar0>,
+                    </Case/links/lid_A/A0_bar1>,
+                    </Case/links/lid_A/A0_bar2>,
+                    </Case/links/lid_A/A1_keeper>,
+                    </Case/links/lid_A/A1_bar0>,
+                    </Case/links/lid_A/A1_bar1>,
+                    </Case/links/lid_A/A1_bar2>,
+                    </Case/links/A0_lever/A0_lever_side0>,
+                    </Case/links/A0_lever/A0_lever_side1>,
+                    </Case/links/A0_lever/A0_lever_web>,
+                    </Case/links/A0_lever/A0_lever_tab>,
+                    </Case/links/A0_lever/A0_pivot>,
+                    </Case/links/A0_link/A0_link_plate>,
+                    </Case/links/A0_hook/A0_hook_shank>,
+                    </Case/links/A0_hook/A0_hook_nose>,
+                    </Case/links/A0_hook/A0_hook_cap>,
+                    </Case/links/A1_lever/A1_lever_side0>,
+                    </Case/links/A1_lever/A1_lever_side1>,
+                    </Case/links/A1_lever/A1_lever_web>,
+                    </Case/links/A1_lever/A1_lever_tab>,
+                    </Case/links/A1_lever/A1_pivot>,
+                    </Case/links/A1_link/A1_link_plate>,
+                    </Case/links/A1_hook/A1_hook_shank>,
+                    </Case/links/A1_hook/A1_hook_nose>,
+                    </Case/links/A1_hook/A1_hook_cap>,
+                    </Case/links/A0_catch/A0_catch_tab>,
+                    </Case/links/A0_catch/A0_catch_ridge>,
+                ]
+                float physxCollision:contactOffset = 0.0002
+                float physxCollision:restOffset = 0
+                color3f[] primvars:displayColor = [(0.25, 0.27, 0.3)]
+                float[] primvars:displayOpacity = [1]
+                double size = 2
+                quatd xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (0.005, 0.0004, 0.0055)
+                double3 xformOp:translate = (0, -0.0062, 0)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+        }
+    }
+
+    def "materials"
+    {
+        def Material "m0" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.7
+            float physics:restitution = 0
+            float physics:staticFriction = 0.7
+        }
+
+        def Material "m1" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.1
+            float physics:restitution = 0
+            float physics:staticFriction = 1.1
+        }
+
+        def Material "m2" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1
+            float physics:restitution = 0
+            float physics:staticFriction = 1
+        }
+
+        def Material "m3" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 0.2
+            float physics:restitution = 0
+            float physics:staticFriction = 0.2
+        }
+
+        def Material "m4" (
+            prepend apiSchemas = ["PhysicsMaterialAPI"]
+        )
+        {
+            float physics:dynamicFriction = 1.2
+            float physics:restitution = 0
+            float physics:staticFriction = 1.2
+        }
+    }
+
+    def "joints"
+    {
+        def PhysicsRevoluteJoint "A_lid" (
+            prepend apiSchemas = ["PhysxJointAPI", "PhysicsDriveAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0
+            float drive:angular:physics:maxForce = 1000000000
+            float drive:angular:physics:stiffness = 0
+            uniform token physics:axis = "X"
+            rel physics:body0 = </Case/links/case_A>
+            rel physics:body1 = </Case/links/lid_A>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0, 0.08, 0.18)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0, 0, 0, 1)
+            quatf physics:localRot1 = (0, 0, 0, 1)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 105.99719
+            float physxJoint:armature = 0.001
+            float physxJoint:jointFriction = 0
+        }
+
+        def PhysicsRevoluteJoint "A0_lever" (
+            prepend apiSchemas = ["PhysxJointAPI", "PhysicsDriveAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0
+            float drive:angular:physics:maxForce = 1000000000
+            float drive:angular:physics:stiffness = 0
+            uniform token physics:axis = "X"
+            rel physics:body0 = </Case/links/case_A>
+            rel physics:body1 = </Case/links/A0_lever>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (-0.065, -0.09, 0.156)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0, 0, 0, 1)
+            quatf physics:localRot1 = (0, 0, 0, 1)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 108.861984
+            float physxJoint:armature = 0.00002
+            float physxJoint:jointFriction = 0
+        }
+
+        def PhysicsRevoluteJoint "A0_link" (
+            prepend apiSchemas = ["PhysxJointAPI", "PhysicsDriveAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0
+            float drive:angular:physics:maxForce = 1000000000
+            float drive:angular:physics:stiffness = 0
+            uniform token physics:axis = "X"
+            rel physics:body0 = </Case/links/A0_lever>
+            rel physics:body1 = </Case/links/A0_link>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0, 0.00760713, -0.0163135)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0, 0, 0, 1)
+            quatf physics:localRot1 = (0, 0, 0, 1)
+            float physics:lowerLimit = -148.96902
+            float physics:upperLimit = 5.729578
+            float physxJoint:armature = 0.00001
+            float physxJoint:jointFriction = 0
+        }
+
+        def PhysicsPrismaticJoint "A0_slide" (
+            prepend apiSchemas = ["PhysxJointAPI", "PhysicsDriveAPI:linear"]
+        )
+        {
+            float drive:linear:physics:damping = 0
+            float drive:linear:physics:maxForce = 1000000000
+            float drive:linear:physics:stiffness = 0
+            uniform token physics:axis = "X"
+            rel physics:body0 = </Case/links/A0_link>
+            rel physics:body1 = </Case/links/A0_hook>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0, 0, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0.70710677, 0, -0.7048526, -0.05641631)
+            quatf physics:localRot1 = (0.70710677, 0, -0.7048526, -0.05641631)
+            float physics:lowerLimit = -0.03
+            float physics:upperLimit = 0.03
+            float physxJoint:armature = 0.2
+            float physxJoint:jointFriction = 0
+        }
+
+        def PhysicsRevoluteJoint "A1_lever" (
+            prepend apiSchemas = ["PhysxJointAPI", "PhysicsDriveAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0
+            float drive:angular:physics:maxForce = 1000000000
+            float drive:angular:physics:stiffness = 0
+            uniform token physics:axis = "X"
+            rel physics:body0 = </Case/links/case_A>
+            rel physics:body1 = </Case/links/A1_lever>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0.065, -0.09, 0.156)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0, 0, 0, 1)
+            quatf physics:localRot1 = (0, 0, 0, 1)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 108.861984
+            float physxJoint:armature = 0.00002
+            float physxJoint:jointFriction = 0
+        }
+
+        def PhysicsRevoluteJoint "A1_link" (
+            prepend apiSchemas = ["PhysxJointAPI", "PhysicsDriveAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0
+            float drive:angular:physics:maxForce = 1000000000
+            float drive:angular:physics:stiffness = 0
+            uniform token physics:axis = "X"
+            rel physics:body0 = </Case/links/A1_lever>
+            rel physics:body1 = </Case/links/A1_link>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0, 0.00760713, -0.0163135)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0, 0, 0, 1)
+            quatf physics:localRot1 = (0, 0, 0, 1)
+            float physics:lowerLimit = -148.96902
+            float physics:upperLimit = 5.729578
+            float physxJoint:armature = 0.00001
+            float physxJoint:jointFriction = 0
+        }
+
+        def PhysicsPrismaticJoint "A1_slide" (
+            prepend apiSchemas = ["PhysxJointAPI", "PhysicsDriveAPI:linear"]
+        )
+        {
+            float drive:linear:physics:damping = 0
+            float drive:linear:physics:maxForce = 1000000000
+            float drive:linear:physics:stiffness = 0
+            uniform token physics:axis = "X"
+            rel physics:body0 = </Case/links/A1_link>
+            rel physics:body1 = </Case/links/A1_hook>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0, 0, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0.70710677, 0, -0.7048526, -0.05641631)
+            quatf physics:localRot1 = (0.70710677, 0, -0.7048526, -0.05641631)
+            float physics:lowerLimit = -0.03
+            float physics:upperLimit = 0.03
+            float physxJoint:armature = 0.2
+            float physxJoint:jointFriction = 0
+        }
+
+        def PhysicsPrismaticJoint "A0_catch" (
+            prepend apiSchemas = ["PhysxJointAPI", "PhysicsDriveAPI:linear"]
+        )
+        {
+            float drive:linear:physics:damping = 0
+            float drive:linear:physics:maxForce = 1000000000
+            float drive:linear:physics:stiffness = 0
+            uniform token physics:axis = "X"
+            rel physics:body0 = </Case/links/case_A>
+            rel physics:body1 = </Case/links/A0_catch>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (-0.031, -0.09, 0.1)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0, 0, 0, 1)
+            quatf physics:localRot1 = (0, 0, 0, 1)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 0.007
+            float physxJoint:armature = 0.01
+            float physxJoint:jointFriction = 0
+        }
+
+        def PhysicsPrismaticJoint "A1_catch" (
+            prepend apiSchemas = ["PhysxJointAPI", "PhysicsDriveAPI:linear"]
+        )
+        {
+            float drive:linear:physics:damping = 0
+            float drive:linear:physics:maxForce = 1000000000
+            float drive:linear:physics:stiffness = 0
+            uniform token physics:axis = "X"
+            rel physics:body0 = </Case/links/case_A>
+            rel physics:body1 = </Case/links/A1_catch>
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0.099, -0.09, 0.1)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0, 0, 0, 1)
+            quatf physics:localRot1 = (0, 0, 0, 1)
+            float physics:lowerLimit = 0
+            float physics:upperLimit = 0.007
+            float physxJoint:armature = 0.01
+            float physxJoint:jointFriction = 0
+        }
+    }
+
+    def "connections"
+    {
+        def PhysicsSphericalJoint "A0_eq0"
+        {
+            rel physics:body0 = </Case/links/A0_hook>
+            rel physics:body1 = </Case/links/lid_A>
+            bool physics:collisionEnabled = 1
+            uniform bool physics:excludeFromArticulation = 1
+            bool physics:jointEnabled = 0
+            point3f physics:localPos0 = (0, -0.00410713, 0.0513135)
+            point3f physics:localPos1 = (-0.065, -0.1665, 0.011)
+        }
+
+        def PhysicsSphericalJoint "A0_eq1"
+        {
+            rel physics:body0 = </Case/links/A0_hook>
+            rel physics:body1 = </Case/links/lid_A>
+            bool physics:collisionEnabled = 1
+            uniform bool physics:excludeFromArticulation = 1
+            bool physics:jointEnabled = 0
+            point3f physics:localPos0 = (0, -0.00410713, 0.0513135)
+            point3f physics:localPos1 = (-0.065, -0.1665, 0.017)
+        }
+
+        def PhysicsSphericalJoint "A0_eq2"
+        {
+            rel physics:body0 = </Case/links/A0_hook>
+            rel physics:body1 = </Case/links/lid_A>
+            bool physics:collisionEnabled = 1
+            uniform bool physics:excludeFromArticulation = 1
+            bool physics:jointEnabled = 0
+            point3f physics:localPos0 = (0, -0.00410713, 0.0513135)
+            point3f physics:localPos1 = (-0.065, -0.1665, 0.023)
+        }
+
+        def PhysicsSphericalJoint "A1_eq0"
+        {
+            rel physics:body0 = </Case/links/A1_hook>
+            rel physics:body1 = </Case/links/lid_A>
+            bool physics:collisionEnabled = 1
+            uniform bool physics:excludeFromArticulation = 1
+            bool physics:jointEnabled = 0
+            point3f physics:localPos0 = (0, -0.00410713, 0.0513135)
+            point3f physics:localPos1 = (0.065, -0.1665, 0.011)
+        }
+
+        def PhysicsSphericalJoint "A1_eq1"
+        {
+            rel physics:body0 = </Case/links/A1_hook>
+            rel physics:body1 = </Case/links/lid_A>
+            bool physics:collisionEnabled = 1
+            uniform bool physics:excludeFromArticulation = 1
+            bool physics:jointEnabled = 0
+            point3f physics:localPos0 = (0, -0.00410713, 0.0513135)
+            point3f physics:localPos1 = (0.065, -0.1665, 0.017)
+        }
+
+        def PhysicsSphericalJoint "A1_eq2"
+        {
+            rel physics:body0 = </Case/links/A1_hook>
+            rel physics:body1 = </Case/links/lid_A>
+            bool physics:collisionEnabled = 1
+            uniform bool physics:excludeFromArticulation = 1
+            bool physics:jointEnabled = 0
+            point3f physics:localPos0 = (0, -0.00410713, 0.0513135)
+            point3f physics:localPos1 = (0.065, -0.1665, 0.023)
+        }
+    }
+}
+

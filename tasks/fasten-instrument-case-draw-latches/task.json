@@ -1,0 +1,20 @@
+{
+  "title": "Fasten an instrument case: hook each draw latch on its keeper, pull the lever flat, close its safety catch",
+  "category": "Impact on jobs",
+  "keywords": [
+    "instrument case",
+    "draw latch",
+    "hook seating",
+    "safety catch",
+    "bimanual"
+  ],
+  "instruction": "Close the blue-grey instrument case and fasten both spring draw latches. Seat each hook on a keeper bar, tension it with the lever flat, and return both secondary catches home. Leave both hands off the case and instrument for 20 s. Do not tip either instrument more than 20 degrees or either case more than 15 degrees. The cases stand loose on a wooden plinth; the green case remains closed.",
+  "context": "Equipment cases are secured by seating a separate hook, tensioning it with a lever and closing an independent safety catch; a flat lever on an unseated hook does not hold the lid. Unlike a toolbox latch that hooks itself, each hook here must be seated by hand before the lever tensions it.",
+  "setup": "Standard YAM table and arm bases. A fixed wooden plinth (200 x 600 x 60 mm) centred at (0.35, -0.04, 0.7775) m. On it, two loose rigid plastic cases (240 x 160 x 180 mm, 40 mm hinged lid, 6 mm walls, 1.82 kg each), blue-grey case A at (0.34, 0.10) and green case B at (0.34, -0.18), rotated -90 degrees. Each case has two steel draw latches 65 mm either side of centre: a lever on the body, a separate spring hook (4 mm preload) and three 5 mm keeper bars at 6 mm pitch on the lid. Case A has two 12 x 12 x 14 mm safety-catch tabs that slide 7 mm; case B's are fixed. Each case holds an upright steel instrument stand-in (40 mm diameter, 160 mm tall, 42 x 12 mm cap, 0.30 kg). Start: case A open 1.85 rad, levers open 1.9 rad, hooks hanging free, catches out; case B closed and hooked. Both arms in the ready posture, grippers open. Friction: case and plinth 0.7, instruments 1.0, hardware 1.0 to 1.2. Fixed layout (seed 42, no jitter); all 95 colliders are listed in SCENE_INVENTORY.md.",
+  "scoring": "0 if the robot touches case A or its instrument at the end, or if the lid is open more than 2 degrees. Lid closed: 0.25, plus 0.25 per fastened latch (hook attached to a keeper bar, hook spring stretched at least 1.5 mm, lever within 0.05 rad of flat, safety catch within 1.5 mm of home). 1.0 once the closed lid and both fastened latches have been held with no robot contact for 20 s in a row; the episode ends there. 0 for the rest of the episode if either case tilts more than 15 degrees or either instrument more than 20 degrees at any moment, or if a wrist force stays above 80 N for 100 ms.",
+  "run_limit": "7,964 steps (398.2 s at 20 Hz)",
+  "reset_notes": "Fixed layout with object_jitter=0 and physical seed 42. Reset restores both cases, all latch parts and both instruments; the simulator settles 0.5 s with the springs active before the first step.",
+  "fidelity": "Free rigid cases, hooks and instruments with passive springs and joint friction on the latch parts. Hook seating is a contact-plus-proximity rule (touch, within 2.5 mm for 150 ms) that switches on a ball joint, not a model of steel deformation. YAM arms with 27 / 7 Nm total effort limits and 40 N grippers. Rigid stand-in case, not a measured product. Dream-1 gripper values outside [0, 1] are clipped before the standard decoder.",
+  "scores": "Dream-1 run: 0.0 (6979 steps); demo: 1.0 (3951 steps)",
+  "media": "M-7U7TR5"
+}

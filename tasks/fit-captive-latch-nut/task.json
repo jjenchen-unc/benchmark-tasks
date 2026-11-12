@@ -16,5 +16,5 @@
   "reset_notes": "Reset restores the fixed layout: all five wrenches on the rack, the nut unturned and not rounded, the arm clamped shut, both robots in the ready pose. For a real trial, replace a rounded nut. The Inspect seed does not change the scene.",
   "fidelity": "Rigid parts, CPU physics at 2 ms. Nut and wrench sizes and clearances are real, but torques are scaled down: the nut breaks free at 0.35 N m, where a real nut of this size is tightened to roughly 10 to 25 N m, because the arms' wrist joints give only 7 N m. No thread is simulated: the clamp lets go at a 60 degree turn, and rounding is an event (a loose fit under torque above a threshold for 10 ms) that leaves the nut spinning. The adjustable wrench's worm is not modelled.",
   "scores": "Dream-1 run: 0.0 (3870 steps); demo: 1.0 (2388 steps)",
-  "media": "M-76JUKU"
+  "media": "M-LSQ8DU"
 }

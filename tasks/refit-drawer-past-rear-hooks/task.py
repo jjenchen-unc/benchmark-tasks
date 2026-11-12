@@ -1,8 +1,8 @@
 """On the station table, in front of the arms: a small drawer cabinet with its drawer taken out.
 
-The cabinet (wood, 40 cm wide, 26 cm deep, 17 cm tall, open at the top like a base cabinet before its worktop goes
-on) stands with its empty opening facing the robot. Inside each side wall is a steel slide rail with a small front
-roller at its front end. The drawer (39 cm wide front, 22 cm deep, 1.0 kg) stands on the table between the arms and
+The cabinet (wood, 40 cm wide, 26 cm deep, 19.8 cm tall, with an 18 mm top) stands with its empty opening facing
+the robot, so the drawer can only go in through the front opening. Inside each side wall is a steel slide rail with a small front
+roller at its front end. The drawer (39 cm wide front with a bar handle, 22 cm deep, 1.0 kg) stands on the table between the arms and
 the cabinet, loaded with a 0.8 kg box. Each side of the drawer carries a steel runner; the rear half of each runner
 has a hook plate underneath (orange) whose front end stops the drawer against the roller when it is pulled out.
 
@@ -50,11 +50,14 @@ XF = 0.32                       # world x of the cabinet's front face
 RAIL_TOP = 0.090                # slide rail top above the table
 BUMP_H = 0.006                  # front roller standing above the rail
 ROLLER_X = (0.002, 0.010)       # front roller, cabinet frame
+TOP_UNDER = 0.180               # underside of the cabinet top above the table (24 mm above the seated drawer's sides)
+TOP_T = 0.018                   # cabinet top thickness
 CAB_BOXES = (
     ((0.129, 0.0, 0.006), (0.258, 0.400, 0.012), WOOD),                       # floor panel
-    ((0.129, 0.191, 0.085), (0.258, 0.018, 0.170), WOOD),                     # side walls
-    ((0.129, -0.191, 0.085), (0.258, 0.018, 0.170), WOOD),
-    ((0.249, 0.0, 0.091), (0.018, 0.364, 0.158), WOOD),                       # back panel
+    ((0.129, 0.191, TOP_UNDER / 2), (0.258, 0.018, TOP_UNDER), WOOD),         # side walls
+    ((0.129, -0.191, TOP_UNDER / 2), (0.258, 0.018, TOP_UNDER), WOOD),
+    ((0.249, 0.0, (TOP_UNDER + 0.012) / 2), (0.018, 0.364, TOP_UNDER - 0.012), WOOD),   # back panel
+    ((0.129, 0.0, TOP_UNDER + TOP_T / 2), (0.258, 0.400, TOP_T), WOOD),       # top
     *(((0.1175, s * 0.171, RAIL_TOP - 0.006), (0.235, 0.022, 0.012), STEEL, SLIDE_MU) for s in (1, -1)),  # rails
     *(((sum(ROLLER_X) / 2, s * 0.171, RAIL_TOP + BUMP_H / 2), (ROLLER_X[1] - ROLLER_X[0], 0.022, BUMP_H), STEEL,
        SLIDE_MU) for s in (1, -1)),                                                                        # rollers
@@ -68,6 +71,7 @@ HOOK_Z = (0.024, 0.030)         # hook plate bottom/top
 HOOK_X = (0.103, 0.215)         # hook plate front (the hook) / back
 FRONT_H = 0.100
 WALL_H = 0.090
+HANDLE_Z = 0.060                # bar handle height above the drawer bottom
 DRAWER_BOXES = (
     ((0.009, 0.0, FRONT_H / 2), (0.018, 0.390, FRONT_H), FRONT),              # front panel
     ((0.119, 0.0, 0.005), (0.202, 0.300, 0.010), WOOD_DARK),                  # bottom
@@ -77,6 +81,8 @@ DRAWER_BOXES = (
     *(((0.1165, s * 0.161, 0.036), (0.197, 0.022, 0.012), STEEL, SLIDE_MU) for s in (1, -1)),   # runners
     *(((sum(HOOK_X) / 2, s * 0.161, sum(HOOK_Z) / 2), (HOOK_X[1] - HOOK_X[0], 0.022, HOOK_Z[1] - HOOK_Z[0]), HOOK,
        SLIDE_MU) for s in (1, -1)),                                                                       # hook plates
+    ((-0.030, 0.0, HANDLE_Z), (0.010, 0.176, 0.010), STEEL),                    # bar handle: bar
+    *(((-0.0125, s * 0.080, HANDLE_Z), (0.025, 0.010, 0.010), STEEL) for s in (1, -1)),   # and its two posts
 )
 DRAWER_KG = 1.0
 DRAWER_COM = (0.093, 0.0, 0.045)
@@ -204,52 +210,109 @@ GRIP_X = 0.116           # side-wall grip, drawer frame (at the loaded drawer's 
 GRIP_Y = 0.144           # side wall centre
 GRIP_Z = 0.075           # TCP above the drawer bottom: pad tips 28 mm down the 90 mm wall, above the runner
 LIFT_Z = 0.094           # commanded drawer bottom while carried in; it hangs about 1 cm lower in the grip
+REST_X = 0.290           # side grips carried in this far (world x): their fingers stop short of the cabinet face
+REST_Z = SEATED_Z + BUMP_H   # drawer bottom with its hook plates resting on the rollers
+PANEL_X = 0.009          # front panel grip, drawer frame: fingers closing across the panel
+PANEL_Y = 0.172          # where the panel overhangs the drawer box (box side at 0.150, panel end at 0.195)
+PANEL_DZ = 0.078         # TCP above the drawer bottom: pad tips 35 mm down the 100 mm front panel
 ENTRY_OPEN = 0.060       # lowered onto the rails with the front this far from closed: hooks 15 mm past the rollers
 FINGER_HALF = 0.010      # closed fingers' half thickness along x (yaw 0)
-EASE = 0.4 * FINGER_OPEN # let go inside the cabinet with the fingers only partly open (the cabinet wall is close)
+EASE = 0.4 * FINGER_OPEN # let go with the fingers only partly open
+BAR_OPEN = -0.016        # fingers around the handle bar: pads 32 mm apart
+YAW = -math.pi / 2       # fingers closing along x (left arm; the right arm mirrors it)
+
+
+def _mirror(plan):
+    return [Waypoint(w.duration, (w.pos[0], -w.pos[1], w.pos[2]), w.finger, w.label, -w.yaw) for w in plan]
 
 
 def _both(plan_left):
     """The right arm mirrors the left arm's plan in y (and in yaw)."""
-    right = [Waypoint(w.duration, (w.pos[0], -w.pos[1], w.pos[2]), w.finger, w.label, -w.yaw) for w in plan_left]
-    return {"left": plan_left, "right": right}
+    return {"left": plan_left, "right": _mirror(plan_left)}
+
+
+def _above(high):
+    """Grip the side walls at the centre of mass and carry the drawer in with the hands following it from above:
+    lifted over the cabinet top (``above``) or at the height that clears the rollers (``sidegrip``)."""
+    g0, gin, z = START_X + GRIP_X, CLOSED_X - ENTRY_OPEN + GRIP_X, TOP + GRIP_Z
+    return _both([
+        Waypoint(2.0, (g0, GRIP_Y, z + 0.07), FINGER_OPEN, "above the side walls"),
+        Waypoint(1.5, (g0, GRIP_Y, z), FINGER_OPEN, "around the side walls"),
+        Waypoint(0.8, (g0, GRIP_Y, z), FINGER_CLOSED, "grip"),
+        Waypoint(2.0, (g0, GRIP_Y, z + high), FINGER_CLOSED, "lift"),
+        Waypoint(3.0, (gin, GRIP_Y, z + high), FINGER_CLOSED, "carry it in"),
+        Waypoint(2.0, (gin, GRIP_Y, z + SEATED_Z - 0.002), FINGER_CLOSED, "lower it onto the rails"),
+        Waypoint(0.8, (gin, GRIP_Y, z + SEATED_Z - 0.002), EASE, "let go"),
+        Waypoint(1.5, (0.20, 0.22, TOP + 0.20), FINGER_OPEN, "clear"),
+    ])
+
+
+def _regrip(side, rest):
+    """One arm moves from its side-wall grip to the front panel; the drawer rests on the rollers and the other hand."""
+    front = REST_X - GRIP_X
+    px, pz = front + PANEL_X, TOP + rest + PANEL_DZ
+    return [
+        Waypoint(0.8, (REST_X, side * GRIP_Y, TOP + rest + GRIP_Z), FINGER_OPEN, "let go of the side wall"),
+        Waypoint(1.0, (REST_X - 0.01, side * GRIP_Y, TOP + rest + GRIP_Z + 0.07), FINGER_OPEN, "up"),
+        Waypoint(1.5, (px, side * PANEL_Y, pz + 0.06), FINGER_OPEN, "above the front panel", side * YAW),
+        Waypoint(1.2, (px, side * PANEL_Y, pz), FINGER_OPEN, "around the front panel", side * YAW),
+        Waypoint(0.8, (px, side * PANEL_Y, pz), FINGER_CLOSED, "grip the front panel", side * YAW),
+    ]
 
 
 def demo():
-    """Both arms grip the drawer's side walls at its centre of mass, lift it level, carry it into the opening with the
-    hook plates above the front rollers until the hooks are past them, set it down on the rails and let go; then push
-    it shut with closed fingers, back off, grip the top of the front panel and pull it 5 cm open.
+    """Both arms grip the drawer's side walls at its centre of mass, lift it level and carry it into the opening with
+    the hook plates above the front rollers, as far as the hands can go before the cabinet face, and lower it until
+    the hook plates rest on the rollers. One hand at a time moves to the front panel; holding it there they push the
+    drawer in until the hooks are past the rollers, set it down on the rails and let go. Then they push it shut with
+    closed fingers and back off; the left arm grips the bar handle and pulls it 5 cm open.
     DEMO_VARIANT: nothing | floor (slide it in low, on the cabinet floor under the slides) | short (lift too little:
-    the hooks meet the rollers) | insert_only | close_only | pull:<cm> (pull that far); combine with commas."""
+    the hooks meet the rollers) | above (lower it in from above) | sidegrip (hands follow it in from above) |
+    insert_only | close_only | pull:<cm> (pull that far); combine with commas."""
     tokens = os.environ.get("DEMO_VARIANT", "").split(",")
     if "nothing" in tokens:
         return {}
+    if "above" in tokens:
+        return _above(TOP_UNDER + TOP_T + 0.02)
+    if "sidegrip" in tokens:
+        return _above(LIFT_Z)
     pull = 0.05
     for t in tokens:
         if t.startswith("pull:"):
             pull = float(t[5:]) / 100
     variant = next((t for t in tokens if t in ("floor", "short", "insert_only", "close_only")), "")
     lift = {"floor": 0.040, "short": 0.082}.get(variant, LIFT_Z)
+    rest = {"floor": 0.014}.get(variant, REST_Z)
     seat = {"floor": 0.010}.get(variant, SEATED_Z - 0.002)
-    g0 = START_X + GRIP_X
-    gin = CLOSED_X - ENTRY_OPEN + GRIP_X
-    z = TOP + GRIP_Z
-    plan = [
+    g0, z = START_X + GRIP_X, TOP + GRIP_Z
+    carry = [
         Waypoint(2.0, (g0, GRIP_Y, z + 0.07), FINGER_OPEN, "above the side walls"),
         Waypoint(1.5, (g0, GRIP_Y, z), FINGER_OPEN, "around the side walls"),
         Waypoint(0.8, (g0, GRIP_Y, z), FINGER_CLOSED, "grip"),
         Waypoint(1.5, (g0, GRIP_Y, z + lift), FINGER_CLOSED, "lift level"),
-        Waypoint(3.0, (gin, GRIP_Y, z + lift), FINGER_CLOSED, "carry it into the opening"),
-        Waypoint(1.2, (gin, GRIP_Y, z + seat), FINGER_CLOSED, "set it on the rails"),
-        Waypoint(0.8, (gin, GRIP_Y, z + seat), EASE, "let go"),
-        Waypoint(1.2, (gin - 0.01, GRIP_Y, TOP + 0.18), EASE, "up"),
+        Waypoint(2.5, (REST_X, GRIP_Y, z + lift), FINGER_CLOSED, "carry it into the opening"),
+        Waypoint(1.2, (REST_X, GRIP_Y, z + rest), FINGER_CLOSED, "rest the hook plates on the rollers"),
+    ]
+    left, right = list(carry), _mirror(carry)
+    hold_r = right[-1]
+    reg_l, reg_r = _regrip(1, rest), _regrip(-1, rest)
+    left += reg_l
+    right += [Waypoint(sum(w.duration for w in reg_l), hold_r.pos, FINGER_CLOSED, "hold")] + reg_r
+    hold_l = reg_l[-1]
+    left.append(Waypoint(sum(w.duration for w in reg_r), hold_l.pos, FINGER_CLOSED, "hold", YAW))
+    gin = CLOSED_X - ENTRY_OPEN + PANEL_X
+    tail = [
+        Waypoint(3.0, (gin, PANEL_Y, TOP + rest + PANEL_DZ), FINGER_CLOSED, "push it in, hooks past the rollers", YAW),
+        Waypoint(1.2, (gin, PANEL_Y, TOP + seat + PANEL_DZ), FINGER_CLOSED, "set it on the rails", YAW),
+        Waypoint(0.8, (gin, PANEL_Y, TOP + seat + PANEL_DZ), EASE, "let go", YAW),
+        Waypoint(1.0, (gin - 0.01, PANEL_Y, TOP + seat + PANEL_DZ + 0.06), EASE, "up", YAW),
     ]
     if variant == "insert_only":
-        plan.append(Waypoint(1.5, (0.20, 0.22, TOP + 0.20), FINGER_OPEN, "clear"))
-        return _both(plan)
+        tail.append(Waypoint(1.5, (0.20, 0.22, TOP + 0.20), FINGER_OPEN, "clear"))
+        return {"left": left + tail, "right": right + _mirror(tail)}
     front_now = CLOSED_X - ENTRY_OPEN
     pz = TOP + seat + 0.05
-    plan += [
+    tail += [
         Waypoint(1.5, (front_now - 0.04, 0.12, TOP + 0.18), FINGER_CLOSED, "in front of the drawer"),
         Waypoint(1.0, (front_now - 0.04, 0.12, pz), FINGER_CLOSED, "down"),
         Waypoint(2.0, (CLOSED_X - FINGER_HALF + 0.004, 0.12, pz), FINGER_CLOSED, "push it shut"),
@@ -257,18 +320,18 @@ def demo():
         Waypoint(1.5, (CLOSED_X - 0.08, 0.16, TOP + 0.19), FINGER_OPEN, "hands off"),
     ]
     if variant == "close_only":
-        plan.append(Waypoint(1.5, (0.20, 0.22, TOP + 0.20), FINGER_OPEN, "clear"))
-        return _both(plan)
-    # grip the top edge of the front panel (fingers closing along x) and pull
-    px = CLOSED_X + 0.009
-    top = TOP + seat + 0.002 + FRONT_H
-    plan += [
-        Waypoint(1.5, (px, 0.12, top + 0.02), FINGER_OPEN, "above the front panel", -math.pi / 2),
-        Waypoint(1.2, (px, 0.12, top - 0.012), FINGER_OPEN, "around the panel's top edge", -math.pi / 2),
-        Waypoint(0.8, (px, 0.12, top - 0.012), FINGER_CLOSED, "grip", -math.pi / 2),
-        Waypoint(2.0, (px - pull, 0.12, top - 0.012), FINGER_CLOSED, "pull open", -math.pi / 2),
-        Waypoint(0.8, (px - pull, 0.12, top - 0.012), FINGER_OPEN, "let go", -math.pi / 2),
-        Waypoint(1.2, (px - pull - 0.02, 0.12, top + 0.02), FINGER_OPEN, "up", -math.pi / 2),
+        tail.append(Waypoint(1.5, (0.20, 0.22, TOP + 0.20), FINGER_OPEN, "clear"))
+        return {"left": left + tail, "right": right + _mirror(tail)}
+    right += _mirror(tail) + [Waypoint(1.5, (0.20, -0.22, TOP + 0.20), FINGER_OPEN, "clear")]
+    # the left arm grips the handle bar (fingers closing along x) and pulls
+    bx, by, bz = CLOSED_X - 0.030, 0.04, TOP + seat + 0.002 + HANDLE_Z + 0.003
+    left += tail + [
+        Waypoint(1.5, (bx, by, bz + 0.04), BAR_OPEN, "above the handle", YAW),
+        Waypoint(1.2, (bx, by, bz), BAR_OPEN, "around the handle bar", YAW),
+        Waypoint(0.8, (bx, by, bz), FINGER_CLOSED, "grip", YAW),
+        Waypoint(2.0, (bx - pull, by, bz), FINGER_CLOSED, "pull open", YAW),
+        Waypoint(0.8, (bx - pull, by, bz), BAR_OPEN, "let go", YAW),
+        Waypoint(1.2, (bx - pull - 0.01, by, bz + 0.05), BAR_OPEN, "up", YAW),
         Waypoint(1.5, (0.20, 0.22, TOP + 0.20), FINGER_OPEN, "clear"),
     ]
-    return _both(plan)
+    return {"left": left, "right": right}

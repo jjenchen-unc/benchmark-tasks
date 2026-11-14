@@ -111,7 +111,15 @@ _reset_state()
 
 
 def _can_inside(carton, can) -> bool:
-    """A can is in the carton while its centre is inside the carton's walls, above the bottom."""
+    """Can-centre containment proxy in the moving carton frame (origin: bottom centre).
+
+    Throughout the trip, from settled reset through tipping, lifting, carrying,
+    set-down and release until episode termination, sample every 20 Hz control
+    step. Strict bounds: |x|, |y| < 0.072 m; -0.010 < z < 0.172 m.
+    Equality fails. Small flap sag is allowed; this is not a whole-can surface
+    test. _evaluate latches any failure until reset, even after a can is returned.
+    Excursions wholly between control samples are not detected.
+    """
     c = carton.to_local(can.pos)
     return bool(abs(c[0]) < IN and abs(c[1]) < IN and -0.01 < c[2] < SIZE + 0.02)
 

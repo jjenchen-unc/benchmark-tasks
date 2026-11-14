@@ -2,11 +2,10 @@
 
 A small shipping carton (6 x 6 x 6 inch regular slotted carton, single-wall corrugated board) stands on the table with
 four full 330 ml soda cans in it. Its top flaps are folded out and down; its four bottom flaps are folded in but not
-taped. A low white shelf stands to its right. The robot is told: "Put the carton of cans on the shelf, with all the
-cans still in it."
+taped. A low white shelf stands to its right. The robot is told: "Put the carton of cans on the shelf, with all the cans still in it."
 
 The bottom holds only while the carton stands on something. Lifted by its walls or rim, the bottom flaps swing open and
-the cans fall out, which ends the trial at 0. The robot has to keep the bottom shut from below for the whole move. One
+the cans fall out, which permanently makes the trial score 0. The robot has to keep the bottom shut from below for the whole move. One
 way (the demo): tip the carton back on its far bottom edge, which keeps the flaps pressed shut against the table; slide
 the closed fingers of the other gripper, held flat like a palm, under the raised near edge across the seam where the
 two side flaps meet; carry the carton on that "palm" with the first hand steadying the rim; set it on the shelf with
@@ -91,8 +90,9 @@ Two cheap probes show it, both as visible displacements:
 
 Measured with a ruler, a protractor and the video.
 
-- 0 if any can leaves the carton at any moment (its centre outside the carton's inner walls, more than 1 cm below its bottom or more
-  than 2 cm above the rim), even if it is put back.
+- Every can must remain inside throughout the trip, from the settled starting layout through tipping, lifting, carrying, set-down and release until the episode ends (success or the 1,200-step limit). In the carton's moving frame, each can centre must satisfy |x| < 7.2 cm, |y| < 7.2 cm and -1 cm < z < 17.2 cm relative to the bottom centre; equality fails. Any breach scores 0 permanently for that trial, including all partial credit, even if the can is returned. Reset clears the history. Simulation checks every 20 Hz control step.
+  This centre-based containment proxy tolerates small flap sag; it does not require the entire can surface inside.
+  Excursions wholly between control samples are not detected.
 - 1.0 if the carton rests on the shelf board (all four bottom corners within 12 mm of the board's top, its centre over
   the board), no part of its bottom more than 2 cm beyond any edge of the board, upright within 10 degrees, both
   grippers let go (every finger pad at least 3 cm from the carton) and the carton moving less than 2 mm, held for 1 s.
@@ -137,3 +137,12 @@ them.
 Isaac Lab-Arena release/0.3.1 (c7edf3a9d5d8276565208f72422f8f8a0806d6cf) ships the Apache License 2.0 in its
 LICENSE.md. Isaac Sim and Isaac Lab are runtime dependencies under their own licenses. None of them is redistributed
 here. All task-specific code and geometry in this folder is the authors' own, under the MIT License in `LICENSE`.
+
+## Scoring clarification
+
+Every can must remain inside for the entire transfer, not only at the destination.
+The existing scorer already records any sampled containment breach until reset,
+so returning a spilled can cannot restore any credit. This revision clarifies
+that rule without changing the original instruction, executable scorer, scene,
+controller or run limit. The previously recorded Dream-1 and full-score demo
+runs and their media therefore remain applicable; no new run is claimed.

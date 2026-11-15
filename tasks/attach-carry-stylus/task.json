@@ -1,0 +1,20 @@
+{
+  "title": "Attach a magnetic stylus, then pick up a tablet lying flat on a desk",
+  "category": "Societal relatability",
+  "keywords": [
+    "magnetic face alignment",
+    "flat-object pickup",
+    "thin-object grasping",
+    "grasp access",
+    "attachment retention"
+  ],
+  "instruction": "Attach the stylus by its flat magnetic face to the magnetic side of the tablet. Release the stylus, then lift the entire tablet at least 5 cm above the desk and hold it there for 5 seconds without supporting the stylus with either hand.",
+  "context": "Prepare a tablet and its stylus for carrying from a desk. The tablet starts flat on the desktop, with no spacers, handle or initial overhang. Picking up its 6.3 mm body requires creating access for the gripper, for example by sliding it toward an edge. The robot must also align the stylus's magnetic face, release the stylus and preserve that attachment while lifting and holding the tablet.",
+  "setup": "No case, spacers or handle. The tablet starts fully on the desk, with no initial overhang or gap beneath its underside. A 195.4 x 134.8 x 6.3 mm,293 g metal/glass tablet approximation starts flat at(-.04,.10,.75065)m,yaw180deg. A 166 x 8.9 mm,18.2 g white polymer stylus approximation starts flat-face-down at(.20,-.17,.75055)m,roll90deg. Standard dual-YAM station:1.10 x 1.30 m desk,top z=.7475m,arms at x=0,y=+/- .305m,z=.75m; fixed overhead camera on a collidable rear-table cantilever (foot at x=.80,y=0m),same optical pose. Exact shapes,poses,friction and camera setup in README.md. Fixed layout,no object jitter.",
+  "scoring": "0 unless the stylus is correctly seated on the magnetic edge,first released while the tablet is on the desk,and subsequently contacts only the tablet while a gripper holds the tablet free of other supports.0.5:all tablet corners>=20mm above desk continuously1s.1.0:all corners>=50mm continuously5s.End score;failed conditions clear timers.Numeric seating tolerances and support rules in README.",
+  "run_limit": "2400 control steps (120 seconds at20Hz). A successful trial ends after the continuous5-second full-score hold.",
+  "reset_notes": "Return both free objects and arms to their declared starting states;clear attachment/timing/score state. No consumables.",
+  "fidelity": "CPU PhysX at0.5ms;procedural box tablet and convex flat-sided stylus. Conservative softened dipoles produce finite forces/torques each physics step;no snap or attachment joint. Magnetic layout/strength,contact friction and mass distribution are estimates,not measured Apple properties. Original YAM effort/speed limits retained with tuned servo gains. SDK cameras plus review-only overview;legacy RTX driver override disclosed.",
+  "scores": "Dream-1 beta:0.0 (2400steps,one continuous session,zero errors). Scripted demo:1.0 (1685steps,84.25s).",
+  "media": "M-L897RU"
+}

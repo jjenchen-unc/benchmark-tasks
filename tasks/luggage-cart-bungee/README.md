@@ -13,6 +13,18 @@ cord pulls it back with 8 to 12 N and the arm gives under the pull. Let go befor
 flies back across the carton and pulls the first hook off with it. Each arm reaches only its own side tube, so both
 arms are used, one per hook.
 
+## Impact on jobs
+
+Securing cargo is part of the regular work of
+[Laborers and Freight, Stock, and Material Movers, Hand (O*NET 53-7062.00)](https://www.onetonline.org/link/summary/53-7062.00).
+O*NET lists installing strapping and other protection to prevent loads from shifting
+or being damaged during transport, alongside moving freight and stock. It reports
+2,940,300 US workers in this occupation in 2025, above the program's 500,000-worker
+threshold. This task isolates the load-securing operation on a small handcart:
+placing the second hook against elastic tension and leaving the carton restrained
+through the handling test. The particular cart and cord are this task's setup;
+O*NET identifies the occupational activity, not this exact equipment combination.
+
 ## Files
 
 | File | What it is |

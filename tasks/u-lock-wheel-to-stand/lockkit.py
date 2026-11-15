@@ -474,14 +474,27 @@ def _patch_embodiment(ie) -> None:
         return base_task_step(self, *a, **k)
 
     def reset(self, *a, **k):
+        # Disable catches before base_reset restores/settles the separated parts.
+        # Leaving a closed fixed joint enabled during settling can pull the reset
+        # poses together before the task's post-reset callback gets to clear it.
+        for name, paths in _WELD_PATHS.items():
+            if paths:
+                set_weld(name, False)
         obs = base_reset(self, *a, **k)
         _ENV["env"] = self._env
-        for spec in _SPECS.values():  # drive targets back to each hinge's start angle (springs, dampers)
+        for spec in _SPECS.values():  # restore hinge state as well as drive targets
             if spec.hinges:
+                import torch
+                asset = self._env.unwrapped.scene[spec.name]
+                ids = [list(asset.joint_names).index(f"{h.name}_joint") for h in spec.hinges]
+                q = torch.tensor([[h.start for h in spec.hinges]], dtype=torch.float32, device=asset.device)
+                asset.write_joint_state_to_sim_index(position=q, velocity=torch.zeros_like(q), joint_ids=ids)
                 set_targets(self._env, spec.name, {h.name: h.start for h in spec.hinges})
         for fn in _RESET:
             fn(self._env)
-        return obs
+        # Refresh RGB/state after restoring a displaced passive hinge.
+        self._env.unwrapped.sim.render()
+        return self._observation()
 
     cls._task_step, cls.reset = _task_step, reset
     cls._lockkit_patched = True

@@ -1,0 +1,126 @@
+{
+  "published_baseline": {
+    "pr": 1805,
+    "head": "f799248538b087994def33780c49743fde000b5b",
+    "media": "M-ZQSUWZ",
+    "scores": "Dream-1 run: 0.0 (1200 steps); demo: 1.0 (800 steps)",
+    "applies_to_revision": false
+  },
+  "revision": {
+    "status": "Final scene, genuine Dream-1, full-score scripted demo, reset and replacement media verified; publication uses this revision.",
+    "geometry_evidence": [
+      "https://patents.google.com/patent/US4155231A/en",
+      "https://www.kryptonitelock.com/content/dam/kryt-us/en/documents/seller_reseller_retailer_docs/2017_Kryptonite_BrandGuidelines.pdf",
+      "https://patents.google.com/patent/US5092142A/en"
+    ],
+    "interpretation": "Bent-foot crossbar engagement; an engineering interpretation of the terse review, not official clarification. Wheel/stand threading is unchanged; no unsupported angle requirement there.",
+    "validation": {
+      "scripted_demo": {
+        "score": 1,
+        "steps": 940,
+        "runtime_source_sha256": {
+          "demo.py": "665d910be28c8b0b032e0df88be29a06699c5ac215ed7dfd914cd3c4db0e074a",
+          "lockkit.py": "56e6a102f4ba0fe304aa26e96a83c04c8f961efe18bcc06bb7a92bc7962cd10a",
+          "task.py": "66e9c666f5d81bf7653a54b6d055637ea6a60045ae9f75cef3c9348eb7765882"
+        }
+      },
+      "straight_control": {
+        "score": 0.0,
+        "steps": 862,
+        "latched": null
+      },
+      "other_robot_controls": {
+        "nothing": {
+          "score": 0.0,
+          "steps": 160,
+          "ever_latched": false,
+          "evidence": "actual joint-control trajectory from45370; not a reconstructed result.json"
+        },
+        "no_crossbar": {
+          "score": 0.25,
+          "steps": 616,
+          "ever_latched": false,
+          "evidence": "actual joint-control trajectory from45370; not a reconstructed result.json"
+        },
+        "short": {
+          "score": 0.25,
+          "steps": 870,
+          "ever_latched": false,
+          "evidence": "actual joint-control trajectory from45370; not a reconstructed result.json"
+        },
+        "held": {
+          "score": 0.5,
+          "steps": 1150,
+          "ever_latched": true,
+          "evidence": "actual joint-control trajectory from45370; not a reconstructed result.json"
+        },
+        "air": {
+          "score": 0.0,
+          "steps": 538,
+          "ever_latched": false,
+          "evidence": "actual joint-control trajectory from45370; not a reconstructed result.json"
+        }
+      },
+      "reset_after_success_and_straight": "passed: joint disabled, score zero, positions within3mm, wheel angle within0.005rad",
+      "evaluator_controls": {
+        "stand_only": 0.0,
+        "rim_only": 0.0,
+        "both_spoke_legs": 0.0,
+        "closed_air": 0.0
+      },
+      "limitations": "Air robot control lost grasps; closed-air rejection established by evaluator placement only. Evaluator placements never count as full-goal demonstrations. Baseline media does not apply."
+    },
+    "formal_validation": {
+      "date_utc": "2026-11-15",
+      "arena_commit": "c7edf3a9d5d8276565208f72422f8f8a0806d6cf",
+      "yam_commit": "0059d02a1a91bc6834c1d0846022891df0c78730",
+      "runtime_sha256": {
+        "task.py": "66e9c666f5d81bf7653a54b6d055637ea6a60045ae9f75cef3c9348eb7765882",
+        "lockkit.py": "56e6a102f4ba0fe304aa26e96a83c04c8f961efe18bcc06bb7a92bc7962cd10a",
+        "demo.py": "665d910be28c8b0b032e0df88be29a06699c5ac215ed7dfd914cd3c4db0e074a"
+      },
+      "dream": {
+        "model": "dreamlabs/dream-1-beta",
+        "seed": 1,
+        "rows_per_request": 4,
+        "score": 0.0,
+        "actions": 1200,
+        "errored_trials": 0,
+        "termination": "max_steps",
+        "instruction": "Lock the bike's back wheel to the bike stand with the U-lock.",
+        "eval_sha256": "8cfba76af28ce036cfe05094f08d5b90389f4e43be30c3906fc3761f44487781"
+      },
+      "demo": {
+        "score": 1.0,
+        "actions": 940,
+        "reset": {
+          "latched": null,
+          "score": 0.0,
+          "joint_enabled": [
+            false
+          ],
+          "shackle_position_error_mm": 1.253115897906871e-05,
+          "crossbar_position_error_mm": 8.383727543631105e-05,
+          "wheel_angle_rad": 6.038585809164942e-08
+        }
+      },
+      "media": {
+        "model.mp4": {
+          "bytes": 1557418,
+          "sha256": "f6a598b3714cb28193a7e58164c06aa7aa6169273045208d926aaa4a8c73de07",
+          "decode_pass": true
+        },
+        "demo.mp4": {
+          "bytes": 992133,
+          "sha256": "a9da513f1d6b0cd5aa1f50e189d9c18b538fea24398043d13a9f6e27f8e0383f",
+          "decode_pass": true
+        },
+        "setup.png": {
+          "bytes": 65715,
+          "sha256": "91f53419d5b91deb051d84fd9626c32533aef1a4155bb81b9b6926086f396902",
+          "decode_pass": null
+        }
+      }
+    }
+  }
+}

@@ -1,129 +1,176 @@
 # U-lock a bike wheel to a stand
 
-A real child's bike (12-inch wheels) is parked beside a full-size Sheffield cycle stand, one leg of the stand just in front of its
-back tyre. A full-size U-lock lies on the table in two parts: the steel U (shackle) and its crossbar. The robot is
-told only: "Lock the bike's back wheel to the bike stand with the U-lock."
+Lock the child's 12-inch back wheel to the Sheffield stand with a full-size,
+two-part bent-foot U-lock. One leg passes between spokes, the other outside the
+tyre, with the stand leg between them. The loose crossbar receives the outwardly
+bent foot at an angle, then pivots onto the straight end. Both hands let go.
+The goal secures the wheel, not every part of the bicycle against theft.
 
-To lock the wheel, the shackle has to go round the rim itself, with one leg between two spokes and the other outside
-the tyre, and round the stand's leg; then the crossbar has to be pushed onto both leg ends at once until it catches,
-on the far side of the wheel. A lock round the stand alone, or only through the spokes, leaves the wheel free; a
-crossbar not pushed home does not lock. The stand's leg is 8 mm from the tyre and the gap between the two spokes is
-25 mm, so the rigid 1.3 kg lock has to be carried level and threaded accurately while the other arm brings the
-crossbar round the wheel and seats it on both legs.
+## Revision status and interpretation
 
-## Files
+PR1805 was reviewed with: “U-lock should be modeled realistically such that an
+angled entry is required on entry”. The interpretation here is **crossbar
+engagement on a bent-foot U-lock**, not a requirement to tilt while threading
+the wheel. The review did not identify the mechanism; this is an engineering
+interpretation, not an official clarification.
 
-| File | What |
-|---|---|
-| `task.py` | The yam_arena task file: bike, stand and lock, the crossbar's catch, `success()` and `score()` |
-| `lockkit.py` | Rigid parts built from boxes, cylinders and capsules, hinged links (the wheel) and switchable welds (the catch) |
-| `demo.py` | The scripted full-score demo and the negative variants |
-| `task.json` | The task card |
+Kryptonite's [manufacturer brochure](https://www.kryptonitelock.com/content/dam/kryt-us/en/documents/seller_reseller_retailer_docs/2017_Kryptonite_BrandGuidelines.pdf)
+documents a bent-foot design. [US4155231A](https://patents.google.com/patent/US4155231A/en)
+(summary, detailed description, Fig. 3, claim 1) explicitly describes tilted
+engagement, inserting the bent end first and pivoting the crosspiece onto the
+straight leg. Its detailed description gives representative half-inch rod,
+roughly 8–9 inch shackle length and outward bent foot. This supports a mechanism
+family; the dimensions below are authored approximations, not a measured replica
+of a current Kryptonite product. [US5092142A](https://patents.google.com/patent/US5092142A/en), originally assigned to Kryptonite, also describes a sloped bent foot acting as the assembly fulcrum. The representative diagonal toe here follows that variant. Straight-ended dual-bolt U-locks also exist;
+angled engagement is not claimed to be universal to all U-locks.
 
-`lockkit.py` hooks `yam_arena.scene` and the embodiment's step and reset without modifying yam_arena, so the task runs
-with the standard `yam_arena` embodiment and the `task_score` scorer.
+The published baseline used two straight ends and equal sockets, so both could
+be inserted by one axial slide. This revision changes actual visible colliders:
+one foot bends outward and the matching housing has a narrow entrance, a retaining
+lip and an enlarged inner chamber. The sideways toe cannot translate through the
+aligned mouth. Angled insertion followed by a pivot clears the same solids.
+There are no extra obstacles, collision exemptions, invisible interlocks or
+approach-angle/history scoring tests. Wheel, stand and robot layout are unchanged.
 
-## Run a trial
+**Revised official-runtime evidence:** Dream-1 beta seed 1 completed all 1,200
+actions with score 0.0 and zero errored trials; the scripted demo reached 1.0 in
+940 actions (47 seconds). A real post-demo reset restored the parts and passive
+wheel, cleared the catch and returned the score to zero. New model/demo/setup
+media show this bent-foot revision. Historical baseline evidence is separately
+identified in `provenance.json` and is not used for these scores.
 
-In the Isaac Lab-Arena environment with the YAM SDK installed, from this folder:
+## Files and trial commands
+
+`task.py` defines geometry and scoring; `lockkit.py` builds rigid compound
+colliders and the wheel hinge, hooks the standard embodiment and manages the
+catch joint. `demo.py` uses joint commands and physical gripper grasps. No SDK
+files are modified. `provenance.json` preserves published evidence separately.
+
+In the pinned YAM/Arena environment, from this directory:
 
 ```bash
-inspect-robots run --embodiment yam_arena --policy dream \
-  -E task=task.py -E object_jitter=0 -E control_hz=20 -E cam_width=320 -E cam_height=176 \
+inspect-robots run --no-prompt --embodiment yam_arena --policy dream \
+  -P model=dreamlabs/dream-1-beta -P rows_per_request=4 \
+  -E task=task.py -E object_jitter=0 -E control_hz=20 -E device=cuda:0 -E cam_width=320 -E cam_height=176 \
   --instruction "Lock the bike's back wheel to the bike stand with the U-lock." \
-  --scorer task_score --max-steps 1200 --store-frames --log-dir logs/u-lock-dream
+  --scorer task_score --max-steps 1200 --seed 1 --store-frames --log-dir logs/u-lock-dream
+python demo.py task.py demo_out
+DEMO_VARIANT=straight python demo.py task.py straight_out --no-record
+DEMO_RESET_CHECK=1 python demo.py task.py reset_out --no-record
 ```
 
-`task_score` gives 1.0 on success, otherwise `score()` at the end of the episode. The same command with
-`--policy yam_scripted -P hold_s=60` holds both arms still for the whole episode (the task's `demo()` is an empty plan):
-the do-nothing check.
+The official `task_score` scorer takes success or the final `score()`.
+`--policy yam_scripted -P hold_s=60` holds still, since `task.demo()` is empty.
+No model call is needed for the scripted demo. For cluster development, launch GPU simulation in an allocated container through
+Slurm.
 
-## Scripted demo
+## Robot demonstration and controls
 
-```bash
-python demo.py task.py demo_out                         # full score; writes demo_*_cam.mp4, demo.mp4, setup.png, result.json
-DEMO_VARIANT=no_crossbar python demo.py task.py out     # see the table below for the variants
-```
+The controller starts with both parts lying on the table. Each arm picks up its
+part, the left threads the shackle through the wheel and around the stand, while
+the right carries the bar behind the wheel. The bar approaches with about 47°
+relative yaw around the bent end. Translation feeds the toe through its mouth;
+a series of rotations brings the other socket over the straight end. The hands
+then open and retreat. The initial angle is a controller choice, not a threshold
+in the task or scorer.
 
-1. The left arm picks the shackle up by its inner leg (on the sleeve, level with its centre of mass); the right arm
-   picks the crossbar up round its middle.
-2. The left arm carries the shackle level at hub height to just in front of the stand's leg, legs pointing at the
-   wheel, and pushes it home: the inner leg between two spokes, the outer leg past the tyre, the stand's leg between
-   them. Meanwhile the right arm carries the crossbar up past the stand's leg to behind the wheel.
-3. The right arm lowers the crossbar in line with the leg ends, 3 cm beyond them, and pushes it onto both at once,
-   6 mm past where it is fully home (the arm gives a little).
-4. Both arms let go and back away; the lock settles hanging on the wheel and the stand.
+The script plans from the fixed layout, observed simulator poses of the visible
+parts and its own commands. It does not place objects, apply evaluator forces,
+read contacts or use the latch state for planning. This privileged pose access
+is disclosed. `trajectory.json` records actual part poses and actual issued joint
+commands; videos and traces are written outside the source directory.
 
-The demo plans from the fixed published layout (the constants in `task.py`, run with `object_jitter=0`), from looks at
-the poses of the two lock parts (objects in plain view of the cameras: it corrects the arm for how each part sits in the
-hand and for the arm sagging under the load) and from its own arm commands. It never reads the catch state, contact
-forces or any other internal state.
-
-The demo reaches 1.0 in 800 steps (40 s); `run_limit` is 1,200 steps.
-
-### Other strategies
-
-Measured with the live scorer (the same `score()` as the model run):
-
-| Strategy | What happens | Score |
+| Variant | Purpose | Revised physics result |
 |---|---|---|
-| Do nothing (`inspect-robots run ... --policy yam_scripted -P hold_s=60`, 1,200 steps) | lock stays on the table | 0.0 |
-| `nothing` (both arms still, demo harness) | lock stays on the table | 0.0 |
-| `air`: close the lock in the air in front of the robot | locked round nothing; it drops onto the table | 0.0 |
-| `no_crossbar`: thread the shackle, never bring the crossbar | shackle round the rim and the stand, open; it can be lifted off | 0.25 |
-| `short`: push the crossbar on but stop 10 mm short of home | crossbar does not catch; lock open | 0.25 |
-| `held`: lock correctly but keep both hands on the lock | locked round both, still held at the end | 0.5 |
-| Full demo | locked round the rim and the stand, hands off, still | 1.0 at step 800 |
+| full (default) | pick up both parts, angle, pivot, release | 1.0 at 940 controls; post-success reset passed |
+| straight | former axial slide onto both ends | 0.0, no latch, 862 controls; toe blocked on housing lip; reset passed |
+| nothing | do nothing | 0.0, 160 controls |
+| no_crossbar | thread shackle, never attach bar | 0.25, 616 controls; no latch |
+| short | bent foot entered but straight end not seated | 0.25, 870 controls; no latch |
+| held | complete closure, keep both hands on | 0.5, 1150 controls; latched around both, held |
+| air | attempt closure around no objects | 0.0, 538 controls; grasps failed, so this does not establish closed-air rejection |
 
-Not run as variants: a lock round only the stand (it cannot go round the stand's leg at hub height, where the leg is
-8 mm from the tyre, but it fits round the leg above the tyre or round the top bar) and a lock round only the rim. Both
-score 0 by the rules below: the scorer needs the lock round both.
+`DEMO_RESET_CHECK=1` resets after each completed trial, advances 20 stationary
+control steps, verifies both parts within 3 mm of their start positions, no latch,
+no enabled catch joint and score zero. It also records rear wheel angle. Catch
+joints are disabled **before** reset settling, then score/latch histories clear.
+Closed-lock evaluator placements around only the stand, only the rim, both legs inside the wheel opening, and in empty space all scored zero, including 20 physics steps per fixture. These establish scorer controls only; they are not robot demonstrations. Synthetic false-seat checks also passed. A passive-wheel reset defect observed after the first demonstration was fixed and revalidated after successful closure and failed straight insertion. Geometry, latch/scoring and robot control definitions were unchanged by that reset fix.
+
+## Setup and dimensions
+
+The station table represents pavement. Coordinates use the SDK station world
+frame; height is above the table. The rear hub is at (38, -1, 15.9) cm. The park
+frame is yawed -25°; x runs across the bike, y toward its front, z up.
+
+- Child's bicycle: 57-203 rigid rubber tyres (317 mm outer diameter), ISO 203
+  aluminium rims (169–203 mm diameter), sixteen 2 mm radial steel spokes and
+  a red steel frame. Wheelbase 480 mm (shorter than real 580–600 mm examples to
+  fit the station); front wheel/frame fixed, back wheel 0.8 kg on a lightly damped
+  axle. Initial spoke directions are 11.25° from the radial insertion line.
+- Stand: fixed galvanised steel Sheffield stand, 48 mm tube, 750 mm high, legs
+  700 mm apart. The rear leg is at park x=-60.5 mm, y=-142 mm; its plane is 8 mm
+  ahead of the tyre. Commercial stands are often longer. No layout change in
+  this revision.
+- Shackle: 0.62 kg, 12.7 mm steel rod, 114.7 mm axis spacing (102 mm internal),
+  approximately 220 mm closed internal depth (94.7 mm sleeve clearance); 20 mm vinyl sleeve over the bend and
+  first 70 mm. In its local xy plane, legs run +x at y=±57.35 mm. The inner
+  straight end's outermost point is x=198 mm. The outer leg bends from
+  (183, -57.35) mm to toe centre (198, -73.35) mm. The actual diagonal segment
+  has length 21.93 mm and rounded 6.35 mm radius. Initial bend centre is world
+  (13, 17, 1) cm, yaw -25°.
+- Crossbar: 0.70 kg nominal lumped mass, 40×40 mm steel-core housing with a black rigid polymer casing, 180 mm long, with a 50 mm
+  cylindrical lock head outside one end. Socket centres y=±57.35 mm. Entrance
+  plane x=-20 mm, openings 20×20 mm, lip 8 mm thick. Hook chamber extends to
+  x=12 mm and y=-84 mm; straight socket bottom x=5 mm (25 mm depth).
+  Initial centre (25, -30, 2) cm, yaw -25°. Only one mating orientation fits.
+
+The exact primitive positions/materials and the remaining bicycle frame members,
+seat, pedals, handlebar and kickstand are specified in `task.py` and the setup
+field of `task.json`. The setup screenshot shows the separated bent-foot shackle and housing.
+There is no randomisation; use `object_jitter=0`.
 
 ## Scoring
 
-Evaluated every control step; the score at the end of the episode counts (`SCORE_OVER = "end"`).
+Scoring uses the final physical linkage, never the approach angle. The closed
+loop follows the shackle including the bent foot and the bar joining its ends.
+An odd signed crossing of the rim's spanning disc means it links the rim; an odd
+crossing of the Sheffield stand opening means it links the stand.
 
-- The lock goes **round the rim** if the closed loop formed by the shackle's centre line and the straight line across
-  its leg ends passes through the wheel's plane inside the rim's mid-line (93 mm from the hub) an odd number of times:
-  the rim passes through the lock. In a real trial: the lock cannot be lifted off the wheel without opening it.
-- It goes **round the stand** if that loop passes through the stand's opening (between its legs, under its top bar) an
-  odd number of times.
-- **Locked**: the crossbar has been pushed onto both leg ends until each is within 4 mm of its socket's bottom (16 mm
-  in) and within 4 mm of the socket's centre line; from then on it stays locked.
-- 1.0 (success, held for 1 s): locked, round both the rim and the stand, every finger pad of both grippers at least
-  3 cm from both lock parts, and both parts moving less than 2 mm over the last second.
-- 0.5: the same correct lock, closed round both the rim and the stand, but a gripper is still on it or it is still
-  moving (the job is done except letting go).
-- 0.25: not locked, but the shackle goes round both the rim and the stand (threaded correctly; crossbar missing or not
-  pushed home).
-- Otherwise 0, including a lock closed round only the rim or only the stand (it does not lock the wheel to the stand)
-  and a shackle with both legs between the spokes, inside the rim (the loop then crosses the wheel's plane twice
-  inside the rim, an even number).
+The catch engages only when the straight end lies 21–25.5 mm inside its socket
+mouth, within 3 mm of its y/z centre, **and** the bent toe is within 3 mm of its
+final y/z centre with axial position strictly -5 to 6 mm in bar coordinates.
+Both are bounded final assembly tests. A bar past/through the back, an offset
+socket or an unengaged straight end must not latch. The fixed joint then holds
+the bar at its assembled pose; key and bolt operation are simplified.
 
-## Runtime and seeds
+- 1.0: latched and linked around both rim and stand, every finger pad at least
+  30 mm away, both parts moving less than 2 mm over the last second; success
+  must hold for another second.
+- 0.5: latched and linked around both, still held or moving.
+- 0.25: shackle threaded around both, not closed by a latched bar.
+- 0: all other outcomes, including a closed lock around only the stand, only
+  the rim, nothing, or both legs inside the wheel opening.
 
-About 2 minutes per trial for the full 1,200 steps on an A6000, plus about 1 minute for Isaac Sim to start. The layout
-is fixed (`-E object_jitter=0`); there are no seeds to choose.
+These pre-existing score tiers and the 1,200-step/60-second limit are preserved.
+Measured revised runs take roughly 4–7 minutes for full/straight trials on the development GPU, including startup and recording; shorter controls take less. The full robot sequence is 47.0 seconds at 20 Hz within the 60-second limit.
 
-## Fidelity
+## Fidelity and real-world setup
 
-All parts are rigid bodies built from capsules, boxes and cylinders. Sizes against real products: the 57-203 tyre
-(31.7 cm across), ISO 203 rim and 16 spokes are those of a real 12-inch child's bike; the U-lock matches a standard
-4 x 9 inch U-lock such as the Kryptonite KryptoLok Standard (13 mm shackle, about 1.3 kg); the stand matches a common
-Sheffield stand (48 mm tube, 75 cm tall), though its legs are 70 cm apart where commercial stands are about 75 to 100 cm
-long. The bike's wheelbase is 48 cm, shorter than the 58 to 60 cm of real 12-inch bikes, so that the whole bike fits on
-the table. The bike's frame and front wheel are fixed (it is
-parked on its kickstand and is not part of the job); its back wheel turns on its axle with light bearing drag. The
-tyre is rigid. There is no key: the crossbar catches when both legs are 16 mm into its sockets, and from then on a
-fixed joint holds it on the shackle. The shackle's vinyl sleeve and the crossbar's finish are given a friction of 1.0
-against the robot's finger pads. No contact force cap is enforced in simulation.
+The mechanical principle follows bent-foot locks, using authored primitive shapes
+and representative clearances. Capsule ends and rectangular sockets approximate
+curved/chamfered metal; there is no claim of manufacturing fidelity. The visible
+housing/lip enforce the entry sequence by collision. The collision housing is an outer-envelope approximation with nominal lumped mass; internal material distribution and manufacturing wall thickness are not resolved. The fixed catch approximates
+a straight-foot bolt; key turning is omitted. The tyre is rigid; sleeve/finish
+friction against gripper pads is 1.0. No simulated force cap is enforced. The task
+does not model cutting, breakage or lock-picking resistance.
 
-## Real-world build
-
-A child's bike with 12-inch spoked wheels on its kickstand, a Sheffield stand (48 mm tube) bolted down 8 mm from the
-back tyre, and a standard U-lock (inside 102 x 229 mm, 12.7 mm shackle, about 1.3 kg) with a vinyl sleeve over the bend.
-Use a push-to-lock crossbar or leave the key in the lock. Mark the outlines of the two lock parts and the two spokes on
-either side of the lock point. Judge from a photo, then lift the lock by hand to check what passes through it.
+For a physical trial use a matching bent-foot U-lock, a 12-inch spoked wheel and
+48 mm stand tube, and measure actual product clearances. Use the key held in
+its ready position or a push-to-lock cylinder, documenting that simplification.
+Mark starting part outlines and spokes. Inspect the closed lock, then check by
+hand that both rim and stand are captured. Open the cylinder and separate the
+parts for reset. Do not substitute a straight-ended dual-bolt lock when testing
+this angled-entry variant.
 
 ## Third-party assets and licenses
 
@@ -143,5 +190,5 @@ them.
 | Bike, cycle stand, U-lock | task scene | this folder (`task.py`, `lockkit.py`): primitive shapes built in code | the authors' own, MIT License in `LICENSE` | yes |
 
 Isaac Lab-Arena release 0.3.1 (c7edf3a9d5d8) ships the Apache License 2.0. Isaac Sim and Isaac Lab are runtime
-dependencies under their own licenses. None of them is redistributed here. All task-specific code and geometry
+dependencies under their own licenses. None of them is redistributed here. Manufacturer/patent references inform mechanism design only; no drawings, logos, meshes or other third-party assets from those references are bundled. All task-specific code and geometry
 (`task.py`, `lockkit.py`, `demo.py`) is the authors' own, under the MIT License in `LICENSE`.

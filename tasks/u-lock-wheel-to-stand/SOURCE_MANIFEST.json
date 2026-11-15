@@ -1,0 +1,16 @@
+{
+  "algorithm": "sha256",
+  "fingerprint_rule": "sha256 of sorted basename + space + file SHA256 + newline; excludes manifest itself",
+  "source_fingerprint": "0a55a9b385e2376ef626bc25d45f0a5a4e8864db4e46db17ac9f6e8ce518384c",
+  "files": {
+    "LICENSE": "08d7d18417f03c19ccfdb200a578b698291c1daa7dd774931f19469911742f0e",
+    "README.md": "416d898ca6832e5e87a55f3732def342c607db1687282cddf50668db08a46140",
+    "demo.py": "665d910be28c8b0b032e0df88be29a06699c5ac215ed7dfd914cd3c4db0e074a",
+    "lockkit.py": "56e6a102f4ba0fe304aa26e96a83c04c8f961efe18bcc06bb7a92bc7962cd10a",
+    "provenance.json": "3680a52c46bf6dbcaedb0d95277574628cae2b7c53b2ca1266bbc778ad0d8e62",
+    "task.json": "ccb3e6ebc8339876973beb5ac165f7aea1a64dc6b5bb3c21071116e98d6598a9",
+    "task.py": "66e9c666f5d81bf7653a54b6d055637ea6a60045ae9f75cef3c9348eb7765882"
+  },
+  "baseline_head": "f799248538b087994def33780c49743fde000b5b",
+  "readiness": "Formal robot, Dream-1, reset, media and local official-prompt-v22 review complete; actual replacement media linked."
+}

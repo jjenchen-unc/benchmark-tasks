@@ -9,12 +9,13 @@ state, contact forces or any other internal state of the simulation.
 The left arm picks the shackle up by one leg, turns it so its legs point away from the robot and pushes it level, at
 hub height, through the back wheel (the inner leg between two spokes, the outer leg past the tyre) and round the
 stand's leg. The right arm picks the crossbar up round its middle, carries it up past the stand's leg to behind the
-wheel, lowers it in line with the leg ends and pushes it onto both of them at once. Then both arms let go and back
+wheel, lowers it behind the leg ends, enters the bent foot at an angle and pivots onto the straight foot. Then both arms let go and back
 away.
 
-DEMO_VARIANT picks a variant for the negative checks: "nothing" (both arms stay still), "air" (the lock is closed in
-the air in front of the robot, round nothing), "no_crossbar" (the shackle is threaded, the crossbar never brought),
-"short" (the crossbar is pushed onto the leg ends but stopped 10 mm short of home), "held" (locked correctly, but
+DEMO_VARIANT picks a variant for the negative checks: "nothing" (both arms stay still), "air" (attempt closure in
+the air; this is not a valid closed-lock control if either grasp fails), "no_crossbar" (the shackle is threaded, the crossbar never brought),
+"short" (the bent foot is entered but the crossbar is not pivoted onto the straight end),
+"straight" (the former simultaneous axial closure against the revised colliders), "held" (locked correctly, but
 neither hand lets go).
 Writes one MP4 per camera, a side-by-side MP4 of all three, setup.png (the first top-camera frame) and result.json.
 """
@@ -190,7 +191,7 @@ def script(T, ctx):
     rolled = level @ np.array([[c30, 0, s30], [0, 1, 0], [-s30, 0, c30]])   # turned 30 deg about its long axis
 
     if VARIANT == "air":
-        # Close the lock in front of the robot, round nothing.
+        # Attempt closure in front of the robot, round nothing; report grasp failures honestly.
         air = np.array([0.06, -0.10, T.TOP + 0.24])
         yield from both(hs.move(air, np.eye(3), 3.0), hc.move((0.25, -0.30, T.TOP + 0.20), rolled, 2.0))
         yield from hc.move(air + [T.SEAT_X + 0.03, 0, 0.0], np.eye(3), 2.5)
@@ -223,19 +224,47 @@ def script(T, ctx):
         yield from hc.move(P((T.XB + 0.09, y_lock, hub_z + 0.02)), level, 2.5)
         yield from hc.servo(ctx, "crossbar", P((T.XB + 0.09, y_lock, hub_z + 0.02)), level, n=2)
 
-    # 4. Look at where the shackle actually is; bring the crossbar in line with its leg ends, 3 cm beyond them
-    #    (correcting from looks at both parts), then push it onto both at once, a few millimetres past the socket
-    #    bottoms (the arm gives a little).
-    st = ctx.states()
-    sh_p, sh_r = st["shackle"].pos, st["shackle"].rotation()
-    seat = sh_p + sh_r @ np.array([T.SEAT_X, 0.0, 0.0])
-    yield from hc.move(seat + sh_r @ [0.03, 0, 0], sh_r, 2.0)
-    yield from hc.servo(ctx, "crossbar", seat + sh_r @ [0.03, 0, 0], sh_r, n=3)
-    st = ctx.states()
-    sh_p, sh_r = st["shackle"].pos, st["shackle"].rotation()
-    seat = sh_p + sh_r @ np.array([T.SEAT_X, 0.0, 0.0])
-    yield from hc.servo(ctx, "crossbar", seat + sh_r @ [0.03, 0, 0], sh_r, n=1)
-    yield from hc.move(seat + sh_r @ [0.010 if VARIANT == "short" else -0.006, 0, 0], sh_r, 2.5)
+    # 4. Bent foot first: align the outer socket with the diagonal foot,
+    # feed it through the mouth, then swing the bar onto the straight leg.
+    def measured():
+        st = ctx.states()["shackle"]
+        return st.pos, st.rotation()
+
+    if VARIANT == "straight":
+        # Exact former axial closure strategy, against the revised real colliders.
+        sh_p, sh_r = measured()
+        seat = sh_p + sh_r @ [T.SEAT_X, 0, 0]
+        yield from hc.servo(ctx, "crossbar", seat + sh_r @ [0.03, 0, 0], sh_r, n=3)
+        yield from hc.move(seat + sh_r @ [-0.006, 0, 0], sh_r, 2.5)
+        yield from wait(2.0)
+    else:
+        theta = math.radians(-47)
+        # Keep the hook's bend just behind the socket's retaining lip.
+        pivot_sh = np.array([T.HOOK_BEND, -T.S, 0.0])
+        pivot_cb = np.array([T.HOOK_BEND - T.SEAT_X, -T.S, 0.0])
+        def target(angle, clearance=0):
+            sh_p, sh_r = measured()
+            r = sh_r @ rz(angle)
+            # Translation accompanies the pivot so the bend clears the lip
+            # and the toe stays inside the housing chamber.
+            u = abs(angle) / abs(theta)
+            offset = np.array([0.011 * u + 0.0015 * math.sin(math.pi*u),
+                               -0.012 * u*u - 0.002 * math.sin(math.pi*u), 0])
+            return sh_p + sh_r @ pivot_sh - r @ pivot_cb + sh_r @ offset + r @ [clearance, 0, 0], r
+        p, r = target(theta, 0.035)
+        yield from hc.move(p, r, 2.0)
+        yield from hc.servo(ctx, "crossbar", p, r, n=2)
+        p, r = target(theta)
+        yield from hc.move(p, r, 2.0)
+        yield from hc.servo(ctx, "crossbar", p, r, n=2)
+        if VARIANT != "short":
+            for deg in (-35, -25, -15, -7, 0):
+                p, r = target(math.radians(deg))
+                yield from hc.move(p, r, 0.6)
+                yield from hc.servo(ctx, "crossbar", p, r, n=1, duration=0.3)
+            sh_p, sh_r = measured()
+            seat = sh_p + sh_r @ [T.SEAT_X, 0, 0]
+            yield from hc.servo(ctx, "crossbar", seat, sh_r, n=2)
     yield from wait(0.5)
     if VARIANT == "held":                  # locked, but both hands stay on the lock
         yield from wait(10.0)
@@ -313,6 +342,7 @@ def run(task_path: str, out_dir: str, max_steps: int = 1200, record: bool = True
 
     snap(obs)
     steps, ended, success, info = 0, None, False, {}
+    trace = []
     while steps < max_steps:
         try:
             next(gen)
@@ -322,6 +352,16 @@ def run(task_path: str, out_dir: str, max_steps: int = 1200, record: bool = True
         steps += 1
         info = res.info
         snap(res.observation)
+        states = ctx.states()
+        sh, cb = states["shackle"], states["crossbar"]
+        relative = sh.rotation().T @ cb.rotation()
+        trace.append({"step": steps, "shackle_pos": sh.pos.tolist(), "crossbar_pos": cb.pos.tolist(),
+                      "shackle_rotation": sh.rotation().tolist(), "crossbar_rotation": cb.rotation().tolist(),
+                      "crossbar_relative_yaw_deg": math.degrees(math.atan2(relative[1,0], relative[0,0])),
+                      "straight_tip_in_bar": task._tips_in_crossbar(sh, cb)[0].tolist(),
+                      "hook_toe_in_bar": cb.to_local(sh.to_world(task.HOOK_END)).tolist(),
+                      "latched": task._S["latched"], "score": info.get("score"),
+                      "action_left": ctx.left.cmd.tolist(), "action_right": ctx.right.cmd.tolist()})
         if steps % 20 == 0:
             st = ctx.states()
             sh, cb = st["shackle"], st["crossbar"]
@@ -341,8 +381,10 @@ def run(task_path: str, out_dir: str, max_steps: int = 1200, record: bool = True
             break
     score = 1.0 if success else float(info.get("score", 0.0) or 0.0)
     result = {"task_score": score, "success": success, "steps": steps, "variant": VARIANT,
-              "latched": task._S["latched"],
+              "latched": task._S["latched"], "final_status": task.status(ctx.states()),
               "worst_ik_mm": {"left": round(ctx.left.worst_mm, 2), "right": round(ctx.right.worst_mm, 2)}}
+    (out / "trial-result.json").write_text(json.dumps(result, indent=2))
+    (out / "trajectory.json").write_text(json.dumps(trace))
     if record and frames:
         import imageio
 
@@ -353,6 +395,30 @@ def run(task_path: str, out_dir: str, max_steps: int = 1200, record: bool = True
         _write_mp4([np.concatenate([frames[c][i] for c in cams], axis=1) for i in range(n)], out / "demo.mp4")
         top = next((c for c in cams if "top" in c), cams[0])
         imageio.imwrite(out / "setup.png", frames[top][0])
+    if os.environ.get("DEMO_RESET_CHECK"):
+        from isaaclab.sim.utils.stage import get_current_stage
+        import lockkit
+        emb.reset(Scene(id="reset-check", instruction=task.INSTRUCTION))
+        reset_ctx = Ctx(emb)
+        for _ in range(20):
+            emb.step(reset_ctx.action())
+        states = reset_ctx.states()
+        joint_enabled = [bool(get_current_stage().GetPrimAtPath(p).GetAttribute("physics:jointEnabled").Get())
+                         for p in lockkit._WELD_PATHS.get("seated", [])]
+        reset_result = {"latched": task._S["latched"], "score": task.score(states),
+                        "joint_enabled": joint_enabled,
+                        "shackle_position_error_mm": float(1000*np.linalg.norm(states["shackle"].pos-task.SHACKLE0)),
+                        "crossbar_position_error_mm": float(1000*np.linalg.norm(states["crossbar"].pos-task.CROSSBAR0)),
+                        "wheel_angle_rad": states["bike_and_stand"].joints.get("back_wheel")}
+        result["reset_check"] = reset_result
+        (out / "result.json").write_text(json.dumps(result, indent=2))
+        print("RESET_CHECK " + json.dumps(reset_result), flush=True)
+        assert reset_result["latched"] is None and reset_result["score"] == 0
+        assert joint_enabled and not any(joint_enabled)
+        assert reset_result["shackle_position_error_mm"] < 3
+        assert reset_result["crossbar_position_error_mm"] < 3
+        assert abs(reset_result["wheel_angle_rad"]) < 0.005
+    result["validation_passed"] = True
     (out / "result.json").write_text(json.dumps(result, indent=2))
     print(json.dumps(result), flush=True)
     return result

@@ -1,12 +1,11 @@
 """On the station table (it stands for the pavement of a bike park): a child's bike with 12-inch wheels, parked
 across the table facing left, its back wheel in front of the right arm, and a steel Sheffield cycle stand (48 mm
 tube, 75 cm tall) between the robot and the bike, one of its legs just in front of the back tyre. The back wheel
-turns on its axle. A U-lock lies in two parts on the table: its steel shackle (a U, 102 mm between the legs inside, 229 mm deep
-inside) on the left, and its crossbar on the right.
+turns on its axle. A U-lock lies in two parts on the table: its steel shackle (a U, 102 mm nominal bare-rod clearance, about 220 mm closed internal depth) on the left, and its crossbar on the right.
 
 The robot must lock the back wheel to the stand: the shackle has to go round both the stand's leg and the wheel's
-rim (one leg of the U through the spokes, the other outside the tyre) and the crossbar has to be pushed onto both
-leg ends until it locks.
+rim (one leg of the U through the spokes, the other outside the tyre) and the bent foot has to be entered into its crossbar socket at an angle, then
+the crossbar pivoted onto the straight leg until it locks.
 
 Run it:  inspect-robots run --embodiment yam_arena -E task=task.py --scorer task_score ...
 Demo:    python demo.py task.py demo_out
@@ -81,7 +80,8 @@ XS = XB - 0.0285 - STAND_R - 0.008     # the stand's plane, 8 mm in front of the
 YL = HY - 0.142                        # its leg beside the back wheel
 STAND_W, STAND_TOP = 0.70, 0.726
 
-# U-lock, the size of a common standard U-lock (inside 102 x 229 mm, 12.7 mm hardened steel shackle, 1.32 kg).
+# U-lock: representative full-size bent-foot lock; 102 mm bare-rod clearance,
+# 94.7 mm at the sleeve, about 220 mm closed depth, 12.7 mm rod, 1.32 kg total.
 # Shackle frame: origin at the centre of the bend, legs along +x at y = +-S, in the plane z = 0.
 LEG_R = 0.00635                        # bare steel at the leg ends
 COAT_R = 0.010                         # a vinyl sleeve, 20 mm across, over the bend and the first 70 mm of each leg
@@ -90,11 +90,12 @@ S = 0.051 + LEG_R                      # leg axis from the U's mid-line
 TIP = 0.198 - LEG_R                    # centre of each leg's rounded end (the end itself is at x 0.198)
 SHACKLE_KG, CROSSBAR_KG = 0.62, 0.70
 # Crossbar frame: origin midway between its two sockets, long axis y, sockets open toward -x.
-CB_HALF = 0.015                        # the bar is 30 x 30 mm
-HOLE = 0.0085                          # sockets 17 x 17 mm, 20 mm deep
+# Representative bent-foot housing; dimensions are not a reverse-engineered commercial product.
+CB_HALF = 0.020                        # the bar is 40 x 40 mm
+HOLE = 0.010                          # socket mouths 20 x 20 mm; asymmetric chambers behind them
 MOUTH, BOTTOM = -CB_HALF, 0.005
-CB_END = 0.08                          # the bar runs to y +-0.08; the lock head continues to y -0.13
-HEAD = (-0.13, -0.08)
+CB_END = 0.09                          # the bar runs to y +-0.08; the lock head continues to y -0.13
+HEAD = (-0.14, -0.09)
 SEAT_X = 0.198 - BOTTOM                # crossbar origin in the shackle frame when fully seated
 
 # Start poses on the table.
@@ -175,9 +176,16 @@ PARK = part("bike_and_stand", pos=tuple(PARK_P0), yaw=PARK_YAW, boxes=BIKE_BOXES
             capsules=(*BIKE_CAPS, *STAND_CAPS), hinges=(WHEEL,), color=FRAME, friction=0.8)
 
 
+HOOK_BEND = 0.183
+HOOK_END = (0.198, -S - 0.016, 0.0)
+LIP_BACK = -0.012
+
+
 def _shackle_caps():
     caps = [((0.0, s, 0.0), (COAT_END, s, 0.0), COAT_R, COATING) for s in (S, -S)]
-    caps += [((COAT_END - 0.005, s, 0.0), (TIP, s, 0.0), LEG_R, SHACKLE_C) for s in (S, -S)]
+    caps += [((COAT_END - 0.005, S, 0.0), (TIP, S, 0.0), LEG_R, SHACKLE_C),
+             ((COAT_END - 0.005, -S, 0.0), (HOOK_BEND, -S, 0.0), LEG_R, SHACKLE_C),
+             ((HOOK_BEND, -S, 0.0), HOOK_END, LEG_R, SHACKLE_C)]
     angles = np.linspace(math.pi / 2, 3 * math.pi / 2, 9)
     pts = [(S * math.cos(a), S * math.sin(a), 0.0) for a in angles]
     caps += [(pts[i], pts[i + 1], COAT_R, COATING) for i in range(8)]
@@ -185,15 +193,29 @@ def _shackle_caps():
 
 
 def _crossbar_boxes():
-    d = (MOUTH + BOTTOM) / 2, BOTTOM - MOUTH            # socket region along x: centre, depth
-    edge_in, edge_out = S - HOLE, S + HOLE
-    return [
-        (((BOTTOM + CB_HALF) / 2, 0.0, 0.0), (CB_HALF - BOTTOM, 2 * CB_END, 2 * CB_HALF), CROSSBAR_C),       # back
-        ((d[0], 0.0, (HOLE + CB_HALF) / 2), (d[1], 2 * CB_END, CB_HALF - HOLE), CROSSBAR_C),                 # top
-        ((d[0], 0.0, -(HOLE + CB_HALF) / 2), (d[1], 2 * CB_END, CB_HALF - HOLE), CROSSBAR_C),                # bottom
-        ((d[0], 0.0, 0.0), (d[1], 2 * edge_in, 2 * HOLE), CROSSBAR_C),                                       # middle
-        *(((d[0], s * (edge_out + CB_END) / 2, 0.0), (d[1], CB_END - edge_out, 2 * HOLE), CROSSBAR_C) for s in (1, -1)),
-    ]
+    """Visible solid housing around two mouths and a deeper bent-foot chamber.
+
+    The outer socket has a retaining lip: the angled foot fits in the chamber
+    behind it, but its lateral projection cannot translate through the mouth.
+    No collision exclusions or path-dependent latch conditions are used.
+    """
+    boxes = []
+    def box(lo, hi):
+        lo, hi = np.asarray(lo), np.asarray(hi)
+        boxes.append((tuple((lo + hi) / 2), tuple(hi - lo), CROSSBAR_C))
+    # top and bottom walls, full back, and ends
+    for z in (-1, 1):
+        box((MOUTH, -CB_END, HOLE if z > 0 else -CB_HALF),
+            (CB_HALF, CB_END, CB_HALF if z > 0 else -HOLE))
+    box((0.012, -CB_END, -HOLE), (CB_HALF, CB_END, HOLE))
+    box((MOUTH, -CB_END, -HOLE), (CB_HALF, -0.084, HOLE))
+    box((MOUTH, S + HOLE, -HOLE), (CB_HALF, CB_END, HOLE))
+    box((MOUTH, -S + HOLE, -HOLE), (CB_HALF, S - HOLE, HOLE))
+    # The bent-foot mouth is narrow at the entrance, wider behind the lip.
+    box((MOUTH, -0.084, -HOLE), (LIP_BACK, -S - HOLE, HOLE))
+    # straight socket bottom, aligned with the original straight tip
+    box((BOTTOM, S - HOLE, -HOLE), (CB_HALF, S + HOLE, HOLE))
+    return boxes
 
 
 SHACKLE = part("shackle", pos=SHACKLE0, yaw=SHACKLE0_YAW, mass=SHACKLE_KG, capsules=tuple(_shackle_caps()),
@@ -204,21 +226,20 @@ CROSSBAR = part("crossbar", pos=CROSSBAR0, yaw=CROSSBAR0_YAW, mass=CROSSBAR_KG, 
                 color=CROSSBAR_C, friction=1.0, combine="max")
 OBJECTS = [PARK, SHACKLE, CROSSBAR]
 
-# The crossbar fits either way round (lock head on either side); one weld per way, switched on when it locks.
+# The bent-foot housing is asymmetric; one assembled orientation.
 weld("seated", CROSSBAR, SHACKLE, (SEAT_X, 0.0, 0.0), (1.0, 0.0, 0.0, 0.0))
-weld("seated_flipped", CROSSBAR, SHACKLE, (SEAT_X, 0.0, 0.0), (0.0, 1.0, 0.0, 0.0))
+
 
 # -- the latch ----------------------------------------------------------------------------------------------------------
-# A real U-lock's crossbar catches notches in both leg ends when pushed home. Here it locks when both leg ends are in
-# its sockets within 4 mm of the socket bottoms (16 mm in); from then on a fixed joint holds it in the seated pose.
+# The straight-end bolt and the bent-foot retention are approximated by a fixed joint
+# after both ends occupy their bounded final chambers. No approach angle/history is tested.
 LATCH_DEPTH = 0.004
-LATCH_SIDE = 0.004
 _S: dict = {}
 
 
 @on_reset
 def _reset(environment=None) -> None:
-    for name in ("seated", "seated_flipped"):
+    for name in ("seated",):
         try:
             set_weld(name, False)
         except Exception:  # noqa: BLE001 - before the stage exists
@@ -234,12 +255,16 @@ def _tips_in_crossbar(shackle, crossbar) -> np.ndarray:
 
 
 def _seated(shackle, crossbar):
-    """'seated' / 'seated_flipped' when both leg ends sit in the sockets (16 mm in or more), else None."""
+    """Final physical assembly: straight tip seated and bent toe inside the retaining chamber."""
     tips = _tips_in_crossbar(shackle, crossbar)
-    for name, order in (("seated", (S, -S)), ("seated_flipped", (-S, S))):
-        if all(t[0] > BOTTOM - LATCH_DEPTH and abs(t[1] - y) < LATCH_SIDE and abs(t[2]) < LATCH_SIDE
-               for t, y in zip(tips, order)):
-            return name
+    hook = crossbar.to_local(shackle.to_world(HOOK_END))
+    # A straight leg in the correct socket and the hook behind its retaining lip.
+    # These are final assembly tests, independent of approach/history/angle.
+    if (BOTTOM - LATCH_DEPTH < tips[0, 0] < BOTTOM + 0.0005
+            and abs(tips[0, 1] - S) < 0.003 and abs(tips[0, 2]) < 0.003
+            and -0.005 < hook[0] < 0.006
+            and abs(hook[1] + S + 0.016) < 0.003 and abs(hook[2]) < 0.003):
+        return "seated"
     return None
 
 
@@ -295,7 +320,8 @@ def lock_loop(shackle) -> np.ndarray:
     """The lock's closed loop (world): the shackle's centre line and the straight line across its leg ends, which the
     crossbar covers once it is on."""
     angles = np.linspace(math.pi / 2, 3 * math.pi / 2, 17)
-    local = [(TIP, S, 0.0), *((S * math.cos(a), S * math.sin(a), 0.0) for a in angles), (TIP, -S, 0.0)]
+    local = [(TIP, S, 0.0), *((S * math.cos(a), S * math.sin(a), 0.0) for a in angles),
+             (HOOK_BEND, -S, 0.0), HOOK_END]
     return np.array([shackle.to_world(p) for p in local])
 
 

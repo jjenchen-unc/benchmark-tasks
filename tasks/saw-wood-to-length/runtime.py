@@ -181,5 +181,8 @@ class Mechanism:
             self.rows.append({'t':self.t,'screw_angle':angle,'screw_rate':rate,'jaw_y':float(pos[1]),
                 'jaw_velocity_y':float(v[1]),'jaw_force':force,'screw_reaction_torque':torque,
                 'screw_self_lock_torque':self_lock,
-                'cut_force':self.last_fn,
+                'cut_force':self.last_fn,'task_score':self.task_score,
+                'stage_geometry':self.cutting.last_score,'clamp_ok':self.cutting.clamp_ok,
+                'tool_clear':self.cutting.tool_clear,'cut_before_clamp':self.cutting.cut_before_clamp,
+                'geometry_revision':self.cutting.revision,'separated':self.cutting.cut_time is not None,
                 'wood_pose':self.views['wood'].get_transforms()[0].tolist(),'saw_pose':self.views['saw'].get_transforms()[0].tolist()})

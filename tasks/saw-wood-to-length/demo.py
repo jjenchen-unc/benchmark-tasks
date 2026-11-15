@@ -5,7 +5,8 @@ import numpy as np
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--out',required=True)
-    p.add_argument('--mode',choices=['idle','grasp','clamp_one','clamp','full'],default='idle')
+    p.add_argument('--mode',choices=['idle','grasp','clamp_one','clamp','partial','full'],default='idle')
+    p.add_argument('--check-reset',action='store_true')
     a=p.parse_args();out=Path(a.out);out.mkdir(parents=True,exist_ok=True)
     from isaaclab.app import AppLauncher  # load app bindings before task modules
     import task as T
@@ -21,22 +22,25 @@ def main():
     obs=emb.reset(Scene(id='saw-wood-to-length',instruction=T.INSTRUCTION))
     from yam_arena.scene import object_states
     commands={side:np.r_[np.array(READY),1.] for side in ['left','right']}
-    frames={k:[] for k in obs.images};steps=0;measurements=[];plan=[]
-    video_stride=5 if a.mode=='full' else 2
+    frames={k:[] for k in obs.images};steps=0;measurements=[];plan=[];actions=[]
+    video_stride=5 if a.mode in ['partial','full'] else 2
     def state(label):
         st=object_states(emb._env,['wood','saw','jaw','screw'])
         r={'label':label,'step':steps,'score':T.score(st),'objects':{k:{'pos':v.pos.tolist(),'quat':v.quat_xyzw.tolist()} for k,v in st.items()}}
         if runtime.ENGINE is not None:
             c=runtime.ENGINE.cutting
+            np.savez_compressed(out/(label+'-material.npz'),cleared=c.stock.cleared,progress=c.stock.progress,loose_progress=c.stock.loose_progress)
             r['cut']={'depth_m':float(c.stock.progress.max()),'events':len(c.events),
                       'separated':c.cut_time is not None,'cut_before_clamp':c.cut_before_clamp,
                       'contact_N':runtime.ENGINE.last_fn,
-                      'geometry_score':c.last_score,'clamp_gap_m':c.last_gap}
+                      'geometry_score':c.last_score,'clamp_gap_m':c.last_gap,
+                      'clamp_ok':c.clamp_ok,'tool_clear':c.tool_clear}
         measurements.append(r);print('MEASUREMENT '+json.dumps(r),flush=True)
         for cam,img in obs.images.items():imageio.imwrite(out/(label+'-'+cam+'.png'),np.asarray(img))
         return st
     def step():
         nonlocal obs,steps
+        actions.append(np.r_[commands['left'],commands['right']].tolist())
         r=emb.step(Action(data=pack(commands['left'],commands['right'])));obs=r.observation;steps+=1
         if steps%video_stride==0:
             for cam,img in obs.images.items():frames[cam].append(np.asarray(img).copy())
@@ -73,7 +77,7 @@ def main():
     status='completed';error=None
     try:
         state('reset');hold(30,'settled')
-        if a.mode in ['clamp_one','clamp','full']:
+        if a.mode in ['clamp_one','clamp','partial','full']:
             center=np.array(T.KNOB.pos)
             rot=np.diag([1.,-1.,-1.])
             move('right',center+[0,0,.08],rot,70,'knob_pregrasp')
@@ -97,7 +101,7 @@ def main():
                     grip('right',0.,15)
             move('right',center+[0,0,.08],rot,45,'right_clear')
             hold(20,'vise_tightened')
-        if a.mode in ['grasp','full']:
+        if a.mode in ['grasp','partial','full']:
             st=state('before_saw_grasp');point=st['saw'].to_world(T.GRIP_LOCAL)
             # YAM's fingers close along gripper-local X; this pose pinches
             # across the handle's 26 mm width.
@@ -107,7 +111,7 @@ def main():
             hold(25,'saw_closed');move('left',point+[0,0,.08],rot,70,'saw_lift')
             hold(30,'saw_held')
             if a.mode=='grasp':grip('left',1.);hold(40,'saw_released')
-        if a.mode=='full':
+        if a.mode in ['partial','full']:
             # The robot alone carries the saw. Read the visible cut depth to
             # feed the blade; the physics task, not this demo, removes wood.
             # Aim the saw centre on the waste side of the 150 mm pencil mark.
@@ -132,8 +136,10 @@ def main():
             z_bias=float(root[2]-target[2])
             target[2]=float(wood.pos[2])+.020+.035-z_bias-.00035
             move('left',target,rot,35,'first_tooth_contact')
-            target[0]+=cut_center_x-float(tooth_at_wood()[0])
-            move('left',target,rot,25,'contact_line_aligned')
+            # Do not sweep sideways while touching wood: the measured
+            # contact pose is already inside the target kerf zone. The
+            # stroke controller corrects small errors gradually under load.
+            hold(25,'contact_settled')
             anchor_x=float(target[0]);initial_anchor_x=anchor_x
             roll_command=0.;yaw_command=0.
             for pass_idx in range(75):
@@ -178,24 +184,59 @@ def main():
                       'edge_error',max(abs(cut_center_x-float(tooth_at_wood(y)[0])) for y in (-.01,.01)),flush=True)
                 if pass_idx%5==4 or cutter.cut_time is not None:
                     state(f'saw_pass_{pass_idx+1:02d}')
-                if cutter.cut_time is not None:break
+                if cutter.cut_time is not None or (a.mode=='partial' and cutter.last_score.get('stage_value')==.5):break
             target[2]=float(wood.pos[2])+.020+.035-z_bias+.035
             move('left',target,rot,50,'saw_clear')
             hold(20,'cut_result')
-            if T.score({})<1.:
+            expected=.5 if a.mode=='partial' else 1.
+            if T.score({})!=expected:
                 raise RuntimeError('full robot demonstration did not meet the end-state score')
         if a.mode=='idle':hold(70,'idle_end')
     except Exception as e:
         import traceback;traceback.print_exc();status='failed';error=repr(e)
     finally:
         cut=runtime.ENGINE.cutting if runtime.ENGINE else None
+        trial_rows=list(runtime.ENGINE.rows) if runtime.ENGINE else []
+        trial_actions=list(actions)
         result={'mode':a.mode,'status':status,'error':error,'steps':steps,'score':T.score({}),
                 'measurements':measurements,'plan':plan,
                 'cut_geometry':cut.stock.score() if cut else None,
                 'max_cut_depth_m':float(cut.stock.progress.max()) if cut else None,
-                'cut_before_clamp':cut.cut_before_clamp if cut else None}
+                'cut_before_clamp':cut.cut_before_clamp if cut else None,
+                'stage_geometry':cut.last_score if cut else None,
+                'clamp_ok':cut.clamp_ok if cut else False,'tool_clear':cut.tool_clear if cut else False,
+                'physical_offcut_count':cut.fragment_view.count if cut and cut.fragment_view is not None else 0,
+                'offcut_pose':cut.fragment_view.get_transforms()[0].tolist() if cut and cut.fragment_view is not None else None}
+        if cut:
+            np.savez_compressed(out/'material-final.npz',cleared=cut.stock.cleared,progress=cut.stock.progress,loose_progress=cut.stock.loose_progress)
+        if a.check_reset:
+            obs=emb.reset(Scene(id='saw-wood-to-length',instruction=T.INSTRUCTION))
+            commands={side:np.r_[np.array(READY),1.] for side in ['left','right']}
+            hold(20,'after_reset_settled')
+            c=runtime.ENGINE.cutting;engine=runtime.ENGINE
+            wp=engine.views['wood'].get_transforms()[0]
+            gap=-.035-float(engine.views['jaw'].get_transforms()[0,1])
+            reset={'score':T.score({}),'pieces':len(c.stock.components()),
+                   'removed_cells':int(np.count_nonzero(c.stock.cleared)),
+                   'fractional_progress':float(c.stock.progress.max()),
+                   'wood_pose':wp.tolist(),'gap_m':gap,'screw_angle':engine.screw_angle,
+                   'offcut_exists':engine.stage.GetPrimAtPath('/World/envs/env_0/saw_offcut').IsValid(),
+                   'old_geometry_exists':engine.stage.GetPrimAtPath(engine.paths['wood']+'/geometry_1').IsValid(),
+                   'cut_before_clamp':c.cut_before_clamp,
+                   'loose_progress_m':float(c.stock.loose_progress.max())}
+            reset['passed']=(reset['score']==0. and reset['pieces']==1 and reset['removed_cells']==0
+                             and reset['loose_progress_m']==0. and reset['fractional_progress']==0. and not reset['offcut_exists']
+                             and not reset['old_geometry_exists'] and not reset['cut_before_clamp']
+                             and np.max(np.abs(wp[:3]-T.WOOD_ORIGIN))<.0002
+                             and abs(gap-.0225)<.0001 and abs(engine.screw_angle)<.01)
+            (out/'reset.json').write_text(json.dumps(reset,indent=2))
+            if not reset['passed']:status='failed';result['status']=status;result['error']='reset failed'
         (out/'result.json').write_text(json.dumps(result,indent=2))
-        (out/'physics.json').write_text(json.dumps(runtime.ENGINE.rows if runtime.ENGINE else [],indent=2))
+        (out/'actions.json').write_text(json.dumps(trial_actions))
+        (out/'physics.json').write_text(json.dumps(trial_rows,indent=2))
+        if a.check_reset:
+            (out/'reset-actions.json').write_text(json.dumps(actions[len(trial_actions):]))
+            (out/'reset-physics.json').write_text(json.dumps(runtime.ENGINE.rows if runtime.ENGINE else [],indent=2))
         for cam,seq in frames.items():
             if seq:imageio.mimsave(out/(cam+'.mp4'),seq,fps=20/video_stride,codec='libx264',output_params=['-pix_fmt','yuv420p','-movflags','+faststart'])
         print('RESULT '+json.dumps(result),flush=True);emb.close()

@@ -14,9 +14,19 @@ class Stock:
         self.progress=np.zeros((self.nx,self.ny),np.float64)
         self.cleared=np.zeros((self.nx,self.ny),np.int16)
         self.removed_last_step=False
+        # Per-column cumulative removal attributable to unclamped contact.
+        self.loose_progress=np.zeros_like(self.progress)
 
-    def remove(self,tooth0,tooth1,ds,fn):
-        """Update only teeth occupying real X/Y locations at their local Z."""
+    @property
+    def unsafe_loose_cut(self):
+        return bool(np.any(self.loose_progress>=.0005-1e-12))
+
+    def remove(self,tooth0,tooth1,ds,fn,clamped=True):
+        """Update teeth at their measured local pose, force and stroke.
+
+        Attribute positive per-column depth increments to loose history only
+        while the measured clamp condition fails; clamping never clears it.
+        """
         self.removed_last_step=False
         if fn<=.05 or ds<=1e-8:return False
         a,b=np.asarray(tooth0,float),np.asarray(tooth1,float)
@@ -43,7 +53,10 @@ class Stock:
         inc=volume/(len(active)*self.dx*self.dy)
         for i,j in active:
             old=int(self.cleared[i,j])
+            before=self.progress[i,j]
             self.progress[i,j]=min(.020,self.progress[i,j]+min(inc,(old+1)*self.dz-self.progress[i,j]))
+            if not clamped:
+                self.loose_progress[i,j]+=self.progress[i,j]-before
             n=min(self.nz,int((self.progress[i,j]+1e-12)/self.dz))
             if n>old:self.cleared[i,j]=n;changed=True
         return changed
@@ -103,3 +116,34 @@ class Stock:
         err=max(abs(x-target) for x in lengths)
         return {'value':float(err<=tol+1e-12),'reason':'within_tolerance' if err<=tol+1e-12 else 'wrong_length',
                 'pieces':2,'min_length_m':min(lengths),'max_length_m':max(lengths),'max_error_m':err}
+
+
+    def stages(self):
+        """Geometry-only stages; runtime also requires safe clamping/clearance.
+
+        A 5 mm work zone includes the kerf and positioning tolerance. Half-
+        depth credit needs one connected groove at the target across all rows.
+        Fractional work without a cleared collider layer never counts as depth.
+        """
+        full=self.score()
+        damaged=self.cleared*self.dz>=.0005-1e-12
+        x=np.arange(self.nx)*self.dx
+        zone=(x>=.149-1e-12)&(x+self.dx<=.154+1e-12)
+        if np.any(damaged[~zone]):
+            return dict(full,stage_value=0.,stage_reason='off_target_removal')
+        if full['pieces']>1:
+            return dict(full,stage_value=full['value'])
+        deep=(self.cleared*self.dz>=.010-1e-12)&zone[:,None]
+        seen=np.zeros_like(deep)
+        for i,j in zip(*np.where(deep)):
+            if seen[i,j]:continue
+            q=deque([(int(i),int(j))]);seen[i,j]=True
+            left=np.full(self.ny,np.inf)
+            while q:
+                a,b=q.popleft();left[b]=min(left[b],a*self.dx)
+                for u,v in ((a-1,b),(a+1,b),(a,b-1),(a,b+1)):
+                    if 0<=u<self.nx and 0<=v<self.ny and deep[u,v] and not seen[u,v]:
+                        seen[u,v]=True;q.append((u,v))
+            if np.all((left>=.149-1e-12)&(left<=.151+1e-12)):
+                return dict(full,stage_value=.5,stage_reason='full_width_half_depth')
+        return dict(full,stage_value=.25,stage_reason='clamped_only')

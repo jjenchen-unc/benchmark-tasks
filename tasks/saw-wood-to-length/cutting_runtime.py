@@ -2,6 +2,7 @@
 from __future__ import annotations
 import numpy as np
 from stock import Stock
+from scoring import end_score, saw_clear, clamp_state
 
 
 def rotation(q):
@@ -19,7 +20,9 @@ class Cutting:
         self.fragment_view=None;self.fragment_path=None;self.cut_time=None
         self.prev_tooth=None;self.value=0.;self.distance=1.;self.last_gap=None
         self.cut_before_clamp=False
-        self.events=[];self.last_score={'value':0.,'reason':'not_two_pieces'}
+        self.events=[];self.last_score=self.stock.stages()
+        self.retained_boxes=self.stock.boxes();self.offcut_boxes=[]
+        self.fragment_center=None;self.tool_clear=False;self.clamp_ok=False
 
     def teardown(self):
         """Restore the intact authored wood before a same-scene reset.
@@ -44,14 +47,7 @@ class Cutting:
 
     def _clamp_state(self,wood_pose):
         jaw_y=float(self.m.views['jaw'].get_transforms()[0,1])
-        gap=-.035-jaw_y
-        angle=self.m.screw_angle
-        position_ok=(abs(float(wood_pose[0])-.20)<.003 and
-                     abs(float(wood_pose[1])+.03)<.003 and
-                     abs(float(wood_pose[2])-(.7475+.080))<.003)
-        # Under saw load the jaw deflects up to 0.16 mm despite the screw
-        # remaining turned and the wood staying between the two jaw faces.
-        return .0192<=gap<=.0202 and angle>1.5 and position_ok,gap
+        return clamp_state(wood_pose,jaw_y,self.m.screw_angle)
 
     def _cube(self,path,center,size):
         from pxr import UsdGeom,UsdPhysics,PhysxSchema,Gf
@@ -88,6 +84,8 @@ class Cutting:
         boxes=self.stock.boxes(mask)
         volumes=np.array([b[3]*b[4]*b[5] for b in boxes])
         centre=np.average(np.array([b[:3] for b in boxes]),axis=0,weights=volumes)
+        self.fragment_center=centre
+        self.offcut_boxes=boxes
         base='/World/envs/env_0/saw_offcut'
         UsdGeom.Xform.Define(self.stage,base)
         obj=UsdGeom.Xform.Define(self.stage,base+'/body')
@@ -119,6 +117,8 @@ class Cutting:
         name=self.m.paths['wood']+f'/geometry_{self.revision}'
         UsdGeom.Xform.Define(self.stage,name)
         boxes=self.stock.boxes(rootmask)
+        self.retained_boxes=boxes
+        self.last_score=self.stock.stages()
         self.current_shapes=self._add_boxes(name,boxes)
         UsdPhysics.MassAPI(self.stage.GetPrimAtPath(self.m.paths['wood'])).GetMassAttr().Set(
             float(500*sum(b[3]*b[4]*b[5] for b in boxes)))
@@ -131,24 +131,32 @@ class Cutting:
         mid=(tooth[0]+tooth[1])/2
         ds=0. if self.prev_tooth is None else abs(float(mid[1]-self.prev_tooth[1]))
         self.prev_tooth=mid
+        changed=False;self.stock.removed_last_step=False
         if self.cut_time is None:
-            changed=self.stock.remove(tooth[0],tooth[1],ds,fn)
-            if self.stock.removed_last_step and not self._clamp_state(wp)[0]:
+            changed=self.stock.remove(tooth[0],tooth[1],ds,fn,clamped=self._clamp_state(wp)[0])
+            if self.stock.unsafe_loose_cut:
                 self.cut_before_clamp=True
             if changed:
                 parts=self.stock.components()
                 self._rebuild(parts,wp,wood.get_velocities()[0])
                 self.events.append({'t':self.m.t,'tool_x_m':float(mid[0]),'depth_m':float(self.stock.progress.max()),
                                     'normal_force_N':fn,'relative_stroke_m':ds,'pieces':len(parts)})
+        if self.stock.removed_last_step and not changed:
+            self.last_score=self.stock.stages()
         if self.fragment_path and self.fragment_view is None and self.m.t>self.cut_time+1/480:
             self.fragment_view=self.m.sv.create_rigid_body_view(self.fragment_path)
             assert self.fragment_view.count==1
         self.distance=max(0.,1-self.stock.progress.max()/.020)
-        if self.fragment_view is None:return
-        self.last_score=self.stock.score()
-        # The scored item must remain clamped after cutting; the saw's tooth
-        # line must be clear above the stock. All are ruler/photo criteria.
         clamp_ok,gap=self._clamp_state(wp)
-        tool_clear=min(v[2] for v in tooth)>.025
-        self.value=self.last_score['value'] if clamp_ok and tool_clear and not self.cut_before_clamp else 0.
-        self.last_gap=gap
+        # Check the entire saw, in any direction, against both physical pieces.
+        wood_bodies=[(wp,self.retained_boxes)]
+        if self.fragment_path:
+            if self.fragment_view is None:
+                self.value=0.;return
+            fp=self.fragment_view.get_transforms()[0]
+            boxes=[tuple(np.asarray(b[:3])-self.fragment_center)+tuple(b[3:])
+                   for b in self.offcut_boxes]
+            wood_bodies.append((fp,boxes))
+        self.tool_clear=saw_clear(sp,wood_bodies)
+        self.clamp_ok=clamp_ok;self.last_gap=gap
+        self.value=end_score(self.last_score,clamp_ok,self.tool_clear,self.cut_before_clamp)

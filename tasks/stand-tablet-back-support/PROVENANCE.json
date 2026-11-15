@@ -1,0 +1,19 @@
+{
+  "reference": "local frozen published Pencil v18 PR2122; reference only, no task reuse claim",
+  "reference_files": {
+    "demo.py": "f708405fd9c958962b9f84237b4cd0b67bdd26c45977b144a0aebcf4827bff61",
+    "entry.py": "71e3f63bc7f321d0097ee95d35ad4ab5f19e490abcdb881a462ed65ae95eb1e4",
+    "inspect_entry.py": "494064ca3358286aff33987625e4dc81ee27a656df02c1bd2f2d578fc8b5abfc",
+    "mount.py": "8618e2783eda7cec5b12191fa1e76700c2dd5d750530782e4f2a6c4ad62cfa59"
+  },
+  "canonical": "oprime:/mnt/bum/jjenchen/robocurve/research/tablet-back-stand-assessment-20261115/native-harness",
+  "overlap_diagnostic": {
+    "source": "native_overlap_monitor.py",
+    "validation": "VALIDATION.json and README.md summarize the qualification; monitor telemetry is produced in each result.json",
+    "role": "per-physics-substep read-only OBB overlap telemetry; no score or dynamics effect",
+    "sha256": "62347b8a3434100f1e528cf134453dc64d4e8bcfcd629118141b5ae6b0b617a3",
+    "peak_snapshots": "Cumulative new-maximum pair geometry and physics sample/time; read-only diagnostic."
+  },
+  "qualification_snapshot": "15 immutable runtime/config source hashes in VALIDATION.json",
+  "qualification_status": "Fresh nativeBrev score1/2405steps; actual Dream score0/3600steps; same validated runtime configuration."
+}

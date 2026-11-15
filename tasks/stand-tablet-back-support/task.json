@@ -1,0 +1,20 @@
+{
+  "title": "Stand a tablet by unfolding its attached back support",
+  "category": "Societal relatability",
+  "keywords": [
+    "tablet",
+    "attached folding support",
+    "thin-panel manipulation",
+    "bimanual",
+    "load transfer"
+  ],
+  "instruction": "Raise the tablet, unfold its attached back stand, and leave it standing in portrait orientation facing you on the desk, with its screen about 60 degrees above the desk. Release both hands and leave it stable for 5 seconds.",
+  "context": "Prepare a flat tablet for hands-free viewing using the folding support already attached to its back. The thin support panels initially lie folded against the tablet. The central skill is coordinating the tablet and its passive panels as one connected assembly: exposing and unfolding the panels, then transferring the tablet's weight from the grippers onto its bottom edge and deployed rear support. Success is a released, stable tablet in portrait orientation.",
+  "setup": "Two native YAM arms with parallel grippers at a rigid wooden desk,1.10 x1.30 m,top height0.7475 m. A rigid glass/aluminium tablet analogue,180 x240 x7 mm and480 g, starts screen-up at center(-0.040,0.100,0.75415)m,yaw-90deg; local+Y is portrait-up. Its already attached back support has two rigid polymer-laminate panel analogues,134 x150 x1.3 mm and35 g each, folded against its back. The support stays connected to the tablet throughout manipulation. No loose stand, spacer, pre-opened flap or added handle. Robot mounts, fixed camera support, exact hinge/magnet geometry and starting poses are specified in README and MECHANISM-SPEC.md.",
+  "scoring": "At trial end,1.0 for screen tilt50-70deg, portrait roll<=15deg and screen facing the user/world-X within30deg, with tablet bottom and stand supported on the desktop, all three bodies within its bounds, no robot or other support, and hands>=30mm clear. These conditions must hold for the final5s, with tablet translation<=5mm and rotation<=3deg relative to the first pose of that interval.0.5 for25-<50deg tilt under the same other conditions. All other outcomes0. Simulator bounds allow2mm numerical tolerance; no fold-angle or magnet-gap scoring requirement.",
+  "run_limit": "3600 public control steps,180 seconds at20Hz.",
+  "reset_notes": "Reset restores the fixed screen-up folded arrangement and robot starting joints in the same simulator. Verified after the full successful run:40 actions, score0, final flat tilt0.01784deg, tablet center within0.162mm of canonical position.",
+  "fidelity": "Estimated rigid tablet and two passive hinged panels, not a calibrated W90 replica. Two finite, equal/opposite Gaussian magnet pairs:1.5 N peak each,6 mm scale; no snaps,welds or fold drives. Flexible skins, adhesive peeling and damage omitted. PhysX1 kHz; native effort/velocity limits and finger actuators retained; LEFTx8/RIGHTx4 shoulder/wrist stiffness with sqrt-scaled damping. Geometry, materials and localized contact compliance are documented in README.",
+  "scores": "Dream-1:0.0 (3600 steps); Brev native scripted demo:1.0 (2405 steps/120.25s).",
+  "media": "M-Z4LP79"
+}

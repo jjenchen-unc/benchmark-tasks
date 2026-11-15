@@ -1,0 +1,62 @@
+{
+  "source_files_sha256": {
+    "capture_fixture.json": "63786baa35e9c8c9662f443e33259077c15b032d1f56e7303b068d11b4a4da8f",
+    "demo.py": "85243908a52c22e86b41af182f0a29549df1ce80ffd654e380bb8dd94cf1e484",
+    "entry.py": "71e3f63bc7f321d0097ee95d35ad4ab5f19e490abcdb881a462ed65ae95eb1e4",
+    "exposed_fixture.json": "fe278a13deabeb235a171a74916df559958b0bee99b9de10f186ec309b2b1742",
+    "exposure_profile.json": "aad0b830e554c629fb3a3919df5e79034df752d3a00a9ff2e9f469f6193141ae",
+    "inspect_entry.py": "494064ca3358286aff33987625e4dc81ee27a656df02c1bd2f2d578fc8b5abfc",
+    "mechanism.py": "124d4aa99ea60c16e231d2a346609171ba8492b02022315458edf1f16313d02c",
+    "mount.py": "8618e2783eda7cec5b12191fa1e76700c2dd5d750530782e4f2a6c4ad62cfa59",
+    "native_overlap_monitor.py": "62347b8a3434100f1e528cf134453dc64d4e8bcfcd629118141b5ae6b0b617a3",
+    "placement_fixture.json": "744aa4904e892bed5fff6ac0cb4f472ddf4c0dd305874741212a3de126e1338e",
+    "press_geometry.json": "37861829b06a34d667ec1f8afc331029cb8afe219d1ca0f763bdc60c2c1e7337",
+    "runtime.py": "096535a9732dcda6cfd41cd8b8a68a2c0d18d5fd6a289f72e191aef852356b73",
+    "scoring.py": "37ab3faf97f9c3d46a021e613378dd8952dafe0d8c13555e8d48bcb93599b68c",
+    "seated_fixture.json": "9732e8ea4f56d310773ca528a863838c35037a13ed8af53186fc43dea4ab82fd",
+    "task.py": "1d059b9eb509c1fc363f344f68ce3d61202488eda93e0631d8ce25e004c11dd5"
+  },
+  "model_runner_sha256": "8f257b0eff8f231039fe6c220d656d3bea355985abb9e8e4ca3b3b6ddf544330",
+  "native": {
+    "score": 1.0,
+    "steps": 2405,
+    "simulated_seconds": 120.25,
+    "wall_seconds": 526.711,
+    "fixture_initialized": false,
+    "full_goal_proven": true,
+    "final_tilt_deg": 60.264859598649544,
+    "hand_clearance_m": 0.06878301875373992,
+    "last5s_translation_m": 5.5386741203504844e-05,
+    "last5s_rotation_deg": 0.019827544355076023,
+    "held_flat_negatives": "pass",
+    "same_instance_reset_steps": 40,
+    "same_instance_reset_score": 0.0
+  },
+  "dream": {
+    "model": "dreamlabs/dream-1-beta",
+    "score": 0.0,
+    "steps": 3600,
+    "simulated_seconds": 180,
+    "wall_seconds": 1042.396,
+    "requests": 892,
+    "unique_sessions": 1,
+    "retries": 0,
+    "errored_trials": 0,
+    "termination": "max_steps",
+    "scorer_replay_mismatches": 0
+  },
+  "media": {
+    "demo": {
+      "bytes": 4073556,
+      "sha256": "b9bea5a7fee437564d602cfd85f37c9365c2c4607a3be6eb2e6251558f7142e8"
+    },
+    "video": {
+      "bytes": 4737835,
+      "sha256": "923793fa984b522b6b2ab8d23e53a06ce069f88bbb69fcbe36e7011aaa0d6801"
+    },
+    "screenshot": {
+      "bytes": 293849,
+      "sha256": "13073345b736ae9e3c6a4e14779e0dd3a800a0b381818487f1c15de7e61f86de"
+    }
+  }
+}

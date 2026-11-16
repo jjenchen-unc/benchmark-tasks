@@ -32,6 +32,14 @@ aligned mouth. Angled insertion followed by a pivot clears the same solids.
 There are no extra obstacles, collision exemptions, invisible interlocks or
 approach-angle/history scoring tests. Wheel, stand and robot layout are unchanged.
 
+The second review (TK-AS9U5N) said the angled-entry simulation addresses the
+first review, and raised a new point: real-world reproducibility, through an
+obtainable bent-foot lock or buildable files for the mechanism. We give
+buildable files (`build/`, see "Building the lock for a real trial"), written
+from the same shape definitions as the simulation, so the real lock matches the
+simulated one exactly rather than approximately. This revision adds files and text only: scene, scoring, demo,
+scores and media are unchanged.
+
 **Revised official-runtime evidence:** Dream-1 beta seed 1 completed all 1,200
 actions with score 0.0 and zero errored trials; the scripted demo reached 1.0 in
 940 actions (47 seconds). A real post-demo reset restored the parts and passive
@@ -164,13 +172,73 @@ a straight-foot bolt; key turning is omitted. The tyre is rigid; sleeve/finish
 friction against gripper pads is 1.0. No simulated force cap is enforced. The task
 does not model cutting, breakage or lock-picking resistance.
 
-For a physical trial use a matching bent-foot U-lock, a 12-inch spoked wheel and
-48 mm stand tube, and measure actual product clearances. Use the key held in
-its ready position or a push-to-lock cylinder, documenting that simplification.
-Mark starting part outlines and spokes. Inspect the closed lock, then check by
-hand that both rim and stand are captured. Open the cylinder and separate the
-parts for reset. Do not substitute a straight-ended dual-bolt lock when testing
-this angled-entry variant.
+## Building the lock for a real trial
+
+`build/` holds the lock as built in the simulation, in millimetres, in each
+part's own frame (the frames in "Setup and dimensions"):
+
+| File | What it is |
+|---|---|
+| `crossbar.stl` | crossbar housing with both sockets, the retaining lip, the bent-foot chamber and the lock head: the exact simulated solid |
+| `crossbar_print.stl` | the same outer shape with two closed pockets, 5.2 x 30.4 x 150.5 mm, in its top and bottom walls for steel flat bars |
+| `shackle.stl` | the shackle, including the bent foot and the 20 mm sleeve |
+| `dimensions.png` | shackle top view and crossbar mid-height section with the key dimensions |
+| `export_lock.py` | writes the files above from `task.py` (`pip install trimesh manifold3d matplotlib numpy`, then `python build/export_lock.py`) |
+
+Crossbar: print `crossbar_print.stl` in PETG at 100 % infill, lying on one of
+its 40 x 180 mm faces with the pockets horizontal, with supports inside the
+sockets and the chamber and under the round lock head. The part is 232 mm long:
+use a bed of at least 235 mm, or lay it along the diagonal. Pause the print at the top of each pocket and lay in a
+5 x 30 x 150 mm steel flat bar (about 0.18 kg each). The
+part then weighs about 0.70 kg, as in the simulation (273 cm³ PETG ≈ 0.35 kg).
+Drill a 12 mm hole, 3 mm deep, in the floor of the straight socket and glue a
+12 x 3 mm N52 disc magnet into it, flush. This is the catch: the steel leg
+end seated on the magnet holds the bar on, as the simulation's fixed joint does
+in place of the key and bolt.
+
+Shackle: 12.7 mm (1/2 in) round mild-steel bar, 1 m long (cut to length at the
+end). In this order:
+
+1. Slide a 320 mm piece of 20 mm OD vinyl tube (12.7 mm bore) to the middle of
+   the bar.
+2. Bend the U cold round a former of 102 mm (4 in) outside diameter, for
+   example a pipe held in a vice, with the tube centred on the bend, so that the
+   leg axes end up 114.7 mm ± 2 mm apart and parallel. The tube then covers the
+   bend and the first 70 mm of each leg.
+3. With the long leg still long enough to grip, bend the foot outward 47° at
+   183 mm from the bend centre (the leg's outer side, `dimensions.png`).
+4. Cut the toe so that its tip is 204 mm from the bend centre along the legs
+   and 16 mm outward of the leg axis at its centre, and cut the straight leg at
+   198 mm. Round both ends.
+
+The shackle then weighs about 0.6–0.7 kg (0.62 kg in the simulation). A cold
+bend has a radius, so the toe will sit a few millimetres off the drawing.
+Fit-check before the trial and file the toe until it does: with the toe in its
+chamber, the straight end must reach the magnet; the straight end must not slide
+past the lip of the bent-foot socket; and the bar must close only by entering
+the foot at an angle and pivoting.
+
+Scene: a child's bike with 12-inch (ISO 203) spoked wheels on its kickstand,
+its frame and front wheel held by clamps or weights so that only the back
+wheel turns. A Sheffield stand of 48 mm tube, or the same shape bent from
+48 mm steel tube and screwed to a base board, about 75 cm tall with legs 70 cm
+apart. Place the bike, the stand and the two lock parts at the positions and
+yaw in the `setup` field of `task.json`, relative to the midpoint between the
+two arm bases. Mark each part's outline on the table with tape, and mark the
+spoke that sits 11.25° above the line from the hub toward the back of the bike.
+
+Scoring by hand: after the run, look at the lock and then check it by hand. It
+is locked when the toe is behind the lip, the straight end sits on the magnet,
+and the bar stays on when you let go. Then check that the rim cannot come out
+without opening the lock and that a stand leg passes through it. Score with the
+tiers in `task.json`.
+
+Reset: lift the straight-end side of the crossbar off the magnet, swing the bar
+off the foot, and lay both parts on their tape outlines. Turn the back wheel
+until the marked spoke is back at its start angle.
+
+The simulation's limits apply to the real build too: the lock has no key or
+bolt, and the parts are not tested against cutting, breaking or picking.
 
 ## Third-party assets and licenses
 
@@ -189,6 +257,10 @@ them.
 | Station fruit, bowl, plate (Arena object library) and water bottle | not used: this task's own objects replace them | - | - | no |
 | Bike, cycle stand, U-lock | task scene | this folder (`task.py`, `lockkit.py`): primitive shapes built in code | the authors' own, MIT License in `LICENSE` | yes |
 
+The build script (`build/export_lock.py`) uses trimesh (MIT), manifold3d (Apache 2.0), NumPy (BSD-3-Clause) and
+Matplotlib (Matplotlib license, PSF-based); none is bundled. The generated `build/*.stl` and `build/dimensions.png` are
+the authors' own, under the MIT License in `LICENSE`.
+
 Isaac Lab-Arena release 0.3.1 (c7edf3a9d5d8) ships the Apache License 2.0. Isaac Sim and Isaac Lab are runtime
 dependencies under their own licenses. None of them is redistributed here. Manufacturer/patent references inform mechanism design only; no drawings, logos, meshes or other third-party assets from those references are bundled. All task-specific code and geometry
-(`task.py`, `lockkit.py`, `demo.py`) is the authors' own, under the MIT License in `LICENSE`.
+(`task.py`, `lockkit.py`, `demo.py`, `build/`) is the authors' own, under the MIT License in `LICENSE`.

@@ -112,6 +112,78 @@ timers; there are no consumables. Diagnostic fixture stages and JSON snapshots
 are retained for debugging, but are explicitly marked as fixtures and cannot
 claim full fresh-start proof. `outside_full` rejects a capture-fixture argument.
 
+## Building the support for a real trial
+
+The first review (TK-MZKG78) asked for a buildable folding support. `build/`
+holds it, generated from `mechanism.py`; all positions are in millimetres,
+measured on the tablet's back from its bottom edge (`assembly.png`):
+
+| File | What it is |
+| --- | --- |
+| `panel1.stl`, `panel2.stl` | the two panels, 134 x 150 x 1.3 mm; `panel2.stl` has two 4.9 mm pockets, 0.9 mm deep, in one face, centred 45 mm either side of the middle and 3 mm from its free end |
+| `hinge_strip.stl` | 140 mm wide: 2.5 mm thick from y 140 to 151 (rest for panel 2's end), 5.1 mm thick from y 151 to 161 (hinge land) |
+| `foot_strip.stl` | 140 x 12 x 2.5 mm, y 1.5 to 13.5 |
+| `assembly.png` | back view, folded and deployed side views |
+| `export_stand.py` | writes the files above (`pip install trimesh manifold3d matplotlib numpy scipy`, then `python -B build/export_stand.py`) |
+
+Tablet: an iPad (A16, 2025) Wi-Fi, 248.6 x 179.5 x 7.0 mm and 477 g. The
+simulated tablet is 240 x 180 x 7 mm and 480 g. Because every support position
+is measured from the bottom edge, the deployed support is the simulated one;
+the iPad is 8.6 mm taller at the top. A dummy 179.5 x 248.6 x 7 mm, 477 g
+plate can stand in for the iPad to protect it. With the strips, panels and
+magnets the assembly weighs about 0.56 kg (0.55 kg in the simulation).
+
+Materials: PETG for all four printed parts, 100 % infill, printed flat (each
+panel about 33 g; 35 g in the simulation); 25 mm cloth bookbinding tape for the
+hinges; two 3/16 x 1/32 in (4.8 x 0.8 mm) neodymium disc magnets; a
+120 x 7.5 mm strip of 0.3 mm steel shim; thin removable double-sided tape.
+
+Assembly, on the iPad's back, screen down, bottom edge toward you:
+
+1. Steel L: bend the shim lengthways 2.5 mm from one edge to 90°. Glue it to
+   the foot strip so that the 2.5 mm leg covers the strip's long bottom face and
+   the 5 mm leg its outer face, centred.
+2. Stick the foot strip to the back with its bottom face 1.5 mm above the
+   bottom edge (lay a 1.5 mm spacer along the edge while placing it), and the
+   hinge strip from y 140 to 161, thick part at the top, both centred left to
+   right. The 1.5 mm gap lets panel 2's end pass under the foot strip, so the
+   iPad keeps standing on its own bottom edge.
+3. Press the magnets into `panel2`'s pockets, flush, and glue them. Call that
+   face panel 2's inner face.
+4. Hinge 2: lay panel 1 on panel 2's inner face, edges flush, magnet end of
+   panel 2 away from you. Wrap tape round the two edges nearest you, so the
+   panels open like a book.
+5. Hinge 1: lay the pair on the strips, panel 2 underneath, hinge 2 at the
+   bottom edge. Panel 2's magnet end now rests on the thin part of the hinge
+   strip, 1 mm short of the thick part. Panel 1's top end lies flush with the
+   thick part's outer face; tape across those two outer faces only, along
+   y 150, keeping the tape off panel 2.
+6. Check: stand the iPad on the desk and open the support. Panel 2 lies on the
+   desk and its free end reaches just under the foot strip's steel-covered
+   corner (about 1 mm clear in the simulated pose); the magnets lift the light
+   panel end onto that corner while the iPad stays on its bottom edge. Pulling
+   the panel end straight off should read about 100–200 g on a kitchen scale (1–2 N; the
+   simulation's attraction peaks at 1.5 N, 6 mm from contact). Add a second
+   layer of shim if it is weaker.
+
+Differences from the simulation, all small: the real hinge-1 axis lies on the
+5.1 mm land, 2.6 mm further from the back than the simulated axis, which
+changes the standing angle by about 1°; folded, the panels lie about 2 mm
+further out (on the 2.5 mm strips); the real magnet catch is strongest at
+contact, while the simulated attraction is zero at contact and peaks 6 mm away;
+tape hinges are stiffer than the simulated hinges; the catch lifts panel 2's
+end about 1 mm off the desk. The iPad's own back magnets (for its folio
+covers) may pull weakly on folded panel 2's magnets; the dummy plate avoids
+this.
+
+Scene: a desk with the robot, and the folded iPad screen-up with its centre at
+the starting position and yaw in `setup` and "Fixed setup and scoring" (the
+iPad's centre is 4.3 mm further up its long axis than the simulated tablet's
+when the bottom edges coincide; align the centres). Mark its outline on the desk
+with tape. Scoring as in "Fixed setup and scoring". Reset: fold panel 2 back
+under panel 1, lay both flat on the strips, and put the iPad screen-up on its
+outline.
+
 ## Fidelity and assets
 
 This is an estimated serial two-panel back support inspired by folding tablet
@@ -130,7 +202,9 @@ have zero overlap. Later transfer, release and final hold have zero overlap.
 This was reviewed as localized terminal contact compliance, not broad sheet
 crossing. The monitor never changes forces, poses or scores.
 
-Task code and procedural object geometry are MIT-licensed under `LICENSE`.
+Task code, procedural object geometry and `build/` are MIT-licensed under `LICENSE`. The build script uses
+trimesh (MIT), manifold3d (Apache 2.0), NumPy and SciPy (BSD-3-Clause) and Matplotlib (PSF-based license);
+none is bundled.
 No manufacturer CAD, image, logo or scanned asset is included. Reused helper
 provenance is in `PROVENANCE.json`. External robot/runtime assets remain supplied
 by the installed SDK and are not redistributed in this task directory:

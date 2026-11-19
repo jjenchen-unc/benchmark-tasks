@@ -74,10 +74,23 @@ All runs: Isaac Lab-Arena yam_arena, one Kit process per job, object_jitter 0, 2
   the lead's moment) and then stays put (0.0 mm over the 34 s hold); the mated window is 1.2 mm.
 
 ## Real trials
-Pack at storage charge with a 10 A inline blade-fuse holder in its main lead (beside the pack; not in the simulation),
-in a flat LiPo bag slit only where the leads leave it (not in the simulation); female
-XT60 on the bench bracket (`build/`); XT60 pair gauge-checked at 15-20 N; operator presses STOP on any fault.
-Scoring tools: video with a ruler in view, photos of the plugs and the LCD, the fuse, tape marks on charger and riser.
+No LiPo is used. The pack is a dummy: a closed box of the pack's size and mass with the same main lead, XT60 and
+balance plug, fed through a 1.5 m 4-core cable by a bench DC supply set to 11.4 V with a 3.0 A current limit. Three
+1.5 ohm 25 W resistors in series on a heat sink sit across the supply output (about 2.5 A, 29 W); the joints between
+them give the balance plug its 3.8 V and 7.6 V taps. Why: nothing can burn, a short passes at most 3 A, and the
+resistors absorb the charger's 2.2 A, so the charger passes its cell check and stays on its running screen.
+- Check before the first trial: with the dummy connected by hand in the safe order, start the charge and confirm the
+  LCD stays on the running screen for 60 s with no error, and that the supply stays out of current limit. Then, with the
+  charger disconnected, touch the two banana pins together: the supply must go to constant current at 3.0 A or less.
+- Short check in a trial: the supply's constant-current indicator or a reading below 9 V on the side video of its front
+  panel, plus the video of the pins. A flicker within 1 s after the XT60 is mated with both plugs seated is the
+  charger's inrush and is not a short.
+- Charge check: the charger's own LCD (running screen, no error), photo or video.
+- Reset order: STOP, then the pack's XT60 out, then the banana plugs, and the XT60 back in last (`task.json`
+  `reset_notes`), so nobody handles loose live plugs.
+- Female XT60 on the bench bracket (`build/`); XT60 pair gauge-checked at 15-20 N; operator presses STOP on any fault.
+Scoring tools: video with a ruler in view, a side camera on the supply's front panel, photos of the plugs and the LCD,
+tape marks on charger and riser. The supply, resistors and cable are not in the simulation.
 
 ## Sources
 - Connection order quoted in `context`: SkyRC iMAX B6AC V2 user manual (the charger in the scene), output-port notes:

@@ -33,4 +33,4 @@ shell 17 mm above the table, mating face toward the robot.
 - Height: the XT60 axis is 17 mm above the table (ruler).
 
 ## Reset
-Unplug, check the screws, re-mate the pack's XT60 by hand to full depth (housings flush).
+Stop the charge, pull the pack's XT60 out first, then the banana plugs. Check the screws. Re-mate the pack's XT60 by hand to full depth (housings flush) last.

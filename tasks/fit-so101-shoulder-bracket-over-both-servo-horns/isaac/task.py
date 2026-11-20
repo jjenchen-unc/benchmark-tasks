@@ -6,9 +6,9 @@ base servo, fully home, with its top screw holes lined up over the top horn's ho
         --scorer task_score --max-steps 2400 --store-frames --log-dir <dir>
 
 The bench is one custom-spawned PhysX assembly (``jointkit.py``): official SO-101 meshes (Apache-2.0) for the clamped
-base and servo, the two horns on revolute joints, the bracket as a free rigid body. The scorer (``../src/scoring.py``)
-runs once per control step on measured poses; ``score()`` returns its level at the end of the trial
-(SCORE_OVER = "end"); the trial ends as soon as the full-score state has held for 1 s (inside the scorer).
+base and servo, the top horn fixed at its start angle, the bottom horn on a revolute joint, the bracket as a
+free rigid body. The scorer (``../src/scoring.py``) runs once per control step on measured poses; ``score()`` returns
+its level at the end of the trial (SCORE_OVER = "end"); the trial ends as soon as the full-score state has held for 1 s (inside the scorer).
 The full-score reference policy is ``official_run.py`` (registered as ``so101_joint_scripted``).
 """
 import json

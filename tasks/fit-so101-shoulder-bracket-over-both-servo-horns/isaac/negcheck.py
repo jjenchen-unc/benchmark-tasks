@@ -13,7 +13,7 @@ import sys
 from pathlib import Path
 
 EXPECT = {
-    'demo': 1.0, 'neg-partial': .25, 'neg-unregistered': .5, 'neg-held': .75, 'neg-jammed': 0., 'neg-beside': 0.,
+    'demo': 1.0, 'neg-partial': .25, 'neg-unregistered': .5, 'neg-offset': .5, 'neg-held': .75, 'neg-jammed': 0., 'neg-beside': 0.,
     'idle': 0.,
 }
 
@@ -30,9 +30,9 @@ def stimulus(stage, rows, res):
         return res['success'], dict(final=m_end, success=res['success'])
     if stage == 'neg-partial':
         return (m_end.get('on') and not m_end.get('home')), dict(px_mm=m_end.get('px_mm'), on=m_end.get('on'))
-    if stage == 'neg-unregistered':
-        return (m_end.get('home') and abs(m_end.get('register_deg', 0)) > 4.0), dict(
-            home=m_end.get('home'), register_deg=m_end.get('register_deg'))
+    if stage in ('neg-unregistered', 'neg-offset'):
+        return (m_end.get('home') and m_end.get('hole_offset_mm', 0) > .15), dict(
+            home=m_end.get('home'), register_deg=m_end.get('register_deg'), hole_offset_mm=m_end.get('hole_offset_mm'))
     if stage == 'neg-held':
         clear = rows[-1]['detail'].get('tip_clearance_mm')
         return (m_end.get('registered') and clear is not None and clear < 20.), dict(

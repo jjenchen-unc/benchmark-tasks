@@ -11,7 +11,7 @@ x = the arm's front; metres):
 * ``vis_<part>_v/_f``: decimated visual meshes of base, base motor holder, servo case, top horn (+ screw), bottom
   horn and the shoulder bracket (bracket in its frame B, which equals S when home at yaw 0);
 * ``static_v/_f``: one triangle mesh for the clamped base + servo case collider, horn regions cut out (the horns are
-  separate jointed bodies);
+  separate bodies);
 * ``piece_<i>``: convex pieces (vertex arrays) of the bracket collider, made by slicing the official bracket mesh
   into z slabs at its feature levels and splitting each cross-section into convex polygons (no hand-drawn shapes);
 * ``meta``: JSON with source SHA-256s, slab table and the CAD measurements quoted in task.json.
@@ -40,8 +40,10 @@ SLABS_MM = [(-46.2, -45.0), (-45.0, -37.4), (-37.4, -36.4), (-36.4, -35.0), (-35
 DECIMATE = {'base': 6000, 'base_motor_holder': 6000, 'servo_case': 5000, 'horn_top': 1200, 'horn_bottom': 1200,
             'bracket': 9000}
 HORN_R_MM = 10.0
-# The CAD lip arc (r 9.89 mm) is line-to-line / 0.11 mm into the 20.0 mm horn; PhysX needs a finite clearance, so the
-# lip slab's section is cut back to r 10.10 mm (0.10 mm radial clearance; disclosed in the fidelity note).
+# The CAD lip arc is r 10.11 mm about the bracket's hole-pattern axis (LIP_AXIS_MM, 0.20 mm from the MJCF joint anchor,
+# frame B's origin; the slots are centred on it too), 0.11 mm clear of the 20.0 mm horn; the lip slab's section is cut
+# back to r 10.10 mm about that axis (0.10 mm radial clearance) with chunky convex sectors (lip_pieces).
+LIP_AXIS_MM = (-.201, .022)
 LIP_SLAB_MM = (-1.2, 0.0)
 NOTCH_SLAB_MM = (-37.4, -36.4)   # bottom cheek's inner-face slab: hole chamfers notch the slot walls here
 LIP_CLEAR_R_MM = 10.10
@@ -152,19 +154,23 @@ def lip_pieces(poly):
     convex-hull cooking (tolerances set for metre-scale parts) re-fitted the slivers that earcut leaves along the
     cut and stopped the horn about 0.5 mm short of the lip (found with isaac/probe_fit.py). Farther out: as usual."""
     from shapely.geometry import Point
-    near_disk = Point(0, 0).buffer(12.5, 16)  # 64-gon with the same vertex angles as the cut
+    cx, cy = LIP_AXIS_MM
+    near_disk = Point(cx, cy).buffer(12.5, 16)  # 64-gon with the same vertex angles as the cut
     out = []
     near = poly.intersection(near_disk)
     far = poly.difference(near_disk)
     a = np.linspace(0, 2 * np.pi, 65)
     for k in range(64):
-        sector = Polygon([(LIP_CLEAR_R_MM * np.cos(a[k]), LIP_CLEAR_R_MM * np.sin(a[k])),
-                          (12.5 * np.cos(a[k]), 12.5 * np.sin(a[k])), (12.5 * np.cos(a[k + 1]), 12.5 * np.sin(a[k + 1])),
-                          (LIP_CLEAR_R_MM * np.cos(a[k + 1]), LIP_CLEAR_R_MM * np.sin(a[k + 1]))])
+        sector = Polygon([(cx + r * np.cos(a[j]), cy + r * np.sin(a[j]))
+                          for r, j in ((LIP_CLEAR_R_MM, k), (12.5, k), (12.5, k + 1), (LIP_CLEAR_R_MM, k + 1))])
         cell = near.intersection(sector)
         for g in (list(cell.geoms) if hasattr(cell, 'geoms') else [cell]):
             if isinstance(g, Polygon) and g.area > .05:
-                out += hertel_mehlhorn(g) if abs(g.convex_hull.area - g.area) > 1e-6 * g.area else [g]
+                # a cell within 0.05 mm2 of convex (the lip's end corners) is taken as its convex hull: the hull stays
+                # inside the cell's sector, behind its chord, so nothing comes nearer the horn, and no sliver piece is
+                # left (a 0.1 mm wide sliver at the lip's end was cooked about 0.5 mm proud of its authored face and
+                # pushed the seated bracket 0.44 mm sideways: found with a free bracket placed at home, no arm)
+                out += [g.convex_hull] if g.convex_hull.area - g.area < .05 else hertel_mehlhorn(g)
     for g in (list(far.geoms) if hasattr(far, 'geoms') else [far]):
         if isinstance(g, Polygon) and g.area > .01:
             out += hertel_mehlhorn(g)
@@ -179,7 +185,11 @@ def bracket_pieces(mesh_mm):
         polys = section_polygons(mesh_mm, zc, close=(z0, z1) == NOTCH_SLAB_MM)
         if (z0, z1) == LIP_SLAB_MM:
             from shapely.geometry import Point
-            cut = Point(0, 0).buffer(LIP_CLEAR_R_MM, 16)  # 64-gon: edges at r >= 10.088 mm
+            cut = Point(*LIP_AXIS_MM).buffer(LIP_CLEAR_R_MM, 16)  # 64-gon: edges at r >= 10.088 mm
+            # the CAD arc (r 10.09-10.12 mm) weaves across the 64-gon: fill the sliver gaps between them (within 0.1 mm
+            # of the lip), so that the lip's inner face is the 64-gon's chords (convex sectors, no slivers)
+            band = Point(*LIP_AXIS_MM).buffer(10.2, 16).difference(cut)
+            polys = [p.union(band.intersection(p.buffer(.1))) for p in polys]
             polys = [g for p in polys for g in ([p.difference(cut)] if isinstance(p.difference(cut), Polygon)
                                                  else list(p.difference(cut).geoms)) if g.area > .5]
         convex = []

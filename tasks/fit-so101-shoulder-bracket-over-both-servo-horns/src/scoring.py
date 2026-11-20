@@ -26,8 +26,15 @@ HOME_RADIAL_M = .0005        # horn axis within 0.5 mm of the cheeks' hole-patte
 MID_HEIGHT_M = -.0182        # bracket frame: midway between the two cheek inner faces (0 and -36.4 mm)
 HOME_AXIAL_M = .0005
 HOME_TILT_DEG = 2.0
-HOLE_RADIUS_M = .00707       # four M3 holes on a 10 mm square: 7.07 mm from the axis
-REGISTER_DEG = 4.0           # 0.5 mm at the hole radius (math.degrees(.0005 / .00707) = 4.05)
+# official CAD: the cheeks' hole-pattern axis (also the lip arc's and the slots' centre) is 0.20 mm from frame B's
+# origin (the MJCF joint anchor); bracket and horn holes sit on the same 9.9 mm square about their axes
+HOLE_AXIS_B_M = np.array([-.000201, .000022])
+HOLE_HALF_PITCH_M = .00495
+# largest offset of a bracket top hole's bore axis from its horn hole's axis, anywhere along the 3.5 mm bore, at which
+# the check screw (thread 2.90 mm across) can still start: the 3.2 mm bore lets it sit up to (3.2 - 2.90) / 2 = 0.15 mm
+# off the bore's centre
+HOLE_OFFSET_M = .00015
+BORE_LEN_M = .0035           # top-hole bore, from the top cheek's inner face (bracket frame z = 0) up
 RELEASE_M = .020             # every finger pad tip at least 20 mm from the bracket
 STILL_V_M_S = .002
 STILL_W_DEG_S = 2.0
@@ -55,7 +62,8 @@ class Measure:
     tilt_deg: float        # bracket axis vs servo axis
     yaw_deg: float         # bracket yaw about the servo axis (S frame)
     horn_deg: float        # top horn angle about the servo axis (S frame, 0 = CAD hole pattern)
-    register_deg: float    # hole-pattern misalignment, wrapped to +-45 deg
+    register_deg: float    # hole-pattern misalignment, wrapped to +-45 deg (logged only)
+    hole_offset_mm: float  # largest bore-axis offset of a top hole from its horn hole (both bore ends, best matching)
     on: bool
     home: bool
     registered: bool
@@ -63,6 +71,25 @@ class Measure:
 
     def as_dict(self):
         return {k: (round(v, 4) if isinstance(v, float) else v) for k, v in self.__dict__.items()}
+
+
+def rz2(deg):
+    a = math.radians(deg)
+    return np.array([[math.cos(a), -math.sin(a)], [math.sin(a), math.cos(a)]])
+
+
+def _square(c, deg):
+    return [c + rz2(deg) @ (HOLE_HALF_PITCH_M * np.array(v)) for v in ((1, 1), (-1, 1), (-1, -1), (1, -1))]
+
+
+def hole_offset(p_b, r_b, horn_deg, o_s, r_s):
+    """Largest distance (m) between a bracket top hole's bore axis and the matching horn hole's axis (servo z), taken
+    at both ends of the 3.5 mm bore (the top cheek's inner face and 3.5 mm above it; the larger of the two per hole),
+    the largest of the four holes, minimised over the four 90-degree matchings."""
+    q = [[(r_s.T @ (p_b + r_b @ np.array([h[0], h[1], z]) - o_s))[:2] for z in (0., BORE_LEN_M)]
+         for h in _square(HOLE_AXIS_B_M, 0.)]
+    horn = _square(np.zeros(2), horn_deg)
+    return min(max(float(np.linalg.norm(e - horn[(i + k) % 4])) for i in range(4) for e in q[i]) for k in range(4))
 
 
 def measure(p_b, r_b, horn_r, o_s, r_s) -> Measure:
@@ -80,12 +107,13 @@ def measure(p_b, r_b, horn_r, o_s, r_s) -> Measure:
     # which moves its top cheek by up to about 0.5 mm while the middle stays within about 0.4 mm
     a = r_b.T @ r_s[:, 2]
     t = (MID_HEIGHT_M - pz) / a[2] if abs(a[2]) > 1e-6 else 0.
-    mx, my = px + t * a[0], py + t * a[1]
+    mx, my = px + t * a[0] - HOLE_AXIS_B_M[0], py + t * a[1] - HOLE_AXIS_B_M[1]
     on = (tilt <= ON_TILT_DEG and abs(pz) <= ON_AXIAL_M and abs(py) <= ON_LATERAL_M
           and SLOT_MOUTH_X_M + ON_SLOT_DEPTH_M <= px <= HOME_RADIAL_M)
     home = (math.hypot(mx, my) <= HOME_RADIAL_M and abs(pz) <= HOME_AXIAL_M and tilt <= HOME_TILT_DEG)
-    registered = home and abs(reg) <= REGISTER_DEG
-    return Measure(px * 1e3, py * 1e3, pz * 1e3, tilt, yaw, horn, reg, on, home, registered,
+    off = hole_offset(p_b, r_b, horn, o_s, r_s)
+    registered = home and off <= HOLE_OFFSET_M
+    return Measure(px * 1e3, py * 1e3, pz * 1e3, tilt, yaw, horn, reg, off * 1e3, on, home, registered,
                    math.hypot(mx, my) * 1e3)
 
 

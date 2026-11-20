@@ -13,8 +13,10 @@ Plan (right arm; the left arm stays at READY):
 3. Slide it home (5 mm/s) along its slots: every control step the target gripper pose is recomputed from the
    measured bracket pose (closed loop on the bracket, not on the hand), so grasp slip and arm sag are corrected.
 4. Turn the seated bracket about the servo axis until its four top holes are over the top horn's holes (the horn
-   starts 25 deg off; the error is read from the bracket's and the horn's poses), open the hand, lift it straight
-   up, go back to READY and wait.
+   starts 25 deg off; the error is read from the bracket's and the horn's poses), press the top horn into the cheek's
+   lip (the lip arc is centred on the hole pattern, so this centres the holes), take the push off and open the hand
+   at once. The hole offset is then read from the poses; if letting go moved the bracket off the holes, it is gripped
+   and seated again. Then the hand lifts straight up and looks down at the holes.
 Both arms add the remaining joint error back to their commands (integral term on their own joint readings), because
 the joint PD sags under load (pattern reused from earlier demos).
 """
@@ -541,14 +543,18 @@ def _slot_axis(yaw_deg):
     return (L.R_S @ L.rz(yaw_deg))[:, 0]
 
 
-def register(c, yaw_deg, rounds=3):
+REGISTER_ROUNDS = 5
+REGISTER_TOL_DEG = .3
+
+
+def register(c, yaw_deg, rounds=REGISTER_ROUNDS, off_deg=0.):
     """Turn the seated bracket about the servo axis until its hole pattern matches the top horn's (read from poses),
-    re-measuring after each turn."""
+    re-measuring after each turn (``off_deg``: aim that far off, for the negative case)."""
     for i in range(rounds):
         pb, rb = c.pose('bracket')
         bracket_yaw = math.degrees(math.atan2(*(L.R_S.T @ rb[:, 0])[[1, 0]]))
-        err = ((bracket_yaw - horn_yaw(c)) + 45.) % 90. - 45.
-        if abs(err) < .8:
+        err = ((bracket_yaw - horn_yaw(c) - off_deg) + 45.) % 90. - 45.
+        if abs(err) < REGISTER_TOL_DEG:
             break
         target = yaw_deg - err
         y0 = yaw_deg
@@ -564,14 +570,22 @@ def register(c, yaw_deg, rounds=3):
     return yaw_deg
 
 
+def let_go(c):
+    """Take the push off (arm commanded to where it is) and open the fingers at once, 6 mm clear of the upright. Left
+    gripped, the relaxed arm's wrist creeps (about 0.2 mm/s at the hand) and carries the seated bracket with it."""
+    arm = c.right
+    arm.relax()
+    yield from arm.set_grip(grip_of(UPRIGHT_HALF_WIDTH + .006), .3, 'open')
+    yield from wait(.5)
+    c.note('opened', holes_mm=holes_mm(c))
+
+
 def release(c, look=False, opened=False):
     """Open, lift straight up; then either go back to READY or (look=True) hold the hand 15 cm in front of and above
     the joint, the wrist camera looking down at the bracket's top arm, so its last frames show the holes."""
     arm = c.right
     if not opened:
-        arm.relax()
-        yield from wait(.2)
-        yield from arm.set_grip(grip_of(UPRIGHT_HALF_WIDTH + .006), .5, 'open')  # quick: see slide()'s press
+        yield from let_go(c)
     arm.set_comp('hold')  # keep the learned sag offsets while the hand lifts clear (no drop onto the part)
     yield from arm.move(arm.pos + [0, 0, .04], arm.rot, 1.2, None, 'lift away')
     if look:
@@ -653,19 +667,47 @@ def out_mm(c, yaw_deg):
     return float((L.R_S @ L.rz(yaw_deg))[:, 0] @ (pb - L.O_S)) * 1000.
 
 
-def finish(c, yaw_deg, look=True, hold=False, turn=True):
+SEAT_S = 2.0
+SEAT_TRIES = 3            # seat, let go, check the holes from the poses; grip and seat again if they are off
+SEAT_OK_MM = .12          # (the scored limit is 0.15 mm)
+
+
+def finish(c, yaw_deg, look=True, hold=False, turn=True, off_deg=0.):
     """After the held slide: if the bracket is not yet home, let go and push it home with the fingertips; turn it to
-    the holes if it is more than 3 deg off (held only); then let go (unless ``hold``) and look at the holes."""
+    the holes (held only, from the measured poses), press it into the lip, take the push off and let go (unless
+    ``hold``); if letting go moved it off the holes, grip it and seat it again."""
     if out_mm(c, yaw_deg) > .4:
         yield from push_home(c, yaw_deg)
         if not hold:
             yield from retract_and_look(c, look=look)
         return
-    m = jointkit_measure(c)
-    if turn and m and abs(m.get('register_deg', 0.)) > 3.:
-        yaw_deg = yield from register(c, yaw_deg)
-    if not hold:
-        yield from release(c, look=look)
+    for attempt in range(SEAT_TRIES):
+        c.right.set_comp('fine')  # bounded joint integral: the hand gets past its joints' stiction (about 1 N at most)
+        if turn:
+            yaw_deg = yield from register(c, yaw_deg, off_deg=off_deg)
+        # seat: press the top horn into the lip arc (its 0.1 mm clearance then centres the bracket sideways); the push
+        # is taken off by let_go() (arm commanded to where it is) as the fingers open
+        yield from track(c, lambda s: bracket_target(yaw_deg, -PRESS_M), SEAT_S, 'seat', gain=SLIDE_GAIN,
+                         deadband=SLIDE_DEADBAND_M, rot_gain=SLIDE_ROT_GAIN, free_axis=[Z_AX])
+        c.note('held', holes_mm=holes_mm(c))
+        if hold:
+            return
+        yield from let_go(c)
+        if not turn or off_deg or holes_mm(c) <= SEAT_OK_MM or attempt == SEAT_TRIES - 1:
+            break
+        # letting go moved the bracket off the holes (read from the poses): grip it again where it is and seat it again
+        yield from c.right.set_grip(grip_of(UPRIGHT_HALF_WIDTH - SQUEEZE), .6, 'grip again')
+        yield from wait(.3)
+        capture_grasp(c)
+    yield from release(c, look=look, opened=True)
+
+
+def holes_mm(c):
+    """Largest offset (mm) of a top hole from its horn hole, from the measured bracket and horn poses (the scorer's
+    geometry, src/scoring.py)."""
+    from scoring import hole_offset
+    pb, rb = c.pose('bracket')
+    return round(hole_offset(pb, rb, horn_yaw(c), L.O_S, L.R_S) * 1e3, 4)
 
 
 def jointkit_measure(c):
@@ -737,6 +779,18 @@ def neg_unregistered(c):
     yield from wait(3.0)
 
 
+def neg_offset(c):
+    """Full fit, but the bracket is turned 3 deg off the horn's holes (0.37 mm at the holes: it looks lined up, but an
+    M3 screw cannot start), then let go: home, holes not lined up (0.5)."""
+    yield from wait(.5)
+    yield from pick(c)
+    yaw = entry_yaw(c)
+    yield from approach(c, yaw)
+    yield from slide(c, yaw, s_to=PUSH_FROM_S)
+    yield from finish(c, yaw, look=False, off_deg=3.)
+    yield from wait(3.0)
+
+
 def neg_held(c):
     """Full fit, but the hand is never taken away (0.75: fingertips stay within 20 mm of the bracket). Same moves as
     the demo, including opening the fingers; then the hand stays where it is, around the upright, instead of lifting
@@ -747,10 +801,8 @@ def neg_held(c):
     yield from approach(c, yaw)
     yield from slide(c, yaw, s_to=PUSH_FROM_S)
     yield from finish(c, yaw, hold=True)
-    arm = c.right
-    arm.relax()
-    yield from wait(.2)
-    yield from arm.set_grip(grip_of(UPRIGHT_HALF_WIDTH + .006), .5, 'open (hand stays)')
+    yield from let_go(c)
+    c.right.label = 'open (hand stays)'
     c.note('holding')
     yield from wait(4.0)
 
@@ -788,7 +840,8 @@ def idle(c):
     yield from wait(8.0)
 
 
-STAGES = {'demo': demo, 'neg-partial': neg_partial, 'neg-unregistered': neg_unregistered, 'neg-held': neg_held,
+STAGES = {'demo': demo, 'neg-partial': neg_partial, 'neg-unregistered': neg_unregistered, 'neg-offset': neg_offset,
+          'neg-held': neg_held,
           'neg-beside': neg_beside, 'neg-jammed': neg_jammed, 'idle': idle}
 
 
@@ -897,7 +950,7 @@ def run_trial(emb, out, max_steps, record, stage, t0):
         if steps % 25 == 0:
             m = d.get('measure', {})
             print(f"step {steps} {c.right.label} score {info.get('score')} px {m.get('px_mm')} py {m.get('py_mm')} "
-                  f"pz {m.get('pz_mm')} tilt {m.get('tilt_deg')} reg {m.get('register_deg')} "
+                  f"pz {m.get('pz_mm')} tilt {m.get('tilt_deg')} reg {m.get('register_deg')} holes {m.get('hole_offset_mm')} "
                   f"clear {d.get('tip_clearance_mm')} boss {row['boss']}", flush=True)
         if res.terminated:
             success = res.termination_reason == 'success'

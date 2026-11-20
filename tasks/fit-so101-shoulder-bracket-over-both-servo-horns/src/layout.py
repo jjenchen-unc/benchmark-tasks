@@ -45,7 +45,8 @@ BOSS = (0.00285, -0.0372, -0.0362)      # servo-case idler boss below the bottom
 # because the sim's 0.2 mm face clearance at the top horn lets the bracket hang 0.2 mm lower than in the CAD: the boss
 # then still engages the slot walls over the CAD's 0.6 mm (and just reaches the slot floor at the top of the play)
 HORN_MASS = 0.003                       # kg (estimate)
-HORN_TOP_FRICTION_NM = 0.60             # unpowered 1:345 gear train backdrive torque (estimate; measure)
+HORN_TOP_FRICTION_NM = 0.60             # unpowered 1:345 gear train backdrive torque (estimate; measure); the
+                                        # sim's top horn is fixed, this is used only by SO101_HORN_JOINTS=articulation
 HORN_BOTTOM_FRICTION_NM = 0.002         # idler horn on its boss (free)
 
 # Shoulder bracket (official rotation_pitch_so101_v1, yellow PLA): standing on its bottom cheek on the table, to the

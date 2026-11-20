@@ -3,9 +3,9 @@
 Authored as one custom-spawned assembly (yam_arena task-file primitives are single boxes/spheres):
 * the partly built arm (official SO-101 base, base motor holder and STS3215 servo case) as ONE static triangle-mesh
   collider: the base is clamped to the table;
-* the servo's two horns as rigid bodies on revolute joints about the servo axis, each with a torque-capped
-  zero-velocity drive as its dry friction: the top (output) horn 0.6 N m (the unpowered gear train's backdrive torque),
-  the bottom (idler) horn nearly free;
+* the servo's two horns: the top (output) horn a kinematic body fixed at its start angle (the unpowered gear train's
+  backdrive, about 0.6 N m, is over ten times what the bracket can put on it), the bottom (idler) horn a rigid body on
+  a revolute joint about the servo axis with a torque-capped zero-velocity drive as its dry friction (nearly free);
 * the shoulder bracket (official rotation_pitch_so101_v1) as a free rigid body whose collider is the official mesh
   cut into convex slab pieces (``../src/make_assets.py``).
 Geometry, poses and parameters: ``../src/layout.py``; scorer: ``../src/scoring.py`` (pure functions).
@@ -13,8 +13,8 @@ Geometry, poses and parameters: ``../src/layout.py``; scorer: ``../src/scoring.p
 Runtime hooks (installed on import; nothing in yam_arena is edited; same pattern as earlier task kits): after every
 control step the scorer reads the bracket pose and velocity, the top horn's pose and the finger pad tips. The scripted
 demo READS poses through ``bench_state()``. Nothing here writes a body pose, a joint state or a score during a trial;
-``Runtime.restore_authored`` puts the bracket back at its authored pose and the horn joints at their authored angles
-only on an environment reset.
+``Runtime.restore_authored`` puts the bracket and the bottom horn back at their authored poses only on an environment
+reset (the top horn never moves).
 """
 from __future__ import annotations
 
@@ -39,8 +39,8 @@ PHYSICS_DT = float(os.environ.get('SO101_PHYSICS_DT', str(1 / 960)))
 CONTACT_OFFSET = float(os.environ.get('SO101_CONTACT_OFFSET', '.0001'))  # < the 0.25-0.35 mm slot clearances (see task.json fidelity)
 HULL_MIN_THICKNESS = float(os.environ.get('SO101_HULL_MIN_THICKNESS', '.0002'))
 BODIES = ('horn_top', 'horn_bottom', 'bracket')
-# Horn joints: 'maximal' (default) = rigid-body horns on revolute joints with a torque-capped velocity drive as dry
-# friction; 'articulation' = the horns as links of a fixed-base articulation with PhysX Coulomb joint friction, kept
+# Horn joints: 'maximal' (default) = the top horn fixed (kinematic), the bottom horn a rigid body on a revolute joint
+# with a torque-capped velocity drive as dry friction; 'articulation' = both horns as links of a fixed-base articulation with PhysX Coulomb joint friction, kept
 # selectable only for the comparison probes: in this engine build its contacts with the bracket chatter (about
 # 100 mm/s instantaneous velocity at a constant pose), which locks the bracket in its slots (probe_mouth.py)
 HORN_JOINTS = os.environ.get('SO101_HORN_JOINTS', 'maximal')
@@ -197,6 +197,10 @@ def _spawn_bench(prim_path: str, cfg, translation=None, orientation=None, **kwar
         path = f'{prim_path}/{name}'
         xform(path, *poses[name])
         rigid(path, L.HORN_MASS)
+        if name == 'horn_top' and HORN_JOINTS != 'articulation':
+            # top horn fixed at its start angle: the unpowered gearbox's backdrive (about 0.6 N m) is over ten times
+            # what the bracket can put on it through friction; the jointed horn turned by contact noise (artifact)
+            UsdPhysics.RigidBodyAPI(stage.GetPrimAtPath(path)).CreateKinematicEnabledAttr(True)
         mesh(f'{path}/vis', *vis[name][:2], col, normals=vis[name][2])
     from scipy.spatial import ConvexHull as _Hull
 
@@ -246,6 +250,8 @@ def _spawn_bench(prim_path: str, cfg, translation=None, orientation=None, **kwar
         _SPEC['articulation'] = str(fix.GetPrim().GetPath())
     for name, friction_nm, start in (('horn_top', L.HORN_TOP_FRICTION_NM, L.HORN_TOP_START_DEG),
                                      ('horn_bottom', L.HORN_BOTTOM_FRICTION_NM, L.HORN_BOTTOM_START_DEG)):
+        if name == 'horn_top' and HORN_JOINTS != 'articulation':
+            continue
         j = UsdPhysics.RevoluteJoint.Define(stage, f'{prim_path}/{name}/axis')
         j.CreateAxisAttr('Z')
         j.CreateBody1Rel().SetTargets([Sdf.Path(f'{prim_path}/{name}')])
@@ -373,7 +379,8 @@ class Runtime:
         """Environment reset only (never during a trial): horns and bracket back at their authored poses, at rest."""
         torch = self.torch
         tf = self.view.get_transforms().clone()
-        names = ['bracket'] if self.art is not None else list(BODIES)  # articulation links: through their joints
+        # the top horn is kinematic (fixed) and never moves
+        names = ['bracket'] if self.art is not None else ['horn_bottom', 'bracket']  # articulation links: through their joints
         for n in names:
             pos, rot = authored()[n]
             i = self.index[n]

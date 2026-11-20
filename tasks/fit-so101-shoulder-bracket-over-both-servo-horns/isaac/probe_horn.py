@@ -1,4 +1,5 @@
-"""Horn friction probe (development / fidelity check): does the top horn resist turning as authored?
+"""Horn friction probe (development / fidelity check): do the jointed horns resist turning as authored? By default
+only the bottom horn is jointed (the top horn is fixed); with SO101_HORN_JOINTS=articulation both are.
 
     SO101_HORN_JOINTS=articulation|maximal python probe_horn.py task.py OUT
 

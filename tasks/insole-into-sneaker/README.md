@@ -49,6 +49,8 @@ The scorer runs after every control step on measured poses. The value at the end
 ends once 1.0 has held for 4 s.
 - 0 unless the shoe stands upright on the table (within 10 degrees) and both grippers are at least 3 cm clear of
   the shoe (with its tongue) and the insole.
+- 0 in a real trial if at any time the robot unties or loosens the laces (whole-trial video: the bow comes undone,
+  a lace end is pulled, or a lace leaves its eyelet). In the simulation the laces are tied and fixed.
 - 0.25: the insole is inside the shoe: within its walls, no part of it higher than the top edge of the upper (collar, then vamp),
   not folded back, and the point 20 mm from its toe tip forward of the top eyelets (under the laced vamp).
 - 0.5: also home: heel end within 6 mm of the heel counter (the trimmed insole is 4 mm shorter than the inside) with

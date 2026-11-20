@@ -16,5 +16,6 @@
   "run_limit": "6,000 steps (5 minutes at 20 Hz)",
   "fidelity": "Isaac Lab-Arena yam_arena, PhysX 480 Hz, 20 Hz control; YAM fingers capped at 40 N. Magazine mouth, lips and follower from a hobby CAD model; lip gap 8.5 mm (published 0.34 in). Follower spring 8.3 N on its stop: estimated from one published gauge reading, not measured (another implies about 12 N). Real trials need a real factory magazine. Round 4.5 g snap cap (live about 12 g). Frictions estimated. Fixture and tool are printed parts; the tool tooth is our addition to the factory sleeve loader.",
   "scores": "Dream-1 run: 0 (6000 steps); demo: 1.0 (1531 steps)",
-  "reset_notes": "Press the round forward out from under the lips, check the follower returns to its stop, check the magazine is seated in the fixture with the keeper pin in and the pencil line aligned, and put the tool and the round on their tape outlines. Dummy rounds only: check each round is inert before every session; no live ammunition or firearm in the room."
+  "reset_notes": "Press the round forward out from under the lips, check the follower returns to its stop, check the magazine is seated in the fixture with the keeper pin in and the pencil line aligned, and put the tool and the round on their tape outlines. Dummy rounds only: check each round is inert before every session; no live ammunition or firearm in the room.",
+  "media": "M-R3GV6V"
 }

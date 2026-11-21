@@ -17,5 +17,6 @@
   "run_limit": "9,600 steps (8 minutes at 20 Hz)",
   "reset_notes": "Run with -E object_jitter=0 -E control_hz=20. Lay the six blocks flat, long side front to back, at their start places for the chosen layout (GAUGE_SORT_LAYOUT; the README lists them); empty both trays.",
   "fidelity": "Rigid boxes. The tolerance is scaled up from real gauging practice: real fixed-limit gauges work to hundredths of a millimetre; here blocks clear a gap by at least 0.8 mm a side or overlap its anvils by at least 0.3 mm a side, the tightest margins that rigid contacts and the arms' positioning resolved reliably. Anvils have a 2 mm lead-in chamfer. Friction: blocks 1.2, gauge 0.4. Gauge support counts normal and friction contact force at the last physics substep of each control step.",
-  "scores": "Dream-1 run: 0.0 (9,600 steps); demo: 1.0 (4,528 steps)"
+  "scores": "Dream-1 run: 0.0 (9,600 steps); demo: 1.0 (4,528 steps)",
+  "media": "M-8GVP45"
 }

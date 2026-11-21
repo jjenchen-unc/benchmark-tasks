@@ -18,5 +18,6 @@
   "run_limit": "2,400 steps (2 minutes at 20 Hz)",
   "reset_notes": "Unhook the prong from its hole and let it fall back onto the fold under the strap, leave the strap through the frame and all five loops, pull the tail back until the first hole is 7 cm past the hinge bar, and let the tail hang over the form's left side. Nothing is consumed; leather holes stretch slowly with use.",
   "fidelity": "The belt is one size larger than the form's waist, fastened at its middle hole: about 6 cm loose at hole 3; the form is rigid (a wearer would draw in the waist). The belt starts threaded through the frame; the tail is not tucked under the keeper. With hands off the frame stands 20-30 degrees off the strap. The strap is 25 mm rigid links with sprung joints; jeans and loops are a rigid shell. The scripted demo is mm-sensitive: 2 of 3 start layouts at full score in the official environment.",
-  "scores": "Dream-1 run: 0 (2400 steps); demo: 1.0 (776 steps, start layout 1)"
+  "scores": "Dream-1 run: 0 (2400 steps); demo: 1.0 (776 steps, start layout 1)",
+  "media": "M-4PUTX2"
 }

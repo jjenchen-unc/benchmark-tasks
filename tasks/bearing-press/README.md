@@ -33,9 +33,20 @@ on the ring that is being fitted, and be pressed home onto the shoulder.
 - 1.0 (ends the trial): seated, both hands released and 30 mm or more from the handle bar and the work, bearing still
   for 1 s.
 - Otherwise 0.
-Real trial: video for the jam / driver / centring checks; seated = the ring's face flush with the housing face (a
-straightedge across the housing face and a 0.05 mm feeler: the feeler does not enter under the straightedge over the
-ring) and the bearing spins freely by hand.
+### Instrumented physical trial
+
+Use a compression cell behind the ram face (range at least 1 kN), sampled at 1 kHz. Zero with the ram clear and verify at 20 N and a second point in the operating range with a calibrated reference. Mark the two plain discs and the relieved outer-ring driver so the scorer can identify the load path. The real trial uses loading through a prohibited face as the proxy for potential damage. For a trial in which another component also carries ram load, measure the load at the forbidden contact independently or reject the trace as unscorable.
+
+Reference the housing to its machined bore. Engrave concentric witness arcs on the exposed tool faces before assembly and calibrate two synchronized orthogonal camera views with a scale at each working plane. Register the housing and tool to those fiducials so the bore and tool axes remain measurable under the ram. For a ring hidden by a driver, use an underside telecentric view through the open support and the housing's 37 mm through-bore to locate the concentric inner bore. Measure the *outer* race plane with three noncontact displacement probes at 120 degrees on a 40 mm pitch circle, through witness ports in the shoulder. Reference all three to a flat master on the shoulder. Use the three measured heights to fit the plane and calculate tilt from its slope. Keep the optical paths clear throughout the housing's travel. Qualify the setup with known 0.15 and 0.30 degree shims and calibrated lateral offsets of 1.5 and 2.0 mm. Log geometry at 200 Hz or faster on the force clock. Repeat an obscured or unsynchronized measurement.
+
+Apply the simulated thresholds above to the synchronized data. Count consecutive time, clearing the timer when its condition ends. At release check insertion depth from the three outer-race heights relative to the housing face and shoulder, then check hand clearance and stillness on video. Do not infer transient force or sub-degree tilt from uncalibrated video.
+
+### Selecting and resetting the interference pair
+
+Use one numbered housing and bearing per trial. At the same stable room temperature, measure bearing OD with a 1 µm-reading micrometer and the 6061 housing with a bore comparator set against the same reference. Measure at two depths beyond the chamfer and at three azimuths, then record the extrema. Select a pair with 3–7 µm diametral interference throughout (target 5 µm). Include measurement uncertainty when deciding whether the pair falls inside this band. The K7 designation alone admits clearance pairs. Confirm on a sacrificial pair from the same machining lot that the bearing requires pressing and that an aligned outer-ring driver seats it. Record the force–depth trace. This is a proposed fixture acceptance test; the simulator's 300 N terminal force is an estimate.
+
+After extraction inspect the bore for galling or raised material and repeat the six bore measurements. Replace a scored or out-of-band housing. Use a fresh gauged bearing after a prohibited-load or jam trial. Retain the pairing and reset records with the trial. [SKF mounting guidance](https://cdn.skfmediahub.skf.com/api/public/094fe398236d3d0a/pdf_preview_medium/03000EN_pdf_preview_medium.pdf)
+
 
 ## Dream-1 evaluation
 

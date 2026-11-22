@@ -91,6 +91,7 @@ class Part(Box):
     contact_damping: float = 0.0  # N s/m
     visuals: tuple = ()  # (centre, size, colour) boxes drawn but not colliding
     screen: tuple | None = None  # (centre, size_xy, png path): textured quad facing +Z on the body (an LCD)
+    decals: tuple = ()  # (centre, (width, height), png path, right, up): printed labels, drawn-only textured quads
     meta: dict = field(default_factory=dict, compare=False, hash=False)
 
     def _check(self) -> None:
@@ -130,7 +131,7 @@ def _cyl_half(spec):
 
 def part(name, pos, boxes=(), mass=None, yaw=0.0, hinges=(), color=(0.5, 0.5, 0.5), friction=0.8, cylinders=(),
          body_mass=1.0, self_collide=False, stiffness=0.0, contact_damping=0.0, visuals=(), spheres=(),
-         contact_offset=0.0005, torsional_patch=0.0, screen=None) -> Part:
+         contact_offset=0.0005, torsional_patch=0.0, screen=None, decals=()) -> Part:
     """Build a Part; ``size`` is filled in from the body's shapes."""
     half = ([np.array(b[1]) / 2 for b in boxes] + [_cyl_half(c) for c in cylinders]
             + [np.full(3, sp[1]) for sp in spheres])
@@ -142,7 +143,8 @@ def part(name, pos, boxes=(), mass=None, yaw=0.0, hinges=(), color=(0.5, 0.5, 0.
                 boxes=tuple(boxes), cylinders=tuple(cylinders), spheres=tuple(spheres), hinges=tuple(hinges),
                 friction=friction, contact_offset=float(contact_offset), torsional_patch=float(torsional_patch),
                 body_mass=body_mass if mass is None else mass, self_collide=self_collide, stiffness=float(stiffness),
-                contact_damping=float(contact_damping), visuals=tuple(visuals), screen=screen)
+                contact_damping=float(contact_damping), visuals=tuple(visuals), screen=screen,
+                decals=tuple(decals))
 
 
 @dataclass(frozen=True)
@@ -306,6 +308,8 @@ def _spawn_part(prim_path: str, cfg, translation=None, orientation=None, **kwarg
         bind_visual_material(str(cube.GetPrim().GetPath()), look(color), stage=stage)
     if spec.screen:
         _screen(stage, prim_path, main, spec)
+    for i, d in enumerate(spec.decals):
+        _decal(stage, prim_path, main, i, *d)
     paths = {"": main}
     for h in spec.hinges:
         path = f"{prim_path}/{h.name}"
@@ -401,6 +405,34 @@ def _screen(stage, prim_path, body_path, spec):
     mat.CreateSurfaceOutput().ConnectToSource(sh.ConnectableAPI(), "surface")
     UsdShade.MaterialBindingAPI.Apply(mesh.GetPrim()).Bind(mat)
     _SCREENS[spec.name] = f"{prim_path}/Looks/screen/tex"
+
+
+def _decal(stage, prim_path, body_path, i, centre, wh, png, right, up):
+    from pxr import Gf, Sdf, UsdGeom, UsdShade
+    c, r, u = (np.asarray(v, float) for v in (centre, right, up))
+    r, u = r * wh[0] / 2, u * wh[1] / 2
+    mesh = UsdGeom.Mesh.Define(stage, f"{body_path}/decal_{i}")
+    mesh.CreatePointsAttr([Gf.Vec3f(*(c + a * r + b * u)) for a, b in ((-1, -1), (1, -1), (1, 1), (-1, 1))])
+    mesh.CreateFaceVertexCountsAttr([4])
+    mesh.CreateFaceVertexIndicesAttr([0, 1, 2, 3])
+    mesh.CreateDoubleSidedAttr(True)
+    st = UsdGeom.PrimvarsAPI(mesh).CreatePrimvar("st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying)
+    st.Set([(0, 0), (1, 0), (1, 1), (0, 1)])
+    look = f"{prim_path}/Looks/decal_{i}"
+    mat = UsdShade.Material.Define(stage, look)
+    sh = UsdShade.Shader.Define(stage, f"{look}/shader")
+    sh.CreateIdAttr("UsdPreviewSurface")
+    sh.CreateInput("roughness", Sdf.ValueTypeNames.Float).Set(0.6)
+    tex = UsdShade.Shader.Define(stage, f"{look}/tex")
+    tex.CreateIdAttr("UsdUVTexture")
+    tex.CreateInput("file", Sdf.ValueTypeNames.Asset).Set(png)
+    reader = UsdShade.Shader.Define(stage, f"{look}/st")
+    reader.CreateIdAttr("UsdPrimvarReader_float2")
+    reader.CreateInput("varname", Sdf.ValueTypeNames.Token).Set("st")
+    tex.CreateInput("st", Sdf.ValueTypeNames.Float2).ConnectToSource(reader.ConnectableAPI(), "result")
+    sh.CreateInput("diffuseColor", Sdf.ValueTypeNames.Color3f).ConnectToSource(tex.CreateOutput("rgb", Sdf.ValueTypeNames.Float3))
+    mat.CreateSurfaceOutput().ConnectToSource(sh.ConnectableAPI(), "surface")
+    UsdShade.MaterialBindingAPI.Apply(mesh.GetPrim()).Bind(mat)
 
 
 _SCREENS: dict[str, str] = {}

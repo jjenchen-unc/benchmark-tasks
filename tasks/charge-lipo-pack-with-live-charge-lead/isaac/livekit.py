@@ -71,6 +71,7 @@ C5_BODY = ((-0.003, 0.0, 0.00075), (0.018, 0.018, 0.0165))  # three-lobe C5 enve
 
 RED, BLACK, GOLD, BLUE = (0.70, 0.03, 0.03), (0.06, 0.06, 0.06), (0.80, 0.65, 0.20), (0.08, 0.30, 0.65)
 DARK, WHITE, YELLOW, GREY = (0.08, 0.08, 0.08), (0.88, 0.88, 0.84), (0.95, 0.72, 0.06), (0.65, 0.65, 0.68)
+RED_8, BLACK_8, WHITE_8 = (200, 20, 20), (15, 15, 15), (240, 240, 235)  # label print colours (8-bit sRGB)
 
 # banana jack: 4.3 mm bore (apothem 2.15 mm, 8 staves), 14 mm deep, face at the port origin, axis charger +X
 R_IN, WALL, L_SLEEVE = 0.00215, 0.0023, 0.014
@@ -226,10 +227,11 @@ _cc, _ss = oriented_box(((_x0 + _x1) / 2, (_c5_in_lo[1] + _c5_in_hi[1]) / 2, (_c
                         (_x1 - _x0, _c5_in_hi[1] - _c5_in_lo[1], _c5_in_hi[2] - _c5_in_lo[2]), RS_POWER, POWER_PORT)
 CONDUCTORS.append(("mains_pins", "mains_pin", np.array(_cc), np.array(_ss) / 2, np.eye(3)))
 _charger_visuals = [((-0.008, 0.043, 0.0151), (0.105, 0.033, 0.0004), (0.10, 0.30, 0.62)),  # brand panel
-                    ((0.0, 0.007, 0.0152), (0.066, 0.018, 0.0006), (0.10, 0.25, 0.12)),  # LCD
-                    ((0.0725, -0.030, 0.006), (0.0004, 0.030, 0.005), WHITE),  # OUTPUT label strip
-                    ((0.0725, -0.020, -0.0115), (0.0004, 0.004, 0.0015), RED),  # + mark under the + jack
-                    ((0.0725, -0.040, -0.0115), (0.0004, 0.004, 0.0015), BLACK)]  # - mark
+                    ((0.0, 0.007, 0.0152), (0.066, 0.018, 0.0006), (0.10, 0.25, 0.12))]  # LCD
+for _name, _o in OUTPUT_PORTS.items():  # coloured square ring round each jack (2 mm wide, 14 mm across)
+    _col = RED if _name == "positive" else BLACK
+    _charger_visuals += [((0.0725, _o[1], _o[2] + _s * 0.006), (0.0004, 0.014, 0.002), _col) for _s in (-1, 1)]
+    _charger_visuals += [((0.0725, _o[1] + _s * 0.006, _o[2]), (0.0004, 0.002, 0.010), _col) for _s in (-1, 1)]
 _charger_visuals += [((0.0722, y, z), (0.0004, w, 0.0057), WHITE)  # 2S/4S/5S/6S XH headers (not modelled as sockets)
                      for y, z, w in [(0.0105, -0.004, 0.010), (0.042, -0.004, 0.015), (0.0395, -0.0125, 0.0175),
                                      (0.01675, -0.0125, 0.020)]]
@@ -253,11 +255,62 @@ def lcd_png(lines):
     return str(path)
 
 
+LABEL_PX_M = 8000  # label texture resolution, px per m
+
+
+def label_png(name, w_m, h_m, items, bg=(20, 77, 166)):
+    """A printed label: ``items`` are (text, (centre x, centre y) m from the image's top-left, cap height m, colour,
+    disc colour or None, rotation deg). Drawn once per process into LCD_DIR."""
+    from PIL import Image, ImageDraw, ImageFont
+    LCD_DIR.mkdir(parents=True, exist_ok=True)
+    path = LCD_DIR / f"label_{name}.png"
+    k = LABEL_PX_M
+    im = Image.new("RGB", (round(w_m * k), round(h_m * k)), bg)
+    for text, (cx, cy), cap, color, disc, rot in items:
+        cx, cy, px = cx * k, cy * k, round(cap * k * (2.2 if text == "+" else 1.4))
+        if disc:
+            r = cap * k
+            ImageDraw.Draw(im).ellipse((cx - r, cy - r, cx + r, cy + r), fill=disc)
+        if text == "-":  # a bar: the font's hyphen is too short to read
+            ImageDraw.Draw(im).rectangle((cx - 0.6 * cap * k, cy - 0.14 * cap * k, cx + 0.6 * cap * k, cy + 0.14 * cap * k),
+                                         fill=color)
+            continue
+        font = ImageFont.load_default(size=px)
+        tw, th = font.getbbox(text, stroke_width=1)[2:]
+        layer = Image.new("RGBA", (tw + 8, th + 8), (0, 0, 0, 0))
+        ImageDraw.Draw(layer).text((4, 4), text, font=font, fill=color, stroke_width=max(1, px // 14), stroke_fill=color)
+        bb = layer.getbbox()
+        layer = layer.crop(bb).rotate(rot, expand=True)
+        im.paste(layer, (round(cx - layer.width / 2), round(cy - layer.height / 2)), layer)
+    im.save(path)
+    return str(path)
+
+
+# printed legends (SkyRC iMAX B6AC V2 front panel, see README), readable from the robot side like the LCD.
+# charger top: image right = charger -X, image up = charger -Y; image (u, v) m <-> charger (0.072 - u, v - 0.0675)
+_W, _H = 0.144, 0.135
+_kv = lambda y: y + 0.0675  # noqa: E731
+_ku = lambda x: 0.072 - x  # noqa: E731
+_top = [(t, (_ku(x), _kv(y)), cap, WHITE_8, None, 0) for t, x, y, cap in
+        [("STOP", -0.045, -0.0325, 0.0055), ("BATT/PROG", -0.045, -0.0245, 0.0035), ("DEC.", -0.015, -0.0325, 0.0055),
+         ("INC.", 0.015, -0.0325, 0.0055), ("< STATUS >", 0.0, -0.0245, 0.0035), ("START", 0.045, -0.0325, 0.0055),
+         ("ENTER", 0.045, -0.0245, 0.0055)]]
+_top += [("+", (_ku(0.065), _kv(-0.020)), 0.0050, WHITE_8, RED_8, 0), ("-", (_ku(0.065), _kv(-0.040)), 0.0050, WHITE_8,
+         BLACK_8, 0), ("3S", (_ku(0.063), _kv(0.025)), 0.0045, WHITE_8, None, 0), ("BALANCE", (_ku(0.065), _kv(0.044)), 0.0025, WHITE_8,
+         None, 90), ("AC IN 100-240V", (_ku(-0.065), _kv(0.0)), 0.0025, WHITE_8, None, -90)]
+_out = [("+", (0.030, 0.0055), 0.0045, RED_8, WHITE_8, 0), ("-", (0.010, 0.0055), 0.0045, BLACK_8, WHITE_8, 0)]
+CHARGER_DECALS = (((0.0, 0.0, 0.0151), (_W, _H), label_png("charger_top", _W, _H, _top), (-1.0, 0.0, 0.0), (0.0, -1.0, 0.0)),
+                  # output wall above the jacks: image right = charger +Y, up = +Z; image u 0 at y -0.050
+                  ((0.0729, -0.030, 0.009), (0.040, 0.011), label_png("output", 0.040, 0.011, _out), (0.0, 1.0, 0.0),
+                   (0.0, 0.0, 1.0)),
+                  ((0.0729, 0.025, 0.008), (0.016, 0.012),
+                   label_png("balance", 0.016, 0.012, [("3S", (0.008, 0.006), 0.0055, WHITE_8, None, 0)]),
+                   (0.0, 1.0, 0.0), (0.0, 0.0, 1.0)))
 _keys = tuple(Hinge(f"key_{k}", tuple(p), axis="Z", linear=True, lower=-KEY_TRAVEL, upper=0.0, start=0.0,
                     target=KEY_PRELOAD, rate=KEY_STIFFNESS, damping=0.5, mass=0.002,
                     cylinders=((tuple(p), 0.004, 0.003, GREY, "Z"),)) for k, p in KEY_POS.items())
 CHARGER_PART = part("charger", CHARGER, boxes=_charger_boxes, mass=0.65, yaw=CHARGER_YAW, color=BLUE, friction=0.5,
-                    contact_offset=0.0002, visuals=_charger_visuals, hinges=_keys,
+                    contact_offset=0.0002, visuals=_charger_visuals, hinges=_keys, decals=CHARGER_DECALS,
                     screen=(LCD[0], LCD[1], lcd_png(Charger().display())))
 RISER = part("riser", (0.25, 0.06, MAT_TOP + RISER_HEIGHT / 2), boxes=(((0, 0, 0), (0.114, 0.124, RISER_HEIGHT), DARK),),
              mass=0.8, color=DARK, friction=1.2)
@@ -290,7 +343,16 @@ for _s in (-1, 1):
         _size = [_cl, 0.0015, _span] if _k == 1 else [_cl, _span, 0.0015]
         _rot = ("Z", float(_s * _cang)) if _k == 1 else ("Y", float(_s * _cang))  # clip-frame turn, mapped by RCLIP
         _clip_boxes.append((tuple((RCLIP @ _c).tolist()), tuple(_size), YELLOW, _rot))
-CLIP_PART = part("clip", CLIP, boxes=_clip_boxes, mass=None, color=YELLOW, friction=0.6, contact_offset=0.0003)
+# printed labels on the bracket (world-aligned): front face below the port (facing the robot; image right = world -Y,
+# up = +Z) and the top beside the leads' exit (+Y strip; text runs along world +X)
+_bracket_text = [("BATTERY", (0.015, 0.00425), 0.0045, WHITE_8, None, 0)]
+CLIP_DECALS = (((-0.0083, 0.0, -0.010), (0.030, 0.0085), label_png("bracket", 0.030, 0.0085, _bracket_text, bg=(20, 20, 20)),
+                (0.0, -1.0, 0.0), (0.0, 0.0, 1.0)),
+               ((0.0215, 0.0097, -0.0049), (0.019, 0.0095), label_png("bracket_top", 0.019, 0.0095, [
+                   ("BATTERY", (0.0095, 0.00475), 0.0028, WHITE_8, None, 0)], bg=(20, 20, 20)), (1.0, 0.0, 0.0),
+                (0.0, 1.0, 0.0)))
+CLIP_PART = part("clip", CLIP, boxes=_clip_boxes, mass=None, color=YELLOW, friction=0.6, contact_offset=0.0003,
+                 decals=CLIP_DECALS)
 XT60_CAVITY = (np.array([(-0.00775 + 0.004) / 2, 0, 0]), np.array([(0.004 + 0.00775) / 2, _iy, _iz]))  # clip frame
 
 # ---------------------------------------------------------------------------------------------------------------

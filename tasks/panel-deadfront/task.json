@@ -1,0 +1,23 @@
+{
+  "title": "Refit a load centre dead-front: hang it on the started screws, swing every breaker through its window, drive the screws",
+  "category": "Impact on jobs",
+  "instruction": "Put the dead-front cover back on the load centre and drive its two lower screws down with the nut driver, then let go.",
+  "keywords": [
+    "electrician",
+    "load centre",
+    "breaker panel",
+    "dead-front cover",
+    "circuit breakers",
+    "nut driver",
+    "cover screws",
+    "bimanual"
+  ],
+  "context": "Every job that opens a residential load centre (adding a circuit, replacing a breaker, inspection) ends with refitting its dead-front cover, a routine electrician task. The two lower cover screws are started in the tub and the cover's open-bottom slots hang on them: the cover is hung with its top tipped out (the plate must pass between the screw heads and the tub flange), swung shut so every breaker's handle shroud passes through its opening (1.0 mm clearance a side), held flat, and the screws are driven down with a 5/16 in ratcheting nut driver. Unscrewed it does not stay flat on the screws, so one hand holds it flat while the other drives them; a cover let go before the screws tips open when the first screw is driven. The cover's top two screws go in afterwards (not part of this trial).",
+  "setup": "Station table, two YAM arms (bases 61 cm apart), overhead camera and a camera on each wrist. Positions in cm: x forward from the line between the arm bases, y to the robot's left. (1) Load centre, Square D Homeline HOM612L100S class (6 spaces, surface mount; enclosure 20 x 32 x 9.5 cm, grey steel), screwed to a 19 mm plywood wall stub standing on the table, tub face at x 38, centred at y 0, tub bottom 13.5 cm above the table. Six single-pole breakers (black, 1 in wide) fill both columns of three; their handle shrouds (46 x 21 mm) stand 9 mm proud of the tub face, the handles 16 mm; each handle ON or OFF. Two #10-32 hex-washer-head cover screws (5/16 in hex) started in the bottom flange at y +-7.5, heads standing 3.5 mm proud of where the cover's face will be. (2) Dead-front cover: 16 gauge steel, 25 x 34 cm, 1.0 kg, both side edges hemmed (3 mm thick, 15 mm wide), two open-bottom slots 8 mm wide over the screws, one 48 x 75 mm opening per breaker column. It stands face toward the robot in a grooved plywood stand at x 20, leaning back 4 deg on the stand's backrest. (3) Stubby ratcheting 5/16 in nut driver (red handle 32 x 105 mm, 40 mm shaft) standing socket down in a 5 x 5 x 6 cm holster block at x 34, y -25. Per trial (from the seed): stand moved up to 1 cm toward/away and 1.5 cm sideways, cover slid up to 1 cm along the groove, panel moved up to 1.5 cm sideways and 0.5 cm up/down, handle states. Named setups 0-2 fix these.",
+  "scoring": "Read at the end of the trial (person check in brackets). 0.25: the cover hangs on both lower screws (each shank in its slot, the slot top resting on it) and lies flat on the tub: every back-face corner within 1 mm of the tub face in either direction. All six breaker shrouds must also pass fully through their assigned column openings at both faces of the steel cover. Three shrouds share each opening. 0.5: as 0.25 plus one screw driven down (head on the cover; the driver will not turn it further by hand). 1.0 (ends the trial): both screws down, every fingertip at least 3 cm from the cover, the driver's socket off the screws, cover still for 1 s (video). 0: the cover not on both screws (left in the stand, lifted off, on the floor), any shroud missing its opening, or not flat (resting on a shroud, tipped open, crooked), or dropped at any time (falls with no hand on it; video).",
+  "reset_notes": "Back both lower screws out until their heads stand 3.5 mm proud of the seated cover's face (a 3.5 mm gauge block under the head), take the cover off and stand it in the groove against the backrest at the setup's marks, stand the driver in its holster, set the handles as listed. Setups run in order 0-2.",
+  "fidelity": "Isaac Lab-Arena yam_arena, PhysX (CPU) 240 Hz, 20 Hz control. Full size; panel, cover and breaker dimensions are representative of the HOM612L100S class (drawings not checked). Cover and driver are free rigid bodies; tub, breakers, screws are kinematic. Screws turn only with the driver's socket on the hex, ratchet, 0.794 mm per turn, stop on the cover; no torque model. No welds, snaps or proximity rules. Friction estimates. Full statement: README.",
+  "run_limit": "3600 control steps (3 min at 20 Hz). The trial also ends as soon as the score reaches 1.0.",
+  "scores": "Revised scorer, CLI seed 0. Dream-1 scored 0.0 at the 3,600-step limit. The scripted reference scored 1.0 in 2,221 control steps.",
+  "media": "M-QRKXRW"
+}

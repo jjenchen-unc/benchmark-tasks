@@ -132,9 +132,9 @@ Named check setups (offsets from the nominal places; x / y in mm, yaw in deg):
 - Scoring uses poses only; "outside both trays" is a package centre outside both tray volumes.
 
 ## Real rig and replica
-- Trays: two black JEDEC thin matrix trays for 35 x 35 mm BGA (3 x 7 or similar), from any tray vendor; one loaded
-  with 21 packages lid up (mechanical samples or reject parts), one empty.
-- Packages: 35 x 35 mm lidded FCBGA, for example a 1156-ball FPGA package; mechanical (daisy-chain) samples are fine.
+- Make two identical trays from [the tray solid in millimetres](fixture/tray-mm.stl). The solid is the union of the simulated collision pieces. The handling slots, top stacking lip, lower rebate, corner chamfer and underside receiving cells are included. Use a full-size build plate or a two-sided machining fixture with registered datums. Keep the lip and receiving cells free of support or burrs. Weigh each tray against the nominal 200 g and distribute any trim mass symmetrically outside the pockets and gripping areas.
+- Make 21 reusable inert coupons to [the package envelope](fixture/package-mm.stl). Centre a 33 × 33 × 0.45 mm bottom layer, 35 × 35 × 1.15 mm substrate and 31 × 31 × 1.80 mm lid. One stock recipe uses aluminium for the first two layers and a laminated lid of approximately 1.40 mm aluminium and 0.40 mm brass. Face to the finished heights after bonding. Weigh each coupon and trim to 12.0 ±0.3 g. Mark the two faces with contrasting dots.
+- Inspect the 36 mm pocket openings and 35 mm substrates (nominal 0.5 mm side clearance), confirm both trays nest at the 7.62 mm pitch without binding, then load all 21 coupons and do one hand flip over a catch surface. The lower tray initially supports the ball-field face. After rotation each lid must be supported in its own underside cell while the upper tray lifts away and exposes the marked ball-field faces. Reject a tray that allows coupons to cross pockets or pulls them up with the cover. The fixture reproduces this inspection transfer with inert coupons.
 - Riser: a 150 x 220 x 55 mm ESD-safe block (dissipative foam or acetal) centred under the loaded tray.
 - Positions as in `src/layout.py` (station frame): riser centre x 33 cm, y 0; empty tray centre x 15 cm, y 0, both
   trays with their length across the robot (along y), pin-1 chamfers at the corner on the robot's left nearest the robot. Start offsets

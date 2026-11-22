@@ -1,0 +1,23 @@
+{
+  "title": "Hang a cabinet door on clip-on hinges: hold the 1.7 kg door at the opening while the other hand clicks a hinge arm on",
+  "category": "Impact on jobs",
+  "keywords": [
+    "carpentry",
+    "cabinet installation",
+    "concealed cup hinge",
+    "clip-on hinge",
+    "hanging a door",
+    "bimanual",
+    "hold while pressing",
+    "latch"
+  ],
+  "instruction": "Hang the door on the cabinet: clip both of its hinges onto their mounting plates, then close the door and take both hands off it.",
+  "context": "Carpenters and cabinet installers (O*NET 47-2031 and 51-7011) hang doors on frameless cabinets on every install: doors on clip-on cup hinges come off for transport and finishing and go back on once the carcasses are set. Here a 298 x 398 mm, 19 mm MDF door (1.7 kg) with two clip-on 110 deg cup hinges (Blum CLIP top class) must go onto two mounting plates screwed inside the cabinet's left side panel, where they are seen only obliquely through the open front. One hook cannot hold the door, so it is held up at the opening, both hinge arms' front lugs brought over the plates' noses with their rears off the plates, and both dropped on together; then an arm's rear is pressed onto its plate until it clicks (about 22 N) while the other hand keeps the door up and square. Swinging the door shut also seats a hooked arm whose partner is clipped. Then let go.",
+  "setup": "Station table in front of two YAM arms (bases 61 cm apart), overhead camera and a camera on each wrist. Positions in cm: x forward from the line between the arm bases, y to the robot's left of their midpoint, z up from the table top. A frameless wall-cabinet carcass, 30 wide x 40 high x 30 deep (18 mm white melamine board, 8 mm back), stands on two 2x4 offcuts laid flat (3.8 high, along x) with its open front toward the robot: front at x 58, left side panel's outer face at y 6 (right side at y -24). Two clip-on cruciform mounting plates (Blum CLIP 173H7100 class, 0 mm) are screwed to the inside of the left side panel, 3.7 behind the front edge, their centres 12 and 35.8 above the table. The 19 mm MDF door, 29.8 x 39.8 (1.7 kg), has two clip-on 110 deg full-overlay cup hinges (Blum CLIP top 71B3550 class) 8 from its top and bottom edges, their arms standing out of its hinge edge toward +x; it stands upright on its bottom edge in the 19.5 mm groove of a third 2x4 offcut (26 long, along x) beside the carcass, parallel to the left side panel, hinge edge toward the cabinet: hinge edge at x about 53, outer face at y about 16, free edge toward the robot. Each trial draws from its seed a shift of the carcass (up to 1.5 in x, 1 in y) and of the door in its groove relative to the carcass (hinge edge 1.5 to 5 in front of its hung position, outer face 8.5 to 12.5 outboard of the side panel, turned up to 5 deg). Named check setups: see the README. The screenshot shows the default trial seed.",
+  "scoring": "Read at the end of the trial (person check in brackets). 1.0 (ends the trial): both hinges clipped on (each arm's rear flat on its plate; a gentle pull on the door does not lift it off), door shut (lies against the carcass front, opening 3 deg or less, top edge level with the carcass top within 1.5 mm), both hands 3 cm or more from the door and hinges, door still for 1 s. 0.5: both clipped, door not shut. 0.25: one hinge clipped. 0: no hinge clipped. Sim: hinge state from the plate model (clipped = rear pushed past the latch), angles from the hinge joints.",
+  "reset_notes": "Unclip both hinges (press each hinge's release lever on the arm and lift the arm off its plate), set the carcass at the next setup's position, stand the door in the groove block at the next setup's offset, hinge arms folded open in line with the door face (90 deg). Setups run in order 0-4.",
+  "fidelity": "Isaac Lab-Arena yam_arena, PhysX (CPU) 480 Hz, 20 Hz control, full size. Door: one articulation (slab + two hinge arms on single-pivot joints; the hinge's four-bar linkage simplified). Arm-plate contact is a computed model: lug hooks only when dropped onto the plate's nose, rear clicks only past a 22 N latch (estimate; the door's closing swing can also push it), clipped arm held by springs; plates kinematic. No welds, teleports or proximity clicks. Full statement: README.",
+  "run_limit": "2400 control steps (2 min at 20 Hz). The trial also ends as soon as the score reaches 1.0.",
+  "scores": "Dream-1: 0.0 (seed 0, 2,400 steps). Scripted reference policy: official CLI run 1.0 (1,067 of 2,400 steps, default seed); direct demo 1.0 at the default seed (twice, identical traces) and seed 7; no-op 0; open-loop replay at seed 7: 0; door twisted, not pressed: 0.",
+  "media": "M-HBGHFH"
+}

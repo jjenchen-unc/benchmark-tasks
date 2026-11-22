@@ -21,16 +21,14 @@ pivots slip), so at least one arm must be pressed while the other hand keeps the
 arm is clipped, swinging the door shut also seats the other, still hooked arm (a verification run that pressed only
 the lower arm and then swung the door shut scored 1.0).
 
-Why it matters: clip-on cup hinges are the standard hinge on frameless (European) cabinets; carpenters and cabinet
-installers hang and re-hang doors on them on every kitchen and cabinet install (doors usually come off for transport,
-finishing and fitting the carcasses, then go back on).
+Putting a flat-pack kitchen cupboard together often leaves the door until last. The mounting plates are already inside the cabinet. The person fitting the door supports its weight while hooking both hinge arms onto the plates, then presses their rear latches and checks the closed door's top edge. The same operation lets a household replace a door or put it back after moving the cabinet.
 
 ## Scoring (`src/scoring.py`, primary score 0..1, value at the end of the trial)
 - 1.0 (ends the trial): both hinges clipped onto their plates (each arm's rear latch closed), the door shut (opening at
   most 3 deg, its top edge level with the carcass top within 1.5 mm), every fingertip 30 mm or more from the door and
   the hinges, door still for 1 s.
 - 0.5: both hinges clipped, door not shut (same hands-off and still conditions).
-- 0.25: exactly one hinge clipped (the door hangs on it).
+- 0.25: exactly one hinge clipped. For every positive score, all fingertips must be at least 30 mm clear of the door and hinges and the door must remain still for one second.
 - 0: no hinge clipped (door on the bench, in its groove or still held).
 Real trial: pull the door gently at each hinge (a clipped arm stays on), look at each arm's rear (flat on its plate),
 look at the shut door's gaps against the carcass; the video shows the hands off.

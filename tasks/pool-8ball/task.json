@@ -1,0 +1,24 @@
+{
+  "title": "Sink the 8-ball in the coin-marked pocket of a 7 ft bar table: one cue stroke, cut angle and speed judged, no scratch",
+  "category": "Societal relatability",
+  "keywords": [
+    "pool",
+    "billiards",
+    "8-ball",
+    "cue",
+    "bridge",
+    "aiming",
+    "stroke speed",
+    "bimanual",
+    "bar"
+  ],
+  "instruction": "Pick up the cue and sink the 8-ball in the pocket marked with the coin, in one stroke, without scratching.",
+  "context": "Pool is one of the most widely played bar and home games, and a clip of someone lining up the cue and sinking the 8-ball is recognisable to almost anyone. Here the robot plays one shot on a 7 ft bar table: it picks the 48 in short cue up from its rest, guides the shaft near the tip with one gripper as the bridge (one finger under it, one over it) while the other pinches the shaft further back and drives the stroke, lines the cue up behind the cue ball on the line that sends the 8-ball into the pocket marked by the coin, and strikes once at a suitable speed. The coin's pocket (left or right side), the ball positions, the cut angle (up to 30 deg, either side) and the distances change every trial, so the cue line, which hand bridges (the one on the side the shot goes, so the arms never cross) and the stroke speed must be judged from the table. At the default start, a cue line about 1 deg too full misses the pocket. Too soft stops short, too hard can scratch; there is no second try.",
+  "setup": "Two YAM arms on pedestals at the foot rail of a 7 ft bar-box pool table (WPA dimensions: playing field 78 x 39 in, green cloth, cushion tops 30 in above the floor, corner/side pocket mouths 4.6/5.1 in); overhead camera behind the arms, one camera on each wrist. Positions in cm: x forward from the line between the arm bases, y to the robot's left. The foot cushion nose is at x 12, the side pockets at x 111 (y +-49.5), the cloth 8.5 cm below the arm bases. Balls: regulation 2 1/4 in, 6 oz; white cue ball (small red dot) and black 8-ball. Called pocket: a brass coin (24 mm) on the rail top 13 cm short of the left or right side pocket. Cue: 48 in two-piece short cue (as bars keep for tight spots), 15 oz, 13 mm tip, lying level in a two-hook cue rest on posts behind the foot rail, pointing at the table, its tip turned 12.5 deg toward the called pocket's side (default seed: tip at (58.6, -12.3), hooks at (-49, 11.5) and (-10, 3)), 13 cm above the cloth. Per trial (from the seed): called pocket, 8-ball at x 75-130, cut angle 6-30 deg either side (layouts where a straight full-ball hit would pot the 8-ball are excluded), cue ball 15-45 cm from the ghost-ball spot; the cue lies in the rest on the side away from the called pocket (two mirrored rests). Default seed: right side pocket, 8-ball at (95.0, -30.3), cue ball at (72.2, -17.8), cut 29 deg. Named setups for real trials: README.",
+  "scoring": "Read at the end of the trial (all visible on video). 1.0 (ends the trial): the 8-ball dropped in the pocket marked by the coin and the cue ball is still on the table, both at rest for 1 s. 0.5: the 8-ball rests within one ball width of the marked pocket's mouth (its edge within 57 mm of the line between the two cushion jaw points; ruler). 0.25: the cue ball hit the 8-ball, neither of the above. 0: no hit; scratch (cue ball pocketed or off the table); 8-ball in another pocket or off the table; or a foul at any time: a second tip contact on the cue ball, a push (tip on the ball longer than 60 ms), the cue touching the 8-ball, or a hand or arm touching a ball.",
+  "reset_notes": "Take the balls out of the pockets, place the 8-ball and the cue ball on the next setup's spots (marked with small paper rings, removed before the trial), put the coin beside the setup's side pocket and lay the cue back in its rest, tip at the mark. Wipe chalk off the cue ball.",
+  "fidelity": "Isaac Lab-Arena yam_arena, PhysX (CPU) 480 Hz, 20 Hz control; full-size table (WPA dims, no brand claimed), regulation balls, 48 in short cue. PhysX has no rolling resistance: a constant torque per resting ball gives the cloth's 0.098 m/s^2 rolling deceleration (applied, never a velocity write). Rigid cushions with restitution 0.75; friction and restitution values are literature estimates. No welds, snaps or teleports. Full statement: README.",
+  "run_limit": "1500 control steps (75 s at 20 Hz).",
+  "scores": "Dream-1: 0.0 (seed 0, 1,500 steps). Scripted demo: 1.0 in the official Inspect Robots run (default seed, 542 of 1500 steps); 1.0 twice, identical, direct run; seeds 42, 1, 2: 1.0; seed 0: 0 (push foul). Doing nothing: 0. Open-loop replay at seed 7: 0.",
+  "media": "M-2ARVDU"
+}

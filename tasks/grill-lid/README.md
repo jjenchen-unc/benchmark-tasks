@@ -36,7 +36,12 @@ is real too: the lid's weight and balance, the push-to-turn OFF stop, the ignite
 - 0 otherwise: nothing done, lid only opened, knob not turned (or turned without pushing it in: the OFF stop holds).
 Gas flows while the knob is 15 deg or more past OFF. The burner lights once gas has flowed for 0.5 s and the igniter
 has been held past its 2 mm switch point for 0.2 s while gas flows; it goes out at OFF.
-Real trial: video (lid angle at gas-on, time from knob turn to flame, hands off), the flame seen through the grate.
+Record knob force along its inward travel axis. On the unpowered, fuel-disconnected training station use a bidirectional axial load cell in the knob load path with an external logger (at least 200 samples/s, range at least 150 N). Retain the production grip and rotational coupling. The load path must capture the load on the travel stop as well as the spring. Tare at rest, apply a known reference load along the shaft, and check the trace at the stop against a calibrated push gauge. Check with a sideways load and a pure twist for cross-axis pickup. Verify that the instrumented knob has the same travel and index positions as the stock knob. Record a common sync pulse in the force trace and video.
+
+Latch the forced-knob veto if the inward force exceeds 80 N continuously for 100 ms. Use sample timestamps and break the interval at every sample at or below threshold. A dropped sample invalidates the affected interval; repeat the trial if it could affect the result. Score the lid angle, knob position, ignition indication, elapsed times and release from synchronized video. Use a disconnected training rig with a visible burner-state indicator for the simulated-flame protocol.
+
+Weber's Q 1200 instructions confirm the open-lid, push-and-turn and electronic-igniter sequence. The simulated spring forces, travel limits and lid balance are estimates. Before using the physical station, record unloaded knob travel, restoring force versus travel, igniter click force and lid balance angle on that unit using a push gauge and angle gauge. Record these separately from the 80 N benchmark veto. [Weber Q owner's guide](https://www.weber.com/on/demandware.static/-/Library-Sites-library-emea/default/dw2a9ec92a/pdf/navigation/service/manuals/uk/71728_EN_120116.pdf)
+
 
 ## Dream-1 evaluation
 
@@ -143,8 +148,7 @@ are 49 cm apart; the lid is 44 cm wide), so it varies mostly in depth.
 ## Real rig
 A Weber Q 1200 (about USD 250) on a sturdy table, centred between the arms with its front 23 cm in front of the
 arms' base line plus the trial's offset; a 16.4 oz propane cylinder screwed in. For robot trials without fire the
-cylinder can be left out or empty: the scorer only needs the knob angle, the igniter press and the lid angle, which a
-person reads from the video (the igniter still clicks). With gas, run trials outdoors with a person at the cylinder.
+cylinder can be left out or empty: use the synchronized knob-force log and the visible indicator described above. With gas, run trials outdoors with a person at the cylinder.
 
 ## Third-party assets and licenses
 | Asset | Source | License |

@@ -103,15 +103,13 @@ named setups on seeded resets).
 - Rack: modelled on a StarTech.com 4POSTRACK12U (12U four-post open frame, 22-40 in adjustable mounting depth; set to
   840 mm). Its posts are modelled as square-hole EIA-310 flanges (9.5 mm holes, hole pattern 15.875 / 15.875 / 12.7 mm,
   465.1 mm hole column spacing) with an outer leg and a back plate; the frame, far-side posts and printed U marks are
-  simplified. That this rack model ships square-hole posts was not verified from a datasheet. The rack stands on its
+  simplified. The manufacturer specifies square cage-nut holes and base anchoring holes. [StarTech datasheet](https://media.startech.com/cms/pdfs/4postrack12u_datasheet.pdf). The rack stands on its
   base frame on the bench (casters off) so that its lowest U are within the arms' reach (U1 lower boundary 12 mm above
   the bench); only U2-U4 are used as targets (the YAM pair's top-down reach ends near a 0.96 m tool height).
-- Rail: a generic tool-less 1U sliding rail of the stab-in-peg type; no part number is claimed, dimensions are
-  representative: outer member 14 x 40 x 620 mm, inner member 10 x 30 x 500 mm, closed length 800 mm bracket face to
+- Rail: the custom tool-less training rail built to the endplate and hook drawings, with dimensions outer member 14 x 40 x 620 mm, inner member 10 x 30 x 500 mm, closed length 800 mm bracket face to
   bracket face, 80 mm telescoping travel, end brackets 3 mm thick with two 9.0 mm square pegs 8 mm long at
   +-15.875 mm (nose tapered 1.5 mm a side over its last 3 mm: a rounded stab-in nose modelled as a frustum), 1.45 kg
-  in total. The profiles are solid boxes (real members are C-sections, which the robot
-  does not touch inside).
+  in total. The collision profiles are solid boxes. The fabricated outer member is hollow to admit the inner member.
 - The two members are free rigid bodies on a prismatic joint (hard limits 0-80 mm; they do not collide with each
   other). Drives on such (maximal) joints do not act in this PhysX build, so the slide drag is a computed force:
   -clip(150 N s/m x relative speed, +-4 N), applied every physics step to both members (estimate; a real ball-bearing
@@ -120,7 +118,7 @@ named setups on seeded resets).
   pegs are in its flange's holes (peg axis within 1.2 mm of the hole pair's axis, within 1.5 deg of square) and its
   bracket is within the last 2.5 mm of travel to the flange, a 10 N force pushes the member back out; when the bracket
   face reaches the flange (gap <= 0.4 mm) the catch is engaged, at whatever U the end is in; from then on a stiff
-  spring (20 kN/m, up to 150 N) keeps the end from backing out. 10 N is an estimate, not a measured latch force. The
+  spring (20 kN/m, up to 150 N) keeps the end from backing out. 10 N is the replica calibration target. The actual peaks are recorded during physical commissioning. The
   latch tabs (visual only) switch from orange to green when the catch engages. Nothing pulls a free end in, centres
   it or holds it sideways: the pegs in the square holes do that by contact.
 - Rack, installed server (with its own near-side rail, latched) and cradle are kinematic rigid bodies (contact forces are reported). Friction (static = dynamic): rail
@@ -136,8 +134,7 @@ named setups on seeded resets).
 ## Real rig
 - Rack: StarTech.com 4POSTRACK12U (or any 12U four-post square-hole open frame rack), mounting depth set to 840 mm,
   standing on the bench with the casters removed; near side facing the robot.
-- Rail: one rail of a tool-less 1U server rail kit with square stab-in pegs and end latches (e.g. a server vendor's
-  "ReadyRails"-type kit for square-hole racks), closed; the other rail of the pair is not used.
+- Practice rail: fabricate both latch ends, telescoping members and two-state flags from the dimensioned drawings and parts list in [fixture/assembly.md](fixture/assembly.md). Through-bolt the four rack feet to the bench as specified there. Qualify insertion force, retention, end gap and flags at both ends before real trials.
 - An installed 1U server (any 1U chassis about 760 mm deep; the sim renders its lid blue for contrast) on its own rail kit at the
   trial's U - 1.
 - Foam cradle: the rail kit's box insert, or two blocks of foam with an 18 mm slot, in front of the rack.

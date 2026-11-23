@@ -90,22 +90,18 @@ def test_window_never_touches_open_or_empty():
         assert hi + L.WINDOW / 2 < L.STROKE + 1e-12
 
 
-def test_best_fixed_position_rate():
-    # open-loop: the best single switch-body position scores 1.0 on at most ~5 % of seeds (hidden sensing-point
-    # offset +-10 mm and the +-0.4 mm tolerance), and not at the official seed
-    sp = [L.setup_spec(("seed", s)) for s in range(4000)]
-    best, best_b = 0.0, None
-    for b in np.arange(-0.012, 0.024, 0.0005):
-        r = float(
-            np.mean(
-                [S.static_level(b - p["sense"], p["travel"], True) >= 1.0 for p in sp]
-            )
-        )
-        if r > best:
-            best, best_b = r, b
-    assert best <= 0.05
-    o = L.setup_spec(("seed", 1415158438))
-    assert S.static_level(best_b - o["sense"], o["travel"], True) == 0.0
+def test_one_physical_switch_and_reproducible_blocks():
+    setups = [L.setup_spec(("seed", seed)) for seed in range(200)]
+    assert {round(p["width"] * 1000) for p in setups} == set(L.BLOCK_WIDTHS_MM)
+    assert all(p["sense"] == 0.0 for p in setups)
+    for p in setups:
+        assert L.setup_spec(("seed", int(p["name"].split()[-1]))) == p
+        assert abs(p["u0"] - p["travel"]) >= L.SEEDED_GAP_M
+    # A fixed location wide enough for both check blocks can serve at most
+    # one nominal width (the five settings are 2 mm apart per jaw).
+    for b in np.arange(-0.012, 0.025, 0.0001):
+        assert sum(S.static_level(b, (L.GAP_OPEN - w / 1000) / 2, True) == 1
+                   for w in L.BLOCK_WIDTHS_MM) <= 1
 
 
 def test_switch_body_on_groove_and_sensing_point_inside():

@@ -44,13 +44,11 @@ PART_X = FINGER_X0 + 0.024  # part centre x (between the fingers)
 PART_MIN_TRAVEL = 0.0025  # per-jaw travel to touch the part, range drawn per seed
 PART_MAX_TRAVEL = 0.0125
 # ------------------------------------------------------------------ auto switch (D-M9N class) in the groove
-SW_L = 0.022  # length along the groove
+SW_L = 0.0228  # length along the groove
 SW_W = 0.0030
 SW_H = 0.0042  # total height; the top sits SW_PROUD above the body face
 SW_PROUD = 0.0010
-SW_SENSE_BASE = 0.011  # nominal sensing point from the switch's front (+x) end (the housing's middle)
-SENSE_SPREAD = 0.010  # per seed the sensing point sits up to +-10 mm from the middle (switch models differ; the
-# policy cannot see where: only the LED tells)
+SW_SENSE_BASE = 0.006  # D-M9N drawing: from non-cable end
 TOL_TRAVEL = 0.0006  # 1.0 needs the LED on for parts 1.2 mm narrower and wider too (per-jaw travel +-0.6 mm)
 LED_FROM_BACK = 0.0035  # LED window centre from the back (cable) end
 SCREW_FROM_FRONT = 0.0025  # set-screw axis from the front end
@@ -172,13 +170,9 @@ def driver_home():
 
 # ------------------------------------------------------------------ start states
 SEEDED_GAP_M = 0.0035  # the switch starts at least 3.5 mm (sensing point) from the set window's centre
-SETUPS = (  # named check setups: (per-jaw travel to the part, switch start u, sensing-point offset)
-    (0.0080, -0.0100, 0.0040),
-    (0.0040, 0.0150, -0.0060),
-    (0.0115, 0.0010, 0.0070),
-    (0.0060, 0.0180, -0.0030),
-    (0.0100, -0.0050, -0.0080),
-)
+BLOCK_WIDTHS_MM = (36, 40, 44, 48, 52)
+# Width in mm and initial sensing coordinate in metres.
+SETUPS = ((44, -0.005), (52, 0.015), (36, 0.001), (48, 0.018), (40, -0.005))
 START_U_RANGE = (-0.012, 0.024)
 BODY_CENTER_RANGE = (
     -0.012,
@@ -187,14 +181,12 @@ BODY_CENTER_RANGE = (
 
 
 def setup_spec(setup):
-    """Start state: {'travel': m, 'u0': m, 'width': m, 'name': str}. ``setup`` is a named setup index (int) or
-    ('seed', n): travel uniform in [PART_MIN_TRAVEL, PART_MAX_TRAVEL], the switch's sensing-point offset uniform in
-    +-SENSE_SPREAD, the switch start uniform in START_U_RANGE but at least SEEDED_GAP_M from the travel and with the
-    body on the groove (rejection sampling, same seed -> same state)."""
+    """Select a physical gauge block and starting location for one fixed D-M9N switch."""
     if isinstance(setup, tuple) and setup[0] == "seed":
         rng = np.random.default_rng(int(setup[1]))
-        t = float(rng.uniform(PART_MIN_TRAVEL, PART_MAX_TRAVEL))
-        sense = float(rng.uniform(-SENSE_SPREAD, SENSE_SPREAD))
+        width_mm = int(rng.choice(BLOCK_WIDTHS_MM))
+        t = (GAP_OPEN - width_mm / 1000) / 2
+        sense = 0.0
         for _ in range(1000):
             u0 = float(rng.uniform(*START_U_RANGE))
             c0 = u0 + SW_SENSE_BASE + sense - SW_L / 2
@@ -211,5 +203,7 @@ def setup_spec(setup):
             name=f"seed {int(setup[1])}",
         )
     k = int(setup) % len(SETUPS)
-    t, u0, sense = SETUPS[k]
+    width_mm, u0 = SETUPS[k]
+    t = (GAP_OPEN - width_mm / 1000) / 2
+    sense = 0.0
     return dict(travel=t, u0=u0, sense=sense, width=part_width(t), name=f"setup {k}")

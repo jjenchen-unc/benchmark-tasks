@@ -1,5 +1,7 @@
 # Set a pneumatic gripper's position switch on the real part: hold the valve override, slide it to where its LED lights
 
+Scripted reference 1.0 in 1,242 control steps. Dream-1 (seed 0) scored 0.0 at the 2,400-step limit. Locking the switch at empty closure failed the gauge checks and scored 0.0.
+
 The submission is the Isaac Lab-Arena (PhysX) `yam_arena` task in
 `isaac/`; `src/` holds the engine-independent modules it imports (layout, scorer, fast IK) and `tests/` their unit
 tests.
@@ -15,7 +17,7 @@ screwdriver stands in a rack.
 The robot must set the switch so it signals "part gripped": LED on when the jaws close on the part, off when they are
 open, and off when they close with no part (a switch at the end-of-stroke position would also light for an empty
 grip). It holds the override down with one hand, so the jaws stay closed on the part, and with the other slides the
-switch along its groove by pressing on its top, watching the LED. The switching window is about 2 mm long. Then it
+switch along its groove by pressing on its top, watching the LED. The simulated switching window is 2 mm long. Then it
 releases the override, and the jaws open and the LED goes out. Last, it tightens the switch's set screw with the
 screwdriver.
 
@@ -28,22 +30,17 @@ The scorer cycles the gripper as a person would (the switch position, part width
 - 0.5: LED on with the jaws closed on the part, and off with the jaws open.
 - 0.75: also off with the jaws closed empty (it detects the part, not the end of stroke).
 - 1.0 (ends the trial): also on with tolerance blocks 1.2 mm narrower and 1.2 mm wider than the part (the switch sits
-  within 0.4 mm of the middle of its switching window, which is where switch makers advise setting it), and locked:
+  within 0.4 mm of the middle of its switching window, the centre used by this scorer), and locked:
   the set screw turned 90 deg clockwise with the screwdriver's blade in it and pushed in, so a 5 N push along the
   groove does not move the switch; the override released, nothing touching the switch, and both hands and the
   screwdriver 8 cm or more from it, for 1 s.
 - 0 otherwise, including a switch locked in the wrong place.
-Start variation and blind strategies: per trial the part width (window position along the piston travel), the
-switch's start and where along its housing the switch senses (hidden; up to 10 mm either side of the middle) are drawn.
-Computed with the scorer over 10,000 seeds, the best single fixed position for the switch housing scores 1.0 on 4.3 %
-of seeds and 0 at the default seed; a fixed slide from the start scores 1.0 on 3.4 %; leaving the switch where it
-starts or setting it at the end-of-stroke point scores 0.
+The reset chooses a block width from 36, 40, 44, 48 and 52 mm and varies the starting position of the switch in the groove. The sensing point stays fixed in the housing. A single fixed position can pass at most one of the five nominal widths.
 Real trial (person check): cycle the valve with the part in, open, with the part removed and with the two tolerance
 blocks, and watch the LED; then push the switch along the groove with a 5 N push-pull gauge.
 
-## Dream-1 evaluation
+## Dream-1 evaluation command
 
-The Inspect Robots run used model `dreamlabs/dream-1-beta` and returned a task score of 0.0 at the 2,400-step limit. The scripted reference run scored 1.0.
 From the task's `isaac/` directory in the Isaac Sim 6.1 and Isaac Lab-Arena environment, run:
 
 ```bash
@@ -85,36 +82,22 @@ Unit checks (no simulator): `python -m pytest tests`.
 Tiled evidence video (top + left wrist + right wrist, same timing):
 `isaac/tile.sh <out_dir> <name> demo_top_cam.mp4 demo_left_cam.mp4 demo_right_cam.mp4`.
 
-## Recorded media
+## Recorded media for this revision
 
-- `model_run.mp4` shows the full Dream-1 trial (seed 0, 2,400 steps, final task score 0.0). The three views run at 20 Hz in order from left to right: overhead, left wrist, right wrist.
-- `official_tiled_top_left_right.mp4`: the official Inspect Robots run of the scripted reference policy at the default
-  seed (part 40.9 mm wide; the switch starts 7.8 mm above its switching point, which sits near the back of its
-  housing), score 1.0 after 1,273 steps (H.264, 960 x 176). The right arm ends at its home pose holding the
-  screwdriver, so the last frame shows the gripper.
-- `setup_overhead_hires.png`: the start state at 1280 x 704 (named setup 0).
+The media package contains `model_run.mp4` (Dream-1), `official_tiled_top_left_right.mp4` (scripted reference) and `setup_overhead.png` (the original overhead frame before the first reference action). The videos show overhead, left wrist and right wrist at 20 Hz in a single 960 × 176 frame.
 
-Start states: every trial reset with a seed (every `inspect-robots run` passes one) draws the per-jaw travel to the
-part uniformly from 2.5 to 12.5 mm (part 35 to 55 mm wide) and the switch's start position from -12 to +24 mm along
-the groove, at least 3.5 mm from the part's switching point; the default inspect-robots seed gives a 40.9 mm part, a
-start 7.8 mm from the switching point and a sensing point 9.3 mm behind the housing's middle. Unseeded resets (direct `demo.py` runs) use five named setups in turn (`GS_SETUP` picks the
-first; set, it also forces named setups on seeded resets).
+Each reset selects a 36, 40, 44, 48 or 52 mm nominal block and varies the switch starting location. All five setups use the same D-M9N with the cable to the rear. The non-cable face is the datum for the fixed 6 mm sensing point.
 
 ## Fidelity (full statement)
 - Engine: Isaac Sim 6.1 / Isaac Lab-Arena `yam_arena`, PhysX on the CPU, physics 480 Hz, control 20 Hz, cameras
   320 x 176. All parts are full size.
 - Part data: the parts are modelled on an SMC MHZ2-40D gripper, a D-M9N auto switch and an SY3120-5LZ-M5 valve.
-  The values used (30 mm total stroke, a switch about 22 x 3 x 4 mm with a red LED and an M2.5 slotted set screw, a
-  non-locking push manual override) come from the manufacturer's catalog as recalled by the authors. They could not
-  be checked against the catalog while the task was built, and body outlines are representative. Check them against
-  the current SMC catalog before a real trial. The piston-magnet travel is assumed equal to each jaw's travel, and the
-  switch's operating window is taken as 2 mm; both are estimates. A real switch also has about 0.5 to 1 mm of
-  hysteresis, which is not modelled.
+  SMC specifies 30 mm total jaw stroke and shows the D-M9N body and sensing point in the dimensional drawing cited below. Body outlines and the manual-override force curve remain approximate. The model assumes 1:1 jaw-to-magnet travel, a symmetric 2 mm LED window and no hysteresis. Record real switching points on approach and return before comparing scores.
 - Static parts (stand, gripper body, valve, rack, part nest) are one kinematic rigid body. The jaws and fingers, the
   test part, the override button, the switch and its set screw are kinematic bodies moved only by the device model
   below. The screwdriver is a free rigid body (30 g), and nothing writes its pose during a trial.
 - Valve and jaws: the valve is switched while the robot pushes the override button with 5 N or more, and drops out
-  below 3 N (non-locking override). The button does not travel; a real one travels about 1 mm. While the valve is
+  below 3 N (non-locking override). The button does not travel; the real button has mechanical travel. While the valve is
   switched, both jaws close at 0.1 m/s each and stop on the part; otherwise they open. This is a position-controlled
   device. The part is kinematic, so the jaws stop where its faces are (no grip-force model).
 - Switch: it moves along the groove only when the contact forces on it and its screw along the groove exceed its
@@ -126,14 +109,11 @@ first; set, it also forces named setups on seeded resets).
   screwdriver is engaged: the blade tip is down in the cone (within 0.5 mm of the screw axis), pushed in with 1.5 N or
   more along the axis (contact with the screw's colliders), and the tool is within 12 deg of the axis. Once engaged it
   stays engaged while the tip stays on the screw (within 1.6 mm) and the push does not drop below 1.5 N for more than
-  0.15 s. The screw then turns with the tool's own rotation about the axis; 90 deg clockwise locks the switch. There
-  is no torque model (the real screw needs about 0.1 N m, small for the wrist).
+  0.15 s. The screw then turns with the tool's own rotation about the axis; 90 deg clockwise locks the switch. The simulation accumulates yaw without a screw torque model.
 - LED: an emissive patch on the switch, lit while the switch's sensing point is within 1 mm of the piston magnet,
   updated every control step.
-- Hidden sensing point: per trial the switch's sensing point is placed up to 10 mm either side of the middle of its
-  housing (a simulation device; one real switch model has one fixed sensing point). It stands for the fact that the
-  switching spot cannot be read off the housing and forces the LED-guided search. A real rig gets the same effect by
-  rotating among several switch makes / lengths whose sensing points differ.
+- The inline D-M9N has one fixed sensing point. The simulated two-millimetre LED window is a nominal approximation; verify the turn-on and turn-off locations on the assembled rig.
+
 - Scoring reads the switch position, part width and screw state (`src/scoring.py`). The scorer cycles the gripper
   analytically, the same three checks a person makes with the valve.
 - Grip and push forces: the reference demo grips the screwdriver handle with about 12 N per finger (fingers commanded
@@ -141,7 +121,7 @@ first; set, it also forces named setups on seeded resets).
   with 5 to 9 N, all far under the YAM's 40 N.
 - The scripted demo only sends the 14 joint/gripper commands. It reads simulator state through
   `grippkit.bench_state()` (read-only): the LED, the jaws, the screwdriver pose and the switch position in the piston
-  coordinate. That coordinate includes the hidden sensing-point offset, which a real operator cannot see; the demo
+  coordinate. That coordinate includes the fixed sensing-point offset, which a real operator cannot see; the demo
   uses it only to choose where its LED scan starts and ends and to place the screwdriver. The window itself is found
   from where the LED comes on and goes off. On an environment reset (between trials only) the kit puts the switch,
   screw, jaws, part and screwdriver back to the seed's start state.
@@ -150,16 +130,32 @@ first; set, it also forces named setups on seeded resets).
 - Gripper: SMC MHZ2-40D (double acting, 40 mm bore, 30 mm stroke) with two aluminium finger blanks 50 x 12 x 26 mm
   (60 mm clear gap open). It is bolted on its back to a 10 mm aluminium flange plate (ISO 9409-1-50 adapter) on a
   150 x 130 mm base plate, auto-switch groove facing up.
-- Auto switch: SMC D-M9N (or D-M9P) in the upper groove, set screw backed off, at the start position from the seed.
-  Grey cable led away along the groove. The switch's top stands about 1 mm proud of the body face.
-- Valve: SMC SY3120-5LZ-M5 on a single sub-base on a bracket 13 cm to the robot's left of the gripper, with 4 mm
-  tubing to the gripper ports, 0.5 MPa supply, coil unpowered (the manual override is used).
-- Test part: a ground steel block 30 x W x 20 mm in a nest between the fingers. Per trial W is 35 to 55 mm (a set of
-  blocks in 1 mm steps covers the range).
-- Screwdriver: a 2.5 mm precision slotted screwdriver (40 mm blade, 15 x 85 mm handle), standing blade-down in a rack.
-- Set-screw recess: a 4.8 mm countersink (0.8 mm deep) around the switch's set screw guides the blade; on a real switch
-  the slot does this. A real rig can glue a small countersunk washer round the screw.
-- Cost: under a few hundred USD (gripper, switch, valve, fittings, blocks, screwdriver).
+- Fit one inline SMC D-M9N NPN switch, cable end toward the back. Its drawing gives 22.8 mm body length, an M2.5 flat-point mounting screw and a sensing point 6 mm from the non-cable end. Use that end as the reference for placement. Connect brown to regulated +24 VDC, blue to 0 V, black to a sourcing PLC input with compatible common and current below the 40 mA output rating. Check the built-in red LED at both switch transitions. [SMC switch manual, section 4-3](https://www.smcworld.com/assets/manual/en-jp/files/MHx-OMY0019.pdf)
+- Use the MHZ2-40D at 0.5 MPa through a regulator and the single-solenoid, spring-return body-ported SY3120-5LZ-M5 on a mounting bracket. Connect supply to P, outputs A/B to the two gripper ports so holding the manual override closes the fingers, and exhaust through EA/EB. The single valve has M5 working ports and a 24 VDC coil. Leave the coil unpowered for manual trials. [SMC valve specification](https://www.smcworld.com/webcatalog/s3s/en-jp/detail/?partNumber=SY3120-5LZ-M5). With the test block removed, verify that release opens the fingers and full closure gives the empty position. The catalogue lists 30 mm total stroke and gives separate switch hysteresis data. Record the actual LED on/off positions in both directions on the chosen unit. [SMC MHZ catalogue](https://ca01.smcworld.com/catalog/BEST-5-4-en/pdf/4-p0417-0485-mhz_2_en.pdf)
+- Machine or surface-grind steel blocks 30 × W × 20 mm. For each nominal W of 36, 40, 44, 48 and 52 mm, prepare a nominal block and two verification blocks with W−1.2 and W+1.2 mm. Measure the central contact faces with a micrometer to ±0.05 mm and label the end faces. Score by actually cycling all three blocks for the selected nominal size.
+- Screwdriver: use a watchmaker’s flat blade that fits the mounted screw. SMC specifies a 5–6 mm grip diameter for manual tightening. The simulated tool has a 2.5 mm cylindrical tip and a 15 mm handle for robot grasping.
+- Use the stock slotted screw and its native recess for the hardware comparison. Record the blade and slot width and the mounting groove used.
+- Include the gripper, switch, valve, fittings, fifteen blocks and screwdriver in the rig budget.
+
+## Hardware calibration and screwdriver engagement
+
+SMC's D-M9 drawing places the most sensitive point 6 mm from the non-cable nose on the 22.8 mm body. For the basic double-acting MHZ2-40D, the dimensioned drawing shows 60 mm open, 30 mm closed and a rear Ø42 H9 locating register 4 mm deep. Locate the adapter from that register and the rear mounting threads. SMC lists 0.9 mm of switch hysteresis for the MHZ2-40 and D-M9 family. This value describes the difference between switch-on and reset positions. The simulator uses a 2 mm active interval and identical transitions in both directions. On the real gripper use the round mounting groove for direct insertion, or fit the BMG2-012 bracket if using the square groove. Supply a separate valve mounting bracket. The SY3120-5LZ-M5 has a non-locking override, M5 × 0.8 working ports and a 24 VDC coil. The valve drawing specifies two Ø3.2 mm mounting holes and two M3 × 0.5 bracket threads 3.5 mm deep. The body outlines and override travel in the scene are simplified. Use the component drawings for machining the mounting plates. [D-M9 drawing, §4-3](https://www.smcworld.com/assets/manual/en-jp/files/MHx-OMY0019.pdf) · [SMC gripper drawings and switch data, pp. 454, 481–483](https://www.smcworld.com/catalog/BEST-5-4-en/pdf/4-p0417-0485-mhz_2_en.pdf) · [SMC valve configuration](https://www.smcworld.com/webcatalog/s3s/en-jp/detail/?partNumber=SY3120-5LZ-M5) · [SMC valve drawing, p. 1-4-12](https://content2.smcetech.com/pdf/SY.pdf)
+
+The shop needs fifteen blocks. All widths are in mm. The last column is the simulator’s travel from fully open on one jaw, calculated from the 60 mm open gap.
+
+| Nominal | Narrow | Wide | Per-jaw travel |
+|---:|---:|---:|---:|
+| 36 | 34.8 | 37.2 | 12 |
+| 40 | 38.8 | 41.2 | 10 |
+| 44 | 42.8 | 45.2 | 8 |
+| 48 | 46.8 | 49.2 | 6 |
+| 52 | 50.8 | 53.2 | 4 |
+
+For each of the five nominal blocks, hold the jaws on the block. Use an indicator along the groove and record housing position at both LED transitions on a forward sweep and again on the return. Record the four positions and repeat the sweep three times. Set the switch inside the common lit interval, then cycle the nominal, narrow and wide blocks, empty closure and open jaws. Save the LED truth table with the measured block widths. A nominal 2 mm window alone cannot establish which physical blocks pass.
+
+The simulation accepts any initial yaw when the tool is within 0.5 mm radially and 12° of vertical and applies at least 1.5 N to the screw. The reference engaged at 0.294 mm, 0.92° and 3.16 N. The cone and the ignored blade yaw materially ease **initial alignment**. Even an ideal zero-thickness 2.5 mm flat blade across the scene's 0.5 mm visual slot needs yaw within arcsin(0.5/2.5), about 11.5° of parallel modulo 180°. A centred perpendicular blade fits the simulated entry rule but spans five times the drawn slot width. For an available bench comparator, the Aspen DIN 551 M2.5 flat-point screw drawing lists a 0.4 mm nominal slot. For a centred zero-thickness blade with 2.5 mm of mating span, the corresponding bound is about 9.2°. SMC identifies the supplied screw as slotted M2.5 × 4 but gives no slot-width tolerance in the switch drawing. Measure the supplied screw before assigning it that bound. [Aspen comparator drawing](https://www.aspenfasteners.com/content/pdf/Metric_DIN_551_spec.pdf)
+
+To measure the real effect, use the stock recess, mark the screw head and repeat centred insertions at 0°, 15°, 45° and 90° from the measured slot, using the same axial load and starting height. Record seating, slip and visible screw rotation separately. Score the real lock with the specified 5 N retention check. Physical LED transitions and hardware engagement measurements are still outstanding.
 
 ## Third-party assets and licenses
 | Asset | Source | License |

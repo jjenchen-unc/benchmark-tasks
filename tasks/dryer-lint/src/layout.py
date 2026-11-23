@@ -6,7 +6,7 @@ dryer (station x), y to the robot's left, z up. The dryer stands at the far end 
 toward the robot; only its cabinet top region is modelled in detail (top panel with the lint-screen slot and its finger
 recesses, the screen housing below the slot, the rear console) plus a Start push button on the front panel.
 
-Lint screen: dimensions of the 53-0918 replacement lint screen as sold (14-3/4 x 5-3/4 in; the frame is 3/8 in thick at
+Lint screen: dimensions of the 53-0918 replacement lint screen as sold (14-1/2 x 6 in; the frame is 3/8 in thick at
 its left end and 5/8 in at its right end, so it fits its slot one way only). Screen frame S: origin at the middle of
 the screen's long axis on its flat back face, at the underside of its top grip; x = the screen's face normal pointing
 out of its BACK face (toward the dryer's rear when installed), y along its length (thin end at +y), z up.
@@ -45,12 +45,12 @@ CONSOLE = (0.10, 0.18)  # rear console: depth, height above the top
 SLOT_X = 0.150  # slot back wall 150 mm behind the front face
 
 # ---------------------------------------------------------------- lint screen (53-0918 dimensions)
-SCREEN_L = 14.75 * IN  # 374.7 mm long
-SCREEN_H = 5.75 * IN  # 146.1 mm high including the top grip
+SCREEN_L = 14.5 * IN  # 368.3 mm long
+SCREEN_H = 6.0 * IN  # 152.4 mm high including the top grip
 T_THIN = 0.375 * IN  # 9.5 mm at the left (+y) end
 T_THICK = 0.625 * IN  # 15.9 mm at the right (-y) end
 GRIP_H = 0.016  # top grip bar: height
-GRIP_T = 0.034  # thickness (x): rests on the slot lips
+GRIP_T = 1.25 * IN  # thickness (x): rests on the slot lips
 GRIP_EAR = 0.025  # grip ears: the grip bar runs on past each frame end, over the finger recess
 FRAME_BORDER = 0.008  # frame border around the mesh window
 SCREEN_MASS = 0.105  # kg (listing weight 3.9 oz incl. packaging)

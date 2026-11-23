@@ -12,14 +12,13 @@ the screen back down until its grip rests on the cabinet top at both ends, and o
 lint on the screen, with lint dropped into the dryer through the open slot, or with the screen out or not fully home
 (lint then bypasses it into the duct and blower) scores 0.
 
-The physical difficulty: the screen is 375 mm long, 146 mm high and tapers from 15.9 mm to 9.5 mm thick (it fits one
+The physical difficulty: the screen is 368.3 mm long, 152.4 mm high and tapers from 15.9 mm to 9.5 mm thick (it fits one
 way only); its slot leaves 1 mm behind it and 5 mm in front (room for the 3 mm lint mat). The YAM hands take it by
 the two ears of its grip bar from the finger recesses at the slot ends and lift it straight out; one hand keeps it
 standing on the cabinet top (tipped slightly toward the robot) while the other pinches screen and mat near one end and
 draws the pinch outward along the screen, so the mat tears off the mesh and drops forward. Both hands set the screen
 back in; if the torn lint has not already slid off the cabinet top into the bin (a waste tray against the dryer's
-front), one hand sweeps it off the front edge into the bin (in the default-seed run it fell into the bin by itself
-and no sweep was needed). Setting the screen back is closed loop on its measured pose; the right hand presses Start
+front), one hand sweeps it off the front edge into the bin. Setting the screen back is closed loop on its measured pose; the right hand presses Start
 last.
 
 ## Scoring (`src/scoring.py`, primary score 0..1, value at the end of the trial)
@@ -31,11 +30,11 @@ screen and the lint at that moment is latched: starting first and fixing things 
 - 0.25: never started; the lint is in the bin and the screen seated.
 - 0: started with lint on the screen (still bonded, or loose but lying on its face), lint inside the dryer, the screen
   out, reversed or more than 2.5 mm proud at an end; or nothing done (every trial has lint on the screen).
-Real trial: video for the start moment; a ruler or a 2.5 mm feeler under each end of the grip; where the lint is.
+Bench trial: video of the latched Start indicator; a ruler or a 2.5 mm feeler under each end of the grip; where the lint is.
 
 ## Dream-1 evaluation
 
-Dream-1 scored 0.0 on seed 0 at the 2,400-step limit. Scripted demo: 1.0 in the official run (default seed, 1,224 of 2,400 steps); 1.0 twice, identical traces; 1.0 at seed 2. Doing nothing: 0. Start without checking: 0. Reseat without stripping: 0. Open-loop replay at seed 7: 0.
+Scripted reference scored 1.0 in 1,226 steps. Dream-1 scored 0.0 in 2,400 steps (seed 0; limit 2,400). Starting with lint attached scored 0.0.
 
 From the task's `isaac/` directory in the Isaac Sim 6.1 and Isaac Lab-Arena environment, run:
 
@@ -86,18 +85,8 @@ turn (`DRYER_SETUP` picks the first; set, it also forces named setups on seeded 
 ## Fidelity (full statement)
 - Engine: Isaac Sim 6.1 / Isaac Lab-Arena `yam_arena`, PhysX on the CPU, physics 480 Hz, control 20 Hz, cameras
   320 x 176. All parts are full size.
-- Lint screen: one free rigid body (105 g) with the dimensions of the 53-0918 replacement lint screen as listed by
-  sellers (14-3/4 x 5-3/4 in; frame 3/8 in thick at the left end and 5/8 in at the right; listing data, not an OEM
-  drawing): a tapered slab in four convex pieces (the mesh face flush with the frame) plus a grip bar (34 x 16 mm)
-  whose ears run 25 mm past each end. The grip-bar shape and ears are representative (the real screen's top grip was
-  not measured).
-- Dryer: representative 27 in electric dryer top, not a specific model (where the 53-0918 screen sits on its dryers
-  could not be verified from this host): top panel with the tapered slot (1 mm behind and 5 mm in front of the bare
-  screen, 3 mm at each end), two finger recesses (65 x 85 mm, 30 mm deep) at the slot ends, the screen housing
-  (14.2 cm deep), rear console with a cosmetic knob and display, and a cabinet shell. The cabinet top is 0.81 m above
-  the floor (a full-size dryer's is about 0.91 m), lowered so the arms can lift the screen clear; the dryer stands at
-  the end of the robot's table, which is inside its shell (only the screen and the mat ignore the table slab there).
-  All dryer parts are kinematic (they do not move; PhysX reports their contact forces).
+- Lint screen: one free 105 g body. Its 368.3 × 152.4 mm envelope, 31.75 mm grip width and 9.525–15.875 mm taper follow a 53-0918 replacement listing. The rectangular lower outline, 25 mm grip extensions and backed mesh belong to the bench design. The native filter has a curved lower edge. Both robot fingers close on the ends of the bench grip.
+- Dryer fixture: the Maytag LNC7764A71 Series 11 uses filter 53-0918 in its front door assembly. For robot trials, a 27 in wide bench deck presents the matched screen and slotted guide vertically. Its straight back wall provides 1 mm clearance, the front 5 mm and each end 3 mm. The guide floor is 148.4 mm below the deck. The deck stands 52.5 mm above the robot table, with two 65 × 85 × 30 mm finger pockets. The assembly and inspection dimensions come from the fabrication drawings. [Parts sources and drawings](fixture/README.md)
 - Controls: a single Start push button on the cabinet top near its front-right corner; it starts the dryer when the
   robot pushes on it with 4 N or more for 0.5 s (contact force), and the cap does not travel. Real dryers have the
   cycle knob and Start on the console; this is a simplification.
@@ -116,17 +105,9 @@ turn (`DRYER_SETUP` picks the first; set, it also forces named setups on seeded 
   the 5000 N/m finger drive), the strip pinch about 5 N, the Start press about 18 N at its peak; all far under the
   YAM's 40 N.
 
-## Real rig
-- Dryer: a real 27 in electric dryer with a slot-mounted lint screen of the 53-0918 type (or the top of one: the
-  cabinet top, the slot and the screen housing are what the robot touches), standing at the end of the robot's table
-  with its cabinet top 81 cm above the floor (on a low platform or with the table raised so that the table top is
-  5.3 cm below the cabinet top). If the dryer's own slot has no finger recesses at its ends, cut two 65 x 85 mm, 30 mm
-  deep recesses in a 2 cm plate laid on the top around the slot (the scene's top panel).
-- Start: the dryer's own Start control; a person reads whether the drum started.
-- Lint: a lint mat from a real load (about 3 mm, the size of the screen's mesh) pressed onto the screen's front face.
-- Bin: a waste tray with an 18 x 40 cm opening, 4 cm high, its back against the dryer's front, rim below the top.
-- Check: a 2.5 mm feeler under each end of the grip after the trial; the video shows when Start was pressed and where
-  the lint went.
+## Real rig and reset
+
+Build the matched screen, guide and Start indicator from the drawings. The build notes identify the appliance, the replacement filter and its listed price; they also specify the screen fit, single-ply batting, cutting template, hook attachment, qualification pull and short reset procedure. Physical fit, release force and reset time await measurement on a built fixture. [Fabrication and lint preparation](fixture/README.md)
 
 ## Third-party assets and licenses
 | Asset | Source | License |
@@ -139,9 +120,4 @@ turn (`DRYER_SETUP` picks the first; set, it also forces named setups on seeded 
 
 ## Recorded media
 
-`model_run.mp4` shows the full seed 0 Dream-1 trial (2,400 steps, final task score 0.0).
-
-- `official_tiled_top_left_right.mp4`: the official Inspect Robots run of the scripted reference policy at the default
-  seed (dryer x +9.7 mm, y -27.9 mm), score 1.0 after 1,224 control steps (H.264, 960 x 176); per-camera videos
-  `official_top_cam.mp4`, `official_left_cam.mp4`, `official_right_cam.mp4`.
-- `setup_overhead_hires.png`: the start state at 1280 x 704 (default seed).
+The new media package contains the official reference video and seed 0 Dream-1 video, each showing the overhead and both wrist cameras at 20 Hz. The setup PNG is the overhead frame before the first reference action. All three files use the revised screen and grip dimensions.

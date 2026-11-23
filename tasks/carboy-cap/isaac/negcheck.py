@@ -17,7 +17,9 @@ EXPECT = {
     "demo": 1.0,
     "idle": 0.0,
     "neg-stow-first": 0.0,
-    "neg-stow-then-cap": 0.0,
+    "stow-then-cap": 1.0,
+    "neg-stow-then-cap": 1.0,
+    "cap-only": 0.5,
     "neg-cap-loose": 0.0,
     "replay": 0.0,
 }
@@ -48,9 +50,11 @@ def stimulus(stage, rows, res):
     if stage == "idle":
         return bool(not ev["funnel_left_neck"] and not ev["ever_captured"]), ev
     if stage == "neg-stow-first":
-        # the funnel was taken out and came to rest in the drawer while the cap was never on the thread
+        # the funnel was taken out and came to rest in the tray while the cap was never on the thread
         return bool(ev["funnel_left_neck"] and ev["stowed_t"] is not None and not ev["ever_captured"]), ev
-    if stage == "neg-stow-then-cap":
+    if stage == "cap-only":
+        return bool(end.get("sealed") and not end.get("funnel_in_tray") and ev["funnel_left_neck"]), ev
+    if stage in ("stow-then-cap", "neg-stow-then-cap"):
         # stowed with the bottle open, then the cap really was screwed down to the seat
         return bool(ev["stowed_t"] is not None and ev["sealed_at_stow"] is False and ev["sealed_t"] is not None
                     and ev["sealed_t"] > ev["stowed_t"]), ev

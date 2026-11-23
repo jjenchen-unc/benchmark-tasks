@@ -8,7 +8,7 @@ Bodies (custom-spawned; yam_arena task-file primitives are single boxes):
   (zero drive force): the cap is an ordinary loose body that the hands pick up, carry and set down, colliding with the
   bottle, table and robot (articulation self-collision is on).
 * ``funnel``: free rigid body (75 mm polypropylene funnel with a hanging tab on its rim) standing in the neck.
-* static: lab hot plate (switched on: indicator and HOT lamp lit), bench-top drawer cabinet with its top drawer out.
+* static: lab hot plate (switched on: indicator and HOT lamp lit), dedicated four-sided drip tray on a riser.
 
 Thread model (runtime, every physics step, through articulation drives; nothing is teleported):
 * capture: the cap's axis within 1.6 mm and 5 deg of the neck's axis and its liner face at or below the thread start
@@ -59,7 +59,7 @@ CHAIN = ("s_x", "s_y", "s_z", "r_x", "r_y")
 DOFS = ("cx", "cy", "cz", "crx", "cry", "crz")
 BODIES = ("bottle", "cap", "funnel")
 
-HDPE, CAPC, FUNNELC, WHITE, RED, BLACK, GREY, DARK, CERAMIC, ORANGE, DRAWERC = (
+HDPE, CAPC, FUNNELC, WHITE, RED, BLACK, GREY, DARK, CERAMIC, ORANGE, TRAY_BLUE = (
     (0.86, 0.86, 0.82),
     (0.93, 0.93, 0.95),
     (0.70, 0.78, 0.86),
@@ -245,10 +245,7 @@ def _spawn_bench(prim_path: str, cfg, translation=None, orientation=None, **kwar
     for i in range(nl):
         a0 = th0 + (th1 - th0) * i / nl
         a1 = th0 + (th1 - th0) * (i + 1) / nl
-        for name, (z0, z1), col in (("lab", L.LABEL_Z, WHITE), ("band", (L.LABEL_Z[1] - 0.018, L.LABEL_Z[1] - 0.004), RED),
-                                    ("flame", (0.052, 0.078), RED)):
-            if name == "flame" and not (nl // 2 - 1 <= i <= nl // 2):
-                continue
+        for name, (z0, z1), col in (("lab", L.LABEL_Z, WHITE), ("band", (0.089, 0.097), RED)):
             r0, r1 = L.BODY_R + 0.0004, L.BODY_R + (0.0010 if name == "lab" else 0.0016)
             pts = []
             for a in (a0, a1):
@@ -262,28 +259,39 @@ def _spawn_bench(prim_path: str, cfg, translation=None, orientation=None, **kwar
                "E": ("111","100","110","100","111"), "N": ("1001","1101","1011","1001","1001"),
                "T": ("111","010","010","010","010"), "W": ("10001","10001","10101","10101","01010"),
                "A": ("010","101","111","101","101")}
-    points = []
-    radius = L.BODY_R + 0.002
-    for word, top in (("SOLVENT", 0.075), ("WASTE", 0.055)):
-        width = sum(len(letters[ch][0]) + 1 for ch in word) - 1
-        column = -width / 2
-        for ch in word:
-            for row, pattern in enumerate(letters[ch]):
-                for ix, ink in enumerate(pattern):
-                    if ink == "0":
-                        continue
-                    for dx, dy in ((0, 0), (1, 0), (1, 1), (0, 1)):
-                        angle = math.pi + (column + ix + dx) * 0.002 / radius
-                        points.append(Gf.Vec3f(radius * math.cos(angle), radius * math.sin(angle),
-                                              top - (row + dy) * 0.0028))
-            column += len(letters[ch][0]) + 1
-    ink = UsdGeom.Mesh.Define(stage, f"{B}/solvent_waste_text")
-    ink.CreatePointsAttr(points)
-    ink.CreateFaceVertexCountsAttr([4] * (len(points) // 4))
-    ink.CreateFaceVertexIndicesAttr(list(range(len(points))))
-    ink.CreateDoubleSidedAttr(True)
-    ink.CreateSubdivisionSchemeAttr("none")
-    bind_visual_material(str(ink.GetPath()), look(BLACK), stage=stage)
+    letters.update({
+        "F": ("111","100","110","100","100"), "M": ("10001","11011","10101","10001","10001"),
+        "B": ("110","101","110","101","110"), "U": ("101","101","101","101","111"),
+        "D": ("110","101","101","101","110"), " ": ("0","0","0","0","0"),
+    })
+
+    def lettering(path, lines, px, py, surface, color):
+        vertices = []
+        for word, top in lines:
+            width = sum(len(letters[ch][0]) + 1 for ch in word) - 1
+            column = -width / 2
+            for ch in word:
+                for row, glyph in enumerate(letters[ch]):
+                    for ix, mark in enumerate(glyph):
+                        if mark == "1":
+                            for dx, dy in ((0, 0), (1, 0), (1, 1), (0, 1)):
+                                vertices.append(Gf.Vec3f(*surface((column + ix + dx)*px, top-(row+dy)*py)))
+                column += len(letters[ch][0]) + 1
+        ink = UsdGeom.Mesh.Define(stage, path)
+        ink.CreatePointsAttr(vertices)
+        ink.CreateFaceVertexCountsAttr([4] * (len(vertices) // 4))
+        ink.CreateFaceVertexIndicesAttr(list(range(len(vertices))))
+        ink.CreateDoubleSidedAttr(True)
+        ink.CreateSubdivisionSchemeAttr("none")
+        bind_visual_material(str(ink.GetPath()), look(color), stage=stage)
+
+    def bottle_surface(u, z):
+        radius = L.BODY_R + 0.002
+        angle = math.pi + u / radius
+        return radius*math.cos(angle), radius*math.sin(angle), z
+
+    lettering(f"{B}/flammable_waste_text", [("FLAMMABLE", .085), ("WASTE", .060)],
+              .0017, .0033, bottle_surface, BLACK)
 
     # ------------------------------------------------------------------ cap chain
     links = CHAIN + ("cap",)
@@ -385,23 +393,46 @@ def _spawn_bench(prim_path: str, cfg, translation=None, orientation=None, **kwar
         mesh(f"{S}/hp_knob_{k}", L.box((fx - 0.010, yy, T + 0.032), (0.020, 0.030, 0.030)), GREY)
     mesh(f"{S}/hp_knob_mark", L.box((fx - 0.021, hy - 0.050, T + 0.040), (0.002, 0.004, 0.012)), ORANGE,
          collide=False, emissive=ORANGE)
-    # ------------------------------------------------------------------ drawer cabinet (static), top drawer pulled out
-    (x0, x1), (y0, y1) = L.CAB_X, L.CAB_Y
-    mesh(f"{S}/cab_body", L.box_xyz((x0, x1), (y0, y1), (T, T + L.CAB_H)), GREY)
-    mesh(f"{S}/cab_lower_front", L.box_xyz((x0 - 0.012, x0), (y0 + 0.008, y1 - 0.008), (T + 0.008, T + 0.095)), DRAWERC)
-    mesh(f"{S}/cab_lower_pull", L.box_xyz((x0 - 0.024, x0 - 0.012), ((y0 + y1) / 2 - 0.03, (y0 + y1) / 2 + 0.03),
-                                          (T + 0.065, T + 0.077)), DARK)
-    (dx0, dx1), (dy0, dy1), (dz0, dz1), w = L.DRAWER_X, L.DRAWER_Y, L.DRAWER_Z, L.DRAWER_WALL
-    mesh(f"{S}/dr_bottom", L.box_xyz((dx0 - w, x0 + 0.05), (dy0 - w, dy1 + w), (T + dz0 - 0.004, T + dz0)), DRAWERC)
-    mesh(f"{S}/dr_front", L.box_xyz((dx0 - w, dx0), (dy0 - w - 0.006, dy1 + w + 0.006), (T + dz0 - 0.010, T + dz1 + 0.008)),
-         DRAWERC)
-    mesh(f"{S}/dr_pull", L.box_xyz((dx0 - w - 0.012, dx0 - w), ((dy0 + dy1) / 2 - 0.035, (dy0 + dy1) / 2 + 0.035),
-                                   (T + dz1 - 0.020, T + dz1 - 0.008)), DARK)
-    mesh(f"{S}/dr_left", L.box_xyz((dx0, x0 + 0.05), (dy1, dy1 + w), (T + dz0, T + dz1)), DRAWERC)
-    mesh(f"{S}/dr_right", L.box_xyz((dx0, x0 + 0.05), (dy0 - w, dy0), (T + dz0, T + dz1)), DRAWERC)
-    # drawer slides/supports under the pulled-out drawer (the cabinet's runners carry it)
-    mesh(f"{S}/dr_runner", L.box_xyz((dx0 + 0.02, x0), ((dy0 + dy1) / 2 - 0.01, (dy0 + dy1) / 2 + 0.01), (T, T + dz0 - 0.004)),
-         DARK)
+    # A removable, continuous catch basin stands on a fixed pedestal. The four
+    # inner wall faces bound the same region used to check the resting funnel.
+    (x0,x1),(y0,y1),(floor,rim),w = L.TRAY_X,L.TRAY_Y,L.TRAY_Z,L.TRAY_WALL
+    floor, rim = T+floor, T+rim
+    mesh(f"{S}/tray_riser", L.box_xyz((x0+.012,x1-.012),(y0+.012,y1-.012),(T,floor-.006)), DARK)
+    mesh(f"{S}/tray_base", L.box_xyz((x0-w,x1+w),(y0-w,y1+w),(floor-.006,floor)), TRAY_BLUE)
+    for name,xb,yb in (("front",(x0-w,x0),(y0-w,y1+w)), ("back",(x1,x1+w),(y0-w,y1+w)),
+                       ("left",(x0,x1),(y1,y1+w)), ("right",(x0,x1),(y0-w,y0))):
+        mesh(f"{S}/tray_{name}", L.box_xyz(xb,yb,(floor,rim)), TRAY_BLUE)
+
+    # Bench markings face the overhead camera. The waste placard is beside
+    # the bottle, and the tray marking sits at the dedicated basin's front.
+    def marker(name, x, y, width, height, lines, px, py, ink):
+        mesh(f"{S}/{name}_panel", L.box((x,y,T+.001), (height,width,.002)), WHITE, collide=False)
+        lettering(f"{S}/{name}_ink", lines, px, py, lambda u,v: (x+v,y-u,T+.0022), ink)
+
+    # The larger waste placard preserves the icon and word shape in the
+    # 320-pixel policy view. All coordinates below are in its tabletop plane.
+    sx, sy = .52, -.065
+    mesh(f"{S}/waste_sign_panel", L.box((sx,sy,T+.001),(.154,.370,.002)), WHITE, collide=False)
+    lettering(f"{S}/waste_sign_ink", [("FLAMMABLE",.061),("WASTE",-.006)], .0067,.0092,
+              lambda u,v: (sx+v,sy-u-.038,T+.0023), RED)
+
+    def symbol(path, outline, color, height):
+        surface = UsdGeom.Mesh.Define(stage, f"{S}/{path}")
+        surface.CreatePointsAttr([Gf.Vec3f(sx+v,sy+.138-u,T+height) for u,v in outline])
+        surface.CreateFaceVertexCountsAttr([len(outline)])
+        surface.CreateFaceVertexIndicesAttr(list(range(len(outline))))
+        surface.CreateDoubleSidedAttr(True)
+        surface.CreateSubdivisionSchemeAttr("none")
+        bind_visual_material(str(surface.GetPath()),look(color),stage=stage)
+
+    for name, size, color, height in (("hazard_border",.044,RED,.0024),("hazard_field",.035,WHITE,.0027)):
+        symbol(name,[(0.,size),(size,0.),(0.,-size),(-size,0.)],color,height)
+    symbol("flame", [(-.016,-.010),(-.016,-.002),(-.010,.009),(-.009,.001),
+                     (-.003,.013),(-.003,.024),(.005,.015),(.008,.005),(.013,.010),
+                     (.017,0.),(.017,-.009),(.010,-.017),(-.006,-.018)],BLACK,.0030)
+    symbol("flame_base",[(-.017,-.020),(.017,-.020),(.017,-.023),(-.017,-.023)],BLACK,.0030)
+    marker("tray_sign", .129,-.240,.150,.051, [("USED",.021),("FUNNEL",-.004)],
+           .0040,.0035,BLACK)
 
     _SPEC["paths"] = {n: f"{prim_path}/{n}" for n in BODIES}
     _SPEC["colliders"] = count["n"]
@@ -703,7 +734,7 @@ class Runtime:
         velocity = self.view.get_velocities()[BODIES.index("funnel")].detach().cpu().numpy()
         rim_speed = np.linalg.norm(velocity[:3]) + (L.F_R_TOP + L.F_CONE_H) * np.linalg.norm(velocity[3:])
         return dict(poses=poses, funnel_still=bool(rim_speed < 0.01), gap_mm=(z * 1e3 if th.state != "free" else None), engaged=th.state == "engaged",
-                    in_drawer=L.in_drawer(fp, fr), on_bench=on_bench, in_neck=in_neck, bottle_tilt=btilt,
+                    in_tray=L.in_tray(fp, fr), on_bench=on_bench, in_neck=in_neck, bottle_tilt=btilt,
                     cap_r_mm=math.hypot(x, y) * 1e3, cap_tilt=tilt, cap_z_mm=z * 1e3, f_com=f_com)
 
     def control(self, environment, dt=0.05):
@@ -717,7 +748,7 @@ class Runtime:
             return
         contact = {n: self.contact_step[n] > 0.05 for n in BODIES}
         th = self.thread
-        level = self.scorer.step(dt, m["gap_mm"], m["engaged"], m["in_drawer"], m["on_bench"], contact,
+        level = self.scorer.step(dt, m["gap_mm"], m["engaged"], m["in_tray"], m["on_bench"], contact,
                                  m["bottle_tilt"], funnel_still=m["funnel_still"], phi_deg=math.degrees(th.phi) if th.state != "free" else 0.0)
         bp, br = m["poses"]["bottle"]
         spec = L.setup_spec(self.setup)
@@ -765,7 +796,7 @@ def bench_state():
     out = dict(m["poses"])
     th = rt.thread
     out.update(thread=th.state, phi=th.phi, cap_z=m["cap_z_mm"] / 1e3, cap_r=m["cap_r_mm"] / 1e3,
-               cap_tilt=m["cap_tilt"], funnel_in_neck=m["in_neck"], funnel_in_drawer=m["in_drawer"],
+               cap_tilt=m["cap_tilt"], funnel_in_neck=m["in_neck"], funnel_in_tray=m["in_tray"],
                dofs=rt.dofs())
     return out
 

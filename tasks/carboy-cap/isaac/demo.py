@@ -9,12 +9,12 @@ joint commands are rate-limited below the CLI's per-step delta guard and clipped
 
 Plan:
 1. Right hand: pinch the funnel's rim tab (fingers above and below it, approach along the tab toward the funnel's
-   axis), lift the funnel straight up out of the neck and carry it over the drawer, still holding it.
+   axis), lift the funnel straight up out of the neck and carry it over the tray, still holding it.
 2. Left hand (meanwhile): take the cap from the bench from above (fingers across the skirt), lift it, and once the
    funnel is out set it straight down onto the neck (it rests on the thread start, centred by its skirt).
 3. Left hand: screw the cap on in strokes: turn it clockwise (seen from above) about its axis while following its
    height down, let go, turn back open, grip again; until the liner meets the lip (one model turn) and the cap stops.
-4. Left hand off and back; right hand lowers the funnel into the drawer and lets go; both arms back to READY.
+4. Left hand off and back; right hand lowers the funnel into the tray and lets go; both arms back to READY.
 Both arms add the remaining joint error back to their commands (slow integral on their own joint readings), because
 the joint PD sags under load (pattern reused from earlier demos).
 """
@@ -304,7 +304,7 @@ class Ctx:
         d = self.detail()
         row = dict(at=tag, step=self.step, level=d.get("level"), thread=d.get("thread"), turns=d.get("turns"),
                    gap=d.get("gap_mm"), cap_r=d.get("cap_r_mm"), neck=d.get("funnel_in_neck"),
-                   drawer=d.get("funnel_in_drawer"), veto=d.get("veto"), **kw)
+                   tray=d.get("funnel_in_tray"), veto=d.get("veto"), **kw)
         self.log.append(row)
         print("LOOK", json.dumps(row, default=float), flush=True)
 
@@ -365,7 +365,7 @@ def plan_tab(c):
 
 
 def funnel_out(c):
-    """Right hand: pinch the tab, lift the funnel out of the neck, carry it over the drawer (held)."""
+    """Right hand: pinch the tab, lift the funnel out of the neck, carry it over the tray (held)."""
     arm = c.right
     arm.set_comp(True)
     pitch = plan_tab(c)
@@ -385,7 +385,7 @@ def funnel_out(c):
     c.note("funnel lifted")
     if c.state()["funnel_in_neck"]:
         raise Stop("funnel still in the neck after the lift")
-    # carry over the drawer: funnel axis above the drawer's centre, stem tip 4 cm above the rim; the hand may turn
+    # carry over the tray: funnel axis above the tray's centre, stem tip 4 cm above the rim; the hand may turn
     # the held funnel about the vertical so that the hold, the lowering and the back-off are all reachable
     s = c.state()
     fp, fr = s["funnel"]
@@ -394,7 +394,7 @@ def funnel_out(c):
     choice = None
     seeds = (arm.q, np.array([-0.6, 1.2, 0.8, 0.3, -0.4, -1.0]), np.array([-0.3, 1.0, 0.9, -0.2, 0.0, 0.0]))
     for shift in ((0.0, 0.0), (0.0, -0.02), (-0.02, 0.0), (0.02, 0.0), (-0.02, -0.02), (0.0, -0.035), (-0.03, -0.035)):
-        hi, lo = drawer_points(shift)
+        hi, lo = tray_points(shift)
         for dl in (0.0, 30.0, -30.0, 60.0, -60.0, 90.0, -90.0, 120.0, -120.0):
             rr = L.rz(dl)
             app = (rr @ r0)[:, 2]
@@ -414,30 +414,30 @@ def funnel_out(c):
         c.note("carry search found nothing; plain carry")
     dl, shift = choice
     rr = L.rz(dl)
-    hi, _ = drawer_points(shift)
-    c.funnel_off, c.funnel_rot, c.drawer_shift = rr @ off, rr @ r0, shift
+    hi, _ = tray_points(shift)
+    c.funnel_off, c.funnel_rot, c.tray_shift = rr @ off, rr @ r0, shift
     mid = (arm.pos + hi + rr @ off) / 2 + np.array([0.0, 0.0, 0.03])
     yield from arm.move(mid, L.rz(dl / 2) @ r0, 1.5, None, "carry funnel")
-    yield from arm.move(hi + rr @ off, rr @ r0, 1.5, None, "funnel over drawer")
-    c.note("funnel held over drawer", turn_deg=dl, shift=list(shift))
+    yield from arm.move(hi + rr @ off, rr @ r0, 1.5, None, "funnel over tray")
+    c.note("funnel held over tray", turn_deg=dl, shift=list(shift))
 
 
-def drawer_points(shift=(0.0, 0.0)):
-    """Funnel stem-top targets over the drawer (+ ``shift``): held (stem tip 4 cm above the rim) and lowered (stem tip
+def tray_points(shift=(0.0, 0.0)):
+    """Funnel stem-top targets over the tray (+ ``shift``): held (stem tip 4 cm above the rim) and lowered (stem tip
     5 mm below the rim)."""
-    x = (L.DRAWER_X[0] + L.DRAWER_X[1]) / 2 + 0.02 + shift[0]  # nominal: left of the drawer's centre, clear of the
-    y = (L.DRAWER_Y[0] + L.DRAWER_Y[1]) / 2 + 0.035 + shift[1]  # right arm at READY in the overhead view
-    # lowered only until the stem tip is 5 mm inside the drawer: lower, the gripper housing (13 cm behind the TCP)
-    # would come down on the drawer's front wall; the funnel then drops about 5 cm onto the drawer bottom
-    return (np.array([x, y, L.TOP + L.DRAWER_Z[1] + 0.04 + L.F_STEM_L]),
-            np.array([x, y, L.TOP + L.DRAWER_Z[1] - 0.005 + L.F_STEM_L]))
+    x = (L.TRAY_X[0] + L.TRAY_X[1]) / 2 + 0.02 + shift[0]  # nominal: left of the tray's centre, clear of the
+    y = (L.TRAY_Y[0] + L.TRAY_Y[1]) / 2 + 0.035 + shift[1]  # right arm at READY in the overhead view
+    # lowered only until the stem tip is 5 mm inside the tray: lower, the gripper housing (13 cm behind the TCP)
+    # would come down on the tray's front wall; the funnel then drops about 5 cm onto the tray bottom
+    return (np.array([x, y, L.TOP + L.TRAY_Z[1] + 0.04 + L.F_STEM_L]),
+            np.array([x, y, L.TOP + L.TRAY_Z[1] - 0.005 + L.F_STEM_L]))
 
 
 def funnel_drop(c):
-    """Right hand: lower the funnel into the drawer, let go, back off."""
+    """Right hand: lower the funnel into the tray, let go, back off."""
     arm = c.right
-    _, lo = drawer_points(c.drawer_shift)
-    yield from arm.move(lo + c.funnel_off, c.funnel_rot, 1.5, None, "lower funnel into drawer", tol=0.006)
+    _, lo = tray_points(c.tray_shift)
+    yield from arm.move(lo + c.funnel_off, c.funnel_rot, 1.5, None, "lower funnel into tray", tol=0.006)
     yield from arm.set_grip(0.6, 0.5, "right let go of funnel")
     yield from wait(0.3)
     app = arm.rot[:, 2]
@@ -453,12 +453,12 @@ def funnel_drop(c):
         raise Stop("no reachable back-off from the funnel tab")
     moved = round(float(np.linalg.norm(target - arm.pos)) * 1e3, 1)
     yield from arm.move(target, arm.rot, 0.9, None, "right back off", tol=0.01)
-    # then straight up, so that the arm's way home does not sweep through the drawer
+    # then straight up, so that the arm's way home does not sweep through the tray
     for up in (0.10, 0.08, 0.06, 0.04):
         cand = arm.pos + np.array([0.0, 0.0, up])
         q, pe, re = arm.solve(cand, arm.rot)
         if pe < 0.003 and re < math.radians(3):
-            yield from arm.move(cand, arm.rot, 0.8, None, "right up from drawer", tol=0.01)
+            yield from arm.move(cand, arm.rot, 0.8, None, "right up from tray", tol=0.01)
             break
     c.note("funnel released", back_mm=moved)
 
@@ -645,7 +645,7 @@ def demo(c):
 
 
 def cap_only(c):
-    """Close and release the bottle but keep the funnel above the open drawer."""
+    """Close and release the bottle but keep the funnel above the open tray."""
     yield from wait(0.3)
     yield from both(funnel_out(c), cap_pick(c))
     yield from cap_place(c)
@@ -660,7 +660,7 @@ def idle(c):
 
 
 def neg_stow_first(c):
-    """The obvious route: funnel out and straight into the drawer, the bottle left open (cap untouched): 0."""
+    """The obvious route: funnel out and straight into the tray, the bottle left open (cap untouched): 0."""
     yield from wait(0.3)
     yield from funnel_out(c)
     yield from funnel_drop(c)
@@ -669,8 +669,8 @@ def neg_stow_first(c):
     yield from wait(3.0)
 
 
-def neg_stow_then_cap(c):
-    """Funnel put away first, then the cap screwed down: the bottle was open while the funnel went in: 0."""
+def stow_then_cap(c):
+    """Put the funnel into containment and immediately proceed to screw down the cap."""
     yield from wait(0.3)
     yield from both(funnel_out(c), cap_pick(c))
     yield from funnel_drop(c)
@@ -714,7 +714,8 @@ STAGES = {
     "cap-only": cap_only,
     "replay": replay,
     "neg-stow-first": neg_stow_first,
-    "neg-stow-then-cap": neg_stow_then_cap,
+    "stow-then-cap": stow_then_cap,
+    "neg-stow-then-cap": stow_then_cap,
     "neg-cap-loose": neg_cap_loose,
 }
 

@@ -2,8 +2,7 @@
 
 Scene (station frame: x forward from the line between the arm bases, y to the robot's left of their midpoint, z up;
 table top z = TOP): a 500 mL HDPE solvent-waste bottle with a polypropylene funnel standing in its neck, its 53 mm screw
-cap lying top-up on the bench in front of it, a lab hot plate switched on behind-left of it, and a bench-top drawer
-cabinet with its top drawer pulled out on the right.
+cap lying top-up on the bench in front of it, a lab hot plate switched on behind-left of it, and a bench-top dedicated drip tray on the right.
 
 Bottle frame B: origin on the table top under the bottle's axis, +z up along the axis, +x / +y rotated by the
 bottle's yaw. The cap is carried by a chain of joints rooted at the bottle (x, y, z slides along B, then rotations
@@ -95,16 +94,13 @@ HP_CENTER = (0.490, 0.230)
 HP_SIZE = (0.26, 0.18, 0.100)  # depth (x), width (y), height: lab stirring hot plate, 7 x 7 in class top
 HP_TOP_SIZE = (0.18, 0.15)  # ceramic top plate
 
-# ------------------------------------------------------------------------------------------------ drawer cabinet
-CAB_X = (0.350, 0.560)  # cabinet body
-CAB_Y = (-0.355, -0.125)
-CAB_H = 0.200
-DRAWER_X = (0.170, 0.350)  # pulled-out part of the top drawer (inside of the walls)
-DRAWER_Y = (-0.335, -0.145)
-DRAWER_Z = (0.105, 0.175)  # drawer bottom / rim heights above the table (top drawer of two)
-DRAWER_WALL = 0.006
+# Dedicated, four-sided drip tray on a fixed bench riser, inside dimensions in metres.
+TRAY_X = (0.170, 0.350)
+TRAY_Y = (-0.335, -0.145)
+TRAY_Z = (0.105, 0.175)  # floor and rim heights above the table
+TRAY_WALL = 0.006
 
-FRICTION = dict(bottle=0.5, cap=1.0, funnel=0.6, table=0.5, drawer=0.5)
+FRICTION = dict(bottle=0.5, cap=1.0, funnel=0.6, table=0.5, tray=0.5)
 
 # ------------------------------------------------------------------------------------------------ start states
 NOMINAL = (0.262, 0.050)  # bottle axis x, y
@@ -195,12 +191,20 @@ def h_thread(phi):
     return float(np.clip(TRAVEL - PITCH * phi / (2 * math.pi), 0.0, TRAVEL))
 
 
-def in_drawer(pos, rotation):
-    """The funnel centre is in the drawer, with its actual lower surface at the floor."""
+def in_tray(pos, rotation):
+    """The funnel centre is in the drip tray, with its actual lower surface at the floor."""
     centre = pos + rotation[:, 2] * F_COM_Z
-    if not (DRAWER_X[0] < centre[0] < DRAWER_X[1] and DRAWER_Y[0] < centre[1] < DRAWER_Y[1]
-            and centre[2] < TOP + DRAWER_Z[1]):
+    if not (TRAY_X[0] < centre[0] < TRAY_X[1] and TRAY_Y[0] < centre[1] < TRAY_Y[1]
+            and centre[2] < TOP + TRAY_Z[1]):
         return False
+    # The entire stem opening must drain into the basin, even when the rim
+    # and the funnel's centre lie inside while the stem points over an edge.
+    axis = rotation[:, 2]
+    outlet = pos - F_STEM_L * axis
+    radius_xy = F_STEM_R * np.sqrt(np.maximum(0.0, 1.0 - axis[:2]**2))
+    for coordinate, radius, (low, high) in zip(outlet[:2], radius_xy, (TRAY_X, TRAY_Y)):
+        if coordinate - radius < low or coordinate + radius > high:
+            return False
     vertical = rotation[2]
     radial = np.linalg.norm(vertical[:2])
     stem = min(0.0, -F_STEM_L * vertical[2]) - F_STEM_R * radial
@@ -209,7 +213,7 @@ def in_drawer(pos, rotation):
     tab = (vertical[0] * (F_R_TOP + tl / 2 - 0.002) + vertical[2] * (F_CONE_H - tt / 2)
            - np.abs(vertical) @ np.array([(tl + 0.004) / 2, tw / 2, tt / 2]))
     lowest = pos[2] + min(stem, rim, tab)
-    return bool(abs(lowest - (TOP + DRAWER_Z[0])) <= 0.003)
+    return bool(abs(lowest - (TOP + TRAY_Z[0])) <= 0.003)
 
 
 # ------------------------------------------------------------------------------------------------ shapes

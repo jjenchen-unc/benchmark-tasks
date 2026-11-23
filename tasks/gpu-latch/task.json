@@ -1,0 +1,23 @@
+{
+  "title": "Pull a single-slot GPU out of its PCIe x16 slot: hold the latch open under the card while the other hand draws it up",
+  "category": "Impact on AI timelines",
+  "keywords": [
+    "AI workstation",
+    "GPU service",
+    "PCIe x16 slot",
+    "retention latch",
+    "two-hand coordination",
+    "hold a release while extracting",
+    "card-edge contact friction",
+    "anti-static mat"
+  ],
+  "instruction": "Take the graphics card out of the motherboard and lay it on the anti-static mat.",
+  "context": "A failed workstation GPU interrupts local model training. The BAKU robotics study reports six-hour xArm training runs on a single RTX A4000. Dell lists the card as a supported option in the Precision 3660. This task isolates the removal step after power, cable, PCIe door and end-holder preparation. One hand presses the slot latch while the other draws the card through the rear guides and over the chassis rim.",
+  "setup": "Side-open, unpowered tower lying flat, cover removed and powered-GPU cable and end holder cleared. Representative chassis 420 x 369 x 173 mm, with colliding sides, rear aperture and bracket guides. Estimated slot position and accessible thumb pad. Single-slot RTX A4000 outline, two YAM arms, overhead and two wrist cameras, and an adjacent 457 x 180 mm cut ESD mat.",
+  "scoring": "1.0 for three continuous seconds of flat, still placement with the complete extracted card and bracket inside the supporting mat. Each card vertex moves slower than 5 mm/s. All robot contact is released and every fingertip is at least 40 mm away. 0.5 for extraction with placement incomplete. Forced passage before latch clearance or a 30 mm unsupported descent latches zero.",
+  "reset_notes": "Seat the card squarely with its bracket between the guides until the latch engages. Clear the mat. Unseeded resets cycle through four chassis positions. Seeded resets sample workstation position and yaw.",
+  "fidelity": "Isaac Lab-Arena yam_arena, PhysX (CPU) 240 Hz, 20 Hz control, full size; card outline of a NVIDIA RTX A4000. Parts are convex boxes. Contact grip: a computed 20.4 N of connector friction. A Molex 164-contact test reports 19.1\u201321.0 N withdrawal on a steel blade. The actual Dell connector has not been pull-tested. Latch: rigid hinged rocker, computed spring (about 6-7 N to open), 20 mm thumb pad (often narrower in reality); forced passage is detected by lip travel and rocker position. Full statement and sim/real list: README.",
+  "run_limit": "1500 control steps (75 s at 20 Hz). The trial also ends as soon as the score reaches 1.0.",
+  "scores": "Official Brev seed 0: scripted reference 1.0 in 774 steps, Dream-1 0.0 over all 1,500 steps (147 model requests), and forced extraction without pressing the latch 0.0 in 279 steps.",
+  "media": "M-AA6CPQ"
+}

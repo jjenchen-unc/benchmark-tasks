@@ -1,18 +1,16 @@
-"""h4kit: the rear of an H4 headlamp in an engine-bay mock-up, the new H4 bulb in its holder, the wire spring clip and
+"""h4kit: a bench-mounted rear H4 headlamp interface, the new H4 bulb in its holder, the wire spring clip and
 its catch, for yam_arena (Isaac Lab-Arena / PhysX), plus the runtime hooks.
 
 Authored as one custom-spawned assembly (yam_arena task-file primitives are single boxes/spheres):
 * kinematic bodies (fixed during a trial, so PhysX reports the contact forces on them): the headlamp ("housing": the
-  bulb boss with its bore, the locating rim with three notches, the lamp's back shell, plus the engine-bay mock-up:
-  radiator support, battery box, inner fender apron) and the bulb holder (moved per trial at reset);
+  bulb boss with its bore, the locating rim with three notches, the dust-boot landing and bench mount) and the bulb holder (moved per trial at reset);
 * the bulb: a free rigid body (the cap: reference flange with its three tabs, collar, cap body, terminal blades) and
   its glass envelope as a second rigid body held to the cap by a fixed joint, so robot contact with the glass is read
   by collider identity;
 * the wire spring clip (bail): a rigid body on a revolute joint (hard limits) at its hinge on the boss; hinge drag and
   friction are torques computed every physics step (drives on non-articulation joints are inert in this build);
-* the catch: a body on a prismatic joint (hard limits), pushed toward its rest stop by a spring force computed every
-  physics step (preload + rate); the bail's bight cams it aside along its 45 deg ramp and it snaps back over the wire.
-Geometry: ``../src/layout.py``; scorer: ``../src/scoring.py`` (pure functions).
+* The housing carries a fixed square-edged tab. The bail's hinge support slides 3 mm along y
+  against a restoring force, approximating lateral wire bending. A straight push meets the tab.
 
 Nothing here writes a pose or velocity during a trial; ``Runtime.restore_authored`` places the bodies only on an
 environment reset. The scripted demo READS poses through ``bench_state()``.
@@ -21,6 +19,7 @@ environment reset. The scripted demo READS poses through ``bench_state()``.
 from __future__ import annotations
 
 import math
+import json
 import os
 import sys
 import time
@@ -34,6 +33,7 @@ if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
 import layout as L  # noqa: E402
+from motion import SubstepMotion  # noqa: E402
 from scoring import measure, Monitor, Scorer  # noqa: E402
 from yam_arena.task_file import Box  # noqa: E402
 
@@ -107,7 +107,6 @@ def _spawn_bench(prim_path: str, cfg, translation=None, orientation=None, **kwar
     from isaaclab.sim.utils.stage import get_current_stage
     from pxr import Gf, PhysxSchema, Sdf, UsdGeom, UsdPhysics
     from scipy.spatial import ConvexHull
-    from yam_arena.station import linear_rgb
 
     stage = get_current_stage()
     root = UsdGeom.Xform.Define(stage, prim_path)
@@ -121,7 +120,8 @@ def _spawn_bench(prim_path: str, cfg, translation=None, orientation=None, **kwar
     def look(color):
         if color not in looks:
             path = f"{prim_path}/Looks/c{len(looks)}"
-            vis = sim_utils.PreviewSurfaceCfg(diffuse_color=linear_rgb(color), roughness=0.45)
+            linear = tuple(v / 12.92 if v <= 0.04045 else ((v + 0.055) / 1.055) ** 2.4 for v in color)
+            vis = sim_utils.PreviewSurfaceCfg(diffuse_color=linear, roughness=0.45)
             vis.func(path, vis)
             looks[color] = path
         return looks[color]
@@ -209,46 +209,25 @@ def _spawn_bench(prim_path: str, cfg, translation=None, orientation=None, **kwar
 
     A = authored(SETUP_BASE)
     P = {n: f"{prim_path}/{n}" for n in BODIES}
-    # ---------------------------------------------------------------- headlamp + engine bay (kinematic, frame H)
+    # ---------------------------------------------------------------- rear headlamp interface (kinematic, frame H)
     xform(P["housing"], *A["housing"])
     rigid(P["housing"], 5.0, kinematic=True)
     for i, v in enumerate(L.plate_pieces()):
         hull(f"{P['housing']}/boss_{i:02d}", v, GREY)
     for i, v in enumerate(L.rim_pieces()):
         hull(f"{P['housing']}/rim_{i:02d}", v, GREY)
-    # lamp back shell: a flat annulus around the boss, then the shell wall
+    # Circular dust-boot landing around the rear access opening (Suzuki service view).
     for j in range(24):
-        hull(
-            f"{P['housing']}/shell_{j:02d}",
-            L.annular_sector(L.PLATE_R, L.LAMP_R, j * 15.0, (j + 1) * 15.0, 0.0, 0.003, n=3),
-            BODY,
-        )
-        hull(
-            f"{P['housing']}/wall_{j:02d}",
-            L.annular_sector(L.LAMP_R - 0.003, L.LAMP_R, j * 15.0, (j + 1) * 15.0, 0.0, L.SHELL_X[1], n=3),
-            BODY,
-        )
-    # hinge lugs (cosmetic size, real contact): small blocks above / below the hinge line, outside the bail's legs
-    for s in (1.0, -1.0):
-        box(
-            f"{P['housing']}/lug_{'u' if s > 0 else 'd'}",
-            (L.HINGE_X + 0.0005, L.HINGE_Y, s * (L.CLIP_HALF_W + 0.0035)),
-            (0.0035, 0.004, 0.004),
-            GREY,
-        )
-    # catch guide (behind the catch's travel, out of the bail's path)
-    box(
-        f"{P['housing']}/catch_guide",
-        (L.LIP_X[1] - 0.003, L.CATCH_OUTER_Y - 0.0065, 0.0),
-        (0.008, 0.003, 0.008),
-        GREY,
-    )
-    for name, (c, s), col in (
-        ("panel", L.PANEL, BODY),
-        ("battery", L.BATTERY, BATT),
-        ("apron", L.APRON, BODY),
-    ):
-        box(f"{P['housing']}/{name}", np.asarray(c) - L.H, s, col)
+        hull(f"{P['housing']}/boot_rim_{j:02d}",
+             L.annular_sector(L.BOOT_INNER_R, L.BOOT_OUTER_R, j * 15.0, (j + 1) * 15.0,
+                              *L.BOOT_RIM_X, n=3), BLACK)
+    # The holder wire pivots in the left-side mounting plate. Leave room for the wire to swing.
+    box(f"{P['housing']}/hinge_plate", (L.HINGE_X + 0.0025, L.HINGE_Y, 0.0),
+        (0.0030, 0.006, 0.019), GREY)
+    # The detached central boss rests on a stand fixed to the table.
+    box(f"{P['housing']}/stand", L.STAND_CENTER, L.STAND_SIZE, BODY)
+    box(f"{P['housing']}/foot", (0.010, 0.0, -0.147),
+        (0.075, 0.090, 0.006), BODY)
     # ---------------------------------------------------------------- bulb holder (kinematic, moved per setup)
     xform(P["holder"], *A["holder"])
     rigid(P["holder"], 1.0, kinematic=True)
@@ -321,7 +300,7 @@ def _spawn_bench(prim_path: str, cfg, translation=None, orientation=None, **kwar
         hull(f"{P['clip']}/wire_{i}", v, STEEL, friction=WIRE_FRICTION)
     j = UsdPhysics.RevoluteJoint.Define(stage, f"{P['clip']}/hinge")
     j.CreateAxisAttr("Z")
-    j.CreateBody0Rel().SetTargets([Sdf.Path(P["housing"])])
+    j.CreateBody0Rel().SetTargets([Sdf.Path(P["catch"])])
     j.CreateBody1Rel().SetTargets([Sdf.Path(P["clip"])])
     j.CreateLocalPos0Attr(Gf.Vec3f(*map(float, L.hinge_point())))
     j.CreateLocalRot0Attr(Gf.Quatf(1.0, 0.0, 0.0, 0.0))
@@ -329,11 +308,11 @@ def _spawn_bench(prim_path: str, cfg, translation=None, orientation=None, **kwar
     j.CreateLocalRot1Attr(Gf.Quatf(1.0, 0.0, 0.0, 0.0))
     j.CreateLowerLimitAttr(-L.CLIP_LIMITS_DEG[1])  # joint angle = -phi
     j.CreateUpperLimitAttr(-L.CLIP_LIMITS_DEG[0])
-    # ---------------------------------------------------------------- catch (sprung slide along y_H)
+    # ---------------------------------------------------------------- wire flexure support (historic telemetry key: catch)
     xform(P["catch"], *A["catch"])
     rigid(P["catch"], L.CATCH_MASS, inertia=(4e-7, 4e-7, 4e-7), iters=48, ccd=True)
     for i, v in enumerate(L.catch_pieces()):
-        hull(f"{P['catch']}/lip_{i}", v, PLASTIC, friction=0.3)
+        hull(f"{P['housing']}/fixed_tab_{i}", v, STEEL, friction=0.3)
     pj = UsdPhysics.PrismaticJoint.Define(stage, f"{P['catch']}/slide")
     pj.CreateAxisAttr("Y")
     pj.CreateBody0Rel().SetTargets([Sdf.Path(P["housing"])])
@@ -344,8 +323,8 @@ def _spawn_bench(prim_path: str, cfg, translation=None, orientation=None, **kwar
     ):
         setp(Gf.Vec3f(0.0, 0.0, 0.0))
         setr(Gf.Quatf(1.0, 0.0, 0.0, 0.0))
-    pj.CreateLowerLimitAttr(-L.CATCH_TRAVEL)
-    pj.CreateUpperLimitAttr(0.0)
+    pj.CreateLowerLimitAttr(0.0)
+    pj.CreateUpperLimitAttr(L.CATCH_TRAVEL)
     UsdPhysics.FilteredPairsAPI.Apply(stage.GetPrimAtPath(P["catch"])).CreateFilteredPairsRel().AddTarget(
         P["housing"]
     )
@@ -399,6 +378,9 @@ def finger_tips(environment):
         half = max(abs(jp[jn.index(j)]) for j in ("joint7", "joint8"))
         r = _rot(pose[3:7])
         tip = pose[:3] + r @ (np.array(TCP_OFFSET) + [0, 0, PAD_TIP_PAST_TCP]) - origin
+        if arm == "left_robot":
+            import retainer_tool
+            pts.append(pose[:3]+r@retainer_tool.TIP-origin)
         pts += [tip + r[:, 0] * s * (half + 0.0032) for s in (1.0, -1.0)]
     return pts
 
@@ -440,6 +422,12 @@ class Runtime:
             filter_patterns=[robot_links + [P("housing"), P("holder"), P("clip")]],
             max_contact_data_count=4096,
         )
+        self.cv_clip = self.simview.create_rigid_contact_view(
+            [P("clip")], filter_patterns=[robot_links], max_contact_data_count=2048
+        )
+        self.cv_housing = self.simview.create_rigid_contact_view(
+            [P("housing")], filter_patterns=[robot_links], max_contact_data_count=4096
+        )
         self.n_links = len(robot_links)
         self.origin = self.base.scene.env_origins[0].detach().cpu().numpy().astype(float)
         dev = self.view.get_transforms().device
@@ -451,6 +439,8 @@ class Runtime:
         self.setup = SETUP_BASE
         self.trial_active = False
         self.extra = {}  # development probes only: name -> (force world, at point world)
+        self.bulb_com = self.view.get_coms()[self.index["bulb"], :3].detach().cpu().numpy().astype(float)
+        self.motion_trace = None
         self._init_state()
 
     def _init_state(self):
@@ -465,6 +455,12 @@ class Runtime:
 
     def begin_trial(self, trial):
         self._init_state()
+        self.motion = SubstepMotion(self.bulb_com, *self.read()["bulb"])
+        self.substep = 0
+        if self.motion_trace is not None:
+            self.motion_trace.close()
+        trace = os.environ.get("H4_MOTION_LOG")
+        self.motion_trace = open(trace, "w", buffering=65536) if trace else None
         self.trial_active = True
         STATE.update(trial=trial, setup=self.setup, start=L.setup_spec(self.setup))
 
@@ -485,7 +481,7 @@ class Runtime:
         poses = poses or self.read()
         phi = L.clip_angle(poses["clip"][1])
         catch = float((poses["catch"][0] - L.H)[1])
-        return phi, catch
+        return phi, -catch  # telemetry convention: negative when the wire is deflected
 
     # ------------------------------------------------------------------ per physics step
     def physics(self, dt):
@@ -502,9 +498,16 @@ class Runtime:
             pp[i] = poses[n][0] + self.origin
         # hinge drag + smoothed Coulomb friction about the hinge axis (torque on the clip; the housing is kinematic)
         tq[self.index["clip"], 2] = -L.CLIP_DAMPING * om - L.CLIP_FRICTION_NM * math.tanh(om / 0.05)
-        # catch spring toward its rest stop (+y), preload + rate x deflection
+        # wire flexure restoring force toward its rest stop (-y), preload + rate x deflection
         fc = L.CATCH_PRELOAD_N + L.CATCH_RATE_N_M * max(-cy, 0.0)
-        f[self.index["catch"], 1] = fc
+        f[self.index["catch"], 1] = -fc
+        pads = L.flange_springs(*poses["clip"], *poses["bulb"])
+        # Keep the wrench on each body referenced to the same point used by the PhysX call below.
+        for point, load in pads:
+            for body, sign in (("clip", -1.0), ("bulb", 1.0)):
+                idx = self.index[body]
+                f[idx] += sign * load
+                tq[idx] += np.cross(point - poses[body][0], sign * load)
         for n, (fw, at) in self.extra.items():  # development probes only
             i = self.index[n]
             f[i] += fw
@@ -519,6 +522,16 @@ class Runtime:
         self.peak["catch_n"] = max(self.peak["catch_n"], fc)
         self.peak["clip_min_deg"] = min(self.peak["clip_min_deg"], phi)
         if self.trial_active:
+            self.substep += 1
+            self.motion.observe(*poses["bulb"], dt)
+            if self.motion_trace is not None:
+                pos, rot = poses["bulb"]
+                lv, av = vel["bulb"]
+                row = dict(n=self.substep, dt=dt, p=pos.tolist(), r=rot.tolist(),
+                           com_local=self.bulb_com.tolist(), v=lv.tolist(), w=av.tolist())
+                self.motion_trace.write(json.dumps(row, separators=(",", ":")) + "\n")
+                if self.substep % self.base.cfg.decimation == 0:
+                    self.motion_trace.flush()
             fg = self.cv_glass.get_contact_force_matrix(dt=dt).detach().cpu().numpy()[0]
             fb = self.cv_bulb.get_contact_force_matrix(dt=dt).detach().cpu().numpy()[0]
             glass_n = float(np.linalg.norm(fg, axis=-1).max()) if fg.size else 0.0
@@ -526,18 +539,34 @@ class Runtime:
             self.peak["grip_on_bulb_n"] = max(self.peak["grip_on_bulb_n"], robot_bulb)
             vz = float(vel["bulb"][0][2])
             self.monitor.step(dt, glass_n, vz, max(robot_bulb, glass_n))
+            clip_contacts = self.cv_clip.get_contact_force_matrix(dt=dt).detach().cpu().numpy()[0]
+            robot_clip = float(np.linalg.norm(clip_contacts, axis=-1).max()) if clip_contacts.size else 0.0
             k = self.n_links
             self.last_contacts = dict(
                 glass_n=round(glass_n, 4),
+                robot_on_clip_n=round(robot_clip, 3),
+                # Net robot-contact vector on the clip in station x, y, z. Keeps opposing
+                # fingertip forces from being mistaken for axial pressure on the tab.
+                robot_on_clip_force_n=np.round(clip_contacts.reshape(-1, 3).sum(axis=0), 3).tolist(),
                 robot_on_bulb_n=round(robot_bulb, 3),
                 housing_on_bulb_n=round(float(np.linalg.norm(fb[k])), 3),
                 holder_on_bulb_n=round(float(np.linalg.norm(fb[k + 1])), 3),
                 clip_on_bulb_n=round(float(np.linalg.norm(fb[k + 2])), 3),
-                catch_n=round(fc, 3),
+                catch_n=round(fc, 3),  # retained for older trace consumers
+                wire_lateral_n=round(fc, 3),
+                flange_axial_n=round(sum(float(np.linalg.norm(force)) for _, force in pads), 3),
             )
             if DEBUG and int(round(self.t / dt)) % 48 == 0:
                 print("CONTACTS", self.last_contacts, round(phi, 2), round(cy * 1e3, 3), flush=True)
         self.hook_s += time.perf_counter() - t0
+
+    def finger_contacts(self, dt):
+        """Read per-link normal contact vectors on the fixture at the last substep."""
+        rows = {}
+        for key, view in (("housing",self.cv_housing),("bulb",self.cv_bulb),("wire",self.cv_clip)):
+            vectors = view.get_contact_force_matrix(dt=dt).detach().cpu().numpy()[0]
+            rows[key] = {name: np.round(v,3).tolist() for name, v in zip(self.robot_links,vectors) if np.linalg.norm(v) > .05}
+        return rows
 
     # ------------------------------------------------------------------ reset
     def restore_authored(self, setup):
@@ -583,7 +612,9 @@ class Runtime:
         phi, cy = self.clip_state(poses)
         tips = finger_tips(environment)
         m = measure(pb, rb, phi, cy, tips)
-        level = self.scorer.step(m, float(np.linalg.norm(lin)), math.degrees(float(np.linalg.norm(ang))), self.monitor)
+        samples = self.motion.samples
+        linear, angular = self.motion.take(self.base.cfg.decimation)
+        level = self.scorer.step(m, linear, angular, self.monitor)
         STATE.update(
             score=level,
             level=level,
@@ -591,6 +622,9 @@ class Runtime:
             nonfinite=self.nonfinite,
             detail=dict(
                 self.scorer.last,
+                physics_substeps=samples,
+                solver_linear_mm_s=round(float(np.linalg.norm(lin))*1000, 4),
+                solver_angular_deg_s=round(math.degrees(float(np.linalg.norm(ang))), 4),
                 bulb_pos_mm=np.round(pb * 1000, 3).tolist(),
                 setup=self.setup,
                 hook_wall_s=round(self.hook_s, 2),
@@ -610,6 +644,33 @@ def runtime():
 def bench_state():
     """Current poses {'bulb', 'glass', 'clip', 'catch', 'housing', 'holder'} for the scripted demo (read-only)."""
     return _RT["rt"].read() if _RT["rt"] else None
+
+
+def _headlamp_room(top_cam):
+    """The H4 task's own floor, bench, ceiling-mounted camera shell and diffuse illumination."""
+    import isaaclab.sim as sim
+    from isaaclab_arena.assets.object import Object
+    from isaaclab_arena.assets.object_library import DomeLight
+    from isaaclab_arena.assets.object_type import ObjectType
+    from isaaclab_arena.utils.pose import Pose
+    from isaaclab_physx.sim.schemas import PhysxCollisionPropertiesCfg
+
+    light = DomeLight(spawner_cfg=sim.DomeLightCfg(intensity=1700.0, color=(1.0, 0.96, 0.92)))
+    # The housing is behind the optical plane of the calibrated OpenGL camera.
+    cam_back = _rot(top_cam.rot_xyzw)[:, 2]
+    cam_center = tuple(np.asarray(top_cam.pos) + 0.032 * cam_back)
+    identity = (0.0, 0.0, 0.0, 1.0)
+    boxes = [
+        ("table", (0.36, 0.0, L.TOP - 0.035), (1.20, 1.40, 0.070), identity, (0.27, 0.22, 0.17)),
+        ("floor", (0.0, 0.0, -0.025), (8.0, 8.0, 0.05), identity, (0.15, 0.16, 0.17)),
+        ("camera_shell", cam_center, (0.082, 0.032, 0.040), top_cam.rot_xyzw, (0.05, 0.05, 0.05)),
+    ]
+    return [light, *(Object(
+        name=name, object_type=ObjectType.BASE,
+        initial_pose=Pose(position_xyz=pos, rotation_xyzw=quat),
+        spawner_cfg=sim.CuboidCfg(size=size, collision_props=PhysxCollisionPropertiesCfg(),
+                                  visual_material=sim.PreviewSurfaceCfg(diffuse_color=color, roughness=0.8)),
+    ) for name, pos, size, quat, color in boxes)]
 
 
 def _patch_scene(scene) -> None:
@@ -639,25 +700,43 @@ def _patch_scene(scene) -> None:
     orig_build = scene.build_task_environment
 
     def build(embodiment, task, control_hz=None):
-        environment = orig_build(embodiment, task, control_hz)
-        if any(isinstance(o, Bench) for o in task.objects):
-            previous = environment.env_cfg_callback
+        if not any(isinstance(o, Bench) for o in task.objects):
+            return orig_build(embodiment, task, control_hz)
+        from isaaclab_arena.environments.isaaclab_arena_environment import IsaacLabArenaEnvironment
+        from isaaclab_arena.scene.scene import Scene
 
-            def configure(cfg):
-                from yam_arena.constants import CONTROL_HZ
+        room = _headlamp_room(embodiment.rig.top_cam)
+        environment = IsaacLabArenaEnvironment(
+            name=f"yam_bimanual_task_{task.name}",
+            scene=Scene(room + [task_object(spec) for spec in task.objects]),
+            embodiment=embodiment,
+            env_cfg_callback=scene.env_cfg_callback(control_hz),
+        )
+        previous = environment.env_cfg_callback
 
-                cfg = previous(cfg)
-                cfg.sim.dt = PHYSICS_DT
-                cfg.decimation = round(1.0 / (PHYSICS_DT * (control_hz or CONTROL_HZ)))
-                cfg.sim.render_interval = cfg.decimation
-                physx_cfg = getattr(cfg.sim, "physics", None) or getattr(cfg.sim, "physx", None)
-                if physx_cfg is not None and hasattr(physx_cfg, "enable_ccd"):
-                    physx_cfg.enable_ccd = True  # swept contact for the thin clip wire (flagged on clip and catch)
-                else:
-                    print("h4kit: could not enable CCD (no enable_ccd field)", flush=True)
-                return cfg
+        def configure(cfg):
+            from yam_arena.constants import CONTROL_HZ
 
-            environment.env_cfg_callback = configure
+            cfg = previous(cfg)
+            spawn=cfg.scene.left_robot.spawn
+            stock=spawn.func
+            def mount(*args, **kwargs):
+                prim=stock(*args,**kwargs)
+                import tool_mount
+                tool_mount.install(prim)
+                return prim
+            spawn.func=mount
+            cfg.sim.dt = PHYSICS_DT
+            cfg.decimation = round(1.0 / (PHYSICS_DT * (control_hz or CONTROL_HZ)))
+            cfg.sim.render_interval = cfg.decimation
+            physx_cfg = getattr(cfg.sim, "physics", None) or getattr(cfg.sim, "physx", None)
+            if physx_cfg is not None and hasattr(physx_cfg, "enable_ccd"):
+                physx_cfg.enable_ccd = True  # swept contact for the thin clip wire (flagged on clip and catch)
+            else:
+                print("h4kit: could not enable CCD (no enable_ccd field)", flush=True)
+            return cfg
+
+        environment.env_cfg_callback = configure
         return environment
 
     scene.build_task_environment = build

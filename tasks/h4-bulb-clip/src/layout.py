@@ -9,9 +9,8 @@ Frames
   x_B toward the glass tip. Seated and fitted: B == H (roll 0). The tabs sit at TAB_ANGLES about x_B, measured from
   +y_B toward +z_B.
 
-Bulb: Philips 12342 type (H4, 12 V 60/55 W, P43t-38 cap). The H4 type, the P43t-38 cap and the three unequal tabs are
-verified from product listings; the individual dimensions below are representative values (the IEC 60061 cap sheet
-and the maker's drawing could not be read on this host), each marked in README "Fidelity".
+The nominal keyed interface uses the P43t cap and holder sheets 7004-39-6 and 7005-39-4.
+Fixture-specific spring dimensions and material approximations are documented in README.
 """
 
 from __future__ import annotations
@@ -42,13 +41,15 @@ def rz(deg):
 
 
 # ---------------------------------------------------------------- bulb (frame B), metres
-COLLAR_R, COLLAR_X = 0.0100, (0.0, 0.0060)  # metal cup that carries the glass, in front of the flange
-GLASS_R, GLASS_X = 0.00625, (0.0060, 0.0440)  # quartz/hard-glass envelope (12.5 mm), dome to GLASS_TIP
+COLLAR_R, COLLAR_X = 0.011, (0.0, 0.008)  # metal cup that carries the glass, in front of the flange
+GLASS_R, GLASS_X = 0.00625, (0.0080, 0.0440)  # quartz/hard-glass envelope (12.5 mm), dome to GLASS_TIP
 GLASS_TIP = 0.0480
-FLANGE_R, FLANGE_T = 0.0185, 0.0010  # reference flange (prefocus ring): disc 37 mm, 1.0 mm steel
-TAB_R = 0.0215  # tabs reach a 43 mm circle
-TAB_ANGLES = (90.0, 250.0, 335.0)  # deg about x_B from +y_B toward +z_B (asymmetric: one fit only)
-TAB_W = (0.0100, 0.0060, 0.0060)  # one wide and two narrow tabs
+PILOT_R = 0.0379 / 2  # formed shoulder diameter L, IEC cap sheet 7004-39-6
+PILOT_HEIGHT = 0.0055  # OSRAM prefocus ring drawing; simplified cylindrical shoulder
+FLANGE_R, FLANGE_T = 0.04295 / 2, 0.0010  # centring diameter M; flat backing proxy
+TAB_R = 0.0518 / 2  # N, the three lug ends trace a larger circle than M
+TAB_ANGLES = (90.0, 225.0, 315.0)  # lower two lugs 45 degrees either side of downward
+TAB_W = (0.00795, 0.006, 0.006)  # widths Z and Z1
 BASE_R, BASE_X = 0.0120, (-0.0160, -0.0010)  # cap body behind the flange (grip zone), 24 mm
 BOSS_R, BOSS_X = 0.0080, (-0.0200, -0.0160)  # terminal boss
 BLADE_X = (-0.0300, -0.0200)  # three 6.3 x 0.8 mm blades, 10 mm long
@@ -56,30 +57,30 @@ BLADE_W, BLADE_T = 0.0063, 0.0008
 BLADES = ((0.0, 0.0045, 0.0), (90.0, -0.0040, 0.0040), (90.0, -0.0040, -0.0040))  # (rot deg, y, z) of each blade
 BULB_MASS = 0.018  # kg (estimate)
 # mass split (estimates from the part volumes): glass envelope ~4 g (12.5 x 42 mm hard glass, ~1 mm wall, plus the
-# filaments); cap 14 g, flange-heavy (the 37 x 1 mm steel flange alone is ~8 g)
+# filaments); cap 14 g, flange-heavy (the prefocus ring carries much of the cap mass)
 GLASS_MASS, GLASS_COM_X = 0.004, 0.027
 CAP_COM_X = -0.004
 BULB_COM = np.array([((BULB_MASS - GLASS_MASS) * CAP_COM_X + GLASS_MASS * GLASS_COM_X) / BULB_MASS, 0.0, 0.0])
 BULB_FRICTION = 0.4  # metal cap / pads (PhysX averages with the pad material)
 
 # ---------------------------------------------------------------- headlamp bulb boss (frame H)
-HOLE_R = 0.0103  # bore through the reflector boss: 0.3 mm radial play on the collar (it carries the bulb's front)
+HOLE_R = 0.041 / 2  # clearance for the formed shoulder; above the 40.5 mm optional relief boundary
 HOLE_CHAMFER = 0.0008  # 45 deg lead-in on the bore at the seat face
 PLATE_X = (0.0, 0.0040)  # boss plate in front of the seat face
 PLATE_R = 0.0450
-RIM_R = (0.0189, 0.0250)  # locating rim around the flange: 0.4 mm radial play on the 37 mm disc
-RIM_X = (-FLANGE_T, 0.0)  # rim as high as the flange is thick: a seated flange is flush with the rim top
-NOTCH_PLAY = 0.0005  # per side on each tab
-RIM_CHAMFER = 0.0008  # 45 deg lead-in on the rim bore (entry edge), 0.2 mm of straight bore below it
-LAMP_R = 0.089  # 7 in round headlamp (178 mm): back shell
-SHELL_X = (0.0040, 0.0700)  # cosmetic depth of the lamp shell in front of the boss
+RIM_R = (0.04315 / 2, 0.0280)  # centring diameter M of holder and exterior fixture radius
+RIM_X = (-0.0018, 0.0)  # 7005-39-4 X, reference plane at x=0
+NOTCH_WIDTHS = (0.00810, 0.00825, 0.00825)  # holder Z and Z1
+RIM_CHAMFER = 0.0002  # 45 deg lead-in on the rim bore (entry edge), 1.6 mm of straight mating surface
+BOOT_INNER_R, BOOT_OUTER_R = 0.036, 0.039  # rear access opening, photograph-based approximation
+BOOT_RIM_X = (-0.010, 0.0)  # side depth awaits sample measurement
 
 # ---------------------------------------------------------------- wire spring clip (bail), frame H
 WIRE_R = 0.0008  # 1.6 mm spring-steel wire
 CLIP_HALF_W = 0.0150  # legs cross the flange 15 mm above / below the axis
 HINGE_Y = 0.0260  # hinge line (z axis) 26 mm to the robot's left of the bore axis
 CATCH_Y = -0.0260  # closed: the bight lies 26 mm to the right of the axis
-HINGE_X = RIM_X[0] - WIRE_R  # closed legs rest on the flange / rim top
+HINGE_X = RIM_X[0] - WIRE_R - 0.0002  # straight legs clear the holder by 0.2 mm
 CLIP_LEN = HINGE_Y - CATCH_Y  # 52 mm from the hinge to the bight
 CLIP_MASS = 0.012  # kg (real wire ~3 g; raised for solver stability, see README)
 CLIP_LIMITS_DEG = (-4.0, 170.0)
@@ -90,28 +91,35 @@ CLIP_FRICTION_NM = 0.004  # hinge friction torque (computed, Coulomb, smoothed):
 CLIP_OPEN_RANGE = (95.0, 105.0)
 CLIP_OPEN_NAMED = (104.0, 100.0, 96.0, 102.0, 98.0)
 
-# ---------------------------------------------------------------- catch (sprung latch, slides along y_H)
-CATCH_TRAVEL = 0.0030  # m: 0 = rest (engaged position), -CATCH_TRAVEL fully cammed away (toward -y)
+# ---------------------------------------------------------------- fixed sheet-metal tab and lateral wire compliance
+CATCH_TRAVEL = 0.0030  # m: wire bend represented by a hinge support translating toward +y
 CATCH_PRELOAD_N = 4.0
 CATCH_RATE_N_M = 1600.0  # 1.6 N/mm
 CATCH_MASS = 0.010
+# Four loaded bends on the two wire legs over the 38–43 mm annulus.
+PAD_Y = 0.0135
+PAD_BOW = 0.0025  # straight legs stand 1 mm behind the flange at closure
+PAD_RATE_N_M = 3500.0  # per bend: 21 N combined axial load at nominal closure
+
 LIP_EDGE_Y = CATCH_Y + WIRE_R + 0.0004  # lip edge 0.4 mm past the bight's far side when engaged
 LIP_X = (HINGE_X - WIRE_R - 0.0022, HINGE_X - WIRE_R - 0.0002)  # 2 mm thick, 0.2 mm behind the closed bight
-LIP_Z = (-0.0060, 0.0060)
+BIGHT_Z = 0.0115  # offset operating end, seen in Suzuki bulletin 253 p. 9
+LIP_Z = (BIGHT_Z - 0.0015, BIGHT_Z + 0.0015)
 CATCH_OUTER_Y = CATCH_Y - 0.0040
-RAMP_DEPTH = 0.0040  # 45 deg ramp on the lip's back (the bight cams the catch toward -y)
+
 
 # ---------------------------------------------------------------- placement (station frame)
 H = np.array([0.400, 0.000, TOP + 0.150])  # seat centre: headlamp bulb axis 150 mm above the table
+# Clamp the stand to the outer 4 mm of the boss plate. Its top must clear the whole bore.
+STAND_TOP = -PLATE_R + 0.004
+STAND_HEIGHT = H[2] - TOP + STAND_TOP
+STAND_SIZE = (0.014, 0.035, STAND_HEIGHT)
+STAND_CENTER = (0.008, 0.0, STAND_TOP - STAND_HEIGHT / 2)
 HOLDER = np.array([0.215, -0.060, TOP])  # bulb holder post, bottom centre on the table
 HOLDER_TOP = 0.075  # cup rim height above the table: the flange rests on it, glass down
-CUP_R = (0.0115, 0.0160)  # cup bore (1.5 mm radial play on the collar) / outer radius (< flange disc)
+CUP_R = (0.0196, 0.0213)  # formed shoulder clears the cup, centring disc rests on its rim
 CUP_DEPTH = 0.055
 HOLDER_JITTER = 0.010  # seeded: holder moved by up to +-10 mm in x and y
-# engine-bay mock-up around the lamp (boxes: centre, size)
-PANEL = (np.array([0.405 + 0.075, 0.0, TOP + 0.150]), (0.010, 0.50, 0.30))  # radiator support (cosmetic, ahead)
-BATTERY = (np.array([0.300, 0.200, TOP + 0.050]), (0.160, 0.160, 0.100))  # battery box, left rear of the lamp
-APRON = (np.array([0.320, -0.165, TOP + 0.055]), (0.180, 0.020, 0.110))  # inner fender apron, right of the lamp
 # named setups: bulb roll in its holder (deg about its axis), clip start angle
 SETUP_ROLL = (37.0, -124.0, 151.0, -58.0, 92.0)
 
@@ -171,7 +179,7 @@ def hinge_point():
 
 def bight_point(phi_deg):
     """Centre of the bight wire (mid-height) in H at bail angle phi."""
-    return hinge_point() + clip_rot(phi_deg) @ np.array([0.0, -CLIP_LEN, 0.0])
+    return hinge_point() + clip_rot(phi_deg) @ np.array([0.0, -CLIP_LEN, BIGHT_Z])
 
 
 def clip_angle(rot_h):
@@ -236,17 +244,20 @@ def annular_sector(r0, r1, a0, a1, x0, x1, n=None):
     return np.vstack(pts)
 
 
-def tab_half_angle(i, r, play=0.0):
-    """Half angle (deg) subtended at radius r by tab i (plus play per side)."""
-    return math.degrees(math.asin((TAB_W[i] / 2 + play) / r))
+def lug_arc(radius, width, centre, n=7):
+    """Circle points within parallel lug sidewalls, giving the specified chord width."""
+    half = math.degrees(math.asin(width / (2 * radius)))
+    angles = np.radians(np.linspace(centre - half, centre + half, n))
+    return np.c_[radius * np.cos(angles), radius * np.sin(angles)]
 
 
 def bulb_pieces():
-    """{'glass': [...], 'metal': [...], 'base': [...]} lists of hull point arrays in frame B."""
-    metal = [cylinder_x(COLLAR_R, *COLLAR_X, n=24), cylinder_x(FLANGE_R, -FLANGE_T, 0.0, n=48)]
-    for i, a in enumerate(TAB_ANGLES):
-        h = tab_half_angle(i, TAB_R)
-        metal.append(annular_sector(FLANGE_R - 0.001, TAB_R, a - h, a + h, -FLANGE_T, 0.0, n=4))
+    """Separate convex pieces in the bulb frame; the three geometric lugs carry the indexing."""
+    metal = [cylinder_x(COLLAR_R, *COLLAR_X), cylinder_x(PILOT_R, 0, PILOT_HEIGHT, n=96),
+             cylinder_x(FLANGE_R, -FLANGE_T, 0.0, n=120)]
+    for angle, width in zip(TAB_ANGLES, TAB_W):
+        outline = np.vstack([lug_arc(r, width, angle) for r in (FLANGE_R - 0.001, TAB_R)])
+        metal.append(np.vstack([np.c_[np.full(len(outline), x), outline] for x in (-FLANGE_T, 0)]))
     base = [cylinder_x(BASE_R, *BASE_X, n=32), cylinder_x(BOSS_R, *BOSS_X, n=24)]
     for rot, y, z in BLADES:
         hw, ht = (BLADE_W / 2, BLADE_T / 2) if rot == 0.0 else (BLADE_T / 2, BLADE_W / 2)
@@ -261,38 +272,24 @@ def bulb_inertia():
     return np.array([ixx, iyy, iyy])
 
 
-def rim_sector(s0, s1, n=3):
-    """One convex piece of the locating rim between angles s0..s1 (deg), with the 45 deg lead-in chamfer on its bore
-    at the entry face (x = RIM_X[0], the side the bulb comes from)."""
-    a = np.radians(np.linspace(s0, s1, n))
-    pts = []
-    for r, x in (
-        (RIM_R[0] + RIM_CHAMFER, RIM_X[0]),
-        (RIM_R[0], RIM_X[0] + RIM_CHAMFER),
-        (RIM_R[0], RIM_X[1]),
-        (RIM_R[1], RIM_X[0]),
-        (RIM_R[1], RIM_X[1]),
-    ):
-        pts.append(np.c_[np.full(n, x), r * np.cos(a), r * np.sin(a)])
-    return np.vstack(pts)
-
-
-def rim_pieces(sector=6.0):
-    """Locating rim (frame H) with the three notches cut out, as chamfered annular sectors."""
-    gaps = []
-    for i, a in enumerate(TAB_ANGLES):
-        h = tab_half_angle(i, RIM_R[0], NOTCH_PLAY)
-        gaps.append((a - h, a + h))
+def rim_pieces(sector=5.0):
+    """Build the lands between three parallel-sided slots, including their entry chamfer."""
     out = []
-    edges = sorted(gaps)
-    for k in range(len(edges)):
-        a0 = edges[k][1]
-        a1 = edges[(k + 1) % len(edges)][0] + (360.0 if k == len(edges) - 1 else 0.0)
-        n = max(1, int(math.ceil((a1 - a0) / sector)))
-        for j in range(n):
-            s0 = a0 + (a1 - a0) * j / n
-            s1 = a0 + (a1 - a0) * (j + 1) / n
-            out.append(rim_sector(s0, s1))
+    for i, left in enumerate(TAB_ANGLES):
+        j = (i + 1) % len(TAB_ANGLES)
+        right = TAB_ANGLES[j] + (360 if j == 0 else 0)
+        count = int(math.ceil((right - left) / sector))
+        levels = [(RIM_R[0] + RIM_CHAMFER, RIM_X[0]),
+                  (RIM_R[0], RIM_X[0] + RIM_CHAMFER), (RIM_R[0], 0.0),
+                  (RIM_R[1], RIM_X[0]), (RIM_R[1], 0.0)]
+        profiles = []
+        for r, x in levels:
+            first = left + math.degrees(math.asin(NOTCH_WIDTHS[i] / (2*r)))
+            last = right - math.degrees(math.asin(NOTCH_WIDTHS[j] / (2*r)))
+            a = np.radians(np.linspace(first, last, count * 2 + 1))
+            profiles.append(np.c_[np.full(len(a), x), r * np.cos(a), r * np.sin(a)])
+        for k in range(count):
+            out.append(np.vstack([profile[2*k:2*k+3] for profile in profiles]))
     return out
 
 
@@ -320,12 +317,60 @@ def notch_floor_pieces():
     return []
 
 
+def clip_wire_path():
+    """Approximate plan view of the formed holder wire in Suzuki bulletin 253 pp. 6 and 9.
+
+    The two short hinge ends join the axle through the joint. Both legs turn outside
+    the cap and converge at the offset operating end on the opposite side.
+    """
+    yz = [(HINGE_Y, 0.007), (0.019, 0.007), (0.018, CLIP_HALF_W),
+          (CATCH_Y, CLIP_HALF_W), (CATCH_Y, 0.008), (-0.021, 0.006),
+          (-0.020, -0.009), (-0.014, -CLIP_HALF_W), (0.018, -CLIP_HALF_W),
+          (0.019, -0.007), (HINGE_Y, -0.007)]
+    return np.array([[0.0, y - HINGE_Y, z] for y, z in yz])
+
+
 def clip_pieces():
-    """Bail pieces in the bail frame (= H at phi 0, origin at the hinge point): two legs and the bight."""
-    y_end = -CLIP_LEN
-    legs = [segment((0.0, 0.0, s * CLIP_HALF_W), (0.0, y_end, s * CLIP_HALF_W), WIRE_R) for s in (1.0, -1.0)]
-    bight = segment((0.0, y_end, -CLIP_HALF_W), (0.0, y_end, CLIP_HALF_W), WIRE_R)
-    return legs + [bight]
+    path = clip_wire_path()
+    return [segment(a, b, WIRE_R) for a, b in zip(path, path[1:])]
+
+
+def flange_springs(clip_p, clip_r, bulb_p, bulb_r):
+    """Return (contact position, force on bulb) for the bowed wire over the rear flange.
+
+    Each virtual wire bend compresses along the clip normal. Only the portion of the bend
+    between its base and free tip can touch the annular back face. Forces vanish on separation
+    and when the wire is sideways to the flange. All positions share the station frame.
+    """
+    axis = clip_r[:, 0]
+    normal = bulb_r[:, 0]
+    if np.dot(axis, normal) <= 0.0:
+        return []
+    loads = []
+    for y in (-PAD_Y, PAD_Y):
+        for z in (-CLIP_HALF_W, CLIP_HALF_W):
+            # The back of the bend lies one wire diameter behind its undeformed contact surface.
+            base = clip_p + clip_r @ np.array([-WIRE_R, y - HINGE_Y, z])
+            tip = base + (2 * WIRE_R + PAD_BOW) * axis
+            local = bulb_r.T @ (tip - bulb_p)
+            depth = local[0] + FLANGE_T
+            if depth <= 0 or (base - bulb_p) @ normal > -FLANGE_T:
+                continue
+            radial = float(np.linalg.norm(local[1:]))
+            supported_radius = float(np.clip(radial, PILOT_R, FLANGE_R))
+            overhang = abs(radial - supported_radius)
+            if overhang >= WIRE_R:
+                continue
+            # A rounded wire bend can still bear on the rim with its centre beyond the
+            # annulus. Project the spherical nose onto the nearest supported edge;
+            # both its usable reach and the axial component vanish continuously.
+            axial_radius = math.sqrt(max(0., (WIRE_R-overhang)*(WIRE_R+overhang)))
+            compression = depth - (WIRE_R-axial_radius)
+            if compression <= 0:
+                continue
+            point = bulb_p + bulb_r @ np.r_[-FLANGE_T, local[1:] * (supported_radius/radial)]
+            loads.append((point, PAD_RATE_N_M * compression * (axial_radius/WIRE_R) * normal))
+    return loads
 
 
 def clip_inertia():
@@ -334,19 +379,12 @@ def clip_inertia():
 
 
 def catch_pieces():
-    """Catch lip (frame H at rest): a 2 mm lip whose back face is a 45 deg ramp; slides along y."""
+    """Fixed square-edged retaining tab in the housing frame."""
     x0, x1 = LIP_X
     z0, z1 = LIP_Z
-    # prism in (x, y): lip edge at LIP_EDGE_Y, ramp from the lip's back edge out to CATCH_OUTER_Y
-    poly = [
-        (x1, LIP_EDGE_Y),
-        (x1 - 0.0005, LIP_EDGE_Y),
-        (x1 - 0.0005 - (LIP_EDGE_Y - CATCH_OUTER_Y), CATCH_OUTER_Y),  # 45 deg ramp facing -x / +y
-        (x1, CATCH_OUTER_Y),
-    ]
-    pts = np.array([[x, y, z] for x, y in poly for z in (z0, z1)])
-    stem = box_pts((x1 - 0.0060, CATCH_OUTER_Y - 0.003, z0), (x1, CATCH_OUTER_Y, z1))
-    return [pts, stem]
+    lip = box_pts((x0, CATCH_OUTER_Y, z0), (x1, LIP_EDGE_Y, z1))
+    stem = box_pts((x0, CATCH_OUTER_Y - 0.003, z0), (PLATE_X[1], CATCH_OUTER_Y, z1))
+    return [lip, stem]
 
 
 def to_world_h(p_h):

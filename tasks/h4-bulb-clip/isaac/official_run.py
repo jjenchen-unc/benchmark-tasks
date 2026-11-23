@@ -95,6 +95,14 @@ class ScriptedPolicy(PolicyBase):
         self.k += 1
         a = np.asarray(self.c.action().data, float)
         self.actions.append(np.round(a, 6).tolist())
+        if OPTS["log"] and self.k>=880:
+            import h4kit
+            arm=self.c.left
+            d=self.c.detail()
+            rt=h4kit.runtime()
+            record=dict(step=self.k-1, labels=[arm.label,self.c.right.label], measured_q=jp.tolist(), actual_prev_q_target=self.actions[-2] if self.k>1 else None, next_action=self.actions[-1], tcp=arm.measured_tcp()[0].tolist(), goal=arm.pos.tolist(), off=arm.offset.tolist(), measure=d.get("measure"),contacts=d.get("contacts"), pairs=rt.finger_contacts(1/480))
+            with open(Path(OPTS["log"])/"contact-trace.jsonl","a") as f:
+                f.write(json.dumps(record,default=float)+"\n")
         meta = (
             {"request_stop": True}
             if self.ended is not None and self.k - self.ended >= self.hold

@@ -11,11 +11,9 @@ Plan:
 1. Right hand: read the bulb's roll in its holder (tab pattern) and grip its cap from above so that, once turned, the
    fingers close vertically and the tabs face their notches; lift it out (glass never touched).
 2. Turn it to point into the lamp and bring it behind the bulb boss; closed loop on the measured bulb pose: centre and
-   roll it 3.5 mm behind the seat, push it home at 3 mm/s (retry if a tab lands on the rim).
-3. Left hand: fingers closed, down beside the open wire clip; push the bail round its hinge to about 92 deg (as far as
-   it goes past the right hand) while the right hand keeps the bulb seated.
-4. Right hand lets go and draws back; the left hand swings the bail shut over the flange and presses its bight past the
-   catch's ramp until the catch snaps over it; both hands back.
+   roll it 3.5 mm behind the seat, then keep a light axial load while finding the slots.
+3. Right hand releases the bulb and withdraws. Left hand swings the wire over the flange.
+4. Flex the wire sideways, press its operating end behind the fixed bracket, then release and withdraw.
 Both arms add the remaining joint error back to their commands (slow integral on their own joint readings) in free
 moves, because the joint PD sags under load (pattern reused from earlier demos).
 """
@@ -79,6 +77,7 @@ class Arm:
         self.offset = np.zeros(6)
         self.measured = self.q.copy()
         self.measured_grip = 1.0
+        self.joint_step = np.zeros(6)
         self.comp = True
         self.label = ""
         self.worst_mm = 0.0
@@ -88,7 +87,16 @@ class Arm:
 
     @property
     def cmd(self):
-        c = np.r_[np.clip(self.q + self.offset, self.lo, self.hi), self.grip]
+        drive = self.q + self.offset
+        if self.comp == "insertion":
+            # The YAM drives have a Coulomb dead band: friction/stiffness is
+            # 0.00375 rad at the shoulder and 0.006 rad at the wrist. Overcome
+            # it gradually, braking on observed motion. Only position commands change.
+            error = self.q - self.measured
+            friction = np.array([0.00375]*3 + [0.006]*3)
+            assist = 0.4 * error + friction * np.tanh(error / 0.0025) - 0.5 * self.joint_step
+            drive += np.clip(assist, -0.006, 0.006)
+        c = np.r_[np.clip(drive, self.lo, self.hi), self.grip]
         lim = np.r_[RATE * 0.05 * (self.hi - self.lo), RATE * 0.05]
         if self.last_cmd is not None:
             c = np.clip(c, self.last_cmd - lim, self.last_cmd + lim)
@@ -102,9 +110,11 @@ class Arm:
         self.comp = mode
 
     def observe(self, q):
-        self.measured = np.asarray(q[:6], float)
+        new_q = np.asarray(q[:6], float)
+        self.joint_step = new_q - self.measured
+        self.measured = new_q
         self.measured_grip = float(q[6])
-        if self.comp == "hold":
+        if self.comp in ("hold", "insertion"):
             pass
         elif self.comp:
             self.offset = np.clip(
@@ -337,7 +347,7 @@ def bulb_err(c):
 
 
 def track_bulb(c, target_fn, duration, label, gain=0.06, rot_gain=None, free_x=False, until=None, max_s=None,
-               deadband=0.0):
+               deadband=0.0, feedback=0.0):
     """Closed loop on the bulb (right hand): each step command the TCP that puts the bulb at target_fn(s) through the
     frozen grasp transform, plus slow integral corrections of the measured bulb position / orientation error."""
     from yam_arena import ik
@@ -358,13 +368,14 @@ def track_bulb(c, target_fn, duration, label, gain=0.06, rot_gain=None, free_x=F
         if deadband > 0:
             e_r = np.where(np.abs(e_r) < deadband / 0.02, 0.0, e_r)
         c.corr_r = np.clip(c.corr_r + (gain if rot_gain is None else rot_gain) * e_r, -0.15, 0.15)
-        rc = _rotm(c.corr_r)
+        rc = _rotm(c.corr_r + feedback * e_r)
         gp, gr = c.G["right"]
         arm.label = label
-        arm.set_pose(pt + c.corr_p + rc @ rt @ gp, rc @ rt @ gr)
+        arm.set_pose(pt + c.corr_p + feedback * err + rc @ rt @ gp, rc @ rt @ gr)
         yield
         if until is not None and k >= n and until(c):
-            break
+            return True
+    return until is None
 
 
 # --------------------------------------------------------------------------------------------------- right hand: bulb
@@ -372,9 +383,6 @@ GRIP_TIP_ABOVE = 0.0040  # pad tips 4 mm above the flange's back face (cap body 
 OPEN_HALF = L.BASE_R + 0.012
 PRE_X = -0.060  # pre-insertion: bulb reference plane 60 mm behind the seat (glass tip clear of the boss)
 ALIGN_X = -0.0035  # alignment stop: flange 3.5 mm behind the seat
-ALIGN_TOL_M = 0.00015
-ROLL_TOL_DEG = 0.5
-TILT_TOL_DEG = 0.6
 SEAT_PUSH_M = 0.0010  # bulb target 1.0 mm past the seat while seating (arm stiffness gives the press)
 FINAL_ROLL_SIGNS = (1.0, -1.0)
 PRESENT_PITCH_DEG = 45.0
@@ -449,67 +457,96 @@ def present_bulb(c):
     c.note("presented", err=list(bulb_err(c)))
 
 
-def aligned(c, n=5):
-    count = [0]
+def insert_bulb(c, tries=4):
+    """Centre the cap before entering the narrow slot; guide insertion from the measured bulb pose."""
+    import scoring
 
-    def ok(c):
-        import scoring
-
-        rad, roll, tilt, ax = bulb_err(c)
-        r_t = getattr(c, "target_rot", np.eye(3))
-        roll -= scoring.bulb_in_h(L.H, r_t)[3]
-        roll = scoring.wrap180(roll)
-        count[0] = count[0] + 1 if (rad < ALIGN_TOL_M and abs(roll) < ROLL_TOL_DEG and tilt < TILT_TOL_DEG) else 0
-        return count[0] >= n
-
-    return ok
-
-
-def insert_bulb(c, tries=6):
-    """Closed loop on the measured bulb pose: slide in to 3.5 mm behind the seat, centre and roll it (tabs over the
-    notches), then push it home at 3 mm/s; if it does not seat (a tab on the rim), back off and try again."""
     p0 = L.H + np.array([PRE_X, 0.0, 0.0])
     pa = L.H + np.array([ALIGN_X, 0.0, 0.0])
-    r0 = getattr(c, "target_rot", np.eye(3))
-    if getattr(c, "fixed_grasp", False):
+    r0 = c.target_rot
+    fixed_grasp = getattr(c, "fixed_grasp", False)
+    if fixed_grasp:
         tries = 1
     yield from track_bulb(c, lambda s: (p0 + s * (pa - p0), r0), 3.0, "slide in", gain=0.04)
+    # Use one slow bulb-pose integral during precision work. A simultaneous joint
+    # integral stores extra force when the pilot contacts the bore.
+    c.right.set_comp("insertion")
+
+    def at_entry(c):
+        radial, roll, tilt, axial = bulb_err(c)
+        target_roll = scoring.bulb_in_h(L.H, r0)[3]
+        return (radial <= 0.00045 and tilt <= 0.7 and abs(scoring.wrap180(roll-target_roll)) <= 0.8
+                and abs(axial-ALIGN_X) <= 0.00065)
+
     for attempt in range(tries):
-        c.right.set_comp(True)  # joint integral on while aligning in free space (works the joints through stiction)
-        yield from track_bulb(c, lambda s: (pa, r0), 1.0, f"align {attempt}", gain=0.06, until=aligned(c), max_s=5.0,
-                              deadband=0.00005)
-        c.note("aligned", attempt=attempt, err=list(bulb_err(c)))
-        ps = L.H + np.array([SEAT_PUSH_M, 0.0, 0.0])
-        dur = (ps[0] - pa[0]) / 0.003
+        ready = yield from track_bulb(
+            c, lambda _: (pa, r0), 0.5, f"align {attempt}", gain=0.032, feedback=0.40,
+            until=at_entry, max_s=7.0, deadband=0.000010)
+        c.note("alignment", attempt=attempt, ready=ready, err=list(bulb_err(c)))
+        if not ready:
+            continue
 
-        def seated_now(c):
+        feed_x = bulb_err(c)[3]
+        loaded_steps = 0
+        lateral_scale = 0.0005
+
+        def advance(_):
+            nonlocal feed_x, loaded_steps
+            pb, _ = c.pose()
+            axial = pb[0] - L.H[0]
+            radial = np.linalg.norm((pb-L.H)[1:])
+            sample = c.detail().get("contacts") or {}
+            load = sample.get("housing_on_bulb_n", 0)
+            # Keep the bulb against the entry face even when dry friction briefly
+            # moves the arm off centre. Only excessive force or a gross positioning
+            # error calls for unloading. This lets the physical rim guide the index.
+            if load > 3 or radial > 0.0025:
+                feed_x = max(ALIGN_X, min(feed_x, axial+0.0004)-0.0012*DT)
+            elif load < 1.4:
+                feed_x = min(SEAT_PUSH_M, axial + 0.0028, feed_x + 0.0017 * DT)
+            # A small lateral search under light pressure releases a caught lug.
+            # Once the flange is inside the locating wall, complete the axial stroke.
+            if load > 0.12 and axial < L.RIM_X[0]+0.00025:
+                loaded_steps += 1
+            target = L.H + [feed_x, 0.0, 0.0]
+            if loaded_steps and axial < L.RIM_X[0]+0.00025:
+                phase = loaded_steps * DT * 2 * math.pi * 0.48
+                amplitude = min(1.0, loaded_steps/18) * lateral_scale
+                target[1] += amplitude * math.sin(phase)
+                target[2] += amplitude * math.sin(phase*0.73)
+            return target, r0
+
+        def seated(c):
             rad, roll, tilt, ax = bulb_err(c)
-            return abs(ax) < 0.00035 and tilt < 0.9
+            return abs(ax) < 0.00035 and tilt < 0.9 and rad <= scoring.SEAT_RADIAL_M and abs(roll) <= scoring.SEAT_ROLL_DEG
 
-        c.right.set_comp("hold")  # in contact: offsets frozen (the rim's lead-in centres the flange)
-        yield from track_bulb(c, lambda s: (pa + s * (ps - pa), r0), dur, f"seat {attempt}", gain=0.03, free_x=True)
-        yield from wait(0.5)
-        rad, roll, tilt, ax = bulb_err(c)
-        c.note("seat try", attempt=attempt, err=[rad, roll, tilt, ax])
-        if seated_now(c):
-            break
-        if attempt == tries - 1:
-            if getattr(c, "fixed_grasp", False):
-                break  # negative: carry on with the clip as if it were seated
-            raise Stop("bulb not seated")
-        yield from track_bulb(c, lambda s: (ps + s * (pa - ps), r0), 1.0, "back off", gain=0.0)
-    c.note("seated")
+        arrived = yield from track_bulb(
+            c, advance, 0.25, f"seat {attempt}", gain=0.032, feedback=0.40,
+            free_x=True, until=seated, max_s=17.0, deadband=0.000010)
+        c.note("seat try", attempt=attempt, err=list(bulb_err(c)))
+        if arrived:
+            c.note("seated")
+            return
+        if fixed_grasp:
+            return
+        pb, _ = c.pose()
+        yield from track_bulb(c, lambda s: (pb + s * (pa-pb), r0), 1.5, "back off", gain=0.02)
+    raise Stop("bulb not aligned and seated within insertion retries")
 
 
 def release_bulb(c):
     """Let go of the seated bulb without disturbing it: take the push off (bulb target back on the seat), relax the arm
     where it is, open the fingers slowly by a few millimetres, draw straight back off the cap, then out and away."""
     arm = c.right
-    arm.set_comp("hold")
+    # Keep the friction compensation through the last loaded motion. Freeze the
+    # last joint correction before opening the fingers to avoid a release jump.
     ps = L.H.copy()
     r0 = getattr(c, "target_rot", np.eye(3))
     yield from track_bulb(c, lambda s: (ps, r0), 0.6, "right ease push", gain=0.0)
     yield from wait(0.3)
+    if arm.comp == "insertion":
+        arm.offset = arm.cmd[:6] - arm.q
+    arm.set_comp("hold")
     yield from arm.set_grip(grip_of(L.BASE_R + 0.003), 1.5, "right open")
     yield from wait(0.3)
     c.note("right opened", err=list(bulb_err(c)))
@@ -539,11 +576,9 @@ PUSH_RADIAL_OPEN, PUSH_RADIAL_CLOSE = 0.004, 0.004
 def push_radial(phi):
     s = float(np.clip((phi - 12.0) / 13.0, 0.0, 1.0))
     return PUSH_RADIAL_CLOSE + s * (PUSH_RADIAL_OPEN - PUSH_RADIAL_CLOSE)
-# The left hand pushes the bight with its fingertips' end faces, fingers opened to a 14.4 mm gap (closing axis close
-# to vertical at this pitch): one fingertip above and one below the axis height, so the catch lip (+-6 mm) passes
-# between them at the latch and the legs (+-15 mm) stay outside them; only the bight's vertical wire is touched.
-PUSH_Z_OPEN, PUSH_Z_CLOSE, PUSH_Z_PHI = 0.0, 0.0, (12.0, 25.0)
-PUSH_HALF_GAP = 0.0072
+# Target the short upper-right operating end. The two fingertips straddle the fixed lip.
+PUSH_Z_OPEN, PUSH_Z_CLOSE, PUSH_Z_PHI = L.BIGHT_Z, L.BIGHT_Z, (12.0, 25.0)
+PUSH_HALF_GAP = 0.0032
 
 
 def push_tip_z(phi):
@@ -638,44 +673,158 @@ def swing_clip(c, phi_to, speed_dps=20.0, label="swing clip", max_s=14.0):
     c.note("clip at", phi=c.clip()[0])
 
 
-def latch_clip(c, max_press_m=0.010, tries=3):
-    """Press the bail's bight past the catch's ramp (+x) until the catch snaps back over it; then back off."""
+def clip_over(c):
+    """Hand off while the bail is clear of the flange. The outer edge of the pads reaches the rear shroud below this arc."""
+    yield from swing_clip(c, 40.0)
+    yield from regrip_clip(c, -1.0)
+    yield from swing_clip(c, 22.0)
+    phi, _ = c.clip()
+    if not 8.0 <= phi <= 24.0:
+        raise Stop(f"bail outside the transfer arc at {phi:.2f} degrees")
+    # Hold the observed transfer pose briefly before drawing the finger pads back.
+    yield from wait(0.5)
     arm = c.left
-    for attempt in range(tries):
-        arm.set_comp("hold")
-        p0, r = clip_push_pose(0.0, c, gap=0.0005)
-        yield from arm.move(p0, r, 0.6, None, f"onto bight {attempt}")
-        n = int(2.5 * CONTROL_HZ)
-        done = 0
-        for k in range(1, n + 1):
-            arm.label = f"press {attempt}"
-            arm.set_pose(p0 + np.array([max_press_m * k / n, 0.0, 0.0]), r)
-            yield
-            phi, cy = c.clip()
-            # stop pushing as soon as the bight is past the lip (catch cammed fully aside, bail closed) or hooked
-            if (phi < 0.5 and cy < -0.0022) or (phi < 0.8 and abs(cy) < 0.0003):
-                done += 1
-                if done >= 3:
-                    break
-            else:
-                done = 0
-        yield from wait(0.3)
-        phi, cy = c.clip()
-        c.note("press", attempt=attempt, phi=phi, catch_mm=cy * 1e3)
-        pb, rb = clip_push_pose(0.0, c, gap=0.0005, back=0.015)
-        yield from arm.move(pb, rb, 0.8, None, "ease off")
-        yield from wait(0.4)
-        phi, cy = c.clip()
-        c.note("after press", attempt=attempt, phi=phi, catch_mm=cy * 1e3)
-        if phi < 1.2 and abs(cy) < 0.0006:
-            break
-    # retreat: straight back off the clip, then sideways to the robot's left (out of the top camera's view of the
-    # lamp), then up
-    p, r = clip_push_pose(0.0, c, back=0.025)
-    yield from arm.move(p, r, 0.8, None, "left back")
+    yield from arm.move(arm.pos - arm.rot[:, 2]*0.025, arm.rot, 0.65, None, "withdraw after sweep")
+    c.note("transfer to operating end", contacts=c.detail().get("contacts"))
+
+
+def wire_pose(phi, lateral, grip, sign, depth):
+    """TCP on the desired distal wire segment. Each target lies on the authored polyline."""
+    path = L.clip_wire_path()
+    if grip == "axial":
+        # Straight central section, immediately below the turn.
+        point = path[5] + (path[6] - path[5]) * (0.0005 / 0.015)
+        roll = 0.0
+    else:
+        # Angled segment leading out to the vertical operating end.
+        point = path[4] + 0.2 * (path[5] - path[4])
+        roll = math.radians(20)
+    rot = L.clip_rot(phi)
+    pitch = math.radians(24)
+    approach = rot[:, 0]*math.cos(pitch) - [0., 0., math.sin(pitch)]
+    closing = sign * (rot[:, 1]*math.cos(roll) + [0., 0., math.sin(roll)])
+    world = L.H + L.hinge_point() + rot @ point + [0., lateral, 0.]
+    return world + approach*(depth - 0.013), frame(approach, closing)
+
+
+def take_wire(c, grip):
+    arm = c.left
+    phi, displacement = c.clip()
     arm.set_comp(True)
-    yield from arm.move(arm.pos + np.array([-0.02, 0.10, 0.02]), r, 1.0, None, "left aside")
-    yield from arm.move(arm.pos + np.array([-0.04, 0.04, 0.06]), r, 1.0, None, "left up")
+    arm.label = "approach distal wire"
+    for sign in (-1, 1):
+        p, r = wire_pose(phi, -displacement, grip, sign, -0.020)
+        try:
+            q = arm.best_ik(p, r)
+            break
+        except Stop:
+            continue
+    else:
+        raise Stop("no reachable approach to the operating end")
+    yield from arm.move_joint(q, 1.5, grip_of(0.004), arm.label)
+    for step in range(35):
+        phi, displacement = c.clip()
+        depth = -0.020 + 0.025 * min((step + 1) / 30, 1)
+        arm.label = "straddle distal wire"
+        arm.set_pose(*wire_pose(phi, -displacement, grip, sign, depth))
+        yield
+    for step in range(24):
+        phi, displacement = c.clip()
+        arm.label = "grip distal wire"
+        arm.grip = grip_of(0.004 * max(0, 1 - (step + 1) / 20))
+        arm.set_pose(*wire_pose(phi, -displacement, grip, sign, 0.005))
+        yield
+    return sign
+
+
+def shoe_pose(phi,side,axial=0.0,roll=0.0):
+    import retainer_tool as tool
+    path=L.clip_wire_path()
+    r=L.clip_rot(phi)
+    center=L.H+L.hinge_point()+r@(path[5]*.50+path[6]*.50)+np.array([0.,side,0.])
+    u,v=L.clip_rot(0.)[:,:2].T
+    orientation=np.column_stack([-v,-u,np.cross(v,u)])
+    tcp=center+axial*u+orientation@(np.array([0.,0.,.134])-tool.TIP)
+    return tcp,orientation
+
+def latch_clip(c, axial_only=False):
+    import retainer_tool as tool
+    arm=c.left
+    phi,cy=c.clip()
+    # Give the stock YAM pads room to rotate away from the opening.
+    pos,rot=arm.measured_tcp()
+    yield from arm.move(pos+[-.045,0,.028],rot,1.1,grip_of(.002),'bring stock pads clear')
+    phi,cy=c.clip()
+    pos,rot=shoe_pose(phi,-cy-.001,-.030)
+    q=arm.best_ik(pos,rot)
+    yield from arm.move_joint(q,2.,grip_of(.002),'bring collar shoe behind wire')
+    phi,cy=c.clip()
+    yield from arm.move(*shoe_pose(phi,-cy-.0003,-.0025),1.0,None,'align steel shoe')
+    yield from wait(.3)
+    bias=np.clip(arm.last_cmd[:6]-arm.measured,-.07,.07)
+    arm.set_comp('hold')
+    motor_k=np.array([80.,80.,80.,10.,10.,10.])
+
+    phase='swing with shoe'
+    a=max(4.1,phi)
+    goal_side=0.
+    force=np.zeros(3);trim=np.zeros(2);stable=0
+    for i in range(460):
+        phi,disp=c.clip();side=-disp
+        f=np.asarray(c.detail()['contacts']['robot_on_clip_force_n'])
+        if phase=='swing with shoe':
+            a=max(3.9,a-.20)
+            f_req=[1.5,0.]
+            if a<=4 and phi<5.4:phase='side-load shoe'
+        elif phase=='side-load shoe' and axial_only:
+            # Use the same shoe and the same approach. Only the straight station-x stroke is applied here.
+            p,r=arm.pos.copy(),arm.rot.copy()
+            c.note('shoe axial baseline',contacts=c.detail()['contacts'])
+            yield from arm.move(p+[.003,0.,0.],r,1.25,None,'axial press only')
+            yield from wait(.60)
+            c.note('shoe axial stroke complete',contacts=c.detail()['contacts'])
+            break
+        elif phase=='side-load shoe':
+            a=max(3.75,a-.025)
+            goal_side=min(.0032,goal_side+.000045)
+            f_req=[4.,8.]
+            if side>.00195 and phi<5.:phase='press behind retainer'
+        elif phase=='press behind retainer':
+            a=max(-.35,a-.04)
+            f_req=[18.,8.]
+            if phi<.45:phase='return wire under retainer'
+        else:
+            a=-.3;goal_side=max(-.0003,goal_side-.00004)
+            f_req=[18.,0.]
+            stable=stable+1 if side<.00045 and abs(phi)<.41 else 0
+            if stable>=4:break
+        force+=np.clip(np.asarray(f_req+[0.])-force,-.18,.18)
+        if phase=='return wire under retainer':
+            trim[1]=max(-.0005,trim[1]-.00004)
+        else:
+            trim[1]=np.clip(trim[1]+.000005*(f_req[1]-f[1]),-.0007,.0015)
+        trim[0]=np.clip(trim[0]+.000004*(f_req[0]-f[0]),-.0008,.0015)
+        pos,rot=shoe_pose(a,goal_side+trim[1],trim[0])
+        arm.label=phase;arm.set_pose(pos,rot)
+        p,r,axes=fastik.fk(arm.measured,arm.base);tip=p+r@(tool.TIP-[0.,0.,.134])
+        jac=np.stack([np.cross(ax,tip-o) for ax,o in axes],axis=1)
+        arm.offset=bias+np.clip((jac.T@force)*1./motor_k,-.24,.24)
+        yield
+    c.note('shoe before unload',contacts=c.detail()['contacts'])
+    pos,rot=arm.measured_tcp();q=arm.measured.copy();warm=arm.last_cmd[:6]-q
+    arm.q=q;arm.pos,arm.rot=pos,rot
+    for k in range(35):
+        s=(k+1)/35
+        arm.offset=warm*(1-s)+bias*s
+        arm.label='unload and retract shoe'
+        arm.set_pose(pos+[-.026*s,-.0015*s,0.],rot);yield
+    # Continue until the external shoe and all unmodified stock pads have cleared both objects.
+    for reach in (.065,.080,.095,.110,.125):
+        yield from arm.move(pos+[-reach,-.005,.018],rot,.55,None,'retract shoe clear of bulb')
+        m=c.detail().get('measure') or {}
+        if min(m.get('tip_bulb_mm',0),m.get('tip_clip_mm',0))>36:
+            break
+    yield from wait(2.)
 
 
 def demo(c):
@@ -687,27 +836,7 @@ def demo(c):
     yield from clip_approach(c)
     yield from clip_over(c)
     yield from latch_clip(c)
-    yield from c.left.home(2.5)
     yield from wait(4.0)
-
-
-def clip_over(c, tries=3):
-    """Swing the bail: to 40 deg with the hand one way round, re-grip the other way round (the press past the catch
-    works best that way), then to 2 deg. If the hand slips off the bight (or the next pose is out of reach), it is set
-    down again on the trailing side, with the hand way round that reaches at the bail's angle, and the swing goes on."""
-    yield from swing_clip(c, 40.0)
-    yield from regrip_clip(c, -1.0)
-    for _ in range(tries):
-        yield from swing_clip(c, 2.0)
-        phi = c.clip()[0]
-        if phi <= 4.0:
-            break
-        if phi > 60.0:
-            yield from regrip_clip(c, 1.0)
-            yield from swing_clip(c, 40.0)
-            yield from regrip_clip(c, -1.0)
-        else:
-            yield from regrip_clip(c, -1.0)
 
 
 def idle(c):
@@ -728,8 +857,7 @@ def neg_noroll(c):
 
 
 def neg_unhooked(c):
-    """Full fit; the clip is swung over the flange and held there (bail about 3 deg) but never pushed past its catch:
-    seated, clip over, not hooked -> 0.5."""
+    """Hold the operating wire against the face of the fixed tab, with the bulb seated."""
     yield from wait(0.5)
     yield from pick_bulb(c)
     yield from present_bulb(c)
@@ -737,12 +865,32 @@ def neg_unhooked(c):
     yield from release_bulb(c)
     yield from clip_approach(c)
     yield from clip_over(c)
-    c.left.set_comp("hold")
-    p, r = clip_push_pose(3.0, c, gap=0.0)
-    yield from c.left.move(p, r, 0.6, None, "hold clip over")
-    yield from wait(4.0)
-    c.note("held over", phi=c.clip()[0])
+    sign = yield from take_wire(c, "axial")
+    arm = c.left
+    for _ in range(70):
+        phi, _ = c.clip()
+        arm.label = "place axial pads"
+        arm.set_pose(*wire_pose(max(4.3, phi - 1.0), 0., "axial", sign, 0.005))
+        yield
+    arm.set_comp("hold")
+    # Start and end in the same command frame. The loaded TCP can lag its target by millimetres.
+    p, r = arm.pos.copy(), arm.rot.copy()
+    c.note("before axial press", contacts=c.detail().get("contacts"))
+    yield from arm.move(p + [0.003, 0., 0.], r, 1.25, None, "axial press only")
+    yield from wait(0.6)
+    c.note("axial press complete", contacts=c.detail().get("contacts"))
 
+
+def neg_axial_press(c):
+    yield from wait(.5)
+    yield from pick_bulb(c)
+    yield from present_bulb(c)
+    yield from insert_bulb(c)
+    yield from release_bulb(c)
+    yield from clip_approach(c)
+    yield from clip_over(c)
+    yield from latch_clip(c, axial_only=True)
+    yield from wait(2.)
 
 def neg_noclip(c):
     """Bulb seated, then let go and both hands home without the clip: 0.25 if it stays seated, else 0."""
@@ -789,7 +937,6 @@ def neg_glass(c):
     yield from clip_approach(c)
     yield from clip_over(c)
     yield from latch_clip(c)
-    yield from c.left.home(2.5)
     yield from wait(4.0)
 
 
@@ -821,6 +968,7 @@ STAGES = {
     "insert-only": insert_only,
     "neg-noroll": neg_noroll,
     "neg-unhooked": neg_unhooked,
+    "neg-axial-press": neg_axial_press,
     "neg-noclip": neg_noclip,
     "neg-glass": neg_glass,
     "replay": replay,

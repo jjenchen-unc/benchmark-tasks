@@ -1,16 +1,16 @@
 """Scorer for the h4-bulb-clip task (engine-independent, numpy only).
 
-Inputs every control step: the bulb's pose and velocity, the bail (clip) angle, the catch slide position and the four
+Inputs every control step: the bulb's pose and velocity, the bail (clip) angle, lateral wire displacement and the four
 finger pad tips; plus two latched vetoes from the per-physics-step monitor (``Monitor``): the glass was touched by the
 robot (any contact force between a robot link and the glass envelope, a separate collider body), or the bulb was
 dropped (it moved down faster than 0.3 m/s, the speed after a 4.6 mm free fall, with no robot contact).
 
 Levels (score at the end of the trial):
   0     any veto; otherwise bulb not seated (tabs not in their notches, flange cocked or proud, bulb out).
-  0.25  seated: the flange's front face within 0.4 mm of the boss seat, tilt < 1 deg, roll within 4 deg of the fitted
+  0.25  seated: the flange's front face within 0.4 mm of the boss seat, radial offset up to 0.2 mm, tilt up to 1 deg, roll within 4 deg of the fitted
         roll (only possible with all three tabs down in their notches); clip not over it.
   0.5   seated, the bail swung over the flange (within 6 deg of closed) but not hooked under its catch.
-  1.0   seated, bail hooked under the catch (bail within 1.2 deg of closed and the catch back at rest over it), every
+  1.0   seated, bail hooked under the catch (bail within 1.2 deg of closed with the returned bight behind and overlapped by the fixed tab), every
         fingertip 30 mm or more from the bulb and the bail, bulb still for 1 s. Ends the trial.
 """
 
@@ -23,6 +23,7 @@ import layout as L
 import numpy as np
 
 SEAT_DX_M = 0.0004
+SEAT_RADIAL_M = L.RIM_R[0] - L.FLANGE_R + 0.0001  # radial play plus contact allowance
 SEAT_TILT_DEG = 1.0
 SEAT_ROLL_DEG = 4.0
 OVER_DEG = 6.0
@@ -66,16 +67,13 @@ def bulb_distance(point, pos, rot):
     return max(seg_dist(point, a, b) - L.TAB_R, 0.0)
 
 
-def clip_distance(point, phi_deg):
+def clip_distance(point, phi_deg, wire_shift=0.0):
     """Distance from a point (station frame) to the bail wire (legs and bight)."""
-    hp = L.H + L.hinge_point()
+    hp = L.H + L.hinge_point() + np.array([0.0, wire_shift, 0.0])
     r = L.clip_rot(phi_deg)
     best = 9.0
-    for a, b in (
-        ((0, 0, L.CLIP_HALF_W), (0, -L.CLIP_LEN, L.CLIP_HALF_W)),
-        ((0, 0, -L.CLIP_HALF_W), (0, -L.CLIP_LEN, -L.CLIP_HALF_W)),
-        ((0, -L.CLIP_LEN, -L.CLIP_HALF_W), (0, -L.CLIP_LEN, L.CLIP_HALF_W)),
-    ):
+    path = L.clip_wire_path()
+    for a, b in zip(path, path[1:]):
         best = min(best, seg_dist(point, hp + r @ np.array(a), hp + r @ np.array(b)) - L.WIRE_R)
     return max(best, 0.0)
 
@@ -87,7 +85,7 @@ class Measure:
     tilt_deg: float
     roll_deg: float  # roll from the fitted orientation
     clip_deg: float  # bail angle, 0 = closed
-    catch_mm: float  # catch slide from rest (negative = cammed away)
+    catch_mm: float  # negative lateral wire displacement from rest (m converted to mm)
     tip_bulb_mm: float  # nearest fingertip to the bulb
     tip_clip_mm: float  # nearest fingertip to the bail
     seated: bool
@@ -99,13 +97,18 @@ def measure(pos, rot, clip_deg, catch_x, tips):
     ax, rad, tilt, roll = bulb_in_h(pos, rot)
     seated = (
         abs(ax) <= SEAT_DX_M
+        and rad <= SEAT_RADIAL_M
         and tilt <= SEAT_TILT_DEG
         and abs(wrap180(roll)) <= SEAT_ROLL_DEG
     )
     over = clip_deg <= OVER_DEG
-    latched = clip_deg <= LATCH_DEG and abs(catch_x) <= CATCH_REST_TOL_M
+    bight = L.bight_point(clip_deg)
+    bight[1] -= catch_x
+    behind_tab = bight[0] - L.WIRE_R >= L.LIP_X[1] - 0.0001
+    under_tab = L.CATCH_OUTER_Y <= bight[1] <= L.LIP_EDGE_Y - L.WIRE_R
+    latched = behind_tab and under_tab and abs(catch_x) <= CATCH_REST_TOL_M and abs(clip_deg) <= LATCH_DEG
     tb = min(bulb_distance(t, pos, rot) for t in tips) if tips else 1.0
-    tc = min(clip_distance(t, clip_deg) for t in tips) if tips else 1.0
+    tc = min(clip_distance(t, clip_deg, -catch_x) for t in tips) if tips else 1.0
     return Measure(
         axial_mm=ax * 1e3,
         radial_mm=rad * 1e3,

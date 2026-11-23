@@ -22,10 +22,10 @@ def rz(deg):
 
 
 # ---------------------------------------------------------------- chamber (cathode) geometry
-C = np.array([0.42, 0.0, 0.790])  # ring seat centre in the station frame
+C = np.array([0.405, 0.0, TOP + 0.029])  # ring seat centre in the station frame
 PUCK_R = 0.149  # electrostatic chuck puck, diameter 298 mm (alumina)
 PUCK_TOP = 0.0025  # chuck face 2.5 mm above the ring seat
-PUCK_Z0 = -0.030  # puck body bottom (cosmetic depth)
+PUCK_Z0 = -0.027  # puck body bottom (cosmetic depth)
 BASE_R = (0.1493, 0.190)  # quartz base ring: bore 298.6, outer 380; top = seat (z 0)
 BASE_Z0 = -0.012
 LOC_PITCH_R = 0.160  # locating dowels on a 320 mm circle
@@ -47,7 +47,7 @@ COVER_R = (0.181, 0.210)  # quartz cover ring (installed): bore 362, outer 420
 COVER_TOP = 0.0040  # level with the seated edge ring's top
 COVER_Z0 = -0.012
 BOWL_R = (0.230, 0.245)  # lower chamber body: bore 460, 15 mm wall
-BOWL_TOP = 0.040  # wall top 40 mm above the seat
+BOWL_TOP = 0.127  # representative 5 in liner envelope, seat to rim
 BOWL_FLOOR = TOP + 0.001 - C[2]  # floor on the table
 CATHODE_R = 0.215  # cathode body below the rings (cosmetic)
 
@@ -70,7 +70,7 @@ SECTOR_DEG = 3.0  # collision pieces: 3 deg sectors (chord sag 0.05 mm at the bo
 
 # ---------------------------------------------------------------- ring stand and pendant
 STAND = np.array(
-    [0.155, 0.0, 0.845]
+    [0.120, 0.0, C[2] + BOWL_TOP + 0.014]
 )  # top of the stand's arms (ring underside rests here)
 STAND_POST_R = 0.020
 STAND_ARM_W = 0.015
@@ -78,11 +78,10 @@ STAND_ARM_R = (0.018, 0.168)
 STAND_ARM_T = 0.010
 STAND_ARM_ANGLES = (45.0, 170.0, 300.0)
 # named setups: ring angle on the stand (deg, 0 = fitted orientation); never near the fitted angle
-SETUP_CLOCKING = (-35.0, -20.0, -15.0, 15.0, 20.0)
+SETUP_CLOCKING = (-25.0, -20.0, -15.0, 15.0, 20.0)
 # seeded trials: angle uniform over these segments (deg, by length): the ring always has to be turned at least 10 deg
-# (a near-aligned start would let a no-turn "lower it straight" policy score); the bounds are the reach of the
-# reference grips (grip planning fails beyond -40 and from about +27 deg with the stand's arms at 45 / 170 / 300 deg)
-SEEDED_CLOCKING_SEGMENTS = ((10.0, 22.0), (-35.0, -10.0))
+# Both ranges require active turning and leave access between the stand arms.
+SEEDED_CLOCKING_SEGMENTS = ((10.0, 22.0), (-25.0, -10.0))
 SEEDED_STAND_JITTER = 0.010  # and the stand moved by up to +-10 mm in x and y
 PENDANT = np.array([0.30, -0.36, TOP])  # pendant box, bottom centre on the table
 PENDANT_SIZE = (0.090, 0.060, 0.040)

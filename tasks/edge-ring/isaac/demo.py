@@ -23,6 +23,7 @@ from __future__ import annotations
 
 import argparse
 import json
+from functools import lru_cache
 import math
 import sys
 import time
@@ -53,7 +54,7 @@ TCP_ABOVE_BOTTOM = 0.013 - TIP_BELOW
 PSI = {"left": 125.0, "right": -125.0}  # grip angles in the ring frame (deg)
 COMP_GAIN = 0.08
 RATE = 0.8  # fraction of the CLI delta guard (0.05 x joint range per step) the script may use
-CARRY_Z = 0.060  # ring bottom above the seat while it crosses the chamber wall (wall top +40 mm)
+CARRY_Z = L.BOWL_TOP + 0.012  # ring bottom clears the complete rim before traversing it
 HOVER = 0.006  # alignment height above the lift-pin tips
 ALIGN_TOL_M = 0.00015
 ALIGN_DEADBAND_M = 0.00008  # re-align: no integral action inside 0.08 mm (stops hunting against stiction)
@@ -390,7 +391,7 @@ def carry_samples(pr, rr, yaw_end=0.0):
     """Ring poses (centre-bottom position, yaw) sampled along the planned carry (as carry() moves it), ending at
     ``yaw_end`` (0 = fitted; the no-turn negatives keep the stand angle)."""
     y0 = ring_yaw(rr)
-    p0 = pr + np.array([0.0, 0.0, 0.030])
+    p0 = pr + np.array([0.0, 0.0, 0.016])
     xy1 = np.array([L.C[0] - 0.060, L.C[1]])
     z1 = max(L.C[2] + CARRY_Z + 0.010, L.STAND[2] + 0.015, p0[2] - 0.02)
     out = [
@@ -410,18 +411,50 @@ def carry_samples(pr, rr, yaw_end=0.0):
     return out
 
 
+@lru_cache(maxsize=1)
+def arm_surface_points():
+    """Sample the official arm collision hulls on a 3 mm grid for rim clearance checks."""
+    from yam_arena.analysis import link_hulls
+
+    clouds = {}
+    for name, hulls in link_hulls().items():
+        points = np.concatenate([hull.vertices for hull in hulls])
+        clouds[name] = np.unique(np.round(points / 0.003), axis=0) * 0.003
+    return clouds
+
+
+def rim_clearance(q, base, opening=RING_W / 2):
+    from yam_arena.analysis import fk_link_poses_world
+    from yam_arena.constants import ARM_JOINTS, FINGER_JOINTS
+
+    joints = dict(zip(ARM_JOINTS, q))
+    joints.update(dict.fromkeys(FINGER_JOINTS, -opening))
+    transforms = fk_link_poses_world(joints, base)
+    clearance = math.inf
+    for name, local in arm_surface_points().items():
+        tf = transforms[name]
+        points = local @ tf[:3, :3].T + tf[:3, 3] - L.C
+        radius = np.hypot(points[:, 0], points[:, 1])
+        # Negative inside the annulus. Treat its six-degree inner chords conservatively.
+        gap = np.maximum.reduce((L.BOWL_R[0] * math.cos(math.radians(3)) - radius,
+                                 radius - L.BOWL_R[1], points[:, 2] - L.BOWL_TOP))
+        clearance = min(clearance, float(gap.min()))
+    return clearance
+
+
 def choose_grips(c, pr, rr):
-    """Two diametrically opposite grip points on the ring (left at psi, right at psi - 180 deg in the ring frame, so the
-    ring's weight acts on the line between the hands) and finger orientations, chosen so that both arms reach the whole
+    """Two grip points on opposite sides of the ring (on a diameter through its centre of mass) and finger orientations, chosen so that both arms reach the whole
     pick and carry (URDF IK only) with the least wrist-roll travel and no finger over a stand arm; the ring's stand
     angle is read from its pose."""
     from yam_arena.constants import READY
 
+    from yam_arena import ik
+
     samples = carry_samples(pr, rr, getattr(c, "plan_yaw", 0.0))
-    best = None
-    for psi_l in np.arange(75.0, 105.1, 5.0):
-        plan, total = {}, 0.0
-        for n, psi in (("left", psi_l), ("right", psi_l - 180.0)):
+    options = {"left": [], "right": []}
+    for offset in (0, -5, 5, -10, 10, -15, 15, -20, 20, -25, 25, -30, 30, -35, 35):
+        for n, centre in (("left", 90), ("right", -90)):
+            psi = centre + offset
             arm = c.arms[n]
             world = psi + ring_yaw(rr)
             if (
@@ -430,33 +463,64 @@ def choose_grips(c, pr, rr):
                 )
                 < 10.0
             ):
-                break  # a finger would come down on a stand arm
+                continue  # a finger would come down on a stand arm
             choice = None
-            for flip in (1.0, -1.0):
-                p, radial = grip_point(pr, rr, psi)
-                x = flip * radial
-                z = np.array([0.0, 0.0, -1.0])
-                rot = np.column_stack([x, np.cross(z, x), z])
-                gp, gr = rr.T @ (p - pr), rr.T @ rot
-                q = np.array(READY, float)
-                worst, j6 = 0.0, 0.0
-                for pp, rot_ in [(p + [0, 0, 0.06], rot), (p, rot)] + [
-                    (pc + L.rz(y) @ gp, L.rz(y) @ gr) for pc, y in samples
-                ]:
-                    q, pe, re = fastik.solve(pp, rot_, q, base=arm.base, iters=80)
-                    worst = max(worst, pe * 1e3 + math.degrees(re))
-                    j6 = max(j6, abs(q[5]))
-                if worst < 0.5 and (choice is None or j6 < choice[0]):
-                    choice = (j6, psi, rot)
-            if choice is None:
-                break
-            plan[n] = choice
-            total = max(total, choice[0])
-        if len(plan) == 2 and (best is None or total < best[0]):
-            best = (total, plan)
-    if best is None:
-        raise Stop("no reachable pair of opposite grips for this stand angle")
-    plan = best[1]
+            # Lean the wrist into the chamber and along its tangent, keeping the pads
+            # across the ring. Mirror the tangential lean for the two arm bases.
+            tilts = ((12, 20), (24, 20), (24, 40), (12, 40), (0, 20),
+                     (36, 40), (0, 0), (12, 0), (24, 0), (-12, 0), (-24, 0))
+            for tilt, twist in tilts:
+                for flip in (1.0, -1.0):
+                    p, radial = grip_point(pr, rr, psi)
+                    a = math.radians(tilt)
+                    up = np.array([0.0, 0.0, 1.0])
+                    x = flip * (math.cos(a) * radial + math.sin(a) * up)
+                    b = math.radians(twist if n == "right" else -twist)
+                    z = math.cos(b) * (math.sin(a) * radial - math.cos(a) * up) + math.sin(b) * np.cross(up, radial)
+                    rot = np.column_stack([x, np.cross(z, x), z])
+                    gp, gr = rr.T @ (p - pr), rr.T @ rot
+                    q = np.array(READY, float)
+                    worst, j6 = 0.0, 0.0
+                    above = p + [0, 0, 0.021]
+                    approach = [(arm.pos + s * (above - arm.pos), ik.slerp_matrix(arm.rot, rot, s))
+                                for s in np.linspace(0, 1, 17)[1:]]
+                    for pp, rot_ in approach + [(p, rot)] + [
+                        (pc + L.rz(y) @ gp, L.rz(y) @ gr) for pc, y in samples
+                    ]:
+                        q, pe, re = fastik.solve(pp, rot_, q, base=arm.base, iters=80)
+                        # A grasp at a joint stop leaves no travel for measured grasp offsets
+                        # or the closed-loop levelling corrections during transport.
+                        if np.min(np.minimum(q - arm.lo, arm.hi - q)) < math.radians(5):
+                            worst = math.inf
+                            break
+                        worst = max(worst, pe * 1e3 + math.degrees(re))
+                        j6 = max(j6, abs(q[5]))
+                        if worst >= 0.5:
+                            break
+                    if worst < 0.5:
+                        # Include final contact height below the nominal hover point.
+                        for height in (L.BOWL_TOP + .010, .080, L.LIFT_UP - .001):
+                            pp = L.C + [0, 0, height]
+                            landing_rot = L.rz(samples[-1][1])
+                            q, pe, re = fastik.solve(pp + landing_rot @ gp, landing_rot @ gr, q, base=arm.base)
+                            if pe > 0.0005 or re > math.radians(.5) or rim_clearance(q, arm.base) < .006:
+                                worst = math.inf
+                                break
+                    if worst < 0.5 and (choice is None or j6 < choice[0]):
+                        choice = (j6, psi, rot)
+                if choice is not None:
+                    break
+            if choice is not None:
+                options[n].append(choice)
+        pairs = [(left, right) for left in options["left"] for right in options["right"]
+                 if left[1] - right[1] == 180.0]
+        if pairs:
+            left, right = min(pairs, key=lambda pair: (
+                abs(pair[0][1] - pair[1][1] - 180.0), max(pair[0][0], pair[1][0])))
+            plan = {"left": left, "right": right}
+            break
+    else:
+        raise Stop("no compatible left and right grips for this stand angle")
     c.note(
         "grips",
         psi={n: plan[n][1] for n in plan},
@@ -478,7 +542,7 @@ def pick(c):
     yield from both(
         *(
             arm.move(
-                tg[n][0] + [0, 0, 0.06],
+                tg[n][0] + [0, 0, 0.021],
                 tg[n][1],
                 3.0,
                 grip_of(OPEN_HALF),
@@ -508,7 +572,7 @@ def pick(c):
     c.note("gripped")
     yield from both(
         *(
-            arm.move(arm.pos + [0, 0, 0.030], arm.rot, 2.0, None, f"{n} lift")
+            arm.move(arm.pos + [0, 0, 0.016], arm.rot, 2.0, None, f"{n} lift")
             for n, arm in c.arms.items()
         )
     )
@@ -559,6 +623,8 @@ def align(c):
     )
     ea, eb = slot_error(c)
     c.note("aligned", across_mm=ea * 1e3, along_mm=eb * 1e3)
+    if max(ea, eb) > L.LOC_PIN_R:
+        raise Stop("ring has not reached the lift-pin alignment window")
 
 
 # accept a landing when every dowel is within 0.22 mm of its slot centre (inside the scorer's 0.35 mm on-pins
@@ -673,7 +739,7 @@ def let_go(c):
     c.note("opened", across_mm=ea * 1e3, along_mm=eb * 1e3)
     yield from both(
         *(
-            arm.move(arm.pos + [0, 0, 0.015], arm.rot, 1.0, None, f"{n} up")
+            arm.move(arm.pos + [0, 0, L.BOWL_TOP - L.LIFT_UP + 0.021], arm.rot, 2.5, None, f"{n} withdraw vertically above rim")
             for n, arm in c.arms.items()
         )
     )

@@ -1,0 +1,9 @@
+Request for quotation — one inspected borosilicate ring
+
+Please quote one finished, inspected ring to the attached 1:1 DXF in millimetres. It will be handled by padded grippers and lowered onto three locating pins in a laboratory fixture.
+
+Supply machinable annealed borosilicate. Finished OD 360 mm, ID 299 mm, thickness 4.00 ±0.05 mm. The three radial through-slots have nominal length 8.00 mm and finished width 4.30 ±0.03 mm. Nominal centres lie on a 320 mm pitch circle at 0°, 115° and 245°. Locate centres within 0.05 mm of their nominal positions, referenced to the ring centre and 0° slot. Please state how you establish the centre datum. Wet-finish the gripped edges with a polished arris of at most 0.2 mm and inspect for chips. Finished mass target 0.29 ±0.02 kg.
+
+Please include an inspection report with slot widths and centre deviations measured on both faces, the thickness, finished mass and edge inspection result. State the measuring method. For dimensions without a specified tolerance, identify your proposed tolerance and any required corner radius before manufacture.
+
+Please give the quantity-one price and currency for one conforming part, including material, setup, cutting, finishing, inspection, packaging and any minimum charge. Please identify assumptions about breakage or replacement, indicate lead time and quote validity, and show shipping and tax separately if destination-dependent. This is a quotation request only.

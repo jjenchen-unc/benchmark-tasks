@@ -1,5 +1,7 @@
 # Fit a new 300 mm etch-chamber edge ring, clocked by eye to its locating pins, without touching the chuck
 
+Scripted reference 1.0 in 1,001 control steps. Dream-1 (seed 0) scored 0.0 at the 3,000-step limit. Pressing the ring produced 27.08 N of support force for an excessive push lasting 1.27 s and scored 0.0.
+
 The task is the Isaac Lab-Arena (PhysX) `yam_arena` task in
 `isaac/`; `src/` holds the engine-independent modules it imports (layout and ring geometry, scorer, fast IK) and
 `tests/` their unit checks.
@@ -31,12 +33,11 @@ position with the lid open.
   through their slots), both hands out of the bowl and 30 mm or more from the ring, ring still for 1 s.
 - Otherwise 0: ring on the stand, on the lift pins (however well placed: whether it fits is only shown when the pins
   lower it, and a person checks the same outcome), or lowered onto the dowel tips.
-Real trial: video for the vetoes; seated = a 0.1 mm feeler does not enter under the ring at any slot (both 0.5 and 1.0),
+Real trial: synchronized tri-axial support-force trace for pressing and calibrated video for the visible vetoes; seated = a 0.1 mm feeler does not enter under the ring at any slot (both 0.5 and 1.0),
 plus the hands' position in the video.
 
-## Dream-1 evaluation
+## Dream-1 evaluation command
 
-The Inspect Robots run used model `dreamlabs/dream-1-beta` and returned a task score of 0.0 at the 3,000-step limit. The scripted reference run scored 1.0.
 From the task's `isaac/` directory in the Isaac Sim 6.1 and Isaac Lab-Arena environment, run:
 
 ```bash
@@ -65,7 +66,7 @@ inspect-robots video <out>/official/<log>.json --out <out>/official/video     # 
 inspect-robots run --embodiment yam_arena --policy yam_scripted -E task=task.py ... --max-steps 3000
 
 # direct demo / negative stages (trace.jsonl, result.json, demo_<camera>.mp4, setup.png, final.png)
-python demo.py task.py <out>/<run> --stage demo            # named setup 0 (-35 deg); EDGE_SETUP=k for setup k
+python demo.py task.py <out>/<run> --stage demo            # named setup 0 (-25 deg); EDGE_SETUP=k for setup k
 python demo.py task.py <out>/<run> --stage demo --seed 7   # a seeded start state, as in inspect-robots runs
 python demo.py task.py <out>/<run> --stage neg-unclocked   # never turned: set on the pins at its stand angle, lowered onto the dowel tips: 0
 python demo.py task.py <out>/<run> --stage neg-offset      # clocked but 1.5 mm off: comes down on the dowel tips: 0
@@ -81,17 +82,14 @@ Unit checks (no simulator): `python tests/test_scoring.py`.
 Tiled evidence video (top + left wrist + right wrist, same timing):
 `isaac/tile.sh <out_dir> <name> demo_top_cam.mp4 demo_left_cam.mp4 demo_right_cam.mp4`.
 
-## Recorded media
+## Recorded media for this revision
 
-- `model_run.mp4` shows the full Dream-1 trial (seed 0, 3,000 steps, final task score 0.0). The three views run at 20 Hz in order from left to right: overhead, left wrist, right wrist.
-- `official_tiled_top_left_right.mp4`: the official Inspect Robots run of the scripted reference policy at the default
-  seed (ring 20.9 deg off on the stand), score 1.0 after 1,041 control steps (H.264, 960 x 176).
-- `setup_overhead_hires.png`: the start state at 1280 x 704 (named setup 0, ring 35 deg off).
+The media package contains `model_run.mp4` (Dream-1), `official_tiled_top_left_right.mp4` (scripted reference) and `setup_overhead.png` (the original overhead frame before the first reference action). The videos show overhead, left wrist and right wrist at 20 Hz in a single 960 × 176 frame.
 
 Start states: every trial reset with a seed (every `inspect-robots run` passes one) draws the ring's stand angle
-uniformly from -35 to -10 or +10 to +22 deg (never within 10 deg of fitting, so the ring always has to be turned;
+uniformly from -25 to -10 or +10 to +22 deg (never within 10 deg of fitting, so the ring always has to be turned;
 the bounds are the reach of the reference grips around the stand's arms) and moves the stand by up to 10 mm in x and y;
-the default inspect-robots seed gives -20.9 deg. Unseeded resets (direct `demo.py` runs) use the named setups -35, -20,
+Unseeded resets (direct `demo.py` runs) use the named setups -25, -20,
 -15, +15, +20 deg in turn (`EDGE_SETUP` picks the first; set, it also forces named
 setups on seeded resets).
 
@@ -99,8 +97,7 @@ setups on seeded resets).
 - Engine: Isaac Sim 6.1 / Isaac Lab-Arena `yam_arena`, PhysX on the CPU, physics 480 Hz, control 20 Hz, cameras
   320 x 176. All parts are full size.
 - Geometry: representative 300 mm cathode ring-set dimensions (see "Real rig and replica"); OEM drawings are
-  proprietary and no part number is claimed. The bowl wall is 40 mm above the seat (a real chamber is deeper; cut so
-  the YAM arms reach the ring). The edge ring is flat in section (a real ring has a small step under the wafer edge,
+  proprietary and no part number is claimed. The continuous bowl wall rises 127 mm above the seat. The assembly drawing identifies the documented liner-height analogue and the limits of that comparison. The edge ring is flat in section (a real ring has a small step under the wafer edge,
   which the robot does not touch).
 - Edge ring: one free rigid body (0.29 kg, silicon inertia) made of 131 convex prisms: 3 deg sectors with the three
   slots cut out. Chord sag of the sectors keeps 0.45 mm (not 0.5 mm) radial clearance at the bore. Contact offset
@@ -136,14 +133,11 @@ through-slots 4.3 x 8 mm matching the dowels (0.15 mm play a side). A real etch 
 replica built from these dimensions:
 - chuck and base ring: a 298 mm aluminium disc (face painted or anodised light grey) on a 380 mm acrylic or aluminium
   plate 2.5 mm lower, three 4 mm hardened dowel pins pressed in (3.8 mm proud, tips chamfered 0.8 mm x 45 deg);
-- lift pins: three 3 mm stainless pins through clearance holes, fixed to a plate under the base ring that a small
-  motorised linear stage (26 mm travel, 5 mm/s, e.g. a lead-screw stage with a stepper and two limit switches) raises
-  and lowers; two momentary push buttons (about 5 N) on a small box drive it to the upper / lower limit;
-- bowl: a 460 mm aluminium or acrylic ring wall, 40 mm above the seat (cut down from a real chamber's depth so the
-  arms reach);
-- ring: a used silicon edge ring of this size if available, otherwise a 4 mm glass or ceramic ring of the same size
-  and mass with the three slots cut;
-- stand: a 40 mm post with three 15 mm arms carrying the ring 97.5 mm above the table, marks every 5 deg.
+- Fabricate the slotted ring, base and lift carrier from the three 1:1 DXF drawings. The [fixture assembly](fixture/assembly.md) specifies actuator travel, gearing, precision, protective edge finish and tri-axial load measurement.
+- Bowl ID 460 mm; continuous rim 127 mm above the seat. From the arm-base midpoint along +x, locate the chamber axis at 405 mm and the nominal ring stand centre at 120 mm, both on y = 0. Set the seat 29 mm and stand support surface 170 mm above the table. Apply the specified stand jitter only on seeded resets.
+- Pressing veto: with hand–ring contact, a measured support-force magnitude greater than ring weight + 10 N for 50 ms. Use the tared synchronized sensor trace in the assembly instructions.
+
+The [quantity-one quotation request](fixture/quote-request.txt), ring DXF, inspection criteria and supplier contacts are ready. Swift Glass and Meyer Tool Huntersville are candidate fabricators. No supplier has been contacted and the finished-part price is unconfirmed.
 
 ## Third-party assets and licenses
 | Asset | Source | License |

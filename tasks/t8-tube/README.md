@@ -28,13 +28,12 @@ far it has turned), the slot in each lampholder, the lamp's height under them on
   faster than 0.8 m/s, i.e. a free fall of more than about 3 cm: a dropped glass lamp counts as broken); a lampholder
   broke (loaded past its strength, 60 N per lampholder, for 0.1 s: e.g. the lamp wrenched down hard without turning
   it).
-- 1.0 (ends the trial): the lamp is out of the lampholders and lies in the carton (both end caps inside it, below its
-  rim), at rest, with no robot contact for 4 s.
-- 0 otherwise: still in the fixture, turned but not taken down, taken down but not laid in the carton, or any veto.
-  There is no partial level: a lamp taken down but left in the hands or on the bench is not a finished relamp, and a
-  replayed trajectory that catches the lamp with one hand could reach such a level.
-Person check: the video shows the lamp turned, held, lowered out and laid in the carton without falling; the lamp lies
-in the carton at the end; the lampholders are intact.
+- Full credit (1.0) requires both end caps supported by the carton floor, inside the carton, with the lamp free of the fixture and grippers for four continuous seconds.
+- Partial credit (0.5) requires both end caps supported by the tabletop, the whole lamp clear of the carton footprint, and the same four-second released hold. The episode can continue after partial credit.
+- A support-height tolerance of 4 mm accommodates collision offsets. At each 20 Hz observation the tube's centre, end-cap and rotational speed proxy must stay below 0.02 m/s. Motion, renewed lamp contact, or a change of supporting surface restarts the hold.
+- All other unfinished, held or unstable placements score zero. A latched drop or holder break scores zero regardless of the final placement.
+
+For a physical trial, record the whole removal and four seconds of the released tube at rest. Check both ends against the support and the carton boundary.
 
 ## Dream-1 evaluation
 
@@ -68,6 +67,7 @@ inspect-robots run --embodiment yam_arena --policy yam_scripted -E task=task.py 
 python demo.py task.py <out>/<run> --stage demo --seed 1415158438
 python demo.py task.py <out>/<run> --stage neg-let-go-open --seed 1415158438  # turned open, then let go: falls: 0
 python demo.py task.py <out>/<run> --stage neg-pull-down --seed 1415158438    # pinched and pulled straight down: 0
+python demo.py task.py <out>/<run> --stage outside --seed 1415158438       # stable tabletop placement
 python demo.py task.py <out>/<run> --stage neg-drop-high --seed 1415158438    # let go 10 cm above the carton: 0
 python demo.py task.py <out>/<run> --stage replay --seed 7     # TUBE_REPLAY=<trace.jsonl> [TUBE_MIRROR=1]: open loop
 python demo.py task.py <out>/<run> --stage look --cam-size 1280x704           # setup view from the left wrist camera
@@ -79,7 +79,7 @@ Tiled evidence video (top + left wrist + right wrist, same timing):
 ## Submission media
 
 - `model_run.mp4` shows the full Dream-1 trial. The views are overhead, left wrist and right wrist at 20 Hz.
-- `scripted_run.mp4` shows the independently rerun official scripted policy, which scored 1.0 in 798 steps.
+- `scripted_run.mp4` shows the independently rerun official scripted policy, which scored 1.0 in 789 steps.
 - `setup_overhead_hires.png` — Overhead view of the reference setup.
 
 Start states: every trial reset with a seed (every `inspect-robots run` passes one) places the fixture with its shelf
@@ -116,7 +116,7 @@ starts: 0). Unseeded resets (direct `demo.py` runs) use three named setups in tu
   than 0.8 m/s (a free fall of about 3 cm). Glass breakage itself is not simulated.
 - Carton: open-top corrugated carton (inner 105 x 650 x 70 mm, 4 mm walls, 0.3 kg, estimated), a free body on the
   bench that the hands can shove.
-- Forces in the reference demo (official seed; PhysX; YAM joint effort limits enforced). Official run: commanded squeeze 29.9 N per finger; largest single-step PhysX contact on one finger tip 44.6 N on the lamp and 46.8 N on the carton (pressing on it while laying the lamp in); robot-on-lamp contact summed over all four fingers up to 149 N (48 of 798 steps above 120 N); lampholder loads 8.3 N / 1.4 N m; the lamp drops 0.19 m/s onto the carton bottom; the carton slides about 24 mm.
+- On the revised seed-0 full-score run the drive-based squeeze estimate peaked at 20.87 N per finger. PhysX reported maximum single-link contacts of 24.8 N on the tube, 10.6 N on the carton and 8.1 N on the fixture. The maximum summed robot contact on the tube was 85.1 N across the hands. Lampholder lateral load peaked at 8.33 N and the carton shifted 5.9 mm.
 - Robot-on-part contact (for "untouched" and the drop monitor) is read from PhysX contact forces between the robot's
   links and the lamp, carton and fixture (collider identity, not contact positions).
 - Nothing welds, snaps or teleports anything during a trial; the scripted demo only sends the 14 joint / gripper
@@ -145,7 +145,8 @@ and the fixture is never powered.
   2. Did a lampholder crack, come off or get pulled out of the channel, or was the tube wrenched out without being
      turned? Yes: 0.
   3. At the end, is the tube out of the fixture and lying inside the carton (both end caps inside, below the rim),
-     still, with both grippers clear of it for 4 s? Yes: 1.0. Otherwise: 0.
+     still, with both grippers clear of it for 4 s? Yes: 1.0.
+  4. Is the whole tube clear of the carton, both ends resting on the tabletop, still and untouched for 4 s? Yes: 0.5. All remaining outcomes score 0.
 
 ## Known sim/real differences
 - The real trial uses an unpowered shatterproof LED tube; the simulation models a glass F17T8 and
@@ -159,8 +160,7 @@ and the fixture is never powered.
   55 mm below it; carton) are typical values, not measured on the named products.
 - The fixture's start pose is redrawn in simulation to keep replayed trajectories from pinching the lamp; a real rig
   uses the same drawn poses via the shelf bracket marks.
-- Grip in the reference demo: commanded about 30 N per finger, with single-step contact peaks of about 45 N on one
-  finger tip (over the 40 N guideline).
+- The revised full-score trial stayed below the program's 40 N per-finger guideline on every logged finger contact. The motor spring estimate and the simulated contact peaks measure different quantities. The physical tube, pads and holder detent have not been tested together. A real trial should record per-finger force during breakout and placement.
 
 ## Third-party assets and licenses
 | Asset | Source | License |

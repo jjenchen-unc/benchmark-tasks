@@ -49,7 +49,7 @@ def test_success_needs_hands_off_and_rest():
     assert run(seq)[0] == 0.0
 
 
-def test_out_not_in_carton_is_zero():
+def test_unsupported_or_held_tube_is_zero():
     seq = steps(60, "out", False, 0.0, HELD, False, False)
     assert run(seq)[0] == 0.0
     seq = steps(int(CLEAR_S / DT) + 5, "out", False, 0.0, NO, False, False)
@@ -75,3 +75,33 @@ if __name__ == "__main__":
         if name.startswith("test_"):
             fn()
             print("ok", name)
+
+def test_four_seconds_start_again_on_surface_change_motion_or_touch():
+    s = Scorer()
+    for _ in range(100):
+        level = s.step(DT, "out", False, 0., NO, on_bench=True)
+    assert level == 0.5
+    for _ in range(79):
+        assert s.step(DT, "out", True, 0., NO) == 0
+    assert s.step(DT, "out", True, 0.02, NO) == 0
+    for _ in range(79):
+        assert s.step(DT, "out", True, 0., NO) == 0
+    assert s.step(DT, "out", True, 0., HELD) == 0
+    for _ in range(79):
+        assert s.step(DT, "out", True, 0., NO) == 0
+    assert s.step(DT, "out", True, 0., NO) == 1
+    assert s.step(DT, "out", True, 0., NO, dropped=True) == 0
+    for _ in range(100):
+        assert s.step(DT, "out", False, 0., NO, on_bench=True) == 0
+
+
+def test_carton_bench_and_unsafe_placements():
+    import layout as L
+    import numpy as np
+    carton = (np.array([0.2, 0., L.TOP]), np.eye(3))
+    for x, z, expected in ((0.2, L.BOX_WALL+L.CAP_R, (True, False)),
+                           (0.35, L.CAP_R, (False, True)),
+                           (0.35, -0.3, (False, False)),
+                           (0.255, L.CAP_R, (False, False)),
+                           (0.35, 0.2, (False, False))):
+        assert L.resting_surfaces(np.array([x, 0., L.TOP + z]), np.eye(3), carton) == expected

@@ -16,6 +16,7 @@ from pathlib import Path
 
 EXPECT = {
     "demo": 1.0,
+    "outside": 0.5,
     "idle": 0.0,
     "neg-let-go-open": 0.0,
     "neg-pull-down": 0.0,
@@ -44,6 +45,8 @@ def stimulus(stage, rows, res):
               veto_t=end.get("veto_t"), events=end.get("events"))
     if stage == "demo":
         return bool(res["success"] and ev["out_step"] and end.get("in_carton") and not end.get("veto")), ev
+    if stage == "outside":
+        return bool(ev["out_step"] and end.get("on_bench") and end.get("clear_s", 0) >= 4 and not end.get("veto")), ev
     if stage == "idle":
         return bool(ev["max_spin_deg"] < 1.0 and ev["slot_step"] is None), ev
     if stage == "neg-let-go-open":

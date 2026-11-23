@@ -45,16 +45,16 @@ FINGER_OPEN = 0.04695  # m per finger at grip 1.0
 COMP_GAIN = 0.08
 RATE = 0.8  # fraction of the CLI delta guard (0.05 x joint range per step) the script may use
 PAD_TIP = 0.013  # pad tips past the TCP
-SQUEEZE = 0.006  # fingers commanded this far inside the lamp's surface: about 30 N per finger (under 40 N)
+SQUEEZE = 0.0042  # 21 N nominal per finger at the modelled drive stiffness
 OPEN_HALF = 0.024  # finger half-opening around the 25.4 mm lamp
 GRASP_G = 0.15  # pinch points from the lamp's centre along its axis
 BACKOFF = 0.06
 ALPHA0 = 80.0  # orbit angle of the pinch at the start of each stroke (90 = horizontal approach)
 STROKE_DEG = 33.0  # past about 115 deg the gripper palm meets the strip channel
-ALPHA_PLACE = 150.0  # steeper grip for lowering into the carton (clears its front wall)
+ALPHA_PLACE = 158.0  # steeper grip for lowering into the carton (clears its front wall)
 LOWER = 0.05  # straight down out of the slots (slot 22 mm + end-cap radius 13 mm + margin)
 CARRY_UP = 0.10  # lamp axis this far above its resting height in the carton while carried over it
-PLACE_GAP = 0.008  # let go with the lamp this far above the carton bottom
+PLACE_GAP = 0.013  # let go with the lamp this far above the carton bottom
 
 
 def grip_of(half_opening_m):
@@ -497,10 +497,12 @@ def lower_out(c):
         raise Stop(f"lamp not out after lowering: {c.state()['holder']}")
 
 
-def carton_target(c):
+def carton_target(c, bench=False):
     s = c.state()
     bp, br = s["carton"]
     cen = np.asarray(bp, float) + br @ np.array([0.0, 0.0, L.BOX_WALL + L.TUBE_R + PLACE_GAP])
+    if bench:
+        cen += br @ np.array([0.135, 0.0, -L.BOX_WALL])
     bax = br[:, 1] / np.linalg.norm(br[:, 1])
     return cen, bax
 
@@ -524,18 +526,18 @@ def carry(c, delta, yaw, dalpha, duration, label):
     c.alpha = getattr(c, "alpha", ALPHA0) + dalpha
 
 
-def place(c, gap=0.0):
+def place(c, gap=0.0, bench=False):
     """Carry the lamp over the carton (axis along the carton, turning it to the steeper placing grip on the way),
     lower it in, let go just above the bottom, back off."""
     centre, ax, u = lamp_now(c)
-    cen, bax = carton_target(c)
+    cen, bax = carton_target(c, bench)
     yaw = math.degrees(math.atan2(bax[1], bax[0]) - math.atan2(ax[1], ax[0]))
     yaw = (yaw + 90.0) % 180.0 - 90.0
     above = cen + np.array([0.0, 0.0, CARRY_UP])
     yield from carry(c, above - centre, yaw, ALPHA_PLACE - c.alpha, 3.5, "carry over the carton")
     yield from both(c.left.settle(0.005, 2.0), c.right.settle(0.005, 2.0))
     centre, ax, u = lamp_now(c)
-    cen, bax = carton_target(c)
+    cen, bax = carton_target(c, bench)
     yield from carry(c, cen - centre + np.array([0.0, 0.0, gap]), 0.0, 0.0, 2.5, "lower into the carton")
     yield from both(c.left.settle(0.004, 1.5), c.right.settle(0.004, 1.5))
     c.note("in the carton (held)", in_carton=c.state()["in_carton"])
@@ -618,6 +620,15 @@ def neg_let_go_open(c):
     yield from wait(3.0)
 
 
+def place_on_bench(c):
+    """Lower and release the tube on the bench beside the carton for partial credit."""
+    yield from wait(0.3)
+    yield from turn_open(c)
+    yield from lower_out(c)
+    yield from place(c, bench=True)
+    yield from wait(5.0)
+
+
 def neg_drop_high(c):
     """Takes the lamp down properly, then lets it go 10 cm above the carton bottom (inside the carton's outline): it
     lands in the carton, but after a free fall: 0."""
@@ -654,6 +665,7 @@ def neg_one_hand(c):
 
 STAGES = {
     "demo": demo,
+    "outside": place_on_bench,
     "probe": probe,
     "idle": idle,
     "look": look,

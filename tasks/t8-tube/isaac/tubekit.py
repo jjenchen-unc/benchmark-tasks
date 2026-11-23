@@ -671,7 +671,14 @@ class Runtime:
         fp, fr = poses["fixture"]
         spec = L.setup_spec(self.setup)
         gp, gr = L.fixture_pose(spec)
-        return dict(poses=poses, state=h.state, in_carton=L.in_carton(lp, lr, (cp, cr)), speed=self.lamp_speed(),
+        in_box, on_bench = L.resting_surfaces(lp, lr, (cp, cr))
+        vel = self.view.get_velocities()[BODIES.index("lamp")].detach().cpu().numpy()
+        lever = L.HALF * lr[:, 1]
+        end_velocity = np.cross(vel[3:], lever)
+        end_speed = max(np.linalg.norm(vel[:3] + end_velocity), np.linalg.norm(vel[:3] - end_velocity))
+        surface_speed = float(end_speed + L.CAP_R * np.linalg.norm(vel[3:]))
+        return dict(poses=poses, state=h.state, in_carton=L.in_carton(lp, lr, (cp, cr)),
+                    on_bottom=in_box, on_bench=on_bench, speed=surface_speed,
                     fixture_moved_mm=float(np.linalg.norm(fp - gp)) * 1e3,
                     lamp_z=float(lp[2] - L.TOP), carton_shift_mm=float(np.linalg.norm(cp[:2] - L.carton_pose(spec)[0][:2])) * 1e3)
 
@@ -687,8 +694,8 @@ class Runtime:
         contact = {n: self.contact_step[n] > 0.05 for n in BODIES}
         h = self.holder
         d = self.dofs()
-        level = self.scorer.step(dt, m["state"], m["in_carton"], m["speed"], contact, dropped=self.dropped is not None,
-                                 broken=h.state == "broken")
+        level = self.scorer.step(dt, m["state"], m["on_bottom"], m["speed"], contact, dropped=self.dropped is not None,
+                                 broken=h.state == "broken", on_bench=m["on_bench"])
         STATE.update(
             score=level,
             level=level,

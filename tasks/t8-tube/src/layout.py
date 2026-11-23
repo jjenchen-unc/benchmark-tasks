@@ -228,6 +228,33 @@ def in_carton(p_center, r_lamp, spec_pose):
     return True
 
 
+def resting_surfaces(center, rotation, carton):
+    """Return supported placements for the scorer. Both end caps must be at support height."""
+    axis = rotation[:, 1]
+    ends = np.array([center - HALF * axis, center + HALF * axis])
+    carton_pos, carton_rot = carton
+    local = (ends - carton_pos) @ carton_rot
+    tolerance = 0.004
+    inside = (in_carton(center, rotation, carton)
+              and np.all(np.abs(local[:, 2] - (BOX_WALL + CAP_R)) <= tolerance))
+    on_bench = np.all(np.abs(ends[:, 2] - (TOP + CAP_R)) <= tolerance)
+    # The station tabletop is 1.10 x 1.30 m, centred at (0.36, 0).
+    within_table = np.all(np.abs(ends[:, :2] - [0.36, 0.0]) <= np.array([0.55, 0.65]) - CAP_R)
+    # Separating axes of the carton footprint and the projected tube segment.
+    a, b = local[:, :2]
+    direction = b - a
+    normal = np.array([-direction[1], direction[0]])
+    half_widths = np.array(BOX_IN[:2]) / 2 + BOX_WALL
+    separated = False
+    for test_axis in (np.array([1., 0.]), np.array([0., 1.]), normal):
+        projected = local[:, :2] @ test_axis
+        edge = np.dot(half_widths, np.abs(test_axis)) + CAP_R * np.linalg.norm(test_axis)
+        if np.min(projected) > edge or np.max(projected) < -edge:
+            separated = True
+            break
+    return bool(inside), bool(on_bench and within_table and separated)
+
+
 # ------------------------------------------------------------------------------------------------ shapes
 def box(center, size):
     hx, hy, hz = (s / 2 for s in size)

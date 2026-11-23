@@ -117,6 +117,7 @@ class ScriptedPolicy(PolicyBase):
                     steps=self.k,
                     stop=self.stop,
                     looks=self.c.log,
+                    driver_trace=self.c.driver_trace,
                     scorer=panelkit.STATE,
                     actions=self.actions,
                 ),

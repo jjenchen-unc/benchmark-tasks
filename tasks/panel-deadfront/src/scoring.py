@@ -1,19 +1,4 @@
-"""Scorer for the panel-deadfront task (engine-independent, numpy only).
-
-Inputs every control step: the dead-front cover's pose and speed, the panel origin, the two lower screws' state
-(seated or not, from the runtime's screw model), the four finger pad tips and the nut driver's socket point, plus one
-latched veto from the per-physics-step monitor (``Monitor``): the cover was dropped (it moved down faster than
-0.25 m/s, the speed after a 3 mm free fall, while no robot finger touched it).
-
-Levels (score at the end of the trial):
-  0.25  cover hung on both lower screws (each shank inside its slot) and flat on the tub: every back-face corner within
-        FLAT_TOL of the tub face, with all six breaker shrouds through the matching column openings.
-  0.5   + one lower screw seated (head down on the cover).
-  1.0   + both screws seated, every fingertip at least CLEAR_M from the cover, the driver off the screws, cover still
-        for 1 s. Ends the trial.
-  0     otherwise (cover not hung, held off flat by a breaker shroud or a crooked hang, dropped).
-"""
-
+"""Pose, guide-entry history, single-fastener and clearance scoring for the Leviton deadfront."""
 from __future__ import annotations
 
 import math
@@ -23,8 +8,6 @@ import layout as L
 import numpy as np
 
 FLAT_TOL_M = 0.0010  # back-face corner gap to the tub face (a 1 mm feeler does not enter at any corner)
-SLOT_MARGIN_M = 0.0005
-SEAT_TOL_M = 0.0020  # slot top within 2 mm of the shank: the cover sits on the screws at its height
 CLEAR_M = 0.030
 DRIVER_CLEAR_M = 0.015
 STILL_V_M_S = 0.002
@@ -76,17 +59,13 @@ def shrouds_through_windows(pos, rot, panel_origin):
     return through.tolist()
 
 
-def shank_in_slot(i, pos, rot, panel_origin):
-    """Screw i's axis (at the cover's mid-thickness) in the cover frame: (dy from the slot centre, z) and whether the
-    shank is inside the open-bottom slot with the slot's top resting on it (within SEAT_TOL_M)."""
+def guide_state(pos, rot, panel_origin):
     p, r = cover_in_panel(pos, rot, panel_origin)
-    a = np.array([-L.COVER_T / 2, L.SCREW_Y[i], L.SCREW_Z])
-    v = r.T @ (a - p)
-    dy = float(v[1] - L.SCREW_Y[i])
-    z = float(v[2])
-    seat = L.SLOT_TOP - L.SHANK_R  # shank axis z when the slot top rests on it
-    inside = abs(dy) <= L.SLOT_W / 2 - L.SHANK_R + SLOT_MARGIN_M and seat - SEAT_TOL_M <= z <= seat + SLOT_MARGIN_M
-    return dy, z, inside
+    points = np.array([[0., y, L.GUIDE_Z] for y in (-L.GUIDE_Y, L.GUIDE_Y)])
+    offsets = p + points @ r.T - points
+    angle = math.degrees(math.atan2(r[0, 2], r[2, 2]))
+    in_guides = bool((abs(offsets) <= [0.004, 0.004, 0.004]).all())
+    return in_guides, angle, offsets
 
 
 def point_cover_distance(point, pos, rot):
@@ -95,12 +74,20 @@ def point_cover_distance(point, pos, rot):
     dx = max(-L.COVER_T - v[0], 0.0, v[0])
     dy = max(abs(v[1]) - L.COVER_W / 2, 0.0)
     dz = max(abs(v[2]) - L.COVER_H / 2, 0.0)
-    return math.sqrt(dx * dx + dy * dy + dz * dz)
+    distances = [math.sqrt(dx*dx + dy*dy + dz*dz)]
+    for sign in (-1., 1.):
+        centre = L.grip_center(sign)
+        radial = np.linalg.norm((v-centre)[1:])
+        handle = L.grip_frame(sign).T @ (v-centre)
+        distances.append(np.linalg.norm(np.maximum(abs(handle)-L.GRIP_HALF, 0.)))
+        for radius, x0, x1 in ((L.MAGNET_R, -.009, -L.COVER_T), (.004, L.GRIP_X, -.009)):
+            distances.append(math.hypot(max(0., radial-radius), max(0., x0-v[0], v[0]-x1)))
+    return min(distances)
 
 
 def measure(pos, rot, panel_origin, seated, tips, socket_pt, screw_pts):
     gaps = corner_gaps(pos, rot, panel_origin)
-    slots = [shank_in_slot(i, pos, rot, panel_origin) for i in (0, 1)]
+    in_guides, angle, offsets = guide_state(pos, rot, panel_origin)
     tip_d = min(point_cover_distance(t, pos, rot) for t in tips) if tips else 1.0
     drv_d = min(float(np.linalg.norm(np.asarray(socket_pt) - np.asarray(s))) for s in screw_pts)
     p, _ = cover_in_panel(pos, rot, panel_origin)
@@ -109,9 +96,9 @@ def measure(pos, rot, panel_origin, seated, tips, socket_pt, screw_pts):
         worst_gap_mm=round(-min(gaps) * 1e3, 3),
         flat=bool(max(abs(g) for g in gaps) <= FLAT_TOL_M),
         shrouds_through=shrouds_through_windows(pos, rot, panel_origin),
-        slot_dy_mm=[round(s[0] * 1e3, 3) for s in slots],
-        slot_z_mm=[round(s[1] * 1e3, 3) for s in slots],
-        hung=bool(all(s[2] for s in slots)),
+        guide_offsets_mm=(offsets*1000).round(2).tolist(),
+        in_guides=in_guides,
+        guide_angle=round(angle, 2),
         seated=[bool(s) for s in seated],
         tip_mm=round(tip_d * 1e3, 1),
         driver_mm=round(drv_d * 1e3, 1),
@@ -121,13 +108,10 @@ def measure(pos, rot, panel_origin, seated, tips, socket_pt, screw_pts):
 
 
 def level_of(m):
-    if not (m["hung"] and m["flat"] and all(m["shrouds_through"])):
+    if not (m["in_guides"] and m["flat"] and all(m["shrouds_through"])):
         return 0.0
-    n = sum(m["seated"])
-    if n == 2:
+    if m["seated"] == [True]:
         return 1.0 if m["clear"] else 0.5
-    if n == 1:
-        return 0.5
     return 0.25
 
 
@@ -135,6 +119,7 @@ def level_of(m):
 class Monitor:
     """Per-physics-step latch: dropped cover."""
 
+    guided: bool = False
     dropped: bool = False
     first: dict = field(default_factory=dict)
     t: float = 0.0
@@ -144,6 +129,14 @@ class Monitor:
         if vz < -DROP_V_M_S and robot_on_cover_n < ROBOT_TOUCH_N and not cover_supported and not self.dropped:
             self.dropped = True
             self.first["dropped"] = round(self.t, 3)
+
+    def observe_guides(self, pos, rot, origin):
+        inside, angle, _ = guide_state(pos, rot, origin)
+        if inside and abs(angle - L.INSERT_ANGLE) <= 6:
+            self.guided = True
+            self.first.setdefault("guided", round(self.t, 3))
+        elif not inside:
+            self.guided = False
 
     def vetoes(self):
         return ["dropped"] if self.dropped else []
@@ -157,7 +150,7 @@ class Scorer:
 
     def step(self, m, lin_speed, ang_speed_deg, monitor):
         veto = monitor.vetoes()
-        lvl = 0.0 if veto else level_of(m)
+        lvl = level_of(m) if monitor.guided and not veto else 0.0
         still = lin_speed < STILL_V_M_S and ang_speed_deg < STILL_W_DEG_S
         if lvl >= 1.0 and still:
             self.hold += 1
@@ -167,6 +160,6 @@ class Scorer:
             lvl = 0.5  # full credit needs the still, hands-clear state for 1 s
         if self.hold >= HOLD_STEPS:
             self.done = True
-        self.last = dict(level=lvl, veto=veto, hold=self.hold, still=still, measure=m,
+        self.last = dict(level=lvl, guided=monitor.guided, veto=veto, hold=self.hold, still=still, measure=m,
                          monitor_first=dict(monitor.first))
         return lvl

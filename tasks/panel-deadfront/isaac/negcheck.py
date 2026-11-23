@@ -13,8 +13,7 @@ import json
 import sys
 from pathlib import Path
 
-# neg-no-centre has no expected level: within the slots' play the cover self-centres once released (ev1: 1.0)
-EXPECT = {"demo": 1.0, "idle": 0.0, "replay": 0.0, "neg-no-centre": None, "neg-no-hold": 0.0, "neg-one-screw": 0.5}
+EXPECT = {"demo": 1., "idle": 0., "replay": 0., "neg-straight": 0., "neg-held": .5, "neg-no-screw": .25}
 
 
 def load_trace(d):
@@ -36,24 +35,14 @@ def stimulus(stage, rows, res, looks):
         moved = max(abs(a - b) for a, b in zip(m_of(rows[-1]).get("cover_mm", [0, 0, 0]),
                                                 m_of(rows[0]).get("cover_mm", [0, 0, 0])))
         return moved < 1.0, dict(cover_moved_mm=round(moved, 3))
-    if stage == "neg-no-centre":
-        # cover hung 1.5 mm off sideways and swung shut without correction: it lands on a shroud (breaker contact,
-        # corners far off) -- what happens after the hands let go is reported, not expected
-        off = [lk for lk in looks if lk.get("at") == "offset"]
-        dy = off[0].get("dy_mm") if off else None
-        shut = [lk for lk in looks if lk.get("at") == "shut attempt"]
-        gap = (shut[0].get("measure") or {}).get("worst_gap_mm") if shut else None
-        return (dy is not None and abs(dy) > 1.1 and peaks.get("breaker_n", 0) > 1.0 and (gap or 0) > 5.0), dict(
-            offset_dy_mm=dy, worst_gap_at_shut_attempt_mm=gap, breaker_peak_n=peaks.get("breaker_n"), final=m_end)
-    if stage == "neg-no-hold":
-        # hands off the cover before the screws; it is not held flat and tips open when the first screw is driven
-        lg = [lk for lk in looks if lk.get("at") == "let go before screws"]
-        after = [r for r in rows if lg and r["step"] > lg[0]["step"]]
-        worst = max((m_of(r).get("worst_gap_mm") or 0.0) for r in after) if after else None
-        return (worst is not None and worst > 5.0 and not m_end.get("flat")), dict(
-            worst_gap_after_release_mm=worst, final=m_end, screws=screws)
-    if stage == "neg-one-screw":
-        return (screws.get("seated") == [False, True]), dict(screws=screws, final=m_end)
+    if stage == "neg-straight":
+        approached = any(abs(m_of(r).get("guide_angle", 180)) < 8
+                         and abs(m_of(r).get("cover_mm", [-1000])[0]) < 20 for r in rows)
+        return bool(approached and "guided" not in end.get("monitor_first", {})), dict(final=m_end)
+    if stage == "neg-held":
+        return bool(end.get("guided") and m_end.get("seated") == [True] and m_end.get("tip_mm",1000)<30), dict(final=m_end)
+    if stage == "neg-no-screw":
+        return bool(end.get("guided") and m_end.get("flat") and m_end.get("seated") == [False]), dict(final=m_end)
     if stage == "replay":
         return True, dict(final=m_end, screws=screws)
     return False, {}
@@ -65,7 +54,7 @@ def check(d):
     stage = res["stage"]
     done, ev = stimulus(stage, rows, res, res.get("looks", []))
     want = EXPECT.get(stage)
-    ok = done and (want is None or (res["task_score"] == want if want != 0.0 else res["task_score"] < 1.0))
+    ok = done and res.get("stop") is None and want is not None and res["task_score"] == want
     return dict(run=str(d), stage=stage, setup=res.get("setup"), score=res["task_score"], steps=res["steps"],
                 stop=res.get("stop"), expected=want, stimulus=done, ok=ok, evidence=ev)
 

@@ -5,9 +5,7 @@ Panel frame P: origin at the centre of the load-centre tub's front face (the pla
 on), axes parallel to the station axes (x points into the wall). Cover frame V: origin at the centre of the
 dead-front's back face, same axes as P when the cover is installed (cover front face at x = -COVER_T).
 
-The load centre is a Square D Homeline HOM612L100S class (6 spaces / 12 circuits, 100 A main lugs, surface
-mount). Its catalogue dimensions could not be checked from the work host, so the enclosure, cover and breaker
-dimensions below are representative of that size class (see README fidelity).
+The product pairing and dimensional estimates are documented in hardware-fit.md.
 """
 
 from __future__ import annotations
@@ -39,59 +37,70 @@ def rx(deg):
 
 
 # ---------------------------------------------------------------- wall stub and tub (panel frame P)
-TUB_W, TUB_H, TUB_D = 0.200, 0.320, 0.095  # enclosure outside (y, z, x)
+TUB_W, TUB_H, TUB_D = 15*INCH, 30*INCH, 4.4*INCH
 TUB_WALL = 0.002
-P0 = np.array([0.380, 0.0, TOP + 0.135 + TUB_H / 2])  # tub front-face centre (station); bottom 135 mm above the table
-WALL_T = 0.019  # plywood backboard
-WALL_W, WALL_H = 0.42, 0.44
-FLANGE_H = 0.025  # inward front flanges at the tub's top and bottom (screw holes)
+P0 = np.array([0.509, 0.0, TOP + 0.009 + TUB_H / 2])
+WALL_T = 0.019
+WALL_W, WALL_H = 0.43, 0.82
 FLANGE_T = 0.002
-
-# breakers: 6 spaces, two columns (left y > 0, right y < 0) of three, 1 in per space
-SPACE_PITCH = INCH
-ROW_Z = (0.0580, 0.0580 + INCH, 0.0580 + 2 * INCH)  # space centres (z, panel frame): upper half of the tub
-COL_Y = {"L": 0.045, "R": -0.045}  # breaker face (handle shroud) centres
-SPACES = [(c, k) for c in ("L", "R") for k in range(3)]  # space index = position in this list
-FACE_W, FACE_H = 0.046, 0.021  # handle shroud (y, z)
-FACE_FRONT = -0.009  # shroud front face 9 mm in front of the tub face (7.5 mm past the cover's front)
-FACE_BACK = 0.010
-BODY_BACK = 0.070  # breaker body depth behind the tub face
-BODY_W = 0.076
-HANDLE = (0.009, 0.012, 0.007)  # toggle handle (y, z, x): 7 mm proud of the shroud (16 mm off the tub face)
-HANDLE_OFF = 0.008  # handle offset from the shroud centre toward ON (outboard) / OFF (inboard)
-# all six spaces hold a single-pole breaker (HOM115 / HOM120 class); the handles are ON or OFF per trial
-
-# lower cover screws (#10-32 hex washer head, 5/16 in hex), started in the bottom flange
-SCREW_Y = (0.075, -0.075)  # (left, right)
-SCREW_Z = -TUB_H / 2 + FLANGE_H / 2  # -0.1475
-SHANK_R = 0.00241  # #10 major diameter 4.83 mm
-HEAD_R = 0.0057  # washer face 11.4 mm
-HEAD_HEX_R = 0.0046  # hex across corners 9.2 mm (5/16 in across flats)
-HEAD_WASHER_T = 0.0008
-HEAD_HEX_T = 0.0030
-PITCH = INCH / 32  # 10-32 thread: 0.794 mm per turn
-START_GAP = 0.0035  # started screws: head 3.5 mm off the seated cover's front face (4.4 turns to seat)
-SNUG_INTERFERENCE = 0.0  # the head stops on the seated cover's front face (traps it, no play; no interference force)
-
-# ---------------------------------------------------------------- dead-front cover (frame V)
-COVER_W, COVER_H = 0.250, 0.340  # 25 mm past the tub sides, 10 mm past top and bottom
-COVER_T = 0.0015  # 16 gauge steel
+COVER_W, COVER_H = 0.340, 0.668
+COVER_T = 0.0012
 STEEL = 7850.0
-WIN_CLEAR_Y = 0.0010  # window clearance per side around a shroud
-WIN_CLEAR_Z = 0.0015
-SLOT_W = 0.008  # open-bottom hanging slots over the lower screws (1.6 mm lateral play a side on the shank)
-SLOT_TOP = SCREW_Z + SHANK_R  # slot tops rest on the shanks with the cover at its installed height
-HEM_W = 0.015  # both side edges hemmed (folded back on the rear face): 3.0 mm thick where the hands pinch it
-HEM_Z = (-0.150, COVER_H / 2)  # the hem stops 20 mm above the bottom edge
-GRIP_IN = 0.006  # TCP 6 mm in from the side edge (pad tips about 18 mm in)
-GRIP_Z = 0.0  # at the height of the cover's centre of mass
+GUIDE_Z = COVER_H / 2 - 0.020
+GUIDE_Y = COVER_W / 2 - 0.009
+INSERT_ANGLE = 45.0
+# Approach offsets of the pivot from the final guide midpoint in panel x/z (metres).
+# The top corner must clear the front return before it rises above the side protrusions.
+ENTRY_WAYPOINTS = ((-.055, -.010), (-.014, -.006), (0., 0.))
+
+SPACE_PITCH = INCH
+ROW_Z = tuple(0.045 - (2-k)*SPACE_PITCH for k in range(3))
+COL_Y = {"L": 0.052, "R": -0.052}
+SPACES = [(c, k) for c in ("L", "R") for k in range(3)]
+FACE_W, FACE_H = 0.074, 0.0224
+FACE_FRONT, FACE_BACK = -0.009, 0.010
+BODY_BACK, BODY_W = 0.079, 0.099
+HANDLE = (0.009, 0.012, 0.007)
+WIN_CLEAR_Y, WIN_CLEAR_Z = 0.001, 0.0015
+
+# Two symmetric edge notches, one lower-right fastening location in this mounting orientation.
+NOTCH_Y = (0.080, -0.080)
+SCREW_Y = (NOTCH_Y[1],)
+SLOT_W, NOTCH_DEPTH = 0.007, 0.008
+SLOT_TOP = -COVER_H / 2 + NOTCH_DEPTH
+SCREW_Z = SLOT_TOP - 0.003
+SHANK_R, HEAD_R, HEAD_T = 0.00241, 0.0057, 0.0035
+SHANK_L = 0.018
+# Approximate effective travel per turn for the benchmark screw and magnetic driver.
+PITCH = 2 * INCH / 32
+START_GAP = SHANK_L - COVER_T
+SNUG_INTERFERENCE = 0.0
+HEM_W = 0.009
+HEM_Z = (-COVER_H/2 + 0.016, COVER_H/2 - 0.016)
+# Removable training handles fitted to solid metal beyond the breaker windows.
+GRIP_X, GRIP_Y, GRIP_Z = -.049, .132, -.007
+GRIP_HALF = np.array([.014, .016, .018])
+MAGNET_R = .018
+HANDLE_MASS = .085
+
+
+def grip_center(sign):
+    return np.array([GRIP_X, sign*GRIP_Y, GRIP_Z])
+
+
+def grip_frame(sign):
+    # Both hands approach from outboard and slightly in front. Closing axes are mostly vertical.
+    left = rz(-99.3) @ ry(76.6) @ rx(-42.5)
+    mirror = np.diag([1., -1., 1.])
+    return left if sign > 0 else mirror @ left @ np.diag([-1., 1., 1.])
+
 
 # ---------------------------------------------------------------- bench: cover stand and nut-driver rest
 # The cover stands upright in a grooved bench stand in front of the panel, front face toward the robot, leaning back
 # LEAN deg. Stand frame S: origin at the groove floor centre, rotated by ry(LEAN); the groove runs along y.
 STAND = np.array([0.200, 0.0, TOP + 0.012])
 LEAN = 4.0
-GROOVE_W = 0.0035  # 1.5 mm plate in a 3.5 mm groove (the hems stop above it)
+GROOVE_W = 0.0035  # 1.2 mm plate in a 3.5 mm groove (the hems stop above it)
 GROOVE_D = 0.012
 STAND_BASE = (0.060, 0.270, 0.012)  # (x, y, z) block under the groove
 GROOVE_WALL_T = 0.008
@@ -100,12 +109,11 @@ BACKREST_Y = 0.085
 # driver holster: a block on the bench right of the cover stand; the driver stands in it socket down, its handle
 # resting on the rim
 DRIVER_HOLSTER = np.array([0.340, -0.250, TOP])
-HOLSTER_SIZE = (0.050, 0.050, 0.060)
-HOLSTER_HOLE = 0.0155  # square hole the shaft and socket stand in (socket 13.6 mm: the driver stands within ~2 deg of upright)
-# ratcheting 5/16 in nut driver (frame D: origin at the socket mouth on the axis, +z toward the handle)
-DRV_SOCKET_R = (0.0050, 0.0068)  # round bore over the 9.2 mm hex (0.2 mm clearance at the 12-gon flats)
-DRV_SOCKET_D = 0.007  # socket bore depth (a cap closes it)
-DRV_LEADIN = (0.0064, 0.0020)  # mouth chamfer: bore radius 6.4 mm at the mouth, down to the bore over 2 mm
+HOLSTER_SIZE = (0.050, 0.050, 0.085)
+HOLSTER_HOLE = 0.0155  # square hole the shaft and socket stand in (retains the vertical shaft and leaves room for the screw head)
+# Ratcheting magnetic driver; frame D origin is the working face, +z toward the handle.
+DRV_SOCKET_R = (0.003, 0.0053)
+DRV_SOCKET_D = 0.007
 DRV_SHAFT_R = 0.0045
 DRV_SHAFT_L = 0.040  # stubby driver (1.5 in shaft)
 DRV_HANDLE_R = 0.016
@@ -132,7 +140,7 @@ def setup_spec(setup):
     named setup (int) or ('seed', n)."""
     if isinstance(setup, tuple) and setup[0] == "seed":
         rng = np.random.default_rng(int(setup[1]))
-        on = [bool(b) for b in rng.integers(0, 2, size=6)]
+        on = [False] * len(SPACES)
         sdx = float(rng.uniform(-SEED_STAND_DX, SEED_STAND_DX))
         sdy = float(rng.uniform(-SEED_STAND_DY, SEED_STAND_DY))
         cdy = float(rng.uniform(-SEED_COVER_DY, SEED_COVER_DY))
@@ -140,11 +148,11 @@ def setup_spec(setup):
         pdz = float(rng.uniform(-SEED_PANEL_DZ, SEED_PANEL_DZ))
         return dict(on=on, stand_dxy=[sdx, sdy], cover_dy=cdy, panel_dyz=[pdy, pdz], name=f"seed {int(setup[1])}")
     named = (
-        dict(on=[True, False, True, True, True, False], stand_dxy=[0.008, -0.012], cover_dy=0.007,
+        dict(on=[False] * len(SPACES), stand_dxy=[0.008, -0.012], cover_dy=0.007,
              panel_dyz=[0.012, -0.004]),
-        dict(on=[False, True, True, True, False, True], stand_dxy=[-0.009, 0.010], cover_dy=-0.008,
+        dict(on=[False] * len(SPACES), stand_dxy=[-0.009, 0.010], cover_dy=-0.008,
              panel_dyz=[-0.013, 0.004]),
-        dict(on=[True, True, False, False, True, True], stand_dxy=[0.0, 0.014], cover_dy=0.0,
+        dict(on=[False] * len(SPACES), stand_dxy=[0.0, 0.014], cover_dy=0.0,
              panel_dyz=[0.006, 0.0]),
     )
     k = int(setup) % len(named)
@@ -161,7 +169,7 @@ def to_station(p_panel, setup):
 
 
 def cover_installed_pose(setup):
-    """(pos, rot) of the cover frame installed (hung on the screws, flat on the tub)."""
+    """(pos, rot) of the cover frame installed (upper edge in the guides, lower edge against the mounting land)."""
     return panel_origin(setup).copy(), np.eye(3)
 
 
@@ -220,7 +228,55 @@ def window_rects():
 
 
 def slot_rects():
-    return [(y - SLOT_W / 2, y + SLOT_W / 2, -COVER_H / 2 - 0.001, SLOT_TOP) for y in SCREW_Y]
+    low = -COVER_H / 2
+    slots = [(y - SLOT_W/2, y + SLOT_W/2, lo, hi) for y in NOTCH_Y
+            for lo, hi in ((low - .001, low + NOTCH_DEPTH), (-low - NOTCH_DEPTH, -low + .001))]
+    return slots + [(-.025, .025, lo, hi) for lo, hi in ((low-.001, low+.009), (-low-.009,-low+.001))]
+
+
+def upper_fit_boxes():
+    """Physical side protrusions and folded upper return in panel coordinates."""
+    hw, top = TUB_W/2, COVER_H/2
+    for sign in (-1, 1):
+        yl, yr = sorted((sign*(GUIDE_Y-.003), sign*hw))
+        yield f"upper_guide_{int(sign>0)}", (.002, yl, GUIDE_Z-.005), (.027, yr, GUIDE_Z)
+    yield "top_return", (-.005, -hw, top+.0008), (TUB_D, hw, top+.003)
+    yield "top_lip", (-.007, -hw, top-.004), (-COVER_T-.0004, hw, top+.003)
+
+
+def lower_mount_boxes():
+    """Raised screw land above the separate full-width sill, split around the pilot hole."""
+    # Leviton installation sheet Fig. 12 and the door-open family photograph show the land
+    # ending before either sidewall. It spans approximately 65% of the clear enclosure width.
+    half_width = .65*(TUB_W-2*TUB_WALL)/2
+    bottom = -COVER_H/2
+    y, z, rad = SCREW_Y[0], SCREW_Z, SHANK_R+.0003
+    sections = ((-half_width, y-rad, bottom, bottom+.020), (y+rad, half_width, bottom, bottom+.020),
+                (y-rad, y+rad, bottom, z-rad), (y-rad, y+rad, z+rad, bottom+.020))
+    return [((0., ya, za), (FLANGE_T, yb, zb)) for ya, yb, za, zb in sections]
+
+
+def guide_pose(angle, origin, dx=0.0, dy=0.0, dz=0.0):
+    """Pose pivoting about the span between the two upper side guides; positive angle brings the bottom forward."""
+    r = ry(angle)
+    pivot = np.array([0.0, 0.0, GUIDE_Z])
+    return np.asarray(origin) + [dx, dy, dz] + pivot - r @ pivot, r
+
+
+def screw_in_driver(dpos, drot):
+    """Screw tip at +x of the screw frame, 18 mm ahead of the underside of the head."""
+    r = np.column_stack((-drot[:, 2], drot[:, 0], -drot[:, 1]))
+    return np.asarray(dpos) + r[:, 0] * (SHANK_L + HEAD_T), r
+
+
+def drive_alignment(dpos, drot, screw_axis, advance):
+    axis = -drot[:, 2]
+    delta = np.asarray(dpos) - screw_axis
+    radial = float(np.linalg.norm(delta[1:]))
+    axial = float(delta[0] - head_under_x(advance) + HEAD_T)
+    angle = math.degrees(math.acos(np.clip(axis[0], -1.0, 1.0)))
+    return (angle < 8 and radial < .001 and -.0007 <= axial <= .0015,
+            dict(ang=angle, radial_mm=radial * 1000, axial_mm=axial * 1000))
 
 
 def cover_boxes():
@@ -262,6 +318,13 @@ def cover_mass_props():
         items.append((m, c, w, h))
         m_tot += m
         c_acc += m * c
+    # Lump each 85 g carrying aid halfway between its magnet base and knob.
+    for sy in (1., -1.):
+        c = grip_center(sy)
+        c[0] /= 2
+        m_tot += HANDLE_MASS
+        c_acc += HANDLE_MASS*c
+        items.append((HANDLE_MASS, c, 2*MAGNET_R, 2*MAGNET_R))
     com = c_acc / m_tot
     ixx = iyy = izz = 0.0
     for m, c, w, h in items:
@@ -286,17 +349,3 @@ def cylinder(r, z0, z1, n=24, center=(0.0, 0.0)):
     a = np.linspace(0, 2 * np.pi, n, endpoint=False)
     ring = lambda z: np.c_[center[0] + r * np.cos(a), center[1] + r * np.sin(a), np.full(n, z)]  # noqa: E731
     return np.r_[ring(z0), ring(z1)]
-
-
-def ring_pieces(r0, r1, z0, z1, n=12, r0_at_z0=None):
-    """Convex pieces of a tube (axis z); ``r0_at_z0`` makes the bore conical (a lead-in widening toward z0)."""
-    out = []
-    ra = r0 if r0_at_z0 is None else r0_at_z0
-    for i in range(n):
-        a0, a1 = 2 * np.pi * i / n, 2 * np.pi * (i + 1) / n
-        pts = []
-        for a in (a0, a1):
-            for r, z in ((ra, z0), (r0, z1), (r1, z0), (r1, z1)):
-                pts.append([r * math.cos(a), r * math.sin(a), z])
-        out.append(np.array(pts))
-    return out

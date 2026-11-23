@@ -1,26 +1,4 @@
-"""Scripted full-score demo (and negative variants) for the panel-deadfront task in the yam_arena embodiment.
-
-    python demo.py task.py OUT [--max-steps N] [--no-record] [--stage demo|<variant>[,<variant>...]] [--seed N]
-
-Acts ONLY through the 14 joint/gripper commands of ``YamArenaEmbodiment.step``. It reads the cover's, the driver's
-and the panel's poses and the screws' advance through ``panelkit.bench_state()`` (read-only, like an electrician
-watching the shrouds in the windows and the screw heads); it never writes a pose, a joint state or a score. Its joint
-commands are rate-limited below the CLI's per-step delta guard and clipped to the URDF joint bounds.
-
-Plan:
-1. Both hands pinch the cover's hemmed side edges (fingers closing through the plate, hands coming in from above and
-   outside) where it stands in its bench stand, and lift it out of the groove.
-2. Carry it to the panel, top leaning out 5 deg, its lower part just touching the tub's bottom flange, and lower it
-   until both open-bottom slots sit on the started screws' shanks.
-3. Swing it shut about the screws while sliding it sideways (the slots allow 1.6 mm) until the windows are centred on
-   the breaker shrouds, which must be done before the shrouds enter the windows; press it flat.
-4. The left hand keeps it flat; the right hand lets go, takes the ratcheting nut driver from its rest, sets the
-   socket on the right screw's hex and turns it in strokes until the head is down on the cover, then the left screw.
-5. Both hands let go and move away.
-Both arms add the remaining joint error back to their commands (slow integral on their own joint readings), because
-the joint PD sags under load (pattern reused from earlier demos).
-"""
-
+"""Closed-loop robot-command policies for the guided Leviton deadfront assembly."""
 from __future__ import annotations
 
 import argparse
@@ -44,18 +22,16 @@ DT = 1.0 / CONTROL_HZ
 FINGER_OPEN = 0.04695  # m per finger at grip 1.0
 COMP_GAIN = 0.08
 RATE = 0.8  # fraction of the CLI delta guard (0.05 x joint range per step) the script may use
-PHI = 65.0  # cover grasp: approach tilted 65 deg from straight down toward the cover's centre line
-HEM_HALF = L.COVER_T  # the hem doubles the plate: 3.0 mm, TCP at the cover frame's x = 0
-LEAN = 6.5  # top out while the slots go onto the screws (handles 16 mm proud need > 5 deg)
-DROP_H = 0.006  # slot tops this far above the shanks before the final drop
-PRONG_CLEAR = 0.034  # slot tops this far above the shanks while coming in: the prongs' lower ends clear the heads
-FLANGE_TOUCH = 0.0003  # lower part of the cover held 0.3 mm into the bottom flange plane (light contact)
-PRESS_FLAT = 0.0005  # cover commanded 0.5 mm into the tub face once shut (a harder push at the outboard hem levers
-# the far side of the cover off the tub)
+GRASP_HALF = L.GRIP_HALF[0]
+LIFT = .075  # clear the 60 mm stand backrest before translating
+PRESS_FLAT = .00025
 DRV_GRIP_BELOW_TOP = 0.058  # driver: pad tips 58 mm below the handle's top (the top stays clear of the finger carriages)
-DRV_PRESS = 0.0030  # socket commanded 3 mm past the washer face (the washer stops it in the mouth chamfer)
-STROKE_DEG = 165.0
-MAX_STROKES = 14
+DRV_PRESS = .0004  # contact preload at the working face of the magnetic driver
+TOOL_CARRY_JOINT_RATE = math.radians(25)  # maximum joint reference speed during the free-tool handoff
+DRIVER_FAR = .024
+DRIVER_STANDOFF = .016
+STROKE_DEG = 90.0
+MAX_STROKES = 85
 
 
 def grip_of(half_opening_m):
@@ -98,6 +74,7 @@ class Arm:
         self.grip = 1.0
         self.pos, self.rot = fastik.tcp_pose(self.q, self.base)
         self.offset = np.zeros(6)
+        self.payload_offset = np.zeros(6)
         self.measured = self.q.copy()
         self.measured_grip = 1.0
         self.comp = True
@@ -106,26 +83,68 @@ class Arm:
         _, _, lo, hi, _ = fastik._chain()
         self.lo, self.hi = lo, hi
         self.last_cmd = None
+        self.driver_tracking = None
+        self.reference_velocity = np.zeros(6)
 
     @property
     def cmd(self):
-        c = np.r_[np.clip(self.q + self.offset, self.lo, self.hi), self.grip]
+        target = self.q + self.offset + self.payload_offset
+        if self.driver_tracking is not None:
+            from driver_dynamics import joint_torque
+
+            grasp, bias, stiffness, damping = self.driver_tracking
+            vel = (self.q-self.previous_reference)/DT
+            accel = (vel-self.reference_velocity)/DT
+            tau = joint_torque(self.q, vel, accel, grasp, self.measured_grip*FINGER_OPEN)
+            error = self.previous_reference-self.measured
+            # A position drive needs a lead equal to its damping/stiffness time constant during rotation.
+            tracking_gain = np.clip(damping/(stiffness*DT)-.5, .25, 2.0)
+            target = self.q + bias + self.tracking_trim + (tau+damping*vel)/stiffness - .5*DT*vel + tracking_gain*error
+        c = np.r_[np.clip(target, self.lo, self.hi), self.grip]
         lim = np.r_[RATE * 0.05 * (self.hi - self.lo), RATE * 0.05]
         if self.last_cmd is not None:
             c = np.clip(c, self.last_cmd - lim, self.last_cmd + lim)
         c[:6] = np.clip(c[:6], self.lo, self.hi)
         return c
 
+    def enable_driver_tracking(self, grasp):
+        from driver_dynamics import joint_torque
+        from yam_arena.constants import SHOULDER, WRIST
+
+        stiffness = np.array([SHOULDER["stiffness"]]*3+[WRIST["stiffness"]]*3)
+        damping = np.array([SHOULDER["damping"]]*3+[WRIST["damping"]]*3)
+        zero = np.zeros(6)
+        gravity = joint_torque(self.measured, zero, zero, grasp, self.measured_grip*FINGER_OPEN)
+        self.previous_reference = self.q.copy()
+        self.tracking_trim = zero.copy()
+        self.reference_velocity = zero.copy()
+        self.driver_tracking = (grasp, self.offset-gravity/stiffness, stiffness, damping)
+
     def commit(self, c):
+        if self.driver_tracking is not None:
+            self.reference_velocity = (self.q-self.previous_reference)/DT
+            self.previous_reference = self.q.copy()
         self.last_cmd = np.asarray(c, float).copy()
 
     def set_comp(self, mode):
         """True: joint integral (free moves and carrying); 'hold': offsets frozen (in contact); False: offsets decay."""
         self.comp = mode
 
+    def support(self, point, force_n):
+        """Use the station joint position drives to support a share of the plate's measured weight."""
+        from yam_arena.constants import SHOULDER, WRIST
+
+        _, _, axes = fastik.fk(self.q, self.base)
+        stiffness = [SHOULDER["stiffness"]]*3 + [WRIST["stiffness"]]*3
+        upward = np.array([0., 0., force_n])
+        torques = [axis @ np.cross(point-joint, upward) for axis, joint in axes]
+        self.payload_offset = np.array(torques)/stiffness
+
     def observe(self, q):
         self.measured = np.asarray(q[:6], float)
         self.measured_grip = float(q[6])
+        if self.driver_tracking is not None:
+            self.tracking_trim = np.clip(self.tracking_trim + .06*(self.previous_reference-self.measured), -.07, .07)
         if self.comp == "hold":
             pass
         elif self.comp:
@@ -266,9 +285,14 @@ class Ctx:
         self.step = 0
         self.G = {}
         self.GD = None
+        self.driver_trace = []
+        self.driver_contact_view = None
+        self.tool_fixtures = None
         self.corr_p, self.corr_r = np.zeros(3), np.zeros(3)
         self.dcorr = np.zeros(3)
         self.opts = {}
+        self.cover_mass, self.cover_com, _ = L.cover_mass_props()
+        self.support_fraction = 0.
 
     def bench(self):
         import panelkit
@@ -285,6 +309,45 @@ class Ctx:
         import panelkit
 
         return panelkit.STATE["detail"]
+
+    def tool_arm_clearance(self, q):
+        from tool_clearance import arm_fixture_clearance, fixture_boxes
+
+        if self.tool_fixtures is None:
+            self.tool_fixtures = fixture_boxes(*self.pose("stand"))
+        return arm_fixture_clearance(q, self.right.base, self.right.measured_grip*FINGER_OPEN, self.tool_fixtures)
+
+    def check_tool_route(self, q):
+        gap, link, fixture = self.tool_arm_clearance(q)
+        if gap < .004:
+            raise Stop(f"tool route clearance: {link} to {fixture} {gap*1000:.1f} mm")
+
+    def tool_contacts(self):
+        """Read the forces on the carried driver and between the stand and arm links."""
+        import panelkit
+
+        runtime = panelkit.runtime()
+        if runtime is None:
+            return {}, {}
+        if self.driver_contact_view is None:
+            root = "/World/envs/env_0/panel/"
+            fixtures = ["holster", "stand", "tub", "cover", "screw_r"]
+            links = runtime.robot_links
+            paths = [root+name for name in fixtures] + links
+            self.driver_contact_names = fixtures + [path.split("/env_0/", 1)[-1] for path in links]
+            self.driver_contact_view = runtime.simview.create_rigid_contact_view(
+                [root+"driver"], filter_patterns=[paths], max_contact_data_count=2048)
+            self.stand_contact_names = self.driver_contact_names[len(fixtures):]
+            self.stand_contact_view = runtime.simview.create_rigid_contact_view(
+                [root+"stand"], filter_patterns=[links], max_contact_data_count=2048)
+
+        def magnitudes(view, names):
+            forces = view.get_contact_force_matrix(dt=panelkit.PHYSICS_DT)[0].detach().cpu().numpy()
+            return {name: round(float(force), 3) for name, force in zip(names, np.linalg.norm(forces, axis=-1))
+                    if force > .05}
+
+        return (magnitudes(self.driver_contact_view, self.driver_contact_names),
+                magnitudes(self.stand_contact_view, self.stand_contact_names))
 
     def action(self):
         from inspect_robots.types import Action
@@ -303,31 +366,20 @@ class Ctx:
     def note(self, tag, **kw):
         d = self.detail()
         row = dict(at=tag, step=self.step, measure=d.get("measure"), level=d.get("level"),
-                   screws=d.get("screws"), **kw)
+                   screws=d.get("screws"), contacts=d.get("contacts"),
+                   tcp_mm={n: np.round(a.measured_tcp()[0]*1000, 2).tolist() for n, a in self.arms.items()}, **kw)
         self.log.append(row)
         print("LOOK", json.dumps(row, default=float), flush=True)
 
 
 # --------------------------------------------------------------------------------------------- cover handling
 def grasp_v(name):
-    """TCP pose in the cover frame for each hand: pinching the hem, coming in from above and outside."""
-    s = 1.0 if name == "left" else -1.0
-    f = math.radians(PHI)
-    p = np.array([0.0, s * (L.COVER_W / 2 - L.GRIP_IN), L.GRIP_Z])
-    z = np.array([0.0, -s * math.sin(f), -math.cos(f)])
-    return p, z
+    sign = 1. if name == "left" else -1.
+    return L.grip_center(sign), L.grip_frame(sign)[:, 2]
 
 
 def grasp_rot_v(c, name, pc, rc):
-    """Finger direction (+-x of the cover): the one that puts the wrist camera (on the gripper's -y side) outboard of
-    the cover's edge (the other puts it against the plate)."""
-    _, z = grasp_v(name)
-    s = 1.0 if name == "left" else -1.0
-    for sg in (1.0, -1.0):
-        r = frame(z, [sg, 0.0, 0.0])
-        if -r[1, 1] * s > 0.0:  # camera offset direction has an outboard y component
-            return r
-    raise Stop("no camera-outboard grasp")
+    return L.grip_frame(1. if name == "left" else -1.)
 
 
 def capture_grasp(c):
@@ -339,8 +391,16 @@ def capture_grasp(c):
     c.corr_p, c.corr_r = np.zeros(3), np.zeros(3)
 
 
+def update_support(c, pc, rc):
+    for side, arm in c.arms.items():
+        sign = 1. if side == "left" else -1.
+        com = c.cover_com.copy()
+        com[1] = L.GRIP_Y*sign
+        arm.support(pc+rc@com, c.cover_mass*9.81*.5*c.support_fraction)
+
+
 def track(c, target_fn, duration, label, gain=0.05, rot_gain=None, until=None, max_s=None, arms=("left", "right"),
-          mask=(1.0, 1.0, 1.0)):
+          mask=(1.0, 1.0, 1.0), guide=False):
     """Closed loop on the cover: each step command the holding hands to the TCP poses that put the cover at
     target_fn(s) through the frozen grasp transforms, plus slow integral corrections of the measured cover pose error
     (arm sag, grasp slip). ``mask`` weights the position error per axis (0 = that axis is left to contact)."""
@@ -351,37 +411,23 @@ def track(c, target_fn, duration, label, gain=0.05, rot_gain=None, until=None, m
     for k in range(1, nmax + 1):
         pt, rt = target_fn(ik.smoothstep(min(1.0, k / n)))
         pm, rm = c.pose()
-        err = (pt - pm) * np.asarray(mask)
-        c.corr_p = np.clip(c.corr_p + gain * err, -0.012, 0.012)
+        anchor = np.array([0., 0., L.GUIDE_Z]) if guide else np.zeros(3)
+        err = ((pt + rt@anchor) - (pm + rm@anchor)) * np.asarray(mask)
+        limit = .024 if guide else .012
+        c.corr_p = np.clip(c.corr_p + gain * err, -limit, limit)
+        update_support(c, pm, rm)
         e_r = _rotvec(rt @ rm.T)
-        c.corr_r = np.clip(c.corr_r + (gain if rot_gain is None else rot_gain) * e_r, -0.10, 0.10)
+        angle_limit = .18 if guide else .10
+        c.corr_r = np.clip(c.corr_r + (gain if rot_gain is None else rot_gain)*e_r, -angle_limit, angle_limit)
         rc = _rotm(c.corr_r)
         for name in arms:
             gp, gr = c.G[name]
             arm = c.arms[name]
             arm.label = label
-            arm.set_pose(pt + c.corr_p + rc @ rt @ gp, rc @ rt @ gr)
+            arm.set_pose(pt + rt@anchor + c.corr_p + rc@rt@(gp-anchor), rc@rt@gr)
         yield
         if until is not None and k >= n and until(c):
             break
-
-
-def cover_target(theta_deg, slot_xz, y):
-    """Cover pose with the top leaning out theta, the slot-top centre point (V: (-T/2, 0, SLOT_TOP)) at panel-frame
-    (x, z) = slot_xz and the cover centred at panel y; returned in the station frame."""
-    r = L.ry(-theta_deg)
-    v = np.array([-L.COVER_T / 2, 0.0, L.SLOT_TOP])
-    p = np.array([slot_xz[0], y, slot_xz[1]])
-    return p - r @ v, r
-
-
-def hang_slot_x(theta_deg):
-    """Panel-frame x of the slot-top point (mid-plate) that puts the cover's lower back face 0.3 mm into the bottom
-    flange plane at the flange's lowest edge (z = -TUB_H/2) for a lean of theta."""
-    t = math.radians(theta_deg)
-    dz = L.SLOT_TOP - (-L.TUB_H / 2)  # slot top above the flange bottom (in the cover's plane)
-    # back face at the flange bottom: x = x_slot + T/2 + dz * sin(t)
-    return FLANGE_TOUCH - L.COVER_T / 2 - dz * math.sin(t)
 
 
 def pick_cover(c):
@@ -394,73 +440,139 @@ def pick_cover(c):
         r = grasp_rot_v(c, n, pc, rc)
         tg[n] = (pc + rc @ p, rc @ r, rc @ z)
     c.note("cover at stand", cover_mm=np.round(pc * 1e3, 2).tolist())
-    yield from both(*(arm.move(tg[n][0] - 0.06 * tg[n][2], tg[n][1], 3.0, grip_of(HEM_HALF + 0.010), f"{n} over hem")
+    yield from both(*(arm.goto(tg[n][0] - 0.06 * tg[n][2], tg[n][1], 3.0, grip_of(GRASP_HALF + 0.010), f"{n} over handle")
                       for n, arm in c.arms.items()))
     yield from wait(0.3)
     pc, rc = c.pose()
     for n in c.arms:
         p, z = grasp_v(n)
         tg[n] = (pc + rc @ p, tg[n][1], rc @ z)
-    yield from both(*(arm.move(tg[n][0], tg[n][1], 2.0, None, f"{n} onto hem") for n, arm in c.arms.items()))
+    yield from both(*(arm.move(tg[n][0], tg[n][1], 2.0, None, f"{n} onto handle") for n, arm in c.arms.items()))
     yield from wait(0.3)
-    yield from both(*(arm.set_grip(0.0, 1.0, f"{n} pinch") for n, arm in c.arms.items()))
+    yield from both(*(arm.set_grip(grip_of(GRASP_HALF-.006), 1.0, f"{n} pinch") for n, arm in c.arms.items()))
     yield from wait(0.5)
     c.note("pinched")
-    yield from both(*(arm.move(arm.pos + [0.0, 0.0, 0.025], arm.rot, 1.5, None, f"{n} lift") for n, arm in
-                      c.arms.items()))
-    yield from wait(0.6)
+    pc, rc = c.pose()
+    capture_grasp(c)
+    # Build the static load before lifting. On the old pickup the wrists stayed at their starting
+    # height through the 25 mm command and the stand still carried nearly the entire weight.
+    for k in range(CONTROL_HZ):
+        c.support_fraction = (k+1)/CONTROL_HZ
+        update_support(c, *c.pose())
+        yield
+    up = rc[:, 2]
+    def clears_stand(ctx):
+        p, r = ctx.pose()
+        bottom = p - r[:,2]*(L.COVER_H/2)
+        initial_bottom = pc - rc[:,2]*(L.COVER_H/2)
+        return (bottom-initial_bottom) @ up >= LIFT-.006
+
+    yield from track(c, lambda s: (pc+up*(LIFT*s), rc), 3.0, "lift from stand",
+                     until=clears_stand, max_s=6.)
+    if not clears_stand(c):
+        raise Stop("plate bottom has not cleared the 60 mm stand backrest")
     capture_grasp(c)
     c.note("lifted")
 
 
-def carry_and_hang(c):
-    """Carry the cover to the panel leaning LEAN, come in above the screws (the slot prongs clear the heads), then
-    lower it straight down so the prongs pass between the heads and the tub flange and the slots sit on the shanks."""
+def insert_upper_edge(c):
     from yam_arena import ik
 
     pc, rc = c.pose()
     po = c.panel()
-    y = po[1]
-    zs = po[2] + L.SCREW_Z + L.SHANK_R  # shank tops (station z)
-    x_hang = po[0] + hang_slot_x(LEAN)
-    p1, r1 = cover_target(LEAN, (x_hang - 0.030, zs + 0.045), y)
-    p0, r0 = pc.copy(), rc.copy()
-    yield from track(c, lambda s: (p0 + s * (p1 - p0), ik.slerp_matrix(r0, r1, s)), 4.0, "carry to panel")
-    p2, r2 = cover_target(LEAN, (x_hang, zs + PRONG_CLEAR), y)
-    yield from track(c, lambda s: (p1 + s * (p2 - p1), r2), 2.0, "in over the screws", gain=0.06)
-    yield from track(c, lambda s: (p2, r2), 1.0, "settle over the screws", gain=0.06)
-    c.note("over screws")
-    p3, _ = cover_target(LEAN, (x_hang, zs + DROP_H), y)
-    yield from track(c, lambda s: (p2 + s * (p3 - p2), r2), 2.0, "down past the heads", gain=0.06)
-    # lower until both slots sit on the shanks (the cover stops going down)
-    p4, _ = cover_target(LEAN, (x_hang, zs - 0.002), y)
-    for arm in c.arms.values():
-        arm.set_comp("hold")
-    yield from track(c, lambda s: (p3 + s * (p4 - p3), r2), 2.0, "drop onto the screws", gain=0.04,
-                     mask=(1.0, 1.0, 0.0))
-    yield from wait(0.5)
-    c.note("hung")
+    first, middle, last = np.asarray(L.ENTRY_WAYPOINTS)
+    def pose(offset):
+        return L.guide_pose(L.INSERT_ANGLE, po, dx=offset[0], dz=offset[1])
+
+    def register(offset, angle_tol=2.0, distance_tol=.003):
+        p, r = c.pose()
+        anchor = np.array([0., 0., L.GUIDE_Z])
+        goal, rg = pose(offset)
+        angle = math.degrees(math.atan2(r[0,2], r[2,2]))
+        return (abs(angle-L.INSERT_ANGLE) < angle_tol
+                and max(abs(p + r@anchor - goal - rg@anchor)) < distance_tol)
+
+    p1, r1 = pose(first)
+    yield from track(c, lambda t: (pc+t*(p1-pc), ik.slerp_matrix(rc, r1, t)), 4.5,
+                     "angle plate clear of top return")
+    # Control the guide midpoint. An angle error of 3.5 degrees at the plate center used to put
+    # the leading edge about 15 mm above the opening even when the center reached its target.
+    c.corr_p[:], c.corr_r[:] = 0., 0.
+    yield from track(c, lambda t: pose(first), 1., "align while clear of return", guide=True,
+                     until=lambda ctx: register(first), max_s=4.)
+    c.note("before top return")
+    for attempt in range(2):
+        if attempt:
+            yield from track(c, lambda t: pose(last+t*(first-last)), 1.8,
+                             "withdraw from top return", guide=True)
+            yield from track(c, lambda t: pose(first), 1., "recover insertion angle", guide=True,
+                             until=lambda ctx: register(first), max_s=4.)
+        yield from track(c, lambda t: pose(first+t*(middle-first)), 2.0,
+                         "slide top under return", guide=True)
+        yield from track(c, lambda t: pose(middle), .8, "register beneath return", guide=True,
+                         until=lambda ctx: register(middle), max_s=2.)
+        c.note("below top return", attempt=attempt+1)
+        yield from track(c, lambda t: pose(middle+t*(last-middle)), 2.0,
+                         "slide above side guides", guide=True)
+        yield from track(c, lambda t: pose(last), .8, "register both side guides", guide=True,
+                         until=lambda ctx: ctx.detail().get("guided"), max_s=3.)
+        c.note("measured guide entry", attempt=attempt+1)
+        if c.detail().get("guided"):
+            break
+    else:
+        raise Stop("upper edge has not entered both guides at 45 degrees")
+
+
+def seating_adjustment(gaps_mm, dx, angle_deg):
+    """Bias the next two-hand pose using the signed normal gaps at the top and bottom edges."""
+    top, bottom = np.asarray(gaps_mm).reshape(2, 2).mean(axis=1) * .001
+    top_error, bottom_error = .00010-top, .00010-bottom
+    # Change pitch to seat the bottom independently. For +pitch the bottom moves toward the robot.
+    pitch_error = math.degrees(math.atan2(top_error-bottom_error, L.COVER_H))
+    # The guide pivot lies 20 mm below the top edge. Interpolate the corresponding axial correction.
+    top_weight = .5 + L.GUIDE_Z/L.COVER_H
+    pivot_error = top_weight*top_error + (1.-top_weight)*bottom_error
+    return (float(np.clip(dx+.16*pivot_error, -.002, .002)),
+            float(np.clip(angle_deg+.16*pitch_error, -.65, .65)))
 
 
 def swing_shut(c):
     po = c.panel()
-    y = po[1]
-    zs = po[2] + L.SCREW_Z + L.SHANK_R
-    x_hang = po[0] + hang_slot_x(LEAN)
-    x_flat = po[0] - L.COVER_T / 2 + PRESS_FLAT
+    yield from track(c, lambda s: L.guide_pose(L.INSERT_ANGLE*(1-s), po), 5., "bring bottom toward panel", guide=True)
     for arm in c.arms.values():
-        arm.set_comp(True)
-    # first centre the windows on the shrouds sideways while still leaning (the shrouds enter below ~3.5 deg)
-    yield from track(c, lambda s: cover_target(LEAN, (x_hang, zs), y), 2.0, "centre sideways", gain=0.08,
-                     mask=(1.0, 1.0, 0.3), until=lambda c: abs(c.pose()[0][1] - y) < 0.0003, max_s=4.0)
-    c.note("centred", dy_mm=(c.pose()[0][1] - y) * 1e3)
-    yield from track(c, lambda s: cover_target(LEAN * (1 - s), (x_hang + s * (x_flat - x_hang), zs), y), 4.0,
-                     "swing shut", gain=0.05, mask=(1.0, 1.0, 0.3))
-    for arm in c.arms.values():
-        arm.set_comp("hold")  # in contact with the tub: no joint integral wind-up
-    yield from track(c, lambda s: cover_target(0.0, (x_flat, zs), y), 1.5, "press flat", gain=0.05,
-                     mask=(0.0, 1.0, 0.3))
-    c.note("shut")
+        arm.set_comp("hold")
+    # Lower the plate onto the rest before handing control of the driver to the right arm.
+    # The two-part handoff keeps one arm from having to carry the entire assembly.
+    mass = L.cover_mass_props()[0]
+    def supported(ctx):
+        detail = ctx.detail()
+        return (detail.get("guided") and detail.get("measure", {}).get("flat")
+                and detail.get("contacts", {}).get("tub_up_n", 0.) >= mass*9.81/2)
+    def lower_onto_rest(s):
+        c.support_fraction = 1.-s
+        return L.guide_pose(0., po+[0., 0., -.0006*s], dx=PRESS_FLAT)
+    yield from track(c, lower_onto_rest, 1.5, "transfer weight to lower rest",
+                     until=supported, max_s=2.5, guide=True)
+    c.note("load on lower rest")
+    if not supported(c):
+        # The tub can already carry the panel while its bottom still stands proud. Correct the
+        # upper and lower measured gaps independently with translation and pitch about the guides.
+        dx, angle = PRESS_FLAT, 0.
+        def square_on_land(s):
+            nonlocal dx, angle
+            gaps = c.detail().get("measure", {}).get("gaps_mm", [])
+            if len(gaps) == 4:
+                dx, angle = seating_adjustment(gaps, dx, angle)
+            return L.guide_pose(angle, po, dx=dx, dz=-.0006)
+        yield from track(c, square_on_land, .8, "square bottom against mounting land",
+                         until=supported, max_s=5., guide=True)
+        c.note("squared on mounting land", pitch_bias_deg=angle, guide_bias_mm=dx*1000)
+    if not supported(c):
+        m = c.detail()["measure"]
+        upward = c.detail()["contacts"].get("tub_up_n", 0.)
+        raise Stop(f"handoff incomplete: gaps {m['gaps_mm']} mm, tub upward {upward:.2f} N")
+
+    c.note("lower edge seated")
 
 
 # --------------------------------------------------------------------------------------------- driver handling
@@ -473,10 +585,48 @@ def driver_roll(rd):
     return math.atan2(rd[2, 0], rd[1, 0])
 
 
-def capture_driver(c):
+def driver_grasp_fit(mouth_in_tcp, handle_axis_in_tcp):
+    """Distance of the pad-tip midpoint from the handle axis and its station along that axis."""
+    from yam_arena.constants import PAD_TIP_PAST_TCP
+
+    delta = np.array([0., 0., PAD_TIP_PAST_TCP]) - mouth_in_tcp
+    axial = float(delta @ handle_axis_in_tcp)
+    radial = float(np.linalg.norm(delta - axial*handle_axis_in_tcp))
+    return radial, axial
+
+
+def checked_driver_grasp(c):
     pd, rd = c.pose("driver")
     pt, rt = c.right.measured_tcp()
-    c.GD = (rt.T @ (pd - pt), rt.T @ rd)  # driver pose in the TCP frame
+    gp, gr = rt.T @ (pd-pt), rt.T @ rd
+    radial, axial = driver_grasp_fit(gp, gr[:, 2])
+    half_gap = c.right.measured_grip * FINGER_OPEN
+    lost = (radial > L.DRV_HANDLE_R+.002 or half_gap > L.DRV_HANDLE_R+.006 or
+            not L.DRV_HANDLE_Z0 <= axial <= L.DRV_HANDLE_Z0+L.DRV_HANDLE_L)
+    if lost or c.step % 4 == 0 or c.right.label.startswith(("driver to screw", "stroke ", "return ", "hold socket")):
+        detail = c.detail()
+        contact = detail.get("contacts", {})
+        screw = detail.get("screws", {})
+        tool_forces, stand_forces = c.tool_contacts()
+        gap, link, fixture = c.tool_arm_clearance(c.right.measured)
+        c.driver_trace.append(dict(step=c.step, phase=c.right.label,
+                                   radial_mm=round(radial*1000,2), axial_mm=round(axial*1000,2),
+                                   driver_roll_deg=round(math.degrees(driver_roll(rd)),3),
+                                   engagement=screw.get("eng"), started=screw.get("started"), advance_mm=screw.get("adv_mm"),
+                                   half_gap_mm=round(half_gap*1000,2), mouth_mm=np.round(pd*1000,2).tolist(),
+                                   tcp_mm=np.round(pt*1000,2).tolist(), tool_axis=np.round(-rd[:,2],4).tolist(),
+                                   q=np.round(c.right.measured,4).tolist(), target_q=np.round(c.right.q,4).tolist(),
+                                   screw_contact_n=contact.get("driver_on_screw_n"),
+                                   driver_contacts_n=tool_forces, stand_on_arm_n=stand_forces,
+                                   arm_gap_mm=round(gap*1000,2), arm_gap_pair=[link, fixture]))
+    if lost:
+        raise Stop(f"driver out of grasp: pad radial {radial*1000:.1f} mm, "
+                   f"axial {axial*1000:.1f} mm, half-gap {half_gap*1000:.1f} mm")
+    return gp, gr
+
+
+def capture_driver(c):
+    c.GD = checked_driver_grasp(c)
     c.dcorr = np.zeros(3)
     c.note("driver grasp", mouth_in_tcp_mm=np.round(c.GD[0] * 1e3, 2).tolist(),
            axis_in_tcp=np.round(-c.GD[1][:, 2], 4).tolist())
@@ -496,7 +646,7 @@ def _driver_of_q(c, q):
     return pt + rt @ gp, -rd[:, 2], driver_roll(rd)
 
 
-J6_PARK = -1.55  # wrist roll kept near here while the socket goes on (room for a +165 deg stroke, margin to the limit)
+J6_PARK = .40  # rotate the wrist housing clear of the cover stand before the driver becomes horizontal
 
 
 def driver_ik(c, mouth, axis=(1.0, 0.0, 0.0), roll=None, q0=None, j6_pref=None):
@@ -510,7 +660,7 @@ def driver_ik(c, mouth, axis=(1.0, 0.0, 0.0), roll=None, q0=None, j6_pref=None):
 
     def resid(q):
         m, ax, ro = _driver_of_q(c, q)
-        r = [(m - mouth) * 1000.0, np.cross(ax, axis) * 300.0]
+        r = [(m - mouth) * 1000.0, (ax - axis) * 300.0]
         if roll is not None:
             r.append([((ro - roll + math.pi) % (2 * math.pi) - math.pi) * 30.0])
         if j6_pref is not None:
@@ -528,6 +678,7 @@ def set_driver(c, mouth, axis=(1.0, 0.0, 0.0), roll=None, label=""):
     if pe > 0.0015 or ae > 3.0:
         raise Stop(f"right: driver unreachable at {label}: {pe * 1e3:.1f} mm {ae:.1f} deg")
     arm = c.right
+    c.check_tool_route(q)
     arm.worst_mm = max(arm.worst_mm, pe * 1000)
     arm.q = q
     arm.pos, arm.rot = fastik.tcp_pose(q, arm.base)
@@ -539,47 +690,58 @@ def stroke_room(c, mouth, phi):
     """Largest roll increment (deg, up to STROKE_DEG) the arm can follow from its current joints, in 15 deg steps."""
     q = c.right.q.copy()
     room = 0.0
-    for d_ in np.arange(15.0, STROKE_DEG + 0.1, 15.0):
+    for d_ in np.arange(15.0, min(STROKE_DEG, 60.) + 0.1, 15.0):
         q, pe, ae, _ = driver_ik(c, mouth, roll=phi + math.radians(d_), q0=q)
-        if pe > 0.0008 or ae > 2.0:
+        margin = np.minimum(q-c.right.lo, c.right.hi-q)
+        if pe > .0008 or ae > 2.0 or min(margin) < .15 or c.tool_arm_clearance(q)[0] < .010:
             break
         room = float(d_)
     return room
 
 
-def goto_driver(c, mouth, duration, label, axis=(1.0, 0.0, 0.0), j6_pref=J6_PARK):
-    """Joint-space move to a driver pose (roll free) found from many seeds; prefers wrist roll (j6) near ``j6_pref`` so
-    the ratchet strokes (positive roll) have room."""
+def goto_driver(c, mouth, duration, label, observe_grip=True):
+    """Carry the held driver toward the pilot on an arc above and inboard of its holster."""
     from yam_arena import ik
 
     arm = c.right
-    rng = np.random.default_rng(0)
-    seeds = [arm.q] + [rng.uniform(arm.lo, arm.hi) for _ in range(40)]
-    best = None
-    for s in seeds:
-        q, pe, ae, ro = driver_ik(c, mouth, axis, None, q0=s)
-        if pe < 0.0005 and ae < 1.0:
-            # roll is free: put j6 near the preferred value by turning the wrist (same pose otherwise)
-            cost = abs(q[5] - j6_pref) + 0.05 * float(np.abs(q - arm.q).sum())
-            if best is None or cost < best[0]:
-                best = (cost, q)
-    if best is None:
-        raise Stop(f"right: no driver IK solution for {label}")
-    q1 = best[1].copy()
-    # re-solve with the roll that puts j6 at the preferred value (if within limits)
-    _, _, ro = _driver_of_q(c, q1)
-    target_roll = ro + (j6_pref - q1[5])
-    q2, pe2, ae2, _ = driver_ik(c, mouth, axis, target_roll, q0=np.r_[q1[:5], j6_pref])
-    if pe2 < 0.0005 and ae2 < 1.0:
-        q1 = q2
-    q0 = arm.q.copy()
+    start, start_axis, _ = _driver_of_q(c, arm.measured)
+    end_axis = np.array([1., 0., 0.])
+    theta = math.acos(float(np.clip(start_axis @ end_axis, -1, 1)))
+    wrist_start = arm.measured[5]
     n = max(1, round(duration * CONTROL_HZ))
     arm.label = label
-    for k in range(1, n + 1):
-        s = ik.smoothstep(k / n)
-        arm.q = q0 + s * (q1 - q0)
-        arm.pos, arm.rot = fastik.tcp_pose(arm.q, arm.base)
-        yield
+    for k in range(1, n+1):
+        t = ik.smoothstep(k/n)
+        tilt = t**1.3
+        direction = (math.sin((1-tilt)*theta)*start_axis + math.sin(tilt*theta)*end_axis
+                     if theta > .001 else end_axis)
+        target = (1-t)*start + t*mouth + np.array([0., -.045, .035])*math.sin(math.pi*t)
+        q, pe, ae, _ = driver_ik(c, target, direction, j6_pref=(1-t)*wrist_start + t*J6_PARK)
+        if pe > .0005 or ae > 1.:
+            # Wrist roll is free in transit. At a joint bound, keep the tool on the clearance path.
+            q, pe, ae, _ = driver_ik(c, target, direction, q0=q)
+        if pe > .0015 or ae > 3.:
+            raise Stop(f"driver transit unreachable at {t:.2f}: {pe*1000:.1f} mm, {ae:.1f} deg")
+        # This off-axis grasp can turn three wrist joints rapidly while the socket itself moves slowly.
+        # Walk the actual IK branch at a bounded joint speed and give the position drives time to follow.
+        previous = arm.q.copy()
+        segments = max(1, math.ceil(np.max(abs(q-previous))/(TOOL_CARRY_JOINT_RATE*DT)))
+        for i in range(1, segments+1):
+            arm.q = previous + (q-previous)*i/segments
+            arm.pos, arm.rot = fastik.tcp_pose(arm.q, arm.base)
+            c.check_tool_route(arm.q)
+            if observe_grip:
+                checked_driver_grasp(c)
+            yield
+            if observe_grip:
+                for _ in range(CONTROL_HZ*3):
+                    if max(abs(arm.q-arm.measured)) <= math.radians(2.5):
+                        break
+                    checked_driver_grasp(c)
+                    yield
+                else:
+                    raise Stop(f"driver transit stalled at {t:.2f}: joint lag "
+                               f"{math.degrees(max(abs(arm.q-arm.measured))):.1f} deg")
 
 
 def track_driver(c, target_fn, duration, label, gain=0.06, until=None, max_s=None, correct=True):
@@ -590,6 +752,7 @@ def track_driver(c, target_fn, duration, label, gain=0.06, until=None, max_s=Non
     n = max(1, round(duration * CONTROL_HZ))
     nmax = n if max_s is None else max(n, round(max_s * CONTROL_HZ))
     for k in range(1, nmax + 1):
+        checked_driver_grasp(c)
         p_t, roll = target_fn(ik.smoothstep(min(1.0, k / n)))
         if correct:
             pd_m, _ = c.pose("driver")
@@ -602,22 +765,27 @@ def track_driver(c, target_fn, duration, label, gain=0.06, until=None, max_s=Non
             break
 
 
-def take_driver(c):
-    """Right hand: straight down over the driver standing in its holster, pads on the handle 58 mm below its top, lift
-    it out (the shaft clears the holster)."""
+def driver_pick_pose(pd, rd):
     from yam_arena.constants import PAD_TIP_PAST_TCP
 
+    # A 30-degree side approach leaves the wrist above the table at the low fixing screw.
+    r = rd @ frame([0., .5, -math.sqrt(.75)], [-1., 0., 0.])
+    grip_z = L.DRV_HANDLE_Z0 + L.DRV_HANDLE_L - DRV_GRIP_BELOW_TOP
+    return pd + rd[:, 2]*grip_z - r[:, 2]*PAD_TIP_PAST_TCP, r
+
+
+def driver_clear_point(p):
+    return np.array([.20, -.17, p[2]+.065])
+
+
+def take_driver(c):
+    """Grasp the driver at an angle, then lift it vertically out of the holster."""
     arm = c.right
     arm.set_comp(True)
-    pd, rd = c.pose("driver")
-    top = pd + rd @ np.array([0.0, 0.0, L.DRV_HANDLE_Z0 + L.DRV_HANDLE_L])
-    r = frame([0.0, 0.0, -1.0], [1.0, 0.0, 0.0])
-    p = top - np.array([0.0, 0.0, DRV_GRIP_BELOW_TOP - PAD_TIP_PAST_TCP])
-    yield from arm.goto(p + [0.0, 0.0, 0.05], r, 3.0, grip_of(L.DRV_HANDLE_R + 0.012), "right over driver")
-    yield from wait(0.3)
-    pd, rd = c.pose("driver")  # re-read (closed loop on the driver's place)
-    top = pd + rd @ np.array([0.0, 0.0, L.DRV_HANDLE_Z0 + L.DRV_HANDLE_L])
-    p = top - np.array([0.0, 0.0, DRV_GRIP_BELOW_TOP - PAD_TIP_PAST_TCP])
+    p, r = driver_pick_pose(*c.pose("driver"))
+    yield from arm.goto(p - .05*r[:, 2], r, 3., grip_of(L.DRV_HANDLE_R+.012), "right over driver")
+    yield from wait(.3)
+    p, r = driver_pick_pose(*c.pose("driver"))
     yield from arm.move(p, r, 1.5, None, "right onto handle")
     yield from wait(0.6)  # the joint integral takes out the arm's sag before the fingers close
     arm.set_comp("hold")  # in contact from here: no integral wind-up
@@ -625,7 +793,7 @@ def take_driver(c):
     yield from wait(0.4)
     yield from arm.move(p + [0.0, 0.0, 0.065], r, 2.0, None, "driver out of holster")
     arm.set_comp(True)
-    yield from arm.move(np.array([0.16, -0.12, p[2] + 0.065]), r, 1.5, None, "driver toward the robot")
+    yield from arm.move(driver_clear_point(p), r, 1.5, None, "driver toward the robot")
     yield from wait(0.3)
     capture_driver(c)
     c.note("driver in hand")
@@ -637,16 +805,16 @@ def screw_axis(c, i):
 
 def washer_x(c, i):
     adv = c.bench()["screws"]["adv"][i]
-    return screw_axis(c, i)[0] + L.head_under_x(adv) - L.HEAD_WASHER_T
+    return screw_axis(c, i)[0] + L.head_under_x(adv) - L.HEAD_T
 
 
 def drive_screw(c, i):
     """Set the socket on screw i and turn it in ratchet strokes until the head is down on the cover."""
     a = screw_axis(c, i)
-    stand = a + np.array([washer_x(c, i) - a[0] - 0.030, 0.0, 0.0])
-    far = stand + np.array([-0.012, 0.0, 0.0])
-    yield from goto_driver(c, far, 3.0 if not c.opts.get("driver_at_screws") else 2.0, f"driver to screw {i}")
-    c.opts["driver_at_screws"] = True
+    contact = a + [washer_x(c, i)-a[0], 0., 0.]
+    stand = contact - [DRIVER_STANDOFF, 0., 0.]
+    far = contact - [DRIVER_FAR, 0., 0.]
+    yield from goto_driver(c, far, 4.5, f"driver to screw {i}")
     yield from wait(0.5)
     capture_driver(c)  # the driver turns a little in the fingers when the hand turns it horizontal: measure it again
     yield from track_driver(c, lambda s: (far + s * (stand - far), None), 1.0, f"driver in {i}", correct=False)
@@ -654,10 +822,11 @@ def drive_screw(c, i):
     capture_driver(c)
     yield from track_driver(c, lambda s: (stand, None), 1.2, f"driver line-up {i}", gain=0.08)
     c.right.set_comp("hold")
+    c.right.enable_driver_tracking(c.GD)
     eng = a + np.array([washer_x(c, i) - a[0] + DRV_PRESS, 0.0, 0.0])
     yield from track_driver(c, lambda s: (stand + s * (eng - stand), None), 1.5, f"socket on {i}", gain=0.06)
+    yield from track_driver(c, lambda s: (eng, None), 1.0, f"hold socket {i}", gain=.12)
     _, _, phi = _driver_of_q(c, c.right.q)  # roll at the start of the strokes
-    yield from wait(0.3)
     c.note("socket on", screw=i, eng=c.detail().get("screws", {}).get("eng"))
     # strokes: wrist roll +STROKE_DEG (tightening, ratchet engaged), back (ratchet slips)
     for k in range(MAX_STROKES):
@@ -668,12 +837,16 @@ def drive_screw(c, i):
         if sweep < 30.0:
             raise Stop(f"screw {i}: no room for a ratchet stroke ({sweep:.0f} deg)")
         dur = 1.05 * sweep / STROKE_DEG
-        yield from track_driver(c, lambda s, e=eng, w=sweep: (e, phi + s * math.radians(w)), dur,
+        yield from track_driver(c, lambda s, w=sweep: (a + [washer_x(c, i)-a[0]+DRV_PRESS, 0., 0.], phi + s * math.radians(w)), dur,
                                 f"stroke {i}.{k}", gain=0.04)
         eng = a + np.array([washer_x(c, i) - a[0] + DRV_PRESS, 0.0, 0.0])
         yield from track_driver(c, lambda s, e=eng, w=sweep: (e, phi + (1 - s) * math.radians(w)), 0.85 * dur,
                                 f"return {i}.{k}", gain=0.04)
+        eng = a + np.array([washer_x(c, i)-a[0]+DRV_PRESS, 0., 0.])
+        yield from track_driver(c, lambda s: (eng, phi), .2, f"recenter {i}.{k}", gain=.12)
         c.note("stroke", screw=i, k=k, sweep_deg=sweep)
+        if k >= 2 and c.bench()["screws"]["adv"][i] < .00005:
+            raise Stop(f"screw {i}: negligible advance after {k+1} strokes")
     if not c.bench()["screws"]["seated"][i]:
         raise Stop(f"screw {i} not seated after {MAX_STROKES} strokes")
     c.right.set_comp(True)
@@ -684,14 +857,14 @@ def drive_screw(c, i):
 
 
 def release_right(c):
-    """Right hand lets go of the hem and backs away along its approach, then straight toward the robot (clear of the
+    """Right hand lets go of the handle and backs away along its approach, then straight toward the robot (clear of the
     cover's edge) before going home."""
     arm = c.right
     arm.set_comp("hold")
     _, z = grasp_v("right")
     pc, rc = c.pose()
-    yield from arm.set_grip(grip_of(HEM_HALF + 0.012), 0.8, "right lets go")
-    yield from arm.move_max(-0.03 * (rc @ z), 0.8, "right off the hem")
+    yield from arm.set_grip(grip_of(GRASP_HALF + 0.012), 0.8, "right lets go")
+    yield from arm.move_max(-0.03 * (rc @ z), 0.8, "right off the handle")
     yield from arm.move_max(np.array([0.0, -0.018, 0.0]), 0.8, "right clear of the edge")
     arm.set_comp(True)
     yield from arm.home(2.0)
@@ -703,8 +876,8 @@ def release_left(c):
     arm.set_comp("hold")
     _, z = grasp_v("left")
     pc, rc = c.pose()
-    yield from arm.set_grip(grip_of(HEM_HALF + 0.012), 0.8, "left lets go")
-    yield from arm.move_max(-0.03 * (rc @ z), 0.8, "left off the hem")
+    yield from arm.set_grip(grip_of(GRASP_HALF + 0.012), 0.8, "left lets go")
+    yield from arm.move_max(-0.03 * (rc @ z), 0.8, "left off the handle")
     yield from arm.move_max(np.array([0.0, 0.018, 0.0]), 0.8, "left clear of the edge")
     arm.set_comp(True)
     yield from arm.home(2.5)
@@ -733,12 +906,11 @@ def left_hold_during(c, gen):
 def demo(c):
     yield from wait(0.5)
     yield from pick_cover(c)
-    yield from carry_and_hang(c)
+    yield from insert_upper_edge(c)
     yield from swing_shut(c)
     c.left.set_comp("hold")
     yield from release_right(c)
     yield from take_driver(c)
-    yield from drive_screw(c, 1)
     yield from drive_screw(c, 0)
     yield from park_right(c)
     yield from release_left(c)
@@ -753,82 +925,35 @@ def hang_only(c):
     """Development: pick, hang and swing shut, then hold."""
     yield from wait(0.5)
     yield from pick_cover(c)
-    yield from carry_and_hang(c)
+    yield from insert_upper_edge(c)
     yield from swing_shut(c)
     yield from wait(3.0)
 
 
-def neg_no_centre(c):
-    """Swings the cover shut without the sideways correction, with the cover deliberately 1.5 mm off to the robot's
-    left on the screws (inside the slots' play): a shroud meets the window edge, the cover cannot close flat."""
-    yield from wait(0.5)
-    yield from pick_cover(c)
-    c.opts["dy"] = 0.0015
-    yield from carry_and_hang(c)
-    po = c.panel()
-    y = po[1] + 0.0015
-    zs = po[2] + L.SCREW_Z + L.SHANK_R
-    x_hang = po[0] + hang_slot_x(LEAN)
-    x_flat = po[0] - L.COVER_T / 2 + PRESS_FLAT
-    for arm in c.arms.values():
-        arm.set_comp(True)
-    yield from track(c, lambda s: cover_target(LEAN, (x_hang, zs), y), 2.0, "offset sideways", gain=0.08,
-                     mask=(1.0, 1.0, 0.3))
-    c.note("offset", dy_mm=(c.pose()[0][1] - po[1]) * 1e3)
-    yield from track(c, lambda s: cover_target(LEAN * (1 - s), (x_hang + s * (x_flat - x_hang), zs), y), 4.0,
-                     "swing shut (no centring)", gain=0.05, mask=(1.0, 0.0, 0.3))
-    yield from track(c, lambda s: cover_target(0.0, (x_flat, zs), y), 1.5, "press flat", gain=0.05,
-                     mask=(1.0, 0.0, 0.3))
-    c.note("shut attempt")
-    c.left.set_comp("hold")
-    yield from release_right(c)
-    yield from take_driver(c)
-    try:
-        yield from drive_screw(c, 1)
-        yield from drive_screw(c, 0)
-    except Stop as e:
-        c.note("stop", why=str(e))
-    yield from park_right(c)
-    yield from release_left(c)
-    yield from wait(4.0)
+def neg_straight(c):
+    """Try a normal-to-panel insertion. This never passes the upper guides at the installation angle."""
+    from yam_arena import ik
 
-
-def neg_no_hold(c):
-    """Shuts the cover correctly but lets go with both hands before the screws are driven: the cover tips open on
-    the screws (nothing holds its top), so the screws clamp it crooked or not at all."""
-    yield from wait(0.5)
+    yield from wait(.5)
     yield from pick_cover(c)
-    yield from carry_and_hang(c)
-    yield from swing_shut(c)
-    c.left.set_comp("hold")
-    yield from release_right(c)
-    yield from release_left(c)
-    yield from wait(1.5)
     pc, rc = c.pose()
-    c.note("let go before screws", lean_deg=math.degrees(math.atan2(-rc[0, 2], rc[2, 2])))
-    yield from take_driver(c)
-    try:
-        yield from drive_screw(c, 1)
-        yield from drive_screw(c, 0)
-    except Stop as e:
-        c.note("stop", why=str(e))
-    yield from park_right(c)
-    yield from wait(4.0)
+    po = c.panel()
+    stage = po + [-.050, 0., 0.]
+    yield from track(c, lambda s: (pc+s*(stage-pc), ik.slerp_matrix(rc, np.eye(3), s)), 4., "approach flat")
+    yield from track(c, lambda s: (stage+s*(po-stage), np.eye(3)), 3., "straight insertion")
+    yield from wait(2.)
 
 
-def neg_one_screw(c):
-    """Drives only the right screw (0.5)."""
-    yield from wait(0.5)
+def neg_held(c):
+    """Install the screw but keep the left hand on the cover."""
+    yield from wait(.5)
     yield from pick_cover(c)
-    yield from carry_and_hang(c)
+    yield from insert_upper_edge(c)
     yield from swing_shut(c)
-    c.left.set_comp("hold")
     yield from release_right(c)
     yield from take_driver(c)
-    yield from drive_screw(c, 1)
-    yield from park_right(c)
-    yield from release_left(c)
-    yield from wait(4.0)
+    yield from drive_screw(c, 0)
+    yield from wait(2.)
 
 
 def replay(c):
@@ -847,9 +972,9 @@ STAGES = {
     "idle": idle,
     "hang-only": hang_only,
     "replay": replay,
-    "neg-no-centre": neg_no_centre,
-    "neg-no-hold": neg_no_hold,
-    "neg-one-screw": neg_one_screw,
+    "neg-straight": neg_straight,
+    "neg-no-screw": hang_only,
+    "neg-held": neg_held,
 }
 
 
@@ -968,7 +1093,7 @@ def run_trial(emb, out, max_steps, record, stage, t0, seed=None):
             m = d.get("measure", {})
             sc = d.get("screws", {})
             print(f"step {steps} {c.left.label} | {c.right.label} score {info.get('score')} gaps {m.get('gaps_mm')} "
-                  f"hung {m.get('hung')} slot {m.get('slot_dy_mm')} {m.get('slot_z_mm')} adv {sc.get('adv_mm')} "
+                  f"guides {m.get('in_guides')} angle {m.get('guide_angle')} adv {sc.get('adv_mm')} "
                   f"eng {sc.get('engaged')} seat {sc.get('seated')} cont {d.get('contacts', {}).get('by')} "
                   f"wall {time.time() - t1:.0f}s", flush=True)
         if res.terminated:
@@ -981,6 +1106,7 @@ def run_trial(emb, out, max_steps, record, stage, t0, seed=None):
                   termination=getattr(res, "termination_reason", None), setup=reset_state["setup"],
                   scorer=dict(score=panelkit.STATE["score"], level=panelkit.STATE["level"]),
                   final=panelkit.STATE["detail"], nonfinite=panelkit.STATE["nonfinite"], looks=c.log,
+                  driver_trace=c.driver_trace,
                   wall_s=round(time.time() - t1, 1), wall_total_s=round(time.time() - t0, 1),
                   worst_ik_mm=dict(left=round(c.left.worst_mm, 2), right=round(c.right.worst_mm, 2)),
                   physics_dt=panelkit.PHYSICS_DT, control_hz=CONTROL_HZ)

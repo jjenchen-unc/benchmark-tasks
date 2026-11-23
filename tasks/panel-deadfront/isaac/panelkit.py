@@ -1,22 +1,4 @@
-"""panelkit: the wall-mounted load centre (tub, breakers, two started lower cover screws), its dead-front cover, the
-cover stand and the ratcheting nut driver for yam_arena (Isaac Lab-Arena / PhysX), plus the runtime hooks.
-
-Authored as one custom-spawned assembly (yam_arena task-file primitives are single boxes/spheres):
-* kinematic bodies (so PhysX contact views can report the forces on them): the wall stub and tub ("tub"), the six
-  breakers' bodies and handle shrouds ("breakers"), the six toggle handles (ON or OFF per trial), the two lower cover
-  screws, the cover stand and the driver holster;
-* the dead-front cover (16 gauge steel, 0.91 kg) and the nut driver as free rigid bodies.
-Geometry: ``../src/layout.py``; scorer: ``../src/scoring.py`` (pure functions).
-
-Screw model (the only rule-based part): each started screw is a kinematic body on its fixed axis. While the driver's
-socket is over its hex head (axes within 8 deg and 1 mm, hex at least 1.5 mm inside the socket), the screw turns with
-the socket in the tightening direction (the driver ratchets: turning back does nothing) and advances 0.794 mm per turn
-(10-32 thread). It stops when its head reaches the cover's front face (0.1 mm interference, so the head clamps the
-cover against the tub through contact) or, without a cover under it, the tub face. Nothing here writes the cover's
-or the driver's pose or velocity during a trial; ``Runtime.restore_authored`` resets them only on an environment reset.
-The scripted demo READS poses through ``bench_state()``.
-"""
-
+"""Leviton outdoor deadfront assembly, PhysX geometry, magnetic screw holder and task scorer."""
 from __future__ import annotations
 
 import math
@@ -42,17 +24,16 @@ SETUP_BASE = int(os.environ.get("PANEL_SETUP", "0"))  # named setup of the first
 FORCE_NAMED = "PANEL_SETUP" in os.environ
 DEBUG = bool(os.environ.get("PANEL_DEBUG"))
 PUSH_AHEAD = 0.00015  # how far the head may run into a cover that stands off the tub (it pushes it back)
-STALL_TURN = math.pi / 2  # tightening input absorbed with the head stalled on a held-off cover before it counts as down
 
 STEEL_GREY, TUB_GREY, PLY, BLACK, DARK, WHITE, ZINC, RED = (
     (0.80, 0.81, 0.80), (0.55, 0.57, 0.58), (0.78, 0.66, 0.48), (0.06, 0.06, 0.07), (0.16, 0.16, 0.18),
     (0.95, 0.95, 0.93), (0.74, 0.76, 0.78), (0.75, 0.12, 0.10))
 HANDLES = tuple(f"h{i}" for i in range(6))
-KINEMATIC = ("tub", "breakers") + HANDLES + ("screw_l", "screw_r", "stand", "holster")
+KINEMATIC = ("tub", "breakers") + HANDLES + ("screw_r", "stand", "holster")
 FREE = ("cover", "driver")
 BODIES = FREE + KINEMATIC
-VIEW = ("cover", "driver", "tub", "breakers", "screw_l", "screw_r", "stand") + HANDLES
-COVER_FILTERS = ("tub", "breakers", "screw_l", "screw_r", "stand", "driver") + HANDLES
+VIEW = ("cover", "driver", "tub", "breakers", "screw_r", "stand") + HANDLES
+COVER_FILTERS = ("tub", "breakers", "screw_r", "stand", "driver") + HANDLES
 FRICTION = dict(steel=0.35, hem=0.8, rubber=0.8)  # hem: steel against the rubber finger pads (combine mode max)
 
 
@@ -87,9 +68,7 @@ def handle_pose(i, on, setup):
 
 
 def screw_pose(i, advance, angle, setup):
-    """Screw body frame: on the axis at the tub face, translated by the advance. The body is not turned with the screw
-    angle: a kinematic shank spinning under the slot top would drag the cover sideways by friction at a rate no real
-    screw thread produces (the angle is kept in the state and logged)."""
+    """Thread tip on the pilot axis. The rotationally symmetric collision shape translates axially."""
     del angle
     return L.to_station(np.array([advance, L.SCREW_Y[i], L.SCREW_Z]), setup), np.eye(3)
 
@@ -103,8 +82,7 @@ def authored(setup):
         "driver": L.driver_holster_pose(),
         "tub": (po.copy(), np.eye(3)),
         "breakers": (po.copy(), np.eye(3)),
-        "screw_l": screw_pose(0, 0.0, 0.0, setup),
-        "screw_r": screw_pose(1, 0.0, 0.0, setup),
+        "screw_r": L.screw_in_driver(*L.driver_holster_pose()),
         "stand": (L.stand_pos(setup), L.ry(L.LEAN)),
         "holster": (L.DRIVER_HOLSTER.copy(), np.eye(3)),
     }
@@ -231,17 +209,12 @@ def _spawn_bench(prim_path: str, cfg, translation=None, orientation=None, **kwar
     box(f"{t}/side_r", (0.0, -hw, -hh), (d, -hw + w, hh), TUB_GREY)
     box(f"{t}/top", (0.0, -hw, hh - w), (d, hw, hh), TUB_GREY)
     box(f"{t}/bottom", (0.0, -hw, -hh), (d, hw, -hh + w), TUB_GREY)
-    for name, z0 in (("flange_b", -hh), ("flange_t", hh - L.FLANGE_H)):
-        # front flanges, split around the screw holes (bottom) so the shanks pass
-        if name == "flange_b":
-            ys = [-hw, L.SCREW_Y[1] - 0.003, L.SCREW_Y[1] + 0.003, L.SCREW_Y[0] - 0.003, L.SCREW_Y[0] + 0.003, hw]
-            for k in range(0, 6, 2):
-                box(f"{t}/{name}_{k}", (0.0, ys[k], z0), (L.FLANGE_T, ys[k + 1], z0 + L.FLANGE_H), TUB_GREY)
-            for k, (ya, yb) in enumerate(((ys[1], ys[2]), (ys[3], ys[4]))):
-                box(f"{t}/{name}_hb{k}", (0.0, ya, z0), (L.FLANGE_T, yb, L.SCREW_Z - 0.003), TUB_GREY)
-                box(f"{t}/{name}_ht{k}", (0.0, ya, L.SCREW_Z + 0.003), (L.FLANGE_T, yb, z0 + L.FLANGE_H), TUB_GREY)
-        else:
-            box(f"{t}/{name}", (0.0, -hw, z0), (L.FLANGE_T, hw, z0 + L.FLANGE_H), TUB_GREY)
+    for name, lo, hi in L.upper_fit_boxes():
+        box(f"{t}/{name}", lo, hi, TUB_GREY)
+    bottom = -L.COVER_H / 2
+    box(f"{t}/lower_rest", (-.004, -hw, bottom-.003), (d, hw, bottom-.0003), TUB_GREY)
+    for k, (lo, hi) in enumerate(L.lower_mount_boxes()):
+        box(f"{t}/mount_{k}", lo, hi, TUB_GREY)
     # interior (visual only): mounting pan, main lugs, neutral bar
     box(f"{t}/pan", (0.030, -0.085, -0.120), (d - w, 0.085, 0.120), DARK, collide=False)
     for k, y in enumerate((0.035, -0.035)):
@@ -273,26 +246,16 @@ def _spawn_bench(prim_path: str, cfg, translation=None, orientation=None, **kwar
         xform(h, *A[f"h{i}"])
         rigid(h, 0.01, kinematic=True)
         box(f"{h}/lever", (-hd, -hx / 2, -hz / 2), (0.0005, hx / 2, hz / 2), BLACK)
-    # ---------------------------------------------------------------- lower cover screws (kinematic)
-    for k, name in enumerate(("screw_l", "screw_r")):
+    # Lower securing screw held by the magnetic driver at reset.
+    for k, name in enumerate(("screw_r",)):
         s = f"{prim_path}/{name}"
         xform(s, *A[name])
         rigid(s, 0.005, kinematic=True)
-        hu = L.head_under_x(0.0)
-        cyl = L.cylinder(L.SHANK_R, 0.0, 1.0, n=16)
-        cyl[:, [0, 1, 2]] = cyl[:, [2, 0, 1]]  # axis along x
-        shank = cyl.copy()
-        shank[:16, 0] = 0.012
-        shank[16:, 0] = hu
+        # Origin at the thread tip, positive x toward the tub. The head uses a round contact proxy.
+        shank = L.cylinder(L.SHANK_R, -L.SHANK_L, 0., n=16)[:, [2, 0, 1]]
+        head = L.cylinder(L.HEAD_R, -L.SHANK_L - L.HEAD_T, -L.SHANK_L, n=24)[:, [2, 0, 1]]
         hull(f"{s}/shank", shank, ZINC)
-        wash = L.cylinder(L.HEAD_R, 0.0, 1.0, n=24)[:, [2, 0, 1]]
-        wash[:24, 0] = hu
-        wash[24:, 0] = hu - L.HEAD_WASHER_T
-        hull(f"{s}/washer", wash, ZINC)
-        hexp = L.cylinder(L.HEAD_HEX_R, 0.0, 1.0, n=6)[:, [2, 0, 1]]
-        hexp[:6, 0] = hu - L.HEAD_WASHER_T
-        hexp[6:, 0] = hu - L.HEAD_WASHER_T - L.HEAD_HEX_T
-        hull(f"{s}/hex", hexp, ZINC)
+        hull(f"{s}/head", head, ZINC)
     # ---------------------------------------------------------------- cover stand (kinematic, frame S)
     st = f"{prim_path}/stand"
     xform(st, *A["stand"])
@@ -325,9 +288,28 @@ def _spawn_bench(prim_path: str, cfg, translation=None, orientation=None, **kwar
             FRICTION["hem"] if edge else FRICTION["steel"], combine="max" if edge else None)
     for i, (y0, y1, z0, z1) in enumerate(L.hem_boxes()):
         box(f"{cv}/hem{i}", (0.0, y0, z0), (L.COVER_T, y1, z1), STEEL_GREY, FRICTION["hem"], combine="max")
-    # circuit directory label and screw marks (visual only)
-    box(f"{cv}/label", (-L.COVER_T - 0.0003, -0.06, 0.09), (-L.COVER_T, 0.06, 0.15), WHITE, collide=False)
-    box(f"{cv}/brand", (-L.COVER_T - 0.0003, -0.03, -0.12), (-L.COVER_T, 0.03, -0.10), RED, collide=False)
+    # Each pot magnet, stud and rubber knob is fixed to the cover at reset.
+    # Neither handle changes the rear surface, top guide interface or the securing-screw notch.
+    for k, sign in enumerate((-1., 1.)):
+        centre = L.grip_center(sign)
+        offset = np.array([0., centre[1], centre[2]])
+        for name, radius, x0, x1 in (("magnet", L.MAGNET_R, -.009, -L.COVER_T),
+                                     ("stud", .004, L.GRIP_X, -.009)):
+            pts = L.cylinder(radius, x0, x1, n=16)[:, [2,0,1]] + offset
+            hull(f"{cv}/{name}_{k}", pts, DARK)
+        corners = np.array([[x,y,z] for x in (-1.,1.) for y in (-1.,1.) for z in (-1.,1.)])
+        face_points = (corners*L.GRIP_HALF) @ L.grip_frame(sign).T + centre
+        hull(f"{cv}/rubber_grip_{k}", face_points, BLACK, FRICTION["rubber"], combine="max")
+    # Unopened 1-inch twist-outs below the six populated spaces (shallow stamped outlines).
+    for y in L.COL_Y.values():
+        for k in range(3, 10):
+            z = L.ROW_Z[-1] - k*L.SPACE_PITCH
+            for edge in (-1, 1):
+                zz = z + edge*(L.SPACE_PITCH/2 - .001)
+                box(f"{cv}/stamp_{int(y>0)}_{k}_{int(edge>0)}", (-L.COVER_T-.00015, y-.037, zz-.00035),
+                    (-L.COVER_T, y+.037, zz+.00035), TUB_GREY, collide=False)
+    # The main-lug configuration leaves the central knockout intact.
+    box(f"{cv}/main_blank", (-L.COVER_T-.0004,-.040,.107),(-L.COVER_T,.040,.196), STEEL_GREY, collide=False)
     # ---------------------------------------------------------------- nut driver (free body, frame D)
     dv = f"{prim_path}/driver"
     xform(dv, *A["driver"])
@@ -336,14 +318,15 @@ def _spawn_bench(prim_path: str, cfg, translation=None, orientation=None, **kwar
     zh1 = zh0 + L.DRV_HANDLE_L
     # mass: handle 0.12, shaft+socket 0.04 (COM in the handle)
     rigid(dv, L.DRV_MASS, inertia=(1.6e-4, 1.6e-4, 2.0e-5), com=(0.0, 0.0, zh0 + 0.040))
-    zl = zs0 + L.DRV_LEADIN[1]
-    for k, v in enumerate(L.ring_pieces(L.DRV_SOCKET_R[0], L.DRV_SOCKET_R[1], zs0, zl, n=12, r0_at_z0=L.DRV_LEADIN[0])):
-        hull(f"{dv}/lead{k:02d}", v, ZINC)  # chamfered mouth (lead-in)
-    for k, v in enumerate(L.ring_pieces(L.DRV_SOCKET_R[0], L.DRV_SOCKET_R[1], zl, zs1, n=12)):
-        hull(f"{dv}/sock{k:02d}", v, ZINC)
-    hull(f"{dv}/cap", L.cylinder(L.DRV_SOCKET_R[1], zs1, zs1 + 0.002, n=16), ZINC)
+    hull(f"{dv}/magnetic_holder", L.cylinder(L.DRV_SOCKET_R[1], zs0, zs1+.002, n=16), ZINC)
     hull(f"{dv}/shaft", L.cylinder(L.DRV_SHAFT_R, zs1 + 0.002, zh0, n=16), ZINC)
     hull(f"{dv}/handle", L.cylinder(L.DRV_HANDLE_R, zh0, zh1, n=20), RED, FRICTION["rubber"])
+    # Before thread entry the magnetic screw moves as part of the held tool. Its kinematic
+    # target follows the dynamic driver, so an internal face-to-face collision would push
+    # the driver backwards. External contacts on both bodies remain active.
+    screw = stage.GetPrimAtPath(f"{prim_path}/screw_r")
+    relation = UsdPhysics.FilteredPairsAPI.Apply(screw).CreateFilteredPairsRel()
+    relation.AddTarget(stage.GetPrimAtPath(dv).GetPath())
     _SPEC["paths"] = {n: f"{prim_path}/{n}" for n in BODIES}
     _SPEC["colliders"] = count["n"]
     return root.GetPrim()
@@ -401,7 +384,7 @@ class Runtime:
         import omni.physics.tensors as tensors
         import torch
         from isaaclab.sim.utils.stage import get_current_stage
-        from pxr import UsdUtils
+        from pxr import UsdPhysics, UsdUtils
 
         carb.settings.get_settings().set_bool("/physics/disableContactProcessing", False)
         self.base = environment.unwrapped
@@ -413,6 +396,9 @@ class Runtime:
         self.simview.set_subspace_roots("/")
         root = "/World/envs/env_0/panel"
         P = lambda n: f"{root}/{n}"  # noqa: E731
+        self.driver_path = stage.GetPrimAtPath(P("driver")).GetPath()
+        screw = stage.GetPrimAtPath(P("screw_r"))
+        self.screw_pair_filter = UsdPhysics.FilteredPairsAPI(screw).GetFilteredPairsRel()
         self.view = self.simview.create_rigid_body_view([P(n) for n in VIEW])
         self.idx = {n: i for i, n in enumerate(VIEW)}
         robot_links = []
@@ -423,7 +409,7 @@ class Runtime:
         self.cv_cover = self.simview.create_rigid_contact_view(
             [P("cover")], filter_patterns=[[P(n) for n in COVER_FILTERS] + robot_links], max_contact_data_count=8192)
         self.cv_screws = self.simview.create_rigid_contact_view(
-            [P("screw_l"), P("screw_r")], filter_patterns=[[P("cover"), P("driver")], [P("cover"), P("driver")]],
+            [P("screw_r")], filter_patterns=[[P("cover"), P("driver")]],
             max_contact_data_count=2048)
         self.n_filters = len(COVER_FILTERS)
         self.origin = self.base.scene.env_origins[0].detach().cpu().numpy().astype(float)
@@ -436,19 +422,20 @@ class Runtime:
         self.scorer = Scorer()
         self.steps = 0
         self.t = 0.0
-        self.adv = [0.0, 0.0]
-        self.ang = [0.0, 0.0]
-        self.turned = [0.0, 0.0]  # tightening rotation applied (rad)
-        self.engaged = [False, False]
-        self.engaged_s = [0.0, 0.0]
-        self.seated = [False, False]
-        self.latched = [None, None]  # advance at which the head came down on the cover
-        self.stall = [0.0, 0.0]
+        self.adv = [0.0]
+        self.ang = [0.0]
+        self.thread_started = False
+        self.turned = [0.0]  # tightening rotation applied (rad)
+        self.engaged = [False]
+        self.engaged_s = [0.0]
+        self.seated = [False]
+        self.latched = [None]  # advance at which the head came down on the cover
         self.phi_prev = None
-        self.clamp_n = [0.0, 0.0]
+        self.clamp_n = [0.0]
         self.hook_s = 0.0
         self.nonfinite = 0
-        self.peaks = dict(breaker_n=0.0, handle_n=0.0, robot_on_cover_n=0.0, clamp_n=[0.0, 0.0])
+        self.peaks = dict(breaker_n=0.0, handle_n=0.0, robot_on_cover_n=0.0, clamp_n=[0.0],
+                          carried_driver_screw_n=0.0, threaded_driver_screw_n=0.0)
         self.last_contacts = {}
         STATE.update(score=0.0, level=0.0, steps=0, detail={}, nonfinite=0, setup=self.setup)
 
@@ -474,24 +461,13 @@ class Runtime:
         return L.to_station(np.array([0.0, L.SCREW_Y[i], L.SCREW_Z]), self.setup)
 
     def head_front(self, i):
-        """Station point at the centre of screw i's hex front face."""
+        """Station point at the centre of screw i's head face."""
         hu = L.head_under_x(self.adv[i])
-        return self.screw_axis(i) + np.array([hu - L.HEAD_WASHER_T - L.HEAD_HEX_T, 0.0, 0.0])
+        return self.screw_axis(i) + np.array([hu - L.HEAD_T, 0.0, 0.0])
 
     # ------------------------------------------------------------------ screw model
     def _engagement(self, i, dpos, drot):
-        """(engaged, detail): the driver's socket is over screw i's hex."""
-        axis_d = -drot[:, 2]  # direction the socket opens toward
-        ang = math.degrees(math.acos(float(np.clip(axis_d[0], -1.0, 1.0))))
-        a = self.screw_axis(i)
-        rel = dpos - a
-        radial = math.hypot(rel[1], rel[2])
-        mouth_x = rel[0]  # panel-frame x of the socket mouth
-        hu = L.head_under_x(self.adv[i])
-        hex_front = hu - L.HEAD_WASHER_T - L.HEAD_HEX_T
-        inside = mouth_x - hex_front  # hex length inside the socket (m)
-        ok = ang < 8.0 and radial < 0.0010 and inside > 0.0015
-        return ok, dict(ang=ang, radial_mm=radial * 1e3, inside_mm=inside * 1e3)
+        return L.drive_alignment(dpos, drot, self.screw_axis(i), self.adv[i])
 
     def _stop(self, i, cpos, crot):
         """Advance at which screw i's head stops: on the cover's front face where the cover stands now (if it stands
@@ -513,16 +489,61 @@ class Runtime:
         # a cover held off by something else stalls the screw instead of being driven through it)
         return float(min(flat_stop, s_front + PUSH_AHEAD + L.COVER_T + L.START_GAP)), True
 
-    def write_screws(self):
+    def set_screw_carried(self, carrying):
+        """Change only the internal screw/holder pair on a carry/thread phase transition."""
+        filtered = self.driver_path in self.screw_pair_filter.GetTargets()
+        if filtered != carrying:
+            if carrying:
+                self.screw_pair_filter.AddTarget(self.driver_path)
+            else:
+                self.screw_pair_filter.RemoveTarget(self.driver_path)
+
+    def write_screws(self, driver):
         torch = self.torch
         tf = self.view.get_transforms().clone()
-        for i, name in enumerate(("screw_l", "screw_r")):
-            pos, rot = screw_pose(i, self.adv[i], self.ang[i], self.setup)
+        for i, name in enumerate(("screw_r",)):
+            pos, rot = (screw_pose(i, self.adv[i], self.ang[i], self.setup) if self.thread_started
+                        else L.screw_in_driver(*driver))
             k = self.idx[name]
             tf[k, :3] = torch.tensor(pos + self.origin, dtype=tf.dtype)
             tf[k, 3:7] = torch.tensor(_quat(rot), dtype=tf.dtype)
-        idx = torch.tensor([self.idx["screw_l"], self.idx["screw_r"]], dtype=torch.int32, device=tf.device)
+        idx = torch.tensor([self.idx["screw_r"]], dtype=torch.int32, device=tf.device)
         self.view.set_kinematic_targets(tf, idx)
+
+    def update_fastener(self, dt, cpos, crot, dpos, drot):
+        """Advance the magnetic screw from measured cover and driver poses."""
+        phi = math.atan2(drot[2, 0], drot[1, 0])  # driver roll about +x (right-handed about the screw axes)
+        dphi = 0.0 if self.phi_prev is None else _wrap_angle(phi - self.phi_prev)
+        self.phi_prev = phi
+        moved = not self.thread_started
+        self.eng_detail = []
+        for i in range(len(L.SCREW_Y)):
+            ok, det = self._engagement(i, dpos, drot)
+            if not self.thread_started:
+                # While held magnetically the screw tip must actually meet the pilot at the correct angle.
+                # The previous sample must also have been aligned before counting the first positive turn.
+                tip, _ = L.screw_in_driver(dpos, drot)
+                self.thread_started = bool(ok and self.engaged[i] and dphi > 0 and
+                                           np.linalg.norm(tip - self.screw_axis(i)) <= .0015)
+            self.eng_detail.append(det)
+            self.engaged[i] = ok
+            self.engaged_s[i] = self.engaged_s[i] + dt if ok else 0.0
+            stop, under = self._stop(i, cpos, crot)
+            if self.latched[i] is not None:
+                stop = self.latched[i]  # head down on the cover: it turns no further (no torque model)
+            turn = L.RATCHET_SIGN * dphi
+            if self.thread_started and ok and turn > 0.0:
+                if self.adv[i] < stop - 1e-7:
+                    new = min(stop, self.adv[i] + turn / (2 * math.pi) * L.PITCH)
+                    self.ang[i] += (new - self.adv[i]) / L.PITCH * 2 * math.pi * L.RATCHET_SIGN
+                    self.turned[i] += turn
+                    self.adv[i] = new
+                    moved = True
+            flat_stop = L.START_GAP + L.SNUG_INTERFERENCE
+            if under and self.latched[i] is None and self.turned[i] > 0.0 and abs(self.adv[i] - flat_stop) <= 2e-5:
+                self.latched[i] = self.adv[i]
+            self.seated[i] = bool(under and self.latched[i] is not None)
+        return moved
 
     def physics(self, dt):
         t0 = time.perf_counter()
@@ -533,36 +554,14 @@ class Runtime:
         poses = self.read()
         dpos, drot = poses["driver"]
         cpos, crot = poses["cover"]
-        phi = math.atan2(drot[2, 0], drot[1, 0])  # driver roll about +x (right-handed about the screw axes)
-        dphi = 0.0 if self.phi_prev is None else _wrap_angle(phi - self.phi_prev)
-        self.phi_prev = phi
-        moved = False
-        self.eng_detail = []
-        for i in (0, 1):
-            ok, det = self._engagement(i, dpos, drot)
-            self.eng_detail.append(det)
-            self.engaged[i] = ok
-            self.engaged_s[i] = self.engaged_s[i] + dt if ok else 0.0
-            stop, under = self._stop(i, cpos, crot)
-            if self.latched[i] is not None:
-                stop = self.latched[i]  # head down on the cover: it turns no further (no torque model)
-            turn = L.RATCHET_SIGN * dphi
-            if ok and turn > 0.0:
-                if self.adv[i] < stop - 1e-7:
-                    new = min(stop, self.adv[i] + turn / (2 * math.pi) * L.PITCH)
-                    self.ang[i] += (new - self.adv[i]) / L.PITCH * 2 * math.pi * L.RATCHET_SIGN
-                    self.turned[i] += turn
-                    self.adv[i] = new
-                    moved = True
-                elif under and self.latched[i] is None:
-                    self.stall[i] += turn  # head on a cover that does not move back: the screw stalls
-            flat_stop = L.START_GAP + L.SNUG_INTERFERENCE
-            if under and self.latched[i] is None and self.turned[i] > 0.0 and (
-                    self.adv[i] >= flat_stop - 2e-5 or self.stall[i] >= STALL_TURN):
-                self.latched[i] = self.adv[i]
-            self.seated[i] = bool(under and self.latched[i] is not None)
+        self.monitor.observe_guides(cpos, crot, self.panel_origin())
+        was_threaded = self.thread_started
+        moved = self.update_fastener(dt, cpos, crot, dpos, drot)
         if moved:
-            self.write_screws()
+            self.write_screws((dpos, drot))
+        if self.thread_started and not was_threaded:
+            # With the screw on the pilot, the working face must now press on the independent screw.
+            self.set_screw_carried(False)
         fc = self.cv_cover.get_contact_force_matrix(dt=dt).detach().cpu().numpy()[0]
         fs = self.cv_screws.get_contact_force_matrix(dt=dt).detach().cpu().numpy()
         nf = self.n_filters
@@ -571,18 +570,22 @@ class Runtime:
         handle_n = float(norms[nf - 6:nf].max())
         robot_on_cover = float(norms[nf:].max()) if norms.shape[0] > nf else 0.0
         support = float(norms[:nf].sum())
-        self.clamp_n = [float(np.linalg.norm(fs[k, 0])) for k in (0, 1)]
+        self.clamp_n = [float(np.linalg.norm(fs[k, 0])) for k in range(len(L.SCREW_Y))]
         vz = float(self.view.get_velocities().detach().cpu().numpy()[self.idx["cover"], 2])
         self.monitor.step(dt, vz, robot_on_cover, support > 0.5)
         pk = self.peaks
+        # These forces are from the physics step that just finished, before the transition above.
+        pair_phase = "threaded_driver_screw_n" if was_threaded else "carried_driver_screw_n"
+        pk[pair_phase] = max(pk[pair_phase], float(np.linalg.norm(fs[0, 1])))
         pk["breaker_n"] = max(pk["breaker_n"], breaker_n)
         pk["handle_n"] = max(pk["handle_n"], handle_n)
         pk["robot_on_cover_n"] = max(pk["robot_on_cover_n"], robot_on_cover)
         pk["clamp_n"] = [max(a, b) for a, b in zip(pk["clamp_n"], self.clamp_n)]
         self.last_contacts = dict(
             by={n: round(float(norms[k]), 3) for k, n in enumerate(COVER_FILTERS) if norms[k] > 0.0},
+            tub_up_n=round(float(fc[COVER_FILTERS.index("tub"), 2]), 3),
             robot_on_cover_n=round(robot_on_cover, 3), clamp_n=[round(v, 3) for v in self.clamp_n],
-            driver_on_screw_n=[round(float(np.linalg.norm(fs[k, 1])), 3) for k in (0, 1)], vz=round(vz, 4))
+            driver_on_screw_n=[round(float(np.linalg.norm(fs[k, 1])), 3) for k in range(len(L.SCREW_Y))], vz=round(vz, 4))
         if DEBUG and int(round(self.t / dt)) % 24 == 0:
             print("CONTACTS", self.last_contacts, flush=True)
         self.hook_s += time.perf_counter() - t0
@@ -593,7 +596,8 @@ class Runtime:
         torch = self.torch
         self.setup = setup
         self.trial_active = False
-        self.adv, self.ang = [0.0, 0.0], [0.0, 0.0]
+        self.set_screw_carried(True)
+        self.adv, self.ang = [0.0], [0.0]
         a = authored(setup)
         tf = self.view.get_transforms().clone()
         for n, i in self.idx.items():
@@ -623,7 +627,7 @@ class Runtime:
         tips = finger_tips(environment)
         dpos, _ = poses["driver"]
         m = measure(pc, rc, self.panel_origin(), self.seated, tips, dpos,
-                    [self.head_front(i) for i in (0, 1)])
+                    [self.head_front(i) for i in range(len(L.SCREW_Y))])
         level = self.scorer.step(m, float(np.linalg.norm(lin)), math.degrees(float(np.linalg.norm(ang))),
                                  self.monitor)
         STATE.update(
@@ -632,7 +636,7 @@ class Runtime:
                 self.scorer.last,
                 screws=dict(adv_mm=[round(v * 1e3, 3) for v in self.adv],
                             turns=[round(v / (2 * math.pi), 3) for v in self.turned],
-                            engaged=list(self.engaged), seated=list(self.seated),
+                            started=self.thread_started, engaged=list(self.engaged), seated=list(self.seated),
                             eng=getattr(self, "eng_detail", None)),
                 peaks=dict(self.peaks),
                 contacts=self.last_contacts,
@@ -657,7 +661,7 @@ def bench_state():
         return None
     out = rt.read()
     out["screws"] = dict(adv=list(rt.adv), engaged=list(rt.engaged), seated=list(rt.seated),
-                         head_front=[rt.head_front(i) for i in (0, 1)], axis=[rt.screw_axis(i) for i in (0, 1)])
+                         head_front=[rt.head_front(i) for i in range(len(L.SCREW_Y))], axis=[rt.screw_axis(i) for i in range(len(L.SCREW_Y))])
     out["panel_origin"] = rt.panel_origin()
     return out
 
@@ -681,8 +685,8 @@ def _patch_scene(scene) -> None:
             rt = _RT["rt"]
             p, r = rt.read()["cover"] if rt else authored(SETUP_BASE)["cover"]
             z = np.zeros(3)
-            out["panel"] = ObjectState(pos=np.asarray(p), quat_xyzw=_quat(r), lin_vel=z, ang_vel=z, low=p - 0.2,
-                                       high=p + 0.2)
+            out["panel"] = ObjectState(pos=np.asarray(p), quat_xyzw=_quat(r), lin_vel=z, ang_vel=z, low=p - [0.05,L.COVER_W/2,L.COVER_H/2],
+                                       high=p + [0.05,L.COVER_W/2,L.COVER_H/2])
         return {n: out[n] for n in names}
 
     orig_build = scene.build_task_environment

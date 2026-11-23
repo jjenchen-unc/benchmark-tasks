@@ -2,7 +2,7 @@
 
 Measured every control step from the cable link poses, the clamp tab angle and the fingertip positions:
 * through: the cable passes through the box's entry opening and at least 20 mm of it is past the wall's inner face,
-  with the clamp tab lifted onto the sheath (tab at 56 deg or more from vertical: off its 55 deg rest stop): the tab bears on the cable, so it
+  with the clamp tab lifted onto the sheath (the angle is at least one degree above the modeled rest stop): the tab bears on the cable, so it
   cannot be pulled back out;
 * inside_mm: length of cable past the wall's inner face, along the cable to its cut end (a person: a tape along the
   cable from the clamp to the cut end);
@@ -25,7 +25,7 @@ import numpy as np
 CLEAR_M = 0.120  # both hands clear of the cable (the overhead camera then sees the result)
 STILL_V_M_S = 0.005
 HOLD_STEPS = 20  # 1 s at 20 Hz
-TAB_THROUGH_DEG = 56.0  # tab lifted off its hard rest stop (55.0 deg) by the sheath under it (56-64 deg seen)
+TAB_THROUGH_DEG = L.TAB_REST_DEG + 1.0  # The sheath lifts the tongue at least one degree off the rest stop.
 
 
 def seg_point_distance(p, a, b):

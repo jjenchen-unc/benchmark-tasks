@@ -52,7 +52,7 @@ LEFT_S = 0.010
 LEFT_OPEN = 0.003  # left fingers open only 3 mm past the sheath: their wider upper part must clear the box sides  # left hand's grip, from the cut end
 PAD_ABOVE = 0.0012  # pad tips this far above the surface the cable lies on
 PRE_GAP = 0.025  # cut end this far outside the entry wall's outer face for the final alignment
-AIM_DZ = 0.0045  # cable centre at mid-opening height when presented (bottom 2.1 mm above the lower edge)  # cable centre this far above the opening's lower edge
+AIM_DZ = L.ENTRY_H-L.CABLE_T/2-.0018  # cable centre at mid-opening height when presented (bottom 2.1 mm above the lower edge)  # cable centre this far above the opening's lower edge
 PUSH1_IN = 0.015
 PUSH_PITCH_DEG = 0.0
 EDGE_CLEAR = 0.0015  # cable centre line held this far above the line of the opening's lower edge while pushing
@@ -102,7 +102,7 @@ class Arm:
         self.name, self.base = name, np.asarray(base_pos, float)
         self.q = np.array(READY, float)
         self.grip = 1.0
-        self.pos, self.rot = fastik.tcp_pose(self.q, self.base)
+        self.pos, self.rot = L.fixture_pose(*fastik.tcp_pose(self.q, self.base))
         self.offset = np.zeros(6)
         self.measured = self.q.copy()
         self.measured_grip = 1.0
@@ -146,16 +146,17 @@ class Arm:
         rail before the fingers open."""
         self.set_comp("hold")
         self.q = self.measured.copy()
-        self.pos, self.rot = fastik.tcp_pose(self.q, self.base)
+        self.pos, self.rot = L.fixture_pose(*fastik.tcp_pose(self.q, self.base))
 
     def measured_tcp(self):
-        return fastik.tcp_pose(self.measured, self.base)
+        return L.fixture_pose(*fastik.tcp_pose(self.measured, self.base))
 
     def solve(self, pos, rot):
         """IK from the current joint angles; other seeds only if that fails, and then the solution nearest the current
         angles (no jump to another arm configuration in mid-move)."""
         from yam_arena.constants import READY
 
+        pos, rot = L.world_point(pos), L.FIXTURE_ROT @ rot
         q, pe, re = fastik.solve(pos, rot, self.q, base=self.base, iters=80)
         if pe < 2e-4 and re < 3e-3:
             return q, pe, re
@@ -209,7 +210,7 @@ class Arm:
         n = max(1, round(duration * CONTROL_HZ))
         for k in range(1, n + 1):
             self.q = q0 + ik.smoothstep(k / n) * (q1 - q0)
-            self.pos, self.rot = fastik.tcp_pose(self.q, self.base)
+            self.pos, self.rot = L.fixture_pose(*fastik.tcp_pose(self.q, self.base))
             yield
 
 
@@ -406,7 +407,7 @@ def pick_right(c):
     arm = c.right
     arm.set_comp(True)
     p, ax, wy = point_at(c, GRIP_S)
-    tips = np.array([p[0], p[1], L.TOP + PAD_ABOVE])
+    tips = p + [0, 0, -L.CABLE_T/2 + PAD_ABOVE]
     # grasp: approach leaning toward the cut end (gripper body back, clear of the box wall when pushing); flip
     # feasible both here and at the presentation pose in front of the entry (end along +y)
     _, spec = cable(c)
@@ -429,16 +430,22 @@ def pick_right(c):
         if best is None or cost < best[0]:
             best = (cost, r_pick)
     rot = best[1]
+    tips = p + rot[:,2] * 0.006
     half = L.CABLE_W / 2
-    yield from arm.move(tcp_for_tips(tips, rot) + [0, 0, 0.07], rot, 3.0, grip_of(half + OPEN_CLEAR), "right over grip")
+    yield from arm.move(tcp_for_tips(tips, rot) + [0, 0, 0.038], rot, 3.0, grip_of(half + OPEN_CLEAR), "right over grip")
     yield from wait(0.3)
     p, ax, wy = point_at(c, GRIP_S)
-    tips = np.array([p[0], p[1], L.TOP + PAD_ABOVE])
+    tips = p + rot[:,2] * 0.006
     yield from arm.move(tcp_for_tips(tips, rot), rot, 2.0, None, "right descend")
     yield from wait(0.3)
     yield from arm.set_grip(grip_of(half - SQUEEZE), 1.0, "right close")
     yield from wait(0.5)
-    c.note("right gripped")
+    actual, actual_r = arm.measured_tcp()
+    c.note("right gripped", finger_distance_mm=c.detail()["measure"]["tip_mm"],
+           tcp_error_mm=((actual-arm.pos)*1000).round(1).tolist(),
+           contact_n=c.detail()["grip_now_n"])
+    if c.detail()["grip_now_n"] < 0.5:
+        raise Stop("right hand missed the free cable end")
     c.grip_s = GRIP_S
     yield from arm.move(arm.pos + [0, 0, 0.035], arm.rot, 1.5, None, "right lift")
     yield from wait(0.4)
@@ -478,7 +485,7 @@ def push_in(c, depth, label):
     y_in = L.entry_wall_y(spec)
     re = L.rx(math.radians(-PUSH_PITCH_DEG)) @ entry_rot()  # end pitched slightly down: it rides under the tab
     p0, _ = end_frame(c)
-    pt = np.array([ec[0], y_in + depth + 0.010, L.ENTRY_Z0 + PUSH_DZ])  # cable pressed onto the opening's lower edge
+    pt = np.array([ec[0], y_in + depth + 0.010, L.ENTRY_Z1 - PUSH_DZ])  # cable pressed onto the opening's lower edge
     c.right.set_comp(True)
     saved = c.right.offset.copy()
     c.right.offset_clip = 0.60
@@ -505,9 +512,10 @@ def push_in(c, depth, label):
     tcp0, _ = arm.measured_tcp()
     d = tcp0 - gp0  # TCP relative to the grip point
     rot = arm.rot.copy()
-    z_grip = L.ENTRY_Z0 + L.CABLE_T / 2 + EDGE_CLEAR
+    z_grip = L.ENTRY_Z1 - L.CABLE_T/2 - EDGE_CLEAR
     cx = 0.0
     hz = 0.0
+    axial_offset = 0.0
     adv = max(0.004, depth + 0.010 - (inserted(c) or 0.0))
     links_, _ = cable(c)
     ax0 = links_[1][1][:, 0]
@@ -522,13 +530,17 @@ def push_in(c, depth, label):
         # the cable runs straight through the pads (pitched by its slope down to the bench behind the hand): hold the
         # grip so that the cable's centre line crosses the wall just above the opening's lower edge, which then
         # carries the tab's downward push (otherwise the lead is a cantilever from the pads and kinks)
-        yg = gp0[1] + sfr * adv
+        axial_error = p0[1] + sfr * (depth + y_in - p0[1]) - pe_[1]
+        axial_offset = float(np.clip(axial_offset + 0.025 * axial_error, -0.008, 0.020))
+        yg = gp0[1] + sfr * adv + axial_offset
         y_wall = y_in - L.BOX_WALL / 2
         z_line = z_grip - (y_wall - yg) * tan_p
         # closed loop on the measured cable centre height where it crosses the wall (next to the edge fulcrum)
         zw = wall_height(c, y_wall)
-        if zw is not None:
-            hz = float(np.clip(hz + 0.25 * (z_grip - zw), -0.012, 0.012))
+        if pe_[1] < y_in + 0.002:
+            hz = float(np.clip(hz + 0.15 * (L.ENTRY_Z0 + AIM_DZ - pe_[2]), -0.023, 0.023))
+        elif zw is not None:
+            hz = float(np.clip(hz + 0.20 * (z_grip - zw), -0.015, 0.015))
         g = np.array([ec[0] + cx, yg, gp0[2] + min(1.0, k / 10.0) * (z_line - gp0[2]) + hz])
         arm.label = label
         arm.set_pose(g + d, rot)
@@ -541,7 +553,7 @@ def push_in(c, depth, label):
     c.right.offset = saved  # stop pushing: back to the pre-push sag offsets, commanded where the arm is
     c.right.relax()
     yield from wait(0.3)
-    c.note(label, inserted_mm=None if inserted(c) is None else round(inserted(c) * 1e3, 2))
+    c.note(label, grip_n=c.detail()["grip_now_n"], inserted_mm=None if inserted(c) is None else round(inserted(c) * 1e3, 2))
 
 
 def regrip_right(c):
@@ -553,38 +565,60 @@ def regrip_right(c):
     # once let go, the outside part drops (it pivots on the opening's edge): find the sheath again REGRIP_BACK further
     # back along it, from its measured pose, and take it from above as at the first pick
     rot = arm.rot.copy()
-    s_new = getattr(c, "grip_s", GRIP_S) + REGRIP_BACK
+    s_new = min(getattr(c, "grip_s", GRIP_S) + REGRIP_BACK, (inserted(c) or 0.0) + 0.058)
     yield from arm.move(arm.pos + [0, 0, 0.015], rot, 0.5, None, "right up")
     p, _, _ = point_at(c, s_new)
-    tips = np.array([p[0], p[1], p[2] - L.CABLE_T / 2 + PAD_ABOVE])
+    tips = p + rot[:, 2] * 0.005
     yield from arm.move(tcp_for_tips(tips, rot) + [0, 0, 0.020], rot, 1.1, None, "right over cable")
     p, _, _ = point_at(c, s_new)
-    tips = np.array([p[0], p[1], p[2] - L.CABLE_T / 2 + PAD_ABOVE])
+    tips = p + rot[:, 2] * 0.005
     yield from arm.move(tcp_for_tips(tips, rot), rot, 0.7, None, "right down")
     yield from arm.set_grip(grip_of(half - SQUEEZE), 0.8, "right close 2")
     yield from wait(0.3)
     c.corr.pop(("end", ("right",)), None)
     c.grip_s = s_new
     capture(c, "right")
+    actual, rr = arm.measured_tcp()
+    c.note("right regripped", arc_mm=round(s_new*1000),
+           tcp_err_mm=((actual-arm.pos)*1000).round(1).tolist(), total_contact=c.detail()["grip_now_n"])
 
 
 def take_left(c):
-    """Left hand pinches the cable LEFT_S from its cut end, inside the box."""
-    arm = c.left
+    """Straddle the free end at the back of the cavity, using measured pad position."""
+    arm=c.left
+    u=.0045
+    _,spec=cable(c)
+    target=point_at(c,u)[0];rot=best_rot(arm,tcp_for_tips(target),np.array([1.,0.,0.]))
+    area=tcp_for_tips(target,rot)
+    area[2]=L.BOX_RIM_Z+.062
+    yield from arm.move(area,rot,3.4,grip_of(.0074),"square to box opening")
+    start=arm.measured_tcp()[0]
+    corr=np.zeros(3)
+    from yam_arena import ik
+    for k in range(1,112):
+        f=ik.smoothstep(min(k/85,1.))
+        wire=point_at(c,u)[0]
+        goal=tcp_for_tips(wire+rot[:,2]*.0013,rot)
+        ref=start+f*(goal-start)
+        actual,_=arm.measured_tcp()
+        corr=np.clip(corr+.05*(ref-actual),[-.005,-.010,-.003],[.005,.010,.003])
+        arm.grip=grip_of(.0074-.00125*f)
+        arm.set_pose(ref+corr,rot)
+        yield
+    gap_before=arm.measured_grip*FINGER_OPEN
+    arm.relax()
+    yield from arm.set_grip(0.,.8,"close on the lead")
+    yield from wait(.3)
+    wire=point_at(c,u)[0];tcp,rot=arm.measured_tcp()
+    c.note("receiver contact",open_before_mm=round(gap_before*1000,2),
+           closed_mm=round(arm.measured_grip*FINGER_OPEN*1000,2),
+           force=c.detail()["grip_now_n"],offset_mm=((tcp+rot[:,2]*.013-wire)*1000).round(1).tolist())
     arm.set_comp(True)
-    p, ax, wy = point_at(c, LEFT_S)
-    half = L.CABLE_W / 2
-    tips = np.array([p[0], p[1], p[2] - L.CABLE_T / 2 + PAD_ABOVE])
-    rot = best_rot(arm, tcp_for_tips(tips), wy)
-    yield from arm.move(tcp_for_tips(tips, rot) + [0, 0, 0.045], rot, 3.0, grip_of(half + LEFT_OPEN), "left over box")
-    p, ax, wy = point_at(c, LEFT_S)
-    tips = np.array([p[0], p[1], p[2] - L.CABLE_T / 2 + PAD_ABOVE])
-    yield from arm.move(tcp_for_tips(tips, rot), rot, 2.5, None, "left into box")
-    yield from wait(0.3)
-    yield from arm.set_grip(grip_of(half - SQUEEZE), 1.0, "left close")
-    yield from wait(0.4)
-    c.note("left gripped")
-
+    yield from arm.move(tcp+[0,0,.011],rot,1.,None,"test small draw")
+    new_wire=point_at(c,u)[0]
+    c.note("receiver test draw",lead_shift_mm=((new_wire-wire)*1000).round(1).tolist())
+    if new_wire[2]-wire[2]<.003:
+        raise Stop("the cable did not follow the receiver")
 
 def right_away(c):
     arm = c.right
@@ -592,7 +626,7 @@ def right_away(c):
     yield from arm.set_grip(grip_of(L.CABLE_W / 2 + OPEN_CLEAR), 0.8, "right open")
     yield from arm.move(arm.pos + [0, 0, 0.05], arm.rot, 1.2, None, "right up")
     arm.set_comp(True)
-    yield from arm.move(np.array([PARK[0], -PARK[1], PARK[2]]), arm.rot, 2.5, 0.0, "right park")
+    yield from arm.home(2.5, "right park", yaw=-0.7)
 
 
 def feed_guided(c):
@@ -604,7 +638,7 @@ def feed_guided(c):
     y_in = L.entry_wall_y(spec)
     ins0 = inserted(c) or 0.0
     p0 = arm.pos.copy()
-    p1 = np.array([p0[0], y_in + DRAW_Y_END, DRAW_Z_END])
+    p1 = p0 + np.array([0.008, 0.026, 0.115])
 
     pa = np.array([p0[0], p0[1] + 0.008, p0[2] + 0.002])  # a short run along the floor, then a diagonal rise
     run_a = max(pa[1] - p0[1], 0.0)
@@ -643,7 +677,7 @@ def draw_left(c):
     _, spec = cable(c)
     y_in = L.entry_wall_y(spec)
     p0 = arm.pos.copy()
-    p1 = np.array([p0[0], y_in + DRAW_Y_END, DRAW_Z_END])
+    p1 = p0 + np.array([0.008, 0.026, 0.115])
     s, k = 0.0, 0
     while True:
         ins = inserted(c)
@@ -678,18 +712,334 @@ def let_go_left(c):
     c.note("released", inserted_mm=round((inserted(c) or 0) * 1e3, 2))
 
 
+def grasp_from_face(c):
+    arm=c.left
+    box=L.box_origin(cable(c)[1])
+    hinge=box+np.array([L.ENTRY_X,-L.BOX_IN_Y/2,L.ENTRY_Z1-L.BOX_FLOOR_Z])
+    library=np.load(HERE/"cavity_grasps.npz")
+    candidates=[]
+    for arc in np.arange(.008,min(.095,(inserted(c) or 0.)-.012),.005):
+        target,tangent,_=point_at(c,arc)
+        near=np.linalg.norm(library["points"]-(target-hinge),axis=1)
+        for j in np.argsort(near)[:4]:
+            if near[j]>.011:continue
+            valid=library["clearance"][j]-near[j]
+            for i in np.flatnonzero(valid>.00015):
+                rot=library["rotations"][i]
+                across=abs(rot[:,0]@tangent)
+                if across>.60:continue
+                # Prefer room on all sides, then a jaw axis across the stock.
+                merit=min(valid[i],.007)-.010*across-.015*max(0.,.01-target[2]+L.BOX_RIM_Z)
+                candidates.append((merit,float(arc),i,rot))
+    if not candidates:
+        c.note("no clear gripper pose",depth_mm=round(1000*(inserted(c) or 0.)))
+        return False
+    choices=[]
+    ranked=sorted(candidates,key=lambda row:row[0],reverse=True)
+    seen=set()
+    for merit,arc,i,rot in ranked:
+        if (arc,i) in seen:continue
+        seen.add((arc,i))
+        if len(seen)>70:break
+        pt=point_at(c,arc)[0]
+        target=tcp_for_tips(pt+rot[:,2]*.0025,rot)
+        front=target-rot[:,2]*.065
+        q,ep,er=arm.solve(target,rot)
+        qf,ef,rf=arm.solve(front,rot)
+        if max(ep,ef)>.004 or max(er,rf)>.14:continue
+        choices.append((merit-ep-ef-.025*(er+rf)-.0001*np.linalg.norm(q-arm.measured),arc,rot,front,qf))
+    if not choices:return False
+    _,arc,rot,front,q1=max(choices,key=lambda row:row[0])
+    q0=arm.q.copy()
+    c.note("selected cavity grasp",arc_mm=round(arc*1000),stock_mm=(1000*point_at(c,arc)[0]).round(2).tolist())
+    arm.set_comp(True)
+    for k in range(60):
+        u=(k+1)/60
+        arm.q=q0+(3*u*u-2*u**3)*(q1-q0)
+        arm.pos,arm.rot=L.fixture_pose(*fastik.tcp_pose(arm.q,arm.base))
+        arm.grip=grip_of(.0076)
+        arm.label="outside the central cable span"
+        yield
+    for k in range(95):
+        wire=point_at(c,arc)[0]
+        goal=tcp_for_tips(wire+rot[:,2]*.0025,rot)
+        ref=goal-rot[:,2]*.065*max(0.,1.-(k+1)/56)
+        tcp,rr=arm.measured_tcp()
+        q,ep,er=arm.solve(tcp+np.clip(ref-tcp,-.009,.009),rot)
+        if ep>.005 or er>.15:break
+        arm.q=q;arm.pos,arm.rot=L.fixture_pose(*fastik.tcp_pose(q,arm.base))
+        arm.grip=grip_of(.0076*max(0.,1.-max(0,k-59)/19))
+        yield
+    arm.grip=0.
+    # Confirm the material point follows a short draw out of the cavity.
+    initial=point_at(c,arc)[0]
+    tcp,rr=arm.measured_tcp()
+    for k in range(30):
+        q,ep,er=arm.solve(tcp+[0.,0.,.009*min(1.,(k+1)/21)],rr)
+        if ep>.004 or er>.14:break
+        arm.q=q;arm.pos,arm.rot=L.fixture_pose(*fastik.tcp_pose(q,arm.base))
+        yield
+    moved=point_at(c,arc)[0]-initial
+    c.note("tested central cable span",wire_mm=(1000*moved).round(1).tolist())
+    if moved[2]<.0015:return False
+    start,rot=arm.measured_tcp()
+    for k in range(180):
+        frac=min(1.,(k+1)/145.)
+        desired=start+np.array([-.005,-.010,.083])*frac
+        rr=L.rx(math.radians(14)*frac)@rot
+        q,ep,er=arm.solve(desired,rr)
+        if ep>.004 or er>.14:break
+        arm.q=q;arm.pos,arm.rot=L.fixture_pose(*fastik.tcp_pose(q,arm.base))
+        yield
+        if (inserted(c) or 0.)>=.145:break
+    c.note("draw from central span",arc_mm=round(1000*arc))
+    return True
+
+
+def joint_move(arm,target,duration,label):
+    arm.label=label
+    start=arm.measured.copy()
+    steps=max(4,int(duration*CONTROL_HZ),int(np.max(abs(target-start))/.033))
+    for k in range(steps):
+        u=(k+1)/steps
+        arm.q=start+(target-start)*(3*u*u-2*u*u*u)
+        arm.pos,arm.rot=L.fixture_pose(*fastik.tcp_pose(arm.q,arm.base))
+        yield
+
+
+def pad_forces(c,hand,s):
+    import cablekit
+    rt=cablekit.runtime()
+    forces=np.linalg.norm(rt.cv_grip.get_contact_force_matrix(dt=cablekit.PHYSICS_DT).detach().cpu().numpy(),axis=-1)
+    side=len(rt.robot_links)//2
+    start=side if hand=="right" else 0
+    at=np.abs(L.link_offsets()[0]-s)<.023
+    return [float(forces[at,i].max()) for i in range(start,start+side)
+            if rt.robot_links[i].rsplit("/",1)[-1] in ("tip_left","tip_right")]
+
+
+def acquire(c,hand,arcs,inside=False):
+    from nm_pathplan import Planner
+    arm=c.arms[hand]
+    if not hasattr(c,"planners"):c.planners={}
+    if hand not in c.planners:c.planners[hand]=Planner(cable(c)[1],arm.base)
+    planner=c.planners[hand]
+    for s in arcs:
+        wire,axis,width=point_at(c,s)
+        plans=planner.grasps(wire,axis,width,arm.measured,inside)
+        selected=None
+        for _,rot,half,pre,goal in plans[:10]:
+            path=planner.path(arm.measured,pre,half)
+            if path is not None:
+                selected=(rot,half,path)
+                break
+        if selected is None:
+            c.note("no collision-free pickup",arm=hand,arc_mm=round(s*1000),point_mm=(wire*1000).round(1).tolist())
+            continue
+        rot,half,path=selected
+        arm.relax()
+        arm.set_comp(True)
+        arm.offset_clip=.28
+        arm.grip=grip_of(half)
+        for q in path:yield from joint_move(arm,q,.50,"around the framing")
+        start,r=arm.measured_tcp()
+        for k in range(78):
+            wire,_,_=point_at(c,s)
+            goal=tcp_for_tips(wire+.004*rot[:,2],rot)
+            fraction=min(1.,(k+1)/38)
+            ref=start+fraction*(goal-start)
+            actual,_=arm.measured_tcp()
+            q=planner.inverse(actual+np.clip(ref-actual,-.008,.008),rot,arm.measured)
+            if q is None or not planner.clear(q,min(half,arm.measured_grip*FINGER_OPEN)):break
+            arm.q=q
+            arm.pos,arm.rot=L.fixture_pose(*fastik.tcp_pose(q,arm.base))
+            arm.grip=grip_of(half*max(0.,1.-max(0,k-40)/21))
+            arm.label="track material between pads"
+            yield
+        pads=pad_forces(c,hand,s)
+        c.note("planned grasp contact",hand=hand,arc_mm=round(s*1000),pads_n=np.round(pads,2).tolist())
+        if pads and min(pads)>.3:
+            actual,r=arm.measured_tcp()
+            wire,axis,_=point_at(c,s)
+            direction=np.array([0.,0.,1.]) if inside else axis
+            arm.grip=0.
+            for k in range(17):
+                q=planner.inverse(actual+direction*.006*min(1.,(k+1)/13),r,arm.measured)
+                if q is None:break
+                arm.q=q
+                arm.pos,arm.rot=L.fixture_pose(*fastik.tcp_pose(q,arm.base))
+                yield
+            moved=float((point_at(c,s)[0]-wire)@direction)
+            pads=pad_forces(c,hand,s)
+            c.note("planned grip trial",travel_mm=round(1000*moved,2),pads_n=np.round(pads,2).tolist())
+            if pads and min(pads)>.3 and (moved>.0007 or
+                    ((inserted(c) or 0.)>.128 and min(pads)>1.2 and gripped_material(c,hand) is not None)):
+                if hand=="right":c.grip_s=s
+                return True
+        arm.grip=grip_of(half)
+        yield from wait(.45)
+        if planner.clear(path[-1],half):yield from joint_move(arm,path[-1],.75,"back from the stock")
+    return False
+
+
+def gripped_material(c,hand):
+    """Estimate the arc position clamped between both pads, from their contact reports."""
+    import cablekit
+    rt=cablekit.runtime()
+    forces=np.linalg.norm(rt.cv_grip.get_contact_force_matrix(dt=cablekit.PHYSICS_DT).detach().cpu().numpy(),axis=-1)
+    half=len(rt.robot_links)//2
+    cols=[i for i in range(0 if hand=="left" else half,half if hand=="left" else 2*half)
+          if rt.robot_links[i].rsplit("/",1)[-1] in ("tip_left","tip_right")]
+    if len(cols)!=2:return None
+    centers=L.link_offsets()[0]
+    a,b=forces[:,cols[0]],forces[:,cols[1]]
+    if min(a.max(),b.max())<.6:return None
+    ia,ib=np.argmax(a),np.argmax(b)
+    if abs(centers[ia]-centers[ib])>.030:return None
+    return .5*(centers[ia]+centers[ib])
+
+
+def push_gripped_segment(c,arc,stroke):
+    arm=c.right
+    spec=cable(c)[1]
+    gate=L.entry_centre(spec)
+    gate[1]=L.entry_wall_y(spec);gate[2]=L.ENTRY_Z1-.0035
+    start,r=arm.measured_tcp()
+    stock,ax,_=point_at(c,arc)
+    along=gate-stock
+    along/=max(1e-8,np.linalg.norm(along))
+    along=.55*along+.45*ax
+    along/=max(1e-8,np.linalg.norm(along))
+    before=inserted(c) or 0.
+    delta=np.zeros(3)
+    for k in range(85):
+        depth=inserted(c) or 0.
+        if depth>=.144:break
+        u=min(1.,(k+1)/60.)
+        # Roll at the entry to redirect the emerging lead towards the open face.
+        rotation=L.rx(math.radians(11)*u)
+        guide=point_at(c,min(arc,max(.002,depth)))[0]
+        dx=float(np.clip(gate[0]-guide[0],-.003,.003))
+        delta[0]=.94*delta[0]+.06*dx
+        target=gate+rotation@(start-gate)+along*u*.029+delta
+        q,ep,er=arm.solve(target,rotation@r)
+        if ep>.004 or er>.15:break
+        arm.q=q;arm.grip=0.;arm.pos,arm.rot=L.fixture_pose(*fastik.tcp_pose(q,arm.base))
+        yield
+        if k>9 and gripped_material(c,"right") is None:break
+        if depth>=before+.021:break
+    c.note("feed observed material",stroke=stroke,arc_mm=round(arc*1000),previous_mm=round(1000*before,2),
+           contact_arc_mm=round(1000*(gripped_material(c,"right") or 0.)))
+
+
+def angle_loaded_stock(c,hand):
+    # Shift the gripped sheath across the entry so that it presses on the moving tongue.
+    arm=c.arms[hand]
+    planner=c.planners[hand]
+    spec=cable(c)[1]
+    mouth=L.entry_centre(spec)
+    mouth[1]=L.entry_wall_y(spec)
+    mouth[2]=L.ENTRY_Z1-.004
+    source,rot=arm.measured_tcp()
+    depth=inserted(c) or 0.
+    neck=point_at(c,depth)[0]
+    side=np.clip(mouth-neck,-.009,.009)
+    side[1]=0.
+    c.note("loaded sheath at entry",hand=hand,neck_mm=(1000*(neck-mouth)).round(2).tolist(),
+           pads=(1000*(gripped_material(c,hand) or 0.)))
+    angles=[(side[0],.004,side[2]),(side[0],.012,.012),
+            (side[0],.012,-.011),(side[0]-.006,.018,.006),(side[0]+.007,.014,.010)]
+    offset=np.zeros(3)
+    for stroke in angles:
+        start=offset.copy()
+        for k in range(40):
+            u=min(1.,(k+1)/25.)
+            offset=start+(np.asarray(stroke)-start)*u
+            q=planner.inverse(source+offset,rot,arm.measured)
+            if q is None or not planner.clear(q,max(0.,arm.measured_grip)*FINGER_OPEN):break
+            arm.q=q
+            arm.pos,arm.rot=L.fixture_pose(*fastik.tcp_pose(q,arm.base))
+            arm.grip=0.
+            arm.label="seat the sheath under the integral tab"
+            yield
+            m=c.detail()["measure"]
+            if m["through"] and 130.4< (m["inside_mm"] or 0.) <167.:
+                c.note("clamp bears on the sheath",hand=hand)
+                return True
+            if gripped_material(c,hand) is None and k>6:break
+        c.note("sheath orientation",hand=hand,offset_mm=(offset*1000).round(2).tolist())
+    return False
+
+
 def demo(c):
     yield from wait(0.5)
     yield from pick_right(c)
     yield from present(c)
-    yield from push_in(c, PUSH1_IN, "push 1")
+    yield from push_in(c,PUSH1_IN,"push 1")
     yield from regrip_right(c)
-    yield from push_in(c, PUSH2_IN, "push 2")
-    yield from take_left(c)
-    yield from feed_guided(c)
-    yield from right_away(c)
-    yield from let_go_left(c)
-    yield from wait(3.0)
+    yield from push_in(c,PUSH2_IN,"push 2")
+    # Take a second bite outside before levering: a longer free span develops
+    # curvature against the top entry and presents the lead at the face.
+    arm=c.right
+    yield from regrip_right(c)
+    _,spec=cable(c)
+    pivot=L.entry_centre(spec)
+    p0,r0=arm.measured_tcp()
+    for k in range(1,131):
+        f=k/130
+        rot=L.rx(math.radians(34)*f)
+        arm.set_pose(pivot+rot@(p0-pivot)+[0,.023*f,-.005*f],rot@r0)
+        yield
+    c.note("angled lead",curve_mm=np.round([point_at(c,u)[0]*1000 for u in (.005,.015,.025,.035)],1).tolist())
+    for stroke in range(6):
+        depth=inserted(c) or 0.
+        if depth>=.142 or depth<.035:break
+        arc=gripped_material(c,"right")
+        if arc is None or arc<depth+.009:
+            arm.relax()
+            arm.grip=grip_of(.014)
+            yield from wait(.48)
+            candidates=[depth+x for x in (.035,.050,.071,.093,.026)]
+            if not (yield from acquire(c,"right",candidates)):break
+            arc=gripped_material(c,"right")
+        if arc is None:break
+        if .128<(inserted(c) or 0.)<.168:
+            yield from angle_loaded_stock(c,"right")
+            break
+        yield from push_gripped_segment(c,arc,stroke)
+        if (inserted(c) or 0.)<=depth+.001:
+            arm.relax()
+            arm.grip=grip_of(.014)
+            yield from wait(.48)
+    depth=inserted(c) or 0.
+    m=c.detail()["measure"]
+    if depth>=.128:
+        arm.relax()
+        arm.grip=grip_of(.017)
+        yield from wait(.65)
+        yield from arm.home(1.9,"withdraw from the supply",yaw=-.65)
+        yield from wait(1.1)
+        if not c.detail()["measure"]["through"]:
+            arcs=np.arange(.005,min(.100,depth-.010),.0075)
+            order=sorted(arcs,key=lambda s:point_at(c,s)[0][2],reverse=True)
+            if (yield from acquire(c,"left",order[:5])):
+                yield from angle_loaded_stock(c,"left")
+            c.left.relax()
+            c.left.grip=grip_of(.018)
+            yield from wait(.6)
+    elif .052<depth:
+        arm.relax()
+        yield from arm.set_grip(grip_of(.016),.65,"release the supply")
+        yield from arm.home(1.9,"make room for the receiver",yaw=-.65)
+        yield from grasp_from_face(c)
+        c.left.relax()
+        yield from c.left.set_grip(grip_of(.013),.65,"release drawn cable")
+    # Release the sheath and retreat along the approach vector before parking.
+    arm.relax()
+    yield from arm.set_grip(grip_of(.018),.8,"clear the outer sheath")
+    yield from arm.home(2.5,"right park",yaw=-.7)
+    yield from c.left.home(2.,"left park",yaw=LEFT_AWAY_YAW)
+    yield from wait(4.0)
 
 
 def neg_push_far(c):
@@ -849,11 +1199,16 @@ def left_reach_dev(c):
     tips = np.array([o[0], y_in + PUSH2_IN - LEFT_S, L.ENTRY_Z0 + 0.0024 - L.CABLE_T / 2 + PAD_ABOVE])
     rot = best_rot(arm, tcp_for_tips(tips), np.array([1.0, 0.0, 0.0]))
     half = L.CABLE_W / 2
-    yield from arm.move(tcp_for_tips(tips, rot) + [0, 0, 0.045], rot, 3.0, grip_of(half + LEFT_OPEN), "left over box")
+    entry = tcp_for_tips(tips,rot)
+    entry[2] = L.BOX_RIM_Z + 0.069
+    # From the free side of the stud, get in front of the face first, then approach normally.
+    yield from arm.move(entry, rot, 3.5, grip_of(half + LEFT_OPEN), "left in front")
+    pm, _ = arm.measured_tcp()
+    c.note("front approach", tcp_err_mm=((pm-entry)*1000).round(1).tolist())
     yield from arm.move(tcp_for_tips(tips, rot), rot, 2.5, None, "left into box")
     yield from arm.set_grip(grip_of(half - SQUEEZE), 1.0, "left close")
     p0 = arm.pos.copy()
-    p1 = np.array([p0[0], y_in + DRAW_Y_END, DRAW_Z_END])
+    p1 = p0 + np.array([0.008, 0.026, 0.115])
     yield from arm.move(p1, arm.rot, 4.0, None, "left draw path")
     yield from arm.set_grip(grip_of(half + 0.010), 1.0, "left open")
     yield from arm.move(arm.pos + [0, 0, 0.020], arm.rot, 1.2, None, "left up")

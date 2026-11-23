@@ -118,12 +118,16 @@ def test_seeded_box_offsets_exclusion_band():
     assert abs(sp["box_dx"]) >= L.BOX_DX_MIN - 1e-12
 
 
-def test_cable_rest_on_bench():
+def test_service_loop_descends_to_upright_box():
     for s in range(50):
         sp = L.setup_spec(("seed", s))
         for p, r in L.cable_rest(sp):
-            assert abs(p[2] - (L.TOP + L.CABLE_T / 2)) < 0.001
+            assert L.world_point(p)[2] > L.TOP
+            assert np.allclose(L.fixture_point(L.world_point(p)),p)
             assert abs(np.linalg.det(r) - 1.0) < 1e-9
+        first=L.cable_rest(sp)[0][1]
+        assert (L.FIXTURE_ROT @ first[:,0])[2] < -0.99
+        assert np.allclose(L.FIXTURE_ROT @ [0,0,1], [-1,0,0])
         assert math.isclose(sum(L.link_lengths()), L.CABLE_LEN)
 
 

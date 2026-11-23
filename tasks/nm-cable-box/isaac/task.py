@@ -9,7 +9,7 @@ inside, then let go.
 The bench is one custom-spawned PhysX assembly (``cablekit.py``). The scorer (``../src/scoring.py``) runs once per
 control step on measured poses; ``score()`` returns its level at the end of the trial (SCORE_OVER = "end"); the trial
 ends as soon as the full-score state has held for 1 s (inside the scorer). Start states: a reset with a seed
-(inspect-robots always passes one) moves the box (8-20 mm in x, up to 30 mm in y) and lays the cable at a seeded
+(inspect-robots always passes one) shifts the box laterally in the upright fixture and lays the cable at a seeded
 place and angle; unseeded resets use the named setups 0-4 in turn (layout.SETUPS; NMB_SETUP picks the first and, when
 set, forces named setups). The full-score reference policy is ``official_run.py`` (registered as
 ``nm_cable_box_scripted``).
@@ -34,7 +34,7 @@ INSTRUCTION = json.loads((HERE.parent / "task.json").read_text())["instruction"]
 OBJECTS = [
     Bench(
         "bench",
-        pos=tuple(float(v) for v in L.entry_centre(L.setup_spec(0))),
+        pos=tuple(float(v) for v in L.world_point(L.entry_centre(L.setup_spec(0)))),
         size=(0.1, 0.1, 0.07),
         mass=None,
         color=(0.1, 0.3, 0.75),

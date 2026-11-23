@@ -46,10 +46,10 @@ TAIL_MIN_MASS = 0.0025  # tail links (never squeezed in the demo): near real mas
 LINK_INERTIA_MIN = float(os.environ.get("NMB_INERTIA", "4e-7"))  # kg m^2 floor per link axis (numerical: see README)
 JOINT_ARMATURE = float(os.environ.get("NMB_ARMATURE", "2e-6"))  # kg m^2 per cable joint dof (numerical)
 
-BOX_BLUE, STUD_WOOD, TAB_COL, SHEATH, NAIL, PRINT = (
-    (0.12, 0.38, 0.88),
+BOX_PVC, STUD_WOOD, TAB_COL, SHEATH, NAIL, PRINT = (
+    (0.13, 0.13, 0.14),
     (0.80, 0.66, 0.45),
-    (0.08, 0.22, 0.60),
+    (0.19, 0.19, 0.20),
     (0.93, 0.93, 0.90),
     (0.60, 0.60, 0.62),
     (0.15, 0.15, 0.15),
@@ -82,8 +82,14 @@ def _quat(r):
 def box_frame(spec):
     """Box articulation base pose: origin at the entry wall's inner face, opening upper edge, opening centre x."""
     o = L.box_origin(spec)
-    return np.array([o[0], L.entry_wall_y(spec), L.ENTRY_Z1]), np.eye(3)
+    return np.array([o[0]+L.ENTRY_X, L.entry_wall_y(spec), L.ENTRY_Z1]), np.eye(3)
 
+
+# The uncut edge of the molded tongue is at the rear of the top-wall entry.
+# Reverse the hinge axis and nose together so a positive joint angle still
+# tips into the box. The shell frame stays on the front lip of the aperture.
+TAB_BASIS = np.diag([-1.,1.,-1.])
+TAB_OFFSET = np.array([0.,0.,-L.ENTRY_H])
 
 _SPEC: dict = {}
 
@@ -123,6 +129,7 @@ def _spawn_bench(prim_path: str, cfg, translation=None, orientation=None, **kwar
         return mats[friction]
 
     def xform(path, pos, rot):
+        pos, rot = L.world_point(pos), L.FIXTURE_ROT @ rot
         x = UsdGeom.Xform.Define(stage, path)
         x.AddTranslateOp(precision=UsdGeom.XformOp.PrecisionDouble).Set(Gf.Vec3d(*map(float, pos)))
         q = _quat(rot)
@@ -210,38 +217,36 @@ def _spawn_bench(prim_path: str, cfg, translation=None, orientation=None, **kwar
     rigid(bx, 1.0, 64, kinematic=True)
     # box-frame coordinates: x across (opening centre 0), y from the entry wall's inner face (+ into the box),
     # z from the opening's upper edge
-    W, hx = L.BOX_WALL, L.BOX_IN_X / 2
-    zf = L.BOX_FLOOR_Z - L.ENTRY_Z1  # interior floor
-    zr = L.BOX_RIM_Z - L.ENTRY_Z1  # rim
+    for name, bounds in L.shell_parts().items():
+        box(f"{bx}/{name}", *bounds, BOX_PVC)
+    # The manufacturer's end view shows two molded tongues at either end.
+    # Model the other three at their unworked rest angle. Only the selected
+    # top entry has an open slot and the spring joint used during a trial.
+    for tag,dx,lower in (("upper_far",-2*L.ENTRY_X,False),("lower_near",0.,True),
+                         ("lower_far",-2*L.ENTRY_X,True)):
+        vy=L.rz(180.) if lower else np.eye(3)
+        origin=TAB_OFFSET + np.array([dx,L.BOX_IN_Y if lower else 0.,0.])
+        axis=vy@TAB_BASIS@L.rx(math.radians(L.TAB_REST_DEG))
+        verts=L.tab_vertices()@axis.T+origin
+        hull(f"{bx}/{tag}_tongue",verts,TAB_COL,L.TAB_FRICTION)
+    zr = L.BOX_RIM_Z - L.ENTRY_Z1
     ly = L.BOX_IN_Y
-    box(f"{bx}/floor", -hx - W, hx + W, -W, ly + W, zf - W, zf, BOX_BLUE)
-    box(f"{bx}/side_near", -hx - W, -hx, -W, ly + W, zf, zr, BOX_BLUE)
-    box(f"{bx}/side_far", hx, hx + W, -W, ly + W, zf, zr, BOX_BLUE)
-    box(f"{bx}/end_far", -hx, hx, ly, ly + W, zf, zr, BOX_BLUE)
-    # entry wall with its 20 x 10 mm opening
-    ew = L.ENTRY_W / 2
-    z0o = L.ENTRY_Z0 - L.ENTRY_Z1
-    box(f"{bx}/end_a", -hx, -ew, -W, 0.0, zf, zr, BOX_BLUE)
-    box(f"{bx}/end_b", ew, hx, -W, 0.0, zf, zr, BOX_BLUE)
-    if z0o - zf > 0.0002:
-        box(f"{bx}/end_low", -ew, ew, -W, 0.0, zf, z0o, BOX_BLUE)
-    box(f"{bx}/end_high", -ew, ew, -W, 0.0, 0.0, zr, BOX_BLUE)
-    # device mounting ears and nailing bracket (visual / simple colliders)
-    # device screw bosses inside the end walls at the rim
-    box(f"{bx}/boss_a", -0.004, 0.004, 0.0, 0.006, zr - 0.012, zr, BOX_BLUE)
-    box(f"{bx}/boss_b", -0.004, 0.004, ly - 0.006, ly, zr - 0.012, zr, BOX_BLUE)
-    sx = hx + W  # stud face (box side against the stud)
-    box(f"{bx}/bracket", sx, sx + 0.002, 0.010, ly - 0.010, zr - 0.030, zr - 0.010, BOX_BLUE, collide=False)
+    sx = L.BOX_IN_X/2 + L.SIDE_WALL - L.ENTRY_X
+    box(f"{bx}/bracket", sx, sx + 0.002, 0.010, ly - 0.010, zr - 0.030, zr - 0.010, BOX_PVC, collide=False)
     for k, yy in enumerate((0.022, ly - 0.022)):
         box(f"{bx}/nail_{k}", sx - 0.003, sx + 0.003, yy - 0.003, yy + 0.003, zr - 0.023, zr - 0.017, NAIL,
             collide=False)
     # printed "TOP" style marks are omitted; stud offcut (2x4) on its edge along y
-    sy0 = ly / 2 + L.STUD_Y_OFF - L.STUD_L / 2
-    stz0 = L.TOP - L.ENTRY_Z1 + 0.0003
-    box(f"{bx}/stud", sx, sx + L.STUD_T, sy0, sy0 + L.STUD_L, stz0, stz0 + L.STUD_H, STUD_WOOD, friction=0.5)
+    # Full-height vertical framing member. A narrow rear batten carries the movable service-loop clip.
+    sy0 = L.ENTRY_HEIGHT - 0.490
+    stz0 = zr - L.BOX_PROUD - L.STUD_H
+    box(f"{bx}/stud", sx, sx + L.STUD_T, sy0, L.ENTRY_HEIGHT, stz0, stz0 + L.STUD_H, STUD_WOOD, friction=0.5)
+    box(f"{bx}/foot", -0.24, sx + L.STUD_T + 0.018, L.ENTRY_HEIGHT - 0.015, L.ENTRY_HEIGHT,
+        stz0 - 0.03, zr + 0.015, STUD_WOOD, friction=0.5)
+    box(f"{bx}/rear_batten", -0.39, sx+L.STUD_T, -0.25, -0.14, -0.061, -0.043, STUD_WOOD)
     # clamp tab link: frame on the hinge (x along the hinge), tab plate hanging along -z, leaning into the box (+y)
     tbb = f"{prim_path}/tabbase"
-    xform(tbb, bp_, br_)
+    xform(tbb,bp_+TAB_OFFSET,br_@TAB_BASIS)
     bprim = rigid(tbb, 0.05, 64, inertia=(2e-5, 2e-5, 2e-5))
     UsdPhysics.ArticulationRootAPI.Apply(bprim)
     ar = PhysxSchema.PhysxArticulationAPI.Apply(bprim)
@@ -253,23 +258,15 @@ def _spawn_bench(prim_path: str, cfg, translation=None, orientation=None, **kwar
     fj = UsdPhysics.FixedJoint.Define(stage, f"{tbb}/on_box")
     fj.CreateBody0Rel().SetTargets([Sdf.Path(bx)])
     fj.CreateBody1Rel().SetTargets([Sdf.Path(tbb)])
-    joint_frame(fj, np.zeros(3), np.eye(3), np.zeros(3), np.eye(3))
+    joint_frame(fj, TAB_OFFSET,TAB_BASIS,np.zeros(3),np.eye(3))
     fj.CreateExcludeFromArticulationAttr(True)
     tb = f"{prim_path}/tab"
     rest = math.radians(L.TAB_REST_DEG)
     tr = L.rx(rest)
-    xform(tb, bp_, tr)
+    xform(tb,bp_+TAB_OFFSET,br_@TAB_BASIS@tr)
     rigid(tb, 0.020, 64, inertia=(2e-6, 2e-6, 2e-6))
     # plate tapering to a wedge edge at its tip (moulded tab): no square end face for the cable end to butt against
-    hw_ = L.TAB_W / 2
-    # tip rounded (radius TAB_T) so the contact normal turns smoothly as the tip rides up and over the sheath
-    prof = [(0.0, 0.0), (L.TAB_T, 0.0)]
-    rr = L.TAB_T / 2
-    for k in range(7):
-        a_ = math.pi * k / 6
-        prof.append((rr + rr * math.cos(a_), -L.TAB_L + rr - rr * math.sin(a_)))
-    tab_pts = [(sx_, y_, z_) for sx_ in (-hw_, hw_) for (y_, z_) in prof]
-    tab_geom = hull(f"{tb}/plate", tab_pts, TAB_COL, L.TAB_FRICTION)
+    tab_geom = hull(f"{tb}/plate", L.tab_vertices(), TAB_COL, L.TAB_FRICTION)
     PhysxSchema.PhysxCollisionAPI(tab_geom.GetPrim()).GetContactOffsetAttr().Set(0.002)  # thin part: detect contact early
     rj = UsdPhysics.RevoluteJoint.Define(stage, f"{tb}/hinge")
     rj.CreateBody0Rel().SetTargets([Sdf.Path(tbb)])
@@ -319,7 +316,7 @@ def _spawn_bench(prim_path: str, cfg, translation=None, orientation=None, **kwar
             j = UsdPhysics.Joint.Define(stage, f"{lp}/bend")
             j.CreateBody0Rel().SetTargets([Sdf.Path(paths[-1])])
             j.CreateBody1Rel().SetTargets([Sdf.Path(lp)])
-            joint_frame(j, (-ls[i - 1] / 2, 0, 0), np.eye(3), (ln / 2, 0, 0), np.eye(3))
+            joint_frame(j, (-ls[i - 1] / 2, 0, 0), links[i-1][1].T @ r, (ln / 2, 0, 0), np.eye(3))
             jp = j.GetPrim()
             for dof in ("transX", "transY", "transZ"):
                 lim = UsdPhysics.LimitAPI.Apply(jp, dof)
@@ -335,6 +332,44 @@ def _spawn_bench(prim_path: str, cfg, translation=None, orientation=None, **kwar
                 drive(jp, dof, k, 0.002 * k, 4.0 * my)
             PhysxSchema.PhysxJointAPI.Apply(jp).CreateArmatureAttr(JOINT_ARMATURE)
         paths.append(lp)
+    # The cable drapes over a physical round crosspiece. Both ends can slide freely.
+    anchor = f"{prim_path}/service_clip"
+    xform(anchor, L.guide_center(spec), np.eye(3))
+    rigid(anchor, 0.2, kinematic=True)
+    radius = L.DRAPE_RADIUS - L.CABLE_W/2
+    rim = [(radius*math.cos(a), radius*math.sin(a)) for a in np.linspace(0, 2*math.pi, 32, endpoint=False)]
+    vertices = [(x, y, z) for x,y in rim for z in (-0.090, 0.014)]
+    hull(f"{anchor}/rounded_end", vertices, STUD_WOOD, 0.55)
+    box(f"{anchor}/upper_stock_support", -0.345, 0., -radius, radius, -0.090, 0.014, STUD_WOOD, 0.55)
+    from pxr import UsdShade, Vt
+    def render_group(name,parts,color):
+        mesh=UsdGeom.Mesh.Define(stage,f"{prim_path}/{name}")
+        points=[];counts=[];indices=[];sources=[]
+        for body_index,path,pos,rot in parts:
+            shape=UsdGeom.Mesh(stage.GetPrimAtPath(path))
+            local=np.array(shape.GetPointsAttr().Get(),dtype=float)
+            start=len(points)
+            points.extend(np.asarray(pos)+local@np.asarray(rot).T)
+            counts.extend(shape.GetFaceVertexCountsAttr().Get())
+            indices.extend(start+int(j) for j in shape.GetFaceVertexIndicesAttr().Get())
+            sources.append((body_index,local))
+        xyz=np.asarray(points,dtype=np.float32)
+        mesh.CreatePointsAttr(Vt.Vec3fArray.FromNumpy(xyz))
+        mesh.CreateFaceVertexIndicesAttr(indices)
+        mesh.CreateFaceVertexCountsAttr(counts)
+        mesh.CreateSubdivisionSchemeAttr("none")
+        mesh.CreateExtentAttr(Vt.Vec3fArray.FromNumpy(np.array([xyz.min(0),xyz.max(0)],dtype=np.float32)))
+        bind_visual_material(str(mesh.GetPath()),look(color),stage=stage)
+        return sources
+
+    def link_part(i,name):
+        p,r=links[i]
+        return i,f"{paths[i]}/{name}",L.world_point(p),L.FIXTURE_ROT@r
+
+    _SPEC["draw_groups"]={
+        "sheath_surface":render_group("sheath_surface",[link_part(i,"geom") for i in range(N_LINKS)],SHEATH),
+        "copper_surface":render_group("copper_surface",[link_part(0,f"cu_{k}") for k in range(3)],(.80,.50,.25)),
+    }
     _SPEC["paths"] = dict(box=bx, tab=tb, cable=paths)
     _SPEC["joint_len"] = [0.5 * (ls[i - 1] + ls[i]) for i in range(1, N_LINKS)]
     return root.GetPrim()
@@ -409,6 +444,7 @@ class Runtime:
         self.cpaths = cpaths
         self.box_art = self.simview.create_articulation_view(f"{root}/tabbase")
         self.boxv = self.simview.create_rigid_body_view([f"{root}/box"])
+        self.anchor = self.simview.create_rigid_body_view([f"{root}/service_clip"])
         self.cable = self.simview.create_articulation_view(f"{root}/cable_00")
         self.links = self.simview.create_rigid_body_view(cpaths)
         self.tabv = self.simview.create_rigid_body_view([f"{root}/tab"])
@@ -448,6 +484,20 @@ class Runtime:
         self._init_state()
         print("NMB dofs", self.cdofs[:6], len(self.cdofs), "links", self.clinks[:3], len(self.clinks), "box dofs",
               self.bdofs, flush=True)
+
+    def sync_visible_cable(self,links):
+        from pxr import UsdGeom,Vt
+        if not hasattr(self,"draw_groups"):
+            self.draw_groups={name:(UsdGeom.Mesh(self.stage.GetPrimAtPath(f"{self.root}/{name}")),parts)
+                              for name,parts in _SPEC["draw_groups"].items()}
+        positions=np.array([L.world_point(p) for p,r in links])
+        rotations=[L.FIXTURE_ROT@r for p,r in links]
+        if not np.isfinite(positions).all() or not np.isfinite(rotations).all():return
+        for mesh,parts in self.draw_groups.values():
+            coords=np.concatenate([positions[i]+local@rotations[i].T for i,local in parts]).astype(np.float32)
+            mesh.GetPointsAttr().Set(Vt.Vec3fArray.FromNumpy(coords))
+            extent=np.array([coords.min(0),coords.max(0)],dtype=np.float32)
+            mesh.GetExtentAttr().Set(Vt.Vec3fArray.FromNumpy(extent))
 
     def _map_dofs(self, jl):
         """Yield angle per cable dof. Dof names come from the joint prims (".../cable_07/bend" -> rotX/Y/Z order per
@@ -495,7 +545,7 @@ class Runtime:
     # ------------------------------------------------------------------ reading
     def read_links(self):
         tf = self.links.get_transforms().detach().cpu().numpy().astype(float)
-        return [(tf[i, :3] - self.origin, _rot(tf[i, 3:7])) for i in range(N_LINKS)]
+        return [L.fixture_pose(tf[i, :3] - self.origin, _rot(tf[i, 3:7])) for i in range(N_LINKS)]
 
     def link_speed(self, links):
         """Motion of the 200 mm lead section (the cable in and at the box; the tail on the bench is not judged): the
@@ -519,7 +569,7 @@ class Runtime:
 
     def box_pose(self):
         rt = self.boxv.get_transforms().detach().cpu().numpy()[0].astype(float)
-        return rt[:3] - self.origin, _rot(rt[3:7])
+        return L.fixture_pose(rt[:3] - self.origin, _rot(rt[3:7]))
 
     # ------------------------------------------------------------------ physics hook
     def _apply(self, f):
@@ -562,8 +612,8 @@ class Runtime:
         f = np.zeros((N_LINKS, 3))
         # one-way bite of the tab edge
         self.bite_force = 0.0
+        links = self.read_links()
         if self.trial_active:
-            links = self.read_links()
             ins = L.inserted_length(links, self.spec)
             tab = self.tab_deg()
             self.tab_peak = max(self.tab_peak, tab)
@@ -576,7 +626,7 @@ class Runtime:
                     pts = L.cable_points(links)
                     y_in = L.entry_wall_y(self.spec)
                     k = next((i for i in range(N_LINKS) if pts[i + 1][1] < y_in), N_LINKS - 1)
-                    ax = links[k][1][:, 0]
+                    ax = L.FIXTURE_ROT @ links[k][1][:, 0]
                     v = self.links.get_velocities().detach().cpu().numpy()[k, :3].astype(float)
                     fb = L.BITE_K * (back - 0.0003) - L.BITE_C * min(float(v @ ax), 0.0)
                     fb = float(np.clip(fb, 0.0, L.HOLD_N))
@@ -622,20 +672,20 @@ class Runtime:
 
     # ------------------------------------------------------------------ reset
     def restore_authored(self, setup):
-        """Environment reset only (never during a trial): box to the setup's pose, tab at rest, cable straight and
-        flat on the bench."""
+        """Environment reset only (never during a trial): box to the setup's pose, tab at rest, cable draped over the upper timber support."""
         torch = self.torch
         self.setup = setup
         self.spec = L.setup_spec(setup)
         self.trial_active = False
         bp, br = box_frame(self.spec)
+        bp, br = L.world_point(bp), L.FIXTURE_ROT @ br
         kt = self.boxv.get_transforms().clone()
         kt[0, :3] = torch.tensor(bp + self.origin, dtype=kt.dtype)
         kt[0, 3:7] = torch.tensor(_quat(br), dtype=kt.dtype)
         self.boxv.set_transforms(kt, torch.tensor([0], dtype=torch.int32, device=kt.device))
         rt = self.box_art.get_root_transforms().clone()
-        rt[0, :3] = torch.tensor(bp + self.origin, dtype=rt.dtype)
-        rt[0, 3:7] = torch.tensor(_quat(br), dtype=rt.dtype)
+        rt[0, :3] = torch.tensor(bp+br@TAB_OFFSET+self.origin,dtype=rt.dtype)
+        rt[0, 3:7] = torch.tensor(_quat(br@TAB_BASIS),dtype=rt.dtype)
         self.box_art.set_root_transforms(rt, self.ai)
         self.box_art.set_root_velocities(torch.zeros_like(self.box_art.get_root_velocities()), self.ai)
         bq = self.box_art.get_dof_positions().clone()
@@ -644,6 +694,12 @@ class Runtime:
         self.box_art.set_dof_velocities(torch.zeros_like(bq), self.ai)
         links = L.cable_rest(self.spec)
         p0, r0 = links[0]
+        p0, r0 = L.world_point(p0), L.FIXTURE_ROT @ r0
+        ep, er = L.guide_center(self.spec), np.eye(3)
+        anchor = self.anchor.get_transforms().clone()
+        anchor[0, :3] = torch.tensor(L.world_point(ep) + self.origin, dtype=anchor.dtype)
+        anchor[0, 3:] = torch.tensor(_quat(L.FIXTURE_ROT @ er), dtype=anchor.dtype)
+        self.anchor.set_transforms(anchor, self.ai)
         ct = self.cable.get_root_transforms().clone()
         ct[0, :3] = torch.tensor(p0 + self.origin, dtype=ct.dtype)
         ct[0, 3:7] = torch.tensor(_quat(r0), dtype=ct.dtype)
@@ -653,12 +709,14 @@ class Runtime:
         self.cable.set_dof_positions(torch.zeros_like(cq), self.ai)
         self.cable.set_dof_velocities(torch.zeros_like(cq), self.ai)
         self.cable.set_dof_position_targets(torch.zeros_like(cq), self.ai)
+        self.sync_visible_cable(links)
         self._init_state()
 
     def dev_place_cable(self, links):
         """Development probes only (never in a task run): lay the cable straight at the given link poses."""
         torch = self.torch
         p0, r0 = links[0]
+        p0, r0 = L.world_point(p0), L.FIXTURE_ROT @ r0
         ct = self.cable.get_root_transforms().clone()
         ct[0, :3] = torch.tensor(p0 + self.origin, dtype=ct.dtype)
         ct[0, 3:7] = torch.tensor(_quat(r0), dtype=ct.dtype)
@@ -679,7 +737,8 @@ class Runtime:
             self.nonfinite += 1
             STATE["nonfinite"] = self.nonfinite
             return
-        tips = finger_tips(environment)
+        self.sync_visible_cable(links)
+        tips = [L.fixture_point(t) for t in finger_tips(environment)]
         tab = self.tab_deg()
         m = measure(self.spec, links, tab, tips)
         level = self.scorer.step(m, self.link_speed(links))
@@ -744,6 +803,7 @@ def _patch_scene(scene) -> None:
         if "bench" in names:
             rt = _RT["rt"]
             p, r = rt.read_links()[0] if rt else L.cable_rest(L.setup_spec(SETUP_BASE))[0]
+            p, r = L.world_point(p), L.FIXTURE_ROT @ r
             z = np.zeros(3)
             out["bench"] = ObjectState(pos=np.asarray(p), quat_xyzw=_quat(r), lin_vel=z, ang_vel=z, low=p - 0.2,
                                        high=p + 0.2)

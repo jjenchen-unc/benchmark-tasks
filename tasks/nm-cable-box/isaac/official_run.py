@@ -73,6 +73,7 @@ class ScriptedPolicy(PolicyBase):
         self.demo = demo
         self.c = demo.Ctx(None)
         self.gen = demo.STAGES[self.stage](self.c)
+        OPTS["last_policy"] = self
         self.k, self.ended, self.stop = 0, None, None
         self.actions = []
 
@@ -151,6 +152,8 @@ def main():
     from inspect_robots.cli import main as cli_main
 
     code = cli_main(cli_args)
+    if OPTS["log"] and OPTS.get("last_policy") is not None:
+        OPTS["last_policy"].dump()
     sys.stdout.flush()
     os._exit(int(code or 0))  # Kit shutdown can hang; the EvalLog is already written
 

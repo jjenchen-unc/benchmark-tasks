@@ -1,17 +1,7 @@
-"""Scene layout and geometry of the nm-cable-box task (station frame: x forward from the arm bases, y to the robot's
-left, z up; metres). Engine-independent (numpy only).
-
-A 2x4 stud offcut lies on the bench on its narrow edge, along y. A single-gang nail-on outlet box (18 cu in class,
-non-metallic) is nailed to the stud's robot-side face with its open face UP (as on an electrician's practice bench:
-the wall laid down), the face 13 mm proud of the stud edge (for 1/2 in drywall). The box's "top" end wall faces the
-robot's right (-y); near the box back (here: its floor) that wall has the push-in cable entry, a 20 x 10 mm opening
-covered from inside by a sprung one-way clamp tab hinged on the opening's upper edge and leaning into the box.
-
-A 0.45 m length of 14/2 NM-B cable (flat sheath about 9.7 x 4.8 mm) lies flat on the bench to the right of the box,
-diagonally (its tail toward the far right corner), its cut end toward the box.
-
-Cable frame per link: x along the cable (toward the cut end = +x), y across its width, z across its thickness.
-Link 0 is the cut end ("lead") link; links are ordered from the cut end to the tail.
+"""Vertical residential rough-in fixture, seed layout and cable measurements (metres).
+Fixture X is across the opening, +Y descends from the entry and +Z leaves the open face.
+The 450 mm preformed cable descends from a service loop supported at its upstream end.
+Link 0 is the free end. Each link's +X points toward that end.
 """
 
 from __future__ import annotations
@@ -34,37 +24,41 @@ def rx(rad):
     return np.array([[1.0, 0.0, 0.0], [0.0, c, -s], [0.0, s, c]])
 
 
-# ---------------------------------------------------------------- stud offcut (2x4, actual 38 x 89 mm), on its edge
+# ---------------------------------------------------------------- upright stud (2x4, actual 38 x 89 mm) in fixture coordinates
 STUD_T = 0.038  # x
 STUD_H = 0.089  # z
 STUD_L = 0.400  # y
 STUD_X = 0.389  # stud centre x (nominal): box interior centre at x 0.34 (both arms reach straight down there)
 STUD_Y_OFF = 0.1515  # stud centre y relative to the box centre: the offcut ends flush with the entry wall and runs on past the far end
 
-# ---------------------------------------------------------------- single-gang nail-on box (open face up)
-BOX_WALL = 0.0025
-BOX_IN_X = 0.055  # interior width (across the stud face)
-BOX_IN_Y = 0.092  # interior length (top wall to bottom wall)
-BOX_IN_Z = 0.058  # interior depth (55 x 92 x 58 mm: about 18 cu in)
+# Allied P-181RK engineering drawing, dimensioned in mm. Local wall thicknesses
+# assume a uniform rectangular shell. The back thickness and entry are estimates.
+BOX_IN_X, BOX_IN_Y = 0.0549, 0.0917
+SIDE_WALL = (0.0584 - BOX_IN_X) / 2
+BOX_WALL = (0.0953 - BOX_IN_Y) / 2
+BACK_WALL = 0.0025
+BOX_IN_Z = 0.0686 - BACK_WALL
+BOSS_PITCH = 0.0834
+ENTRY_X = -0.016  # one active corner entry; lateral offset estimated from front view
 BOX_PROUD = 0.013  # face proud of the stud edge (1/2 in drywall)
 BOX_RIM_Z = TOP + STUD_H + BOX_PROUD
 BOX_FLOOR_Z = BOX_RIM_Z - BOX_IN_Z  # interior floor (the box back)
 BOX_Y = 0.020  # box centre y (nominal)
 # cable entry in the -y end wall: opening x-range about the box centre, z-range above the floor
-ENTRY_W = 0.020
-ENTRY_H = 0.010
-ENTRY_Z0 = BOX_FLOOR_Z + 0.0003  # opening's lower edge, flush with the box back (the cable stays under the tab)
+ENTRY_W = 0.013
+ENTRY_H = 0.0145
+ENTRY_Z0 = BOX_FLOOR_Z + 0.0003  # edge of the opening nearest the box back
 ENTRY_Z1 = ENTRY_Z0 + ENTRY_H
-# clamp tab: plastic flap hinged on the opening's upper edge (inner wall face), leaning into the box
-TAB_L = 0.012
+# The active tongue is rooted at the back edge and points into the box toward the face.
+TAB_L = 0.0155
 TAB_T = 0.0025
-TAB_W = 0.018
-TAB_REST_DEG = 55.0  # from vertical, toward the box interior (rest stop: tip 3.1 mm above the opening's lower edge / the box back, 1.7 mm into the cable's path)
+TAB_W = 0.0125
+TAB_REST_DEG = 40.0  # Rest stop of the tab joint in the authored hinge frame.
 TAB_OPEN_DEG = 88.0  # hard stop
 TAB_PRELOAD_DEG = 20.0  # spring target this far below the rest stop (preload)
 TAB_STIFF = 0.15  # N m / rad: with the 20 deg preload, about 10 N to start lifting the tab and 15 N at full lift
 # (lever 5.2 mm: the cable's top edge below the hinge); 15 N is the proposal's estimate for a push-in clamp, not a
-# measured or catalog value (see DESIGN.md)
+# measured or catalog value (see the README).
 TAB_FRICTION = 0.12  # smooth moulded plastic tab on the PVC sheath (min-combined)
 BOX_FRICTION = 0.35
 HOLD_N = 120.0  # one-way bite: the tab edge holds the sheath against pulling back out up to this force
@@ -93,6 +87,40 @@ M_YIELD_TWIST = 0.06
 
 def box_corners(x0, x1, y0, y1, z0, z1):
     return np.array([[x, y, z] for x in (x0, x1) for y in (y0, y1) for z in (z0, z1)])
+
+
+def shell_parts():
+    """Axis-aligned collision solids in metres, in the active tab's hinge frame."""
+    left, right = -BOX_IN_X / 2 - ENTRY_X, BOX_IN_X / 2 - ENTRY_X
+    low, high = BOX_FLOOR_Z - ENTRY_Z1, BOX_RIM_Z - ENTRY_Z1
+    end = BOX_IN_Y
+    half = ENTRY_W / 2
+    x0, x1 = left - SIDE_WALL, right + SIDE_WALL
+    y0, y1 = -BOX_WALL, end + BOX_WALL
+    parts = dict(
+        back=(x0, x1, y0, y1, low - BACK_WALL, low),
+        left=(x0, left, y0, y1, low, high),
+        right=(right, x1, y0, y1, low, high),
+        bottom=(left, right, end, y1, low, high),
+        entry_left=(left, -half, y0, 0., low, high),
+        entry_right=(half, right, y0, 0., low, high),
+        entry_sill=(-half, half, y0, 0., low, -ENTRY_H),
+        entry_lintel=(-half, half, y0, 0., 0., high),
+    )
+    # Approximate solid device bosses, centred on the published mounting axes.
+    for name, y in (("upper", (end-BOSS_PITCH)/2), ("lower", (end+BOSS_PITCH)/2)):
+        y_limits = (0., 2*y) if name == "upper" else (2*y-end, end)
+        parts[name+"_boss"] = (-ENTRY_X-.004, -ENTRY_X+.004, *y_limits, high-.012, high)
+    return parts
+
+
+def tab_vertices():
+    """Moving collision solid, in its zero-angle joint frame (metres)."""
+    radius = TAB_T / 2
+    profile = [(0., 0.), (TAB_T, 0.)]
+    for angle in np.linspace(0., math.pi, 7):
+        profile.append((radius*(1+math.cos(angle)), -TAB_L+radius*(1-math.sin(angle))))
+    return np.array([(x,y,z) for x in (-TAB_W/2,TAB_W/2) for y,z in profile])
 
 
 def link_lengths():
@@ -162,12 +190,12 @@ def setup_spec(setup):
     else:
         spec = SETUPS[int(setup) % len(SETUPS)]
     bdx, bdy, edx, gap, yaw = spec
-    return dict(box_dx=bdx, box_dy=bdy, end_dx=edx, gap=gap, yaw=yaw)
+    return dict(box_dx=bdx, box_dy=0.0, end_dx=edx, gap=gap, yaw=yaw)
 
 
 def box_origin(spec):
     """Box reference point: (box interior centre x, box centre y, interior floor z)."""
-    return np.array([STUD_X - STUD_T / 2 - BOX_WALL - BOX_IN_X / 2 + spec["box_dx"], BOX_Y + spec["box_dy"],
+    return np.array([STUD_X - STUD_T / 2 - SIDE_WALL - BOX_IN_X / 2 + spec["box_dx"], BOX_Y + spec["box_dy"],
                      BOX_FLOOR_Z])
 
 
@@ -179,19 +207,59 @@ def entry_wall_y(spec, inner=True):
 
 def entry_centre(spec):
     o = box_origin(spec)
-    return np.array([o[0], entry_wall_y(spec, inner=False), (ENTRY_Z0 + ENTRY_Z1) / 2])
+    return np.array([o[0]+ENTRY_X, entry_wall_y(spec, inner=False), (ENTRY_Z0 + ENTRY_Z1) / 2])
+
+
+# Fixture coordinates retain X across the box, Y from the top entry into the box, and Z out
+# through its open face. Gravity, cameras, robot bases and table all remain in the station frame.
+FIXTURE_ROT = rz(0) @ np.array([[0., 0., -1.], [1., 0., 0.], [0., -1., 0.]])
+ENTRY_HEIGHT = 0.145
+_HINGE_LOCAL = np.array([STUD_X-STUD_T/2-SIDE_WALL-BOX_IN_X/2+ENTRY_X, BOX_Y-BOX_IN_Y/2, ENTRY_Z1])
+_HINGE_WORLD = np.array([0.380, 0, TOP + ENTRY_HEIGHT])
+
+
+def world_point(p):
+    return _HINGE_WORLD + FIXTURE_ROT @ (np.asarray(p) - _HINGE_LOCAL)
+
+
+def fixture_point(p):
+    return _HINGE_LOCAL + FIXTURE_ROT.T @ (np.asarray(p) - _HINGE_WORLD)
+
+
+def fixture_pose(p, r):
+    return fixture_point(p), FIXTURE_ROT.T @ r
+
+
+DRAPE_RADIUS = 0.038
+DRAPE_LEAD = 0.102
+
+
+def free_end_start(spec):
+    return entry_centre(spec) + [spec["end_dx"] - 0.022, -spec["gap"], 0.046]
+
+
+def guide_center(spec):
+    # Centre of the round crosspiece underneath the midpoint of the service loop.
+    poses = cable_rest(spec)
+    end = free_end_start(spec)
+    # Flat section rests on the horizontal top face, independent of the lead angle.
+    return np.array([end[0]-DRAPE_RADIUS, poses[-1][0][1]+DRAPE_RADIUS, end[2]])
 
 
 def cable_rest(spec):
-    """Reset pose of every cable link: list of (centre, rot) in the env frame. The cable lies straight and flat on
-    the bench, cut end toward the box (+x of the link frame), its axis yawed by spec['yaw'] from +y."""
-    c = entry_centre(spec)
-    end = np.array([c[0] + spec["end_dx"], c[1] - spec["gap"], TOP + CABLE_T / 2 + 0.0002])
-    yaw = math.radians(90.0 + CABLE_YAW0 + spec["yaw"])
-    ax = np.array([math.cos(yaw), math.sin(yaw), 0.0])
-    r = np.column_stack([ax, np.cross([0.0, 0.0, 1.0], ax), [0.0, 0.0, 1.0]])
-    centres, _ = link_offsets()
-    return [(end - ax * d, r) for d in centres]
+    """Cable stock lies on the upper framing support with its free lead hanging into the bay."""
+    point = free_end_start(spec)
+    lengths = link_lengths()
+    centers, _ = link_offsets()
+    poses = []
+    neutral = np.column_stack(([0., 1., 0.], [-1., 0., 0.], [0., 0., 1.]))
+    for length, distance in zip(lengths, centers):
+        angle = np.clip((distance - DRAPE_LEAD) / DRAPE_RADIUS, 0., math.pi/2)
+        rotation = rz(spec["yaw"] * 0.35*(1-angle/(math.pi/2)) - math.degrees(angle)) @ neutral
+        half_link = rotation[:, 0] * (length / 2)
+        poses.append((point - half_link, rotation))
+        point = point - 2 * half_link
+    return poses
 
 
 # ---------------------------------------------------------------- cable measurements (scorer, demo)

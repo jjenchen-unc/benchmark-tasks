@@ -767,23 +767,50 @@ def neg_misaim(c):
     yield from wait(25.0)
 
 
-def neg_double(c):
-    """Soft first stroke, then the stroke hand pushes the cue on again into the rolling cue ball: a second tip contact
-    (double hit), a foul: 0."""
+def neg_shaft(c):
+    """Pass the tip beside the stationary ball, then sweep the shaft into it."""
     yield from wait(0.3)
     plan = make_plan(c)
     yield from pick_cue(c)
     yield from carry_to_address(c)
-    yield from stroke(c, v_tip=0.2)
-    sa = c.arms[plan["stroke"]]
-    a = c.pose("cue")[1][:, 0]
-    try:
-        yield from sa.move(sa.pos + 0.10 * a, sa.rot, 0.4, None, "second push")
-    except Stop as e:
-        c.note("second push stopped", why=str(e))
+    cb = c.pose("cueball")[0].copy()
+    tip, rotation = plan["address"]
+    side = rotation[:, 1].copy()
+    if side[1] * cb[1] > 0:
+        side = -side
+    past_ball = cb + 0.050 * rotation[:, 0]
+    for target, label in ((tip + 0.055 * side, "clear ball sideways"),
+                          (past_ball + 0.055 * side, "pass beside ball"),
+                          (past_ball - 0.005 * side, "sweep cue shaft")):
+        start = c.pose("cue")[0].copy()
+        yield from track(c, lambda s: (start + s * (target - start), rotation), 1.8, label)
+    yield from wait(0.5)
+
+
+def neg_double(c):
+    """Touch the cue ball twice with the tip, retracting to a visible gap between taps."""
+    yield from wait(0.3)
+    plan = make_plan(c)
+    yield from pick_cue(c)
+    yield from carry_to_address(c)
+    rotation = plan["address"][1]
+    axis = rotation[:, 0]
+    for tap in (1, 2):
+        ball = c.pose("cueball")[0].copy()
+        start = c.pose("cue")[0].copy()
+        target = ball - (L.BALL_R - 0.009) * axis
+        before = c.detail()["facts"]["strokes"]
+        for _ in track(c, lambda s: (start + s * (target - start), rotation), 1.25, f"tip tap {tap}"):
+            yield
+            if c.detail()["facts"]["strokes"] > before:
+                break
+        c.note(f"tap {tap}")
+        start = c.pose("cue")[0].copy()
+        yield from track(c, lambda s: (start - s * L.TIP_GAP * axis, rotation), 0.35, "separate tip")
+        yield from wait(0.5)
+        gap = np.linalg.norm(c.pose("cueball")[0] - c.pose("cue")[0]) - L.BALL_R
+        c.note(f"clear after tap {tap}", tip_gap_mm=round(float(gap) * 1000, 2))
     yield from wait(1.0)
-    yield from clear_cue(c)
-    yield from wait(20.0)
 
 
 def replay(c):
@@ -822,6 +849,7 @@ STAGES = {
     "neg-soft": neg_soft,
     "neg-misaim": neg_misaim,
     "neg-double": neg_double,
+    "neg-shaft": neg_shaft,
     "probe-stroke": probe_stroke,
 }
 

@@ -1,6 +1,6 @@
 """Scorer for the pool-8ball task (engine-independent, numpy only).
 
-Per physics step the ``Monitor`` reads contact forces by collider identity (never contact positions): cue on cue
+Per physics step the ``Monitor`` reads contact forces by collider pair and contact location in the cue frame: cue on cue
 ball, cue ball on 8-ball, cue on 8-ball, robot links on either ball. It counts cue-on-cue-ball contact episodes
 (strokes), notes whether the cue ball reached the 8-ball, and latches fouls: a second stroke, a push (cue tip on
 the cue ball for longer than 60 ms), the cue touching the 8-ball, or the robot touching a ball.
@@ -21,18 +21,24 @@ import layout as L
 import numpy as np
 
 CONTACT_N = 0.02
-EPISODE_GAP_S = 0.040  # a new stroke = cue-ball contact after 40 ms without contact
 PUSH_S = 0.060  # tip on the cue ball for longer than this: a push, not a stroke
 ROBOT_TOUCH_N = 0.05
 STILL_V = 0.002
 HOLD_STEPS = 20  # 1 s at 20 Hz
 
 
+def cue_contact_forces(points, forces, tip_origin, cue_rotation):
+    """Separate cue-ball contacts at the leather tip from the shaft and butt."""
+    # The cue mesh extends along local -X from its tip.
+    axial = (tip_origin - points) @ cue_rotation[:, 0]
+    at_tip = axial < L.TIP_LEN
+    return float(forces[at_tip].sum()), float(forces[~at_tip].sum())
+
+
 class Monitor:
     def __init__(self):
         self.strokes = 0
         self.t = 0.0
-        self.last_cue_contact = -1.0
         self.contact_run = 0.0
         self.hit8 = False
         self.hit8_t = None
@@ -45,14 +51,15 @@ class Monitor:
         if why not in self.fouls:
             self.fouls.append(why)
 
-    def step(self, dt, cue_cb, cb_8, cue_8, robot_ball, robot_cue, cb_vel=None):
+    def step(self, dt, cue_cb, cb_8, cue_8, robot_ball, robot_cue, cb_vel=None, shaft_cb=0.0):
         self.t += dt
         for k, v in (("cue_cb", cue_cb), ("cb_8", cb_8), ("robot_ball", robot_ball), ("robot_cue", robot_cue)):
             self.peak[k] = max(self.peak[k], float(v))
+        if shaft_cb > CONTACT_N:
+            self._foul("shaft or butt touched cue ball")
         if cue_cb > CONTACT_N:
-            if self.last_cue_contact < 0 or self.t - self.last_cue_contact > EPISODE_GAP_S:
+            if self.contact_run == 0.0:
                 self.strokes += 1
-                self.contact_run = 0.0
                 if self.strokes == 1:
                     self.stroke_t = self.t
                 else:
@@ -60,14 +67,15 @@ class Monitor:
             self.contact_run += dt
             if self.contact_run > PUSH_S:
                 self._foul("push")
-            self.last_cue_contact = self.t
+        else:
+            self.contact_run = 0.0
         if (
             self.stroke_t is not None
             and cb_vel is not None
             and abs(self.t - self.stroke_t - 0.02) < dt / 2 + 1e-9
         ):
             self.cb_speed_after = float(np.linalg.norm(cb_vel))
-        if cb_8 > CONTACT_N and not self.hit8:
+        if self.strokes == 1 and cb_8 > CONTACT_N and not self.hit8:
             self.hit8 = True
             self.hit8_t = self.t
         if cue_8 > CONTACT_N:
@@ -88,7 +96,7 @@ def mouth_distance(pocket, pos):
     return float(np.linalg.norm(p - (a + t * (b - a))))
 
 
-def classify(pc, p8, pocket, monitor):
+def classify(pc, p8, pocket, monitor, eight_speed):
     """(level before the at-rest hold, facts)."""
     e_in = L.which_pocket(p8)
     c_in = L.which_pocket(pc)
@@ -105,7 +113,7 @@ def classify(pc, p8, pocket, monitor):
         strokes=monitor.strokes,
         fouls=list(monitor.fouls),
     )
-    if monitor.foul:
+    if monitor.foul or monitor.strokes != 1 or not monitor.hit8:
         return 0.0, facts
     if c_in is not None or not c_on:
         return 0.0, facts  # scratch (or cue ball off the table)
@@ -113,7 +121,7 @@ def classify(pc, p8, pocket, monitor):
         return (1.0 if e_in == pocket else 0.0), facts
     if not e_on:
         return 0.0, facts
-    if near:
+    if near and eight_speed < STILL_V:
         return 0.5, facts
     if monitor.hit8:
         return 0.25, facts
@@ -127,7 +135,7 @@ class Scorer:
         self.last = {}
 
     def step(self, pc, p8, vc, v8, pocket, monitor, tip_mm=None):
-        raw, facts = classify(pc, p8, pocket, monitor)
+        raw, facts = classify(pc, p8, pocket, monitor, v8)
         at_rest = (vc < STILL_V or facts["cue_pocket"] is not None) and (
             v8 < STILL_V or facts["eight_pocket"] is not None
         )

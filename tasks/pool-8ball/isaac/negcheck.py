@@ -21,6 +21,7 @@ EXPECT_MAX = {  # highest score the stage may reach
     "neg-soft": 0.5,
     "neg-full-ball": 0.5,
     "neg-double": 0.0,
+    "neg-shaft": 0.0,
 }
 EXPECT_MIN = {"demo": 1.0}
 
@@ -51,8 +52,22 @@ def stimulus(stage, res, rows):
             cbv < 0.6 * plan["v_cueball"], ev
     if stage == "neg-full-ball":
         return facts.get("strokes") == 1, ev
+    if stage == "neg-shaft":
+        return facts.get("strokes") == 0 and "shaft or butt touched cue ball" in (facts.get("fouls") or []), ev
     if stage == "neg-double":
-        return (facts.get("strokes") or 0) >= 2, ev
+        first = look(res, "tap 1") or {}
+        clear = look(res, "clear after tap 1") or {}
+        second = look(res, "tap 2") or {}
+        first_count = (first.get("facts") or {}).get("strokes")
+        clear_count = (clear.get("facts") or {}).get("strokes")
+        second_count = (second.get("facts") or {}).get("strokes") or 0
+        gap = clear.get("tip_gap_mm")
+        ev.update(first_strokes=first_count, strokes_after_retraction=clear_count,
+                  first_gap_mm=gap, second_strokes=second_count)
+        # The point-to-ball-surface distance must clear the entire 12 mm tip collider
+        # (radius about 6.5 mm), including off-axis contact at its rim.
+        return (first_count == clear_count == 1 and gap is not None and gap > 15.0
+                and second_count >= 2 and "second stroke" in (facts.get("fouls") or [])), ev
     return False, ev
 
 

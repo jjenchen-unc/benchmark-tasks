@@ -35,7 +35,7 @@ if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
 import layout as L  # noqa: E402
-from scoring import Monitor, Scorer  # noqa: E402
+from scoring import CONTACT_N, Monitor, Scorer, cue_contact_forces  # noqa: E402
 from yam_arena.task_file import Box  # noqa: E402
 
 PHYSICS_DT = float(os.environ.get("POOL_PHYSICS_DT", str(1 / 480)))
@@ -520,15 +520,27 @@ class Runtime:
             f8 = self.cv_8.get_contact_force_matrix(dt=dt).detach().cpu().numpy()[0]
             fq = self.cv_cue.get_contact_force_matrix(dt=dt).detach().cpu().numpy()[0]
             nrm = lambda f: float(np.linalg.norm(f))  # noqa: E731
-            cue_cb = nrm(fcb[0])
+            cue_cb = shaft_cb = 0.0
+            forces, points, _, _, counts, starts = self.cv_cb.get_contact_data(dt=dt)
+            count, first = int(counts[0, 0]), int(starts[0, 0])
+            if count:
+                contact = slice(first, first + count)
+                cue_tf = tf[MOVING.index("cue")]
+                cue_cb, shaft_cb = cue_contact_forces(
+                    points[contact].detach().cpu().numpy(),
+                    forces[contact].detach().cpu().numpy().ravel(),
+                    cue_tf[:3], _rot(cue_tf[3:7]),
+                )
+            elif nrm(fcb[0]) > CONTACT_N:
+                raise RuntimeError("Cue contact reported without contact positions")
             cb_8 = max(nrm(fcb[1]), nrm(f8[1]))
             cue_8 = nrm(f8[0])
             robot_cb = float(np.linalg.norm(fcb[2:], axis=-1).max()) if fcb.shape[0] > 2 else 0.0
             robot_8 = float(np.linalg.norm(f8[2:], axis=-1).max()) if f8.shape[0] > 2 else 0.0
             robot_cue = float(np.linalg.norm(fq, axis=-1).max()) if fq.size else 0.0
-            self.monitor.step(dt, cue_cb, cb_8, cue_8, max(robot_cb, robot_8), robot_cue, vel[0, :3])
+            self.monitor.step(dt, cue_cb, cb_8, cue_8, max(robot_cb, robot_8), robot_cue, vel[0, :3], shaft_cb=shaft_cb)
             self.last_contacts = dict(
-                cue_cb=round(cue_cb, 3), cb_8=round(cb_8, 3), cue_8=round(cue_8, 3),
+                cue_cb=round(cue_cb, 3), shaft_cb=round(shaft_cb, 3), cb_8=round(cb_8, 3), cue_8=round(cue_8, 3),
                 robot_ball=round(max(robot_cb, robot_8), 3), robot_cue=round(robot_cue, 3),
             )
             if DEBUG and (cue_cb > 0 or cb_8 > 0):

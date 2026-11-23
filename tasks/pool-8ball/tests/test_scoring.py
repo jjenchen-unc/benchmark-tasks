@@ -35,35 +35,66 @@ def hit_monitor():
 
 class TestClassify(unittest.TestCase):
     def test_made_called_pocket(self):
-        lvl, f = S.classify(on_bed((0.6, 0.0)), dropped("RS"), "RS", hit_monitor())
+        lvl, f = S.classify(on_bed((0.6, 0.0)), dropped("RS"), "RS", hit_monitor(), 0.0)
         self.assertEqual(lvl, 1.0)
         self.assertEqual(f["eight_pocket"], "RS")
 
     def test_wrong_pocket(self):
-        self.assertEqual(S.classify(on_bed((0.6, 0.0)), dropped("LS"), "RS", hit_monitor())[0], 0.0)
+        self.assertEqual(S.classify(on_bed((0.6, 0.0)), dropped("LS"), "RS", hit_monitor(), 0.0)[0], 0.0)
 
     def test_scratch(self):
-        self.assertEqual(S.classify(dropped("NR"), dropped("RS"), "RS", hit_monitor())[0], 0.0)
-        self.assertEqual(S.classify(dropped("NR"), on_bed((0.9, 0.1)), "RS", hit_monitor())[0], 0.0)
+        self.assertEqual(S.classify(dropped("NR"), dropped("RS"), "RS", hit_monitor(), 0.0)[0], 0.0)
+        self.assertEqual(S.classify(dropped("NR"), on_bed((0.9, 0.1)), "RS", hit_monitor(), 0.0)[0], 0.0)
 
     def test_near_mouth_half(self):
         a, b = L.pocket_jaws("RS")
         mid = (a + b) / 2 + np.array([0.0, 2.5 * L.BALL_R])  # 2.5 R inside the mouth line
-        self.assertEqual(S.classify(on_bed((0.6, 0.0)), on_bed(mid), "RS", hit_monitor())[0], 0.5)
+        self.assertEqual(S.classify(on_bed((0.6, 0.0)), on_bed(mid), "RS", hit_monitor(), 0.0)[0], 0.5)
         far = (a + b) / 2 + np.array([0.0, 4 * L.BALL_R])
-        self.assertEqual(S.classify(on_bed((0.6, 0.0)), on_bed(far), "RS", hit_monitor())[0], 0.25)
+        self.assertEqual(S.classify(on_bed((0.6, 0.0)), on_bed(far), "RS", hit_monitor(), 0.0)[0], 0.25)
+
+    def test_legal_stroke_and_rest_required(self):
+        pc = on_bed((0.6, 0.0))
+        a, b = L.pocket_jaws("RS")
+        near = on_bed((a + b) / 2 + [0, 2.5 * L.BALL_R])
+        m = S.Monitor()
+        m.step(DT, 0, 20, 0, 0, 0)
+        self.assertEqual(S.classify(pc, dropped("RS"), "RS", m, 0)[0], 0)
+        m = hit_monitor()
+        self.assertEqual(S.classify(pc, near, "RS", m, 0.01)[0], 0.25)
+        m.step(DT, 0, 0, 0, 0, 0, shaft_cb=4)
+        self.assertEqual(S.classify(pc, dropped("RS"), "RS", m, 0)[0], 0)
+
+    def test_contact_zones_on_rotated_cue(self):
+        forces = np.array([3., 1., 4., 8.])
+        for side in ("left", "right"):
+            origin, rotation = L.cue_rest_pose(side)
+            depth = np.array([0., L.TIP_LEN - 0.0001, L.TIP_LEN + 0.0001, 0.20])
+            points = origin - depth[:, None] * rotation[:, 0] + 0.003 * rotation[:, 1]
+            self.assertEqual(S.cue_contact_forces(points, forces, origin, rotation), (4., 12.))
 
     def test_no_hit(self):
         m = S.Monitor()
         m.step(DT, 50.0, 0, 0, 0, 0)
-        self.assertEqual(S.classify(on_bed((0.6, 0.0)), on_bed((0.9, 0.0)), "RS", m)[0], 0.0)
+        self.assertEqual(S.classify(on_bed((0.6, 0.0)), on_bed((0.9, 0.0)), "RS", m, 0.0)[0], 0.0)
 
     def test_fouls(self):
         for args in ((0, 0, 1.0, 0, 0), (0, 0, 0, 1.0, 0)):
             m = hit_monitor()
             m.step(DT, *args)
             self.assertTrue(m.foul)
-            self.assertEqual(S.classify(on_bed((0.6, 0.0)), dropped("RS"), "RS", m)[0], 0.0)
+            self.assertEqual(S.classify(on_bed((0.6, 0.0)), dropped("RS"), "RS", m, 0.0)[0], 0.0)
+
+    def test_resolved_gap_makes_a_second_stroke(self):
+        for gap_steps in (1, 10, 19, 20):
+            with self.subTest(gap_steps=gap_steps):
+                mon = S.Monitor()
+                for contact in [5.0] * 16 + [0.0] * gap_steps + [5.0] * 16:
+                    mon.step(DT, contact, 0, 0, 0, 0)
+                mon.step(DT, 0, 3, 0, 0, 0)
+                self.assertEqual(mon.strokes, 2)
+                self.assertEqual(mon.fouls, ["second stroke"])
+                self.assertEqual(S.classify(on_bed((0.6, 0)), dropped("RS"), "RS", mon, 0)[0], 0)
 
     def test_second_stroke_and_push(self):
         m = hit_monitor()

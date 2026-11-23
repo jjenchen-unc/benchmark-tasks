@@ -63,10 +63,6 @@ BLUE, GREEN, BRICK_RED = (0.16, 0.36, 0.78), (0.20, 0.62, 0.30), (0.78, 0.07, 0.
 WOOD_RHO = 0.70e3
 
 
-def _cyl_mass(d, h):
-    return WOOD_RHO * math.pi * (d / 2) ** 2 * h
-
-
 TOYS = {
     "lego2x2": dict(kind="brick", size=(0.0158, 0.0158, 0.0096), studs=(2, 0.0080, 0.0024, 0.0017), mass=0.0012,
                     fits=True, color=BRICK_RED, friction=0.35, label="LEGO 2x2 brick (3003)"),
@@ -74,37 +70,18 @@ TOYS = {
                      fits=False, color=BRICK_RED, friction=0.35, label="LEGO DUPLO 2x2 brick (3437)"),
     "cube19": dict(kind="cube", size=(0.01905,) * 3, mass=WOOD_RHO * 0.01905**3, fits=True, color=BLUE,
                    friction=0.45, label="3/4 in (19 mm) painted hardwood cube"),
-    "cube25": dict(kind="cube", size=(0.0254,) * 3, mass=WOOD_RHO * 0.0254**3, fits=False, color=BLUE,
-                   friction=0.45, label="1 in (25.4 mm) painted hardwood cube"),
     "ball25": dict(kind="ball", size=(0.0254,) * 3, mass=WOOD_RHO * math.pi / 6 * 0.0254**3, fits=True, color=BLUE,
                    friction=0.45, label="1 in (25.4 mm) painted hardwood ball"),
-    "ball51": dict(kind="ball", size=(0.0508,) * 3, mass=WOOD_RHO * math.pi / 6 * 0.0508**3, fits=False,
-                   color=BLUE, friction=0.45, label="2 in (50.8 mm) painted hardwood ball"),
-    # upright toys: a small wooden peg doll that fits; a tall toy peg that enters the bore but stands out of it
     "doll32": dict(kind="doll", size=(0.01905, 0.01905, 0.03175), head_d=0.0175,
                    mass=0.0, fits=True, color=GREEN, friction=0.45,
                    label="1-1/4 in (32 mm) painted wooden peg doll, 3/4 in body"),
-    "peg76": dict(kind="cyl", size=(0.01905, 0.01905, 0.0762), mass=_cyl_mass(0.01905, 0.0762), fits=False,
-                  color=GREEN, friction=0.45, label="3/4 x 3 in (19 x 76 mm) painted hardwood toy peg, standing"),
-    # standing: a thin dowel peg, longer than the bore is deep, with less bulk than any toy that fits
-    "dowel76": dict(kind="cyl", size=(0.00953, 0.00953, 0.0762), mass=_cyl_mass(0.00953, 0.0762), fits=False,
-                    color=GREEN, friction=0.45, label="3/8 x 3 in (9.5 x 76 mm) painted hardwood dowel peg, standing"),
 }
-for _t in TOYS.values():
-    if _t["kind"] == "doll":  # mass from the convex hull's volume (set below, once toy_hull_points exists)
-        pass
-    _t["hazard"] = _t["fits"] or (_t["kind"] == "ball" and _t["size"][0] <= SMALL_BALL_D)
+for name, toy in TOYS.items():
+    toy["hazard"] = name != "duplo2x2"
 TOY_NAMES = tuple(TOYS)
 BALL_ANG_DAMPING = 3.0  # rolling resistance stand-in for wood on a wooden table (PhysX has no rolling friction)
-# look-alike pairs: same material and colour, one fits the tube and one does not
-PAIRS = (
-    ("ball25", "cube25"),
-    ("cube19", "cube25"),
-    ("lego2x2", "duplo2x2"),
-    ("doll32", "peg76"),
-    ("doll32", "dowel76"),
-    ("ball25", "dowel76"),
-)
+# Each pair includes the age-graded recipient toy and a small-parts distractor.
+PAIRS = (("lego2x2", "duplo2x2"), ("cube19", "duplo2x2"), ("ball25", "duplo2x2"), ("doll32", "duplo2x2"))
 
 
 def toy_half_height(name):
@@ -157,13 +134,13 @@ PARK = np.array([-0.55, 0.0])  # unused toys rest on the floor behind the arms (
 
 # named setups (unseeded resets; real trials use these): toy names in order of their slots, slot positions fixed
 NAMED_SETUPS = (
-    ("ball25", "cube25", "lego2x2"),
-    ("cube19", "cube25", "ball51"),
+    ("ball25", "duplo2x2", "lego2x2"),
+    ("cube19", "ball25", "duplo2x2"),
     ("lego2x2", "duplo2x2", "cube19"),
-    ("cube25", "ball25", "cube19"),
+    ("duplo2x2", "ball25", "cube19"),
     ("duplo2x2", "lego2x2", "ball25"),
-    ("doll32", "peg76", "cube19"),
-    ("dowel76", "doll32", "ball25"),
+    ("doll32", "duplo2x2", "cube19"),
+    ("duplo2x2", "doll32", "ball25"),
 )
 NAMED_SLOTS = ((0.33, -0.10), (0.41, -0.17), (0.32, -0.23))
 

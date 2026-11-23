@@ -5,7 +5,7 @@ Authored as one custom-spawned assembly (yam_arena task-file primitives are sing
 * kinematic rigid bodies (they do not move; PhysX reports the contact forces on them): the toddler manikin, her high
   chair, the placemat and the storage box;
 * free rigid bodies: the testing tube (bore wall of 36 convex prisms + the slanted floor as one convex solid) and the
-  nine toys (cubes, bricks, the peg, the stick and the peg doll as convex hulls, balls as PhysX spheres). Each trial uses
+  five toys (bricks, cube and peg doll as convex hulls, ball as a PhysX sphere). Each trial uses
   three toys; the other six rest on the floor behind the arms (not part of the trial, out of every camera's working view).
 Geometry: ``../src/layout.py``; scorer: ``../src/scoring.py`` (pure functions).
 

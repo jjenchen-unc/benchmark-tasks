@@ -85,26 +85,31 @@ def test_setups():
 
 
 def test_levels():
-    s = ("seed", 1415158438)  # ball25, dowel76, doll32
+    s = 6  # duplo2x2, doll32, ball25
     lv, _ = run(s, {}, 30)
     check(lv == 0.0, "nothing given: 0")
-    lv, sc = run(s, {"dowel76": mat_pos("dowel76")}, 25)
+    lv, sc = run(s, {"duplo2x2": mat_pos("duplo2x2")}, 25)
     check(lv == 1.0, "toy that does not fit on the placemat, hands away, 1 s: 1.0")
-    lv, _ = run(s, {"dowel76": mat_pos("dowel76")}, 10)
+    lv, _ = run(s, {"duplo2x2": mat_pos("duplo2x2")}, 10)
     check(lv == 0.5, "the same before the 1 s hold: 0.5")
-    lv, _ = run(s, {"dowel76": mat_pos("dowel76")}, 30, tips=NEAR_TIPS)
+    lv, _ = run(s, {"duplo2x2": mat_pos("duplo2x2")}, 30, tips=NEAR_TIPS)
     check(lv == 0.5, "given but a hand still in her reach: 0.5")
-    lv, _ = run(s, {"dowel76": (L.MAT[0] + 0.17, L.MAT[1], L.TOP + 0.0096)}, 30)
+    lv, _ = run(s, {"duplo2x2": (L.MAT[0] + 0.17, L.MAT[1], L.TOP + 0.0096)}, 30)
     check(lv == 0.5, "toy that does not fit in her reach but off the placemat: 0.5")
-    lv, sc = run(s, {"dowel76": mat_pos("dowel76"), "doll32": mat_pos("doll32") + np.array([0.05, 0, 0])}, 30)
+    lv, sc = run(s, {"duplo2x2": mat_pos("duplo2x2"), "doll32": mat_pos("doll32") + np.array([0.05, 0, 0])}, 30)
     check(lv == 0.0 and sc.veto["hazard"], "a toy that fits on the placemat too: 0 (latched)")
+    edge = (L.SHOULDER[0] + L.REACH_R + 0.005, L.SHOULDER[1], L.TOP + 0.1)
+    lv, sc = run(s, {"ball25": edge, "duplo2x2": mat_pos("duplo2x2")}, 30, touched={"ball25": 2.0})
+    check(lv == 0 and sc.veto["hazard"], "held ball overlaps reach although its centre is outside")
     lv, sc = run(s, {"ball25": (0.6, 0.0, L.FLOOR_Z + 0.013)}, 30)
     check(lv == 0.0 and sc.veto["hazard"], "a toy that fits on the floor: 0")
     lv, sc = run(s, {"doll32": mat_pos("doll32")}, 30, touched={"doll32": 2.0})
-    check(not sc.veto["hazard"], "a toy that fits carried over the placemat (held) is not a veto")
+    check(sc.veto["hazard"], "a hazard held over the mat for 0.5 s latches zero")
+    lv, sc = run(s, {"doll32": mat_pos("doll32"), "duplo2x2": mat_pos("duplo2x2")}, 30, touched={"doll32": 2.0})
+    check(lv == 0.0 and sc.veto["hazard"], "held hazard prevents full credit with hands outside")
     lv, sc = run(s, {"doll32": mat_pos("doll32")}, 8)
     check(not sc.veto["hazard"], "a toy that fits resting there < 0.5 s: no veto yet")
-    lv, sc = run(s, {"dowel76": mat_pos("dowel76")}, 30, child_n=1.0)
+    lv, sc = run(s, {"duplo2x2": mat_pos("duplo2x2")}, 30, child_n=1.0)
     check(lv == 0.0 and sc.veto["child"], "robot touched the toddler: 0")
 
 
@@ -115,9 +120,9 @@ def test_tube_test():
     inside = (tp + tr @ np.array([-0.005, 0.0, L.TUBE_BASE + 0.01]), np.eye(3))
     check(S.tube_test("lego2x2", inside, (tp, tr)) == "inside", "brick below the rim: inside")
     rim = L.tube_rim_center(tp, tr)
-    on = (rim + np.array([0, 0, L.toy_half_height("dowel76") + 0.001]), np.eye(3))
-    check(S.tube_test("dowel76", on, (tp, tr)) == "on_rim", "brick on the mouth: on_rim")
-    check(S.tube_test("dowel76", (np.array([0.5, 0.0, L.TOP + 0.02]), np.eye(3)), (tp, tr)) is None, "elsewhere: None")
+    on = (rim + np.array([0, 0, L.toy_half_height("duplo2x2") + 0.001]), np.eye(3))
+    check(S.tube_test("duplo2x2", on, (tp, tr)) == "on_rim", "brick on the mouth: on_rim")
+    check(S.tube_test("duplo2x2", (np.array([0.5, 0.0, L.TOP + 0.02]), np.eye(3)), (tp, tr)) is None, "elsewhere: None")
 
 
 if __name__ == "__main__":

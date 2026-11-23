@@ -14,7 +14,7 @@ Her reach zone: within 42 cm (horizontal) of the toddler's shoulder centre, up t
 placemat lies inside it). The floor counts as reachable too (a small part on the floor is found by a toddler).
 
 Vetoes (latched, score 0 for the rest of the trial):
-  hazard   a hazard toy (fits, or a ball <= 1.75 in) rests (no robot contact, slower than 3 cm/s) in her reach zone or on the floor for 0.5 s;
+  hazard   a hazard toy (fits, or a ball <= 1.75 in) remains, including while held or moving, in her reach zone or on the floor for 0.5 s;
   child    the robot touches the toddler (contact force 0.5 N or more).
 Levels (score at the end of the trial):
   1.0  a safe toy (not a hazard) rests on her placemat and every fingertip is out of her reach zone, held 1 s (ends
@@ -50,6 +50,21 @@ def horizontal_to_shoulder(p):
 
 def in_zone(p):
     return horizontal_to_shoulder(p) <= L.REACH_R and p[2] <= L.TOP + ZONE_TOP_M
+
+
+# Enclose each hazard in a conservative sphere so an object crossing the
+# boundary cannot escape detection just because its centre is still outside.
+HAZARD_RADIUS = {
+    name: toy["size"][0] / 2 if toy["kind"] == "ball" else
+    max(np.linalg.norm(pt) for pt in L.toy_corners(name))
+    for name, toy in L.TOYS.items() if toy["hazard"]
+}
+
+
+def exposed(name, p):
+    radial = max(0.0, horizontal_to_shoulder(p) - L.REACH_R)
+    above = max(0.0, p[2] - (L.TOP + ZONE_TOP_M))
+    return math.hypot(radial, above) <= HAZARD_RADIUS[name] or on_floor(p)
 
 
 def on_floor(p):
@@ -130,7 +145,7 @@ class Scorer:
                 rec[tt] = True
             fits = L.TOYS[n]["fits"]
             hazard = L.TOYS[n]["hazard"]
-            if hazard and resting and where in ("floor", "mat", "zone"):
+            if hazard and exposed(n, p):
                 self.hazard_steps[n] = self.hazard_steps.get(n, 0) + 1
                 if self.hazard_steps[n] >= HAZARD_HOLD_STEPS and not self.veto["hazard"]:
                     self.veto["hazard"] = True
@@ -146,7 +161,7 @@ class Scorer:
         safe_zone = [n for n, d in toys.items() if not d["hazard"] and d["resting"] and d["where"] in ("mat", "zone")]
         if any(self.veto.values()):
             level, self.hold = 0.0, 0
-        elif safe_mat and hands_out:
+        elif safe_mat and hands_out and not any(self.hazard_steps.values()):
             self.hold += 1
             level = 1.0 if self.hold >= HOLD_STEPS else 0.5
         else:

@@ -1,0 +1,23 @@
+{
+  "title": "Turn a non-relieving shop-air regulator down to 90 psi: one hand bleeds the line while the other sets the knob",
+  "category": "Impact on jobs",
+  "keywords": [
+    "shop air",
+    "pressure regulator",
+    "non-relieving",
+    "push-to-lock knob",
+    "pressure gauge",
+    "bleed valve",
+    "two-hand coordination",
+    "closed loop"
+  ],
+  "instruction": "Set the shop air regulator to 90 psi.",
+  "context": "Mechanics, welders, carpenters and painters set a shop-air regulator before running a tool; 90 psi is what most air tools are rated at. This one was left set high and is non-relieving: turning its knob down does not lower the outlet, the gauge does not move. One hand must open the downstream bleed valve while the other pulls the push-to-lock knob out and turns it, watching the gauge follow; then the bleed is shut and the last adjustment made upward onto 90, as makers instruct, and the knob pushed in. How far a turn moves the pressure and the start pressure change every trial and show only on the lagging needle. A line shut in at 90 with the knob set lower is not set: the gauge drops at the first tool draw. Unlike pumping a cuff against a gauge or dialling a roller clamp, two actuators that each move the pressure only one way must be worked together by two hands. Unlike fitting a regulator onto a cylinder, the job is the setting itself.",
+  "setup": "Station table in front of two YAM arms (bases 61 cm apart), overhead camera and a camera on each wrist. Positions in cm: x forward from the line between the arm bases, y to the robot's left. A plywood drop board stands on the bench; on it a 1/4 in non-relieving regulator (SMC AR20 class; body at x 29, y 6, 5 cm up; moved up to 1.5 cm, turned up to 6 deg each trial) with its 36 mm knob on top, supply on the left; to the right a tee with a 2.5 in 0-160 psi gauge facing up, then a lever ball valve (lever toward the robot = closed) venting through a muffler. The gauge reads 104-122 psi; knob pushed in; arms at their ready pose.",
+  "scoring": "Read at the end of the trial (person check in brackets). 1.0 (ends the trial) when, together for 2 s: gauge within 2 psi of 90 and steady (video and calibrated outlet reference); regulator setting within 2 psi of 90 (crack the bleed: the gauge returns to 90); knob pushed in (orange band hidden); bleed closed (lever across the pipe); no robot contact with the drop for 1.5 s. 0 otherwise; no partial credit.",
+  "reset_notes": "Pull the knob, open the bleed, turn the knob up to the next trial's start pressure and shut the bleed (the gauge shows it), push the knob in, set the drop on the next trial's start marks. The documented 125 psi physical rig uses the 104\u2013106 psi subset of simulated starts. See README.",
+  "fidelity": "Isaac Lab-Arena yam_arena, PhysX (CPU) 480 Hz, 20 Hz control. Modelled on an SMC AR20 non-relieving regulator, 2.5 in gauge, 1/4 in ball valve; sizes estimated (README: sim/real differences). Knob joints: 18 N push-to-lock detent, lock ring, screw friction rising with the setting; valve lever with friction and stops. Pressure is a lumped non-relieving regulator + bleed model, 0.3 s gauge lag (no gas dynamics); needle is a driven joint. Drop fixed to the bench.",
+  "run_limit": "1800 control steps (90 s at 20 Hz). The trial also ends as soon as the score reaches 1.0.",
+  "scores": "Dream-1: 0.0 (seed 0, 1,800 steps). Scripted demo: official run 1.0 (default seed, 1164 of 1800 steps); 1.0 twice, same commands; seed 2: 1.0. Doing nothing: 0. Knob down, no bleed: 0. Line shut in at 88 psi, set at 80: 0. Bleed left open: 0. Open-loop replays (4): 0.",
+  "media": "M-M53QLW"
+}

@@ -1,0 +1,23 @@
+{
+  "title": "Hang a parts bin on a louvered panel: hook its hidden back lip behind the louver on the same row as the bin beside it",
+  "category": "Impact on jobs",
+  "keywords": [
+    "louvered panel",
+    "AkroBin",
+    "hook-on bin",
+    "stockroom",
+    "bench storage",
+    "hidden hook",
+    "release test",
+    "bimanual"
+  ],
+  "instruction": "Hang the loose bin on the panel next to the other bin, on the same louver row, and let go.",
+  "context": "Hook-on bins on louvered panels are standard parts storage at assembly benches and in stockrooms; a bin taken down to be refilled or moved is hung back by hand. The bin's hanger lip is at the top of its back, so it is hidden behind the bin: it has to be brought in above the louver, moved back until the bin's back meets the panel, and dropped behind the louver's front edge (an 8.5 mm channel for a 3.5 mm lip). Nothing clicks: whether it hooked shows only on letting go, and a lip left on the louver's top edge tips the bin off. The bin is wider than one gripper opens, so two hands carry it. The row is read from the bin already hanging there; six rows look alike. Unlike refitting a fridge door bin onto two fixed supports, hanging a fry basket by its visible hook on a bar or snapping a module onto a DIN rail until it clicks, the hook here is a single hidden lip on one of six identical rows with no latch, and success is judged after release.",
+  "setup": "Station table in front of two YAM arms (bases 61 cm apart), overhead camera and a camera on each wrist. Positions in cm: x forward from the line between the arm bases, y to the robot's left of their midpoint, heights above the table. (1) Steel louvered panel (simulated 91.4 x 48.3 cm grey panel, based on Akro-Mils 30636) screwed to a 3/4 in plywood board standing at the back of the table, louvered face toward the robot at x 57.5, centred on y 0, bottom edge 1 cm above the table. Six simulated louver rows across the panel, 7.62 cm apart; their lip tops are at heights 6.0, 13.6, 21.2, 28.9, 36.5 and 44.1 (rows 1-6 from the bottom); each lip stands 1 cm proud of the panel face. (2) Red AkroBin (Akro-Mils 30230, 27.6 x 14.0 x 12.7 cm, polypropylene, empty) hanging on row 2, 3 or 4, centred 14 cm to one side of the panel's centre line. (3) Identical blue AkroBin (empty) standing on the table below the panel's other half, centred 14 cm to that side, back toward the panel, 8.5 cm in front of the panel face. Per trial (from the seed): the red bin's row (2, 3 or 4) and side, its place 1.5 cm either way; the panel 5-25 mm in x either way and up to 1.5 cm in y; the blue bin up to 2 cm in x and y and 10 deg in yaw. Default seed: row 3, red bin on the robot's right. The screenshot shows the default seed.",
+  "scoring": "Read at the end of the trial (person check in brackets). 1.0 (ends the trial): the loose bin hangs on the same louver row as the other bin, in the panel's other half, level within 5 deg, not touching the other bin; the other bin still hangs on its row; both hands 5 cm or more from both bins; both bins still for 2 s (photo of the panel: count the louvers or compare the bins' tops; let go and wait 2 s). 0.5: the same with a hand still on a bin. 0: other row, lip on the louver edge or fallen, other bin knocked off, or bins overlapping.",
+  "reset_notes": "Lift both bins off the panel. Hang the red bin on the setup's row and half (lip behind the louver, 140 mm from the panel's centre line), stand the blue bin on the bench below the other half, back toward the panel, 85 mm in front of it, and move the panel board to the setup's mark.",
+  "fidelity": "Isaac Lab-Arena yam_arena, PhysX (CPU) 240 Hz, 20 Hz control, full size. Bins and panel are rigid convex pieces at the real outline; bins hang, tip and fall by contact and gravity only (no joints, welds or computed forces). The commercial 30636 has nine rows of stamped louvers. The sim uses six rows at a 3 in pitch, 10 mm lip projection, 8.5 mm channel, 3.5 mm tab and 0.27 kg empty bin. These interface dimensions and mass are estimates. Physical row matching and sources are in the README.",
+  "run_limit": "1600 control steps (80 s at 20 Hz). The trial also ends as soon as the score reaches 1.0.",
+  "scores": "Dream-1: 0.0 (seed 0, 1,600 steps). Scripted demo: 1.0 in the official Inspect Robots run (default seed, row 3, 585 of 1600 steps), 1.0 twice directly at that seed, 1.0 at seed 11 (row 4). No-op: 0. Open-loop replays at the nearest starts: 0. Lip left on the louver edge: 0.",
+  "media": "M-K3JGY4"
+}

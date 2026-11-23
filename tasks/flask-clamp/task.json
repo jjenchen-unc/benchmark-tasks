@@ -1,0 +1,23 @@
+{
+  "title": "Load a culture flask into an orbital shaker's spring clamp: push its heel past all five fingers until the bottom is down",
+  "category": "Other",
+  "keywords": [
+    "wet lab",
+    "cell culture",
+    "orbital shaker",
+    "Erlenmeyer flask",
+    "spring flask clamp",
+    "push past sprung fingers",
+    "glass neck grip",
+    "cramped placement"
+  ],
+  "instruction": "Load the empty flask into the free clamp on the shaker platform so that the shaker can be started.",
+  "context": "Overnight bacterial and yeast cultures grow in shaken flasks, each held by a stainless spring-finger clamp bolted to the shaker's platform. A 250 mL Erlenmeyer flask's heel (85 mm) is wider than the gap between the clamp's five finger pads, so the flask must go straight down past all five at once: the heel spreads the fingers on their flared tips, passes the pads and lands on the base plate, and the fingers close onto the cone. Set only into the flared tips, the flask stands upright and looks loaded but sits 5 cm up, taller than its neighbours, and the shaker tips it over. Held by its narrow glass neck on a compliant arm, it pivots and jams on one side if the push is rushed or off the clamp's axis. The free clamp, between loaded cultures, changes per trial. Unlike setting a pipette's volume, swapping a mini-centrifuge rotor, charging a pipette filler or fishing out a stir bar, this is a guided push-fit past a closed ring of springs; unlike a car phone holder, nothing is held open.",
+  "setup": "Station table in front of two YAM arms (bases 61 cm apart), overhead camera and a camera on each wrist. Positions in cm: x forward from the line between the arm bases, y to the robot's left of their midpoint. (1) A low-profile benchtop orbital shaker (340 x 340 mm housing, 19 mm orbit) centred at x 40.5, y 0; its 305 x 305 mm platform is 10 cm above the table. (2) Four stainless spring-finger 250 mL flask clamps bolted to the platform in a 2 x 2 pattern, 12.5 cm apart; each has a 100 mm base plate and five fingers that lean in and flare out at the top. The two far clamps and one near clamp hold capped 250 mL culture flasks with about 50 mL of medium; the other near clamp is free. (3) An empty 250 mL narrow-neck borosilicate Erlenmeyer flask (ISO 1773: 85 mm base, 145 mm tall, 34 mm neck, 140 g) with an aluminium foil cap, standing upright on the table beside the shaker on the free clamp's side. Per trial (from the seed): which near clamp is free (left or right), the shaker moved up to 8 mm in x and y, the free clamp's finger ring turned 0-72 deg, and the flask at x 30-46, |y| 24-30 on the free clamp's side. Named setups: see README; the screenshot shows the default start (free clamp near right).",
+  "scoring": "Read at the end of the trial (person check in brackets). Seated: flask bottom on the clamp's base plate within 1.5 mm, upright within 2 deg, centred within 3 mm, all five fingers touching the glass at 1.4-14 deg (side view: no gap under the flask, fingers closed on the cone). Released: every fingertip 40 mm or more from the flask (video). 1.0 (ends the trial): seated and released, then the scorer runs the shaker for 2.5 s (19 mm orbit, 200 rpm) and the flask stays seated throughout (switch the shaker on and watch). 0.5: seated but a hand still on or near the flask. 0 otherwise: standing on the flared finger tips, tilted, beside the clamp, held in the air, on the table, or thrown out by the shake.",
+  "reset_notes": "Pull the flask up out of the clamp and stand it on the table at the next setup's mark; move the empty position to the next setup's near clamp by swapping one culture flask over; set the shaker on its marks. Setups run in order 0-3.",
+  "fidelity": "Isaac Lab-Arena yam_arena, PhysX (CPU) 240 Hz, 20 Hz control, full size. Clamp fingers are rigid strips on hinges with a computed leaf-spring torque (0.55 N m/rad, estimate). Flask is three convex pieces; pad contacts carry a torsional friction patch. Loaded clamps and their flasks are fixed bodies. Shaker and clamp have no part numbers. Far-row clamps are out of reach, so the free clamp is always a near one. No welds or proximity rules. Full statement: README.",
+  "run_limit": "1800 control steps (90 s at 20 Hz). The trial also ends as soon as the score reaches 1.0.",
+  "scores": "Dream-1: 0.0 (seed 0, 1,800 steps). Scripted demo: 1.0 in the official Inspect Robots run (default seed, near-right clamp, 547/1800 steps); 1.0 twice at the default seed; 1.0 at seed 1 (near left). Doing nothing: 0. Set on the tips, let go: 0. Open-loop replay, 3 starts: 0.",
+  "media": "M-8PASYQ"
+}

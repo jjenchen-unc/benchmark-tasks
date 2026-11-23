@@ -1,0 +1,23 @@
+{
+  "title": "Take an AMD Wraith Prism off an AM4 CPU: twist the stuck cooler free before lifting, or the CPU comes out with it",
+  "category": "Impact on AI timelines",
+  "keywords": [
+    "computer hardware",
+    "CPU cooler removal",
+    "AMD Wraith Prism",
+    "AM4 socket",
+    "thermal paste",
+    "cam lever clip",
+    "shear before lift",
+    "bimanual"
+  ],
+  "instruction": "Take the CPU cooler off the processor and put it on the mat.",
+  "context": "A documented Ryzen 3700X and RTX 3080 workstation used a Wraith Prism while training a CycleGAN. Replacing its cooler or changing its processor requires servicing the clip-mounted AM4 assembly. The robot opens the cam, releases both clip ends and twists the cooler free while the processor stays seated. The frequency of this service in AI infrastructure is unknown. The build record and AMD\u2019s removal procedure are linked in the README.",
+  "setup": "Station table, two YAM arms (bases 61 cm apart), overhead and wrist cameras. An open-air test bench (tray on rubber feet, not fixed) with a micro-ATX AM4 board (physical fixture specification: ASRock A320M-HDV R4.0) stands centre-left, socket near x 34, y 4 cm (moved 1.5-3.5 cm and turned -90 +-12 deg each trial). An AMD Athlon 200GE (sacrificial) is in the socket, ZIF lever closed; an AMD Wraith Prism (boxed SKU 199-999888) sits on it with ARCTIC MX-4 paste, clip locked, cam lever on the side facing the left arm. Disconnect fan and RGB leads and isolate power before removal. A grey anti-static mat (20 x 13.5 cm) lies to the right.",
+  "scoring": "Read at the end of the trial by eye and video, no instruments. 0 for the whole trial if the processor ever visibly lifts out of its socket or ends off it or stuck to the cooler (sim: 1 mm rise). 1.0 (ends the trial): the cooler stands upright on the mat, the processor is still seated with the ZIF lever down, and the cooler remains at rest on the mat with all parts released for three continuous seconds. 0.5: cooler off the processor, processor never out, placement hold incomplete. 0 otherwise.",
+  "reset_notes": "Wipe old paste with isopropyl alcohol, apply the same recorded amount of MX-4, re-mount and lock the clip, then run the same paste preparation every trial (README). After a yank, twist the processor off the cooler by hand, inspect the pins and swap in an intact spare 200GE when needed, re-seat it (ZIF lever down). Set the bench on its start marks (every 5 mm), clear the mat.",
+  "fidelity": "CPU PhysX at 480 Hz. The ASRock board matches the 230 \u00d7 201 mm outline. Component positions are scaled from its layout drawing. The unpowered cooler has two colliding clip ends. After the cam passes 55\u00b0, each end travels outward 9 mm to clear its lug. Estimated limits are 25 N for socket retention and 110 N for paste tension. Paste shears after 6\u00b0 of accumulated slip at 0.6\u20131.4 N\u00b7m. Clip clearances and forces lack hardware measurements. Pins are simplified.",
+  "run_limit": "1800 control steps (90 s at 20 Hz). The trial also ends as soon as the score reaches 1.0.",
+  "scores": "Brev, Inspect Robots, seed 0. Reference 1.0/886 steps. Dream-1 0.0/1800 (177 requests). Open cam with both hooks retained 0.0/451. Both hooks released, direct lift without twisting 0.0/827, CPU pulled from socket.",
+  "media": "M-CU6G8T"
+}

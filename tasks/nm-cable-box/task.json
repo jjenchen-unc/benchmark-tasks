@@ -1,0 +1,24 @@
+{
+  "title": "Feed NM cable through an outlet box's push-in clamp: past its sprung one-way tab, until 150 mm is inside, then let go",
+  "category": "Impact on jobs",
+  "keywords": [
+    "electrician",
+    "rough-in",
+    "NM-B cable",
+    "Romex",
+    "outlet box",
+    "push-in cable clamp",
+    "one-way tab",
+    "cable length",
+    "bimanual"
+  ],
+  "instruction": "Push the end of the cable into the outlet box through its cable clamp and pull it in until about 150 mm of cable is inside the box, then let go.",
+  "context": "During residential rough-in, an electrician feeds NM cable through a box with an integral push-in clamp; the trial specifies a 150 mm target for intact sheathed cable measured from the entry wall. The flat, stiff cable has to arrive flat and square at a 20 x 10 mm entry, lift a sprung plastic tab that leans into the box (about 10-15 N), and stay riding on the opening's lower edge: if it rides up into the tab it bends and kinks. Once past, the tab bites the sheath, so the cable cannot be pulled back out and too much cannot be undone. One hand feeds in short strokes, the other reaches into the box and guides the end up out of it to length. The scorer measures cable length after the robot releases it. The one-way stop makes overshoot consequential.",
+  "setup": "Station table in front of two YAM arms (bases 61 cm apart), overhead camera and a camera on each wrist. Positions in cm: x forward from the line between the arm bases, y to the robot's left. (1) A 2x4 stud offcut (38 x 89 x 400 mm) lying on its narrow edge along y at x 39, its end flush with the box's entry wall. (2) A blue single-gang non-metallic nail-on outlet box, 18 cu in class (55 x 92 x 58 mm inside), nailed to the stud's robot-side face, open face up, 13 mm proud of the stud, inside centre at x 34, y 2. Its end wall facing the robot's right has a 20 x 10 mm push-in cable entry at the box back with a sprung plastic clamp tab leaning into the box. (3) 0.45 m of white 14/2 NM-B cable lying flat on the table to the right of the box, cut end toward the entry, at 20 deg to the entry axis. Per trial (from the seed): box moved 8-20 mm in x and up to 30 mm in y; cable end 75-120 mm in front of the entry, up to 20 mm to the side, angle 10-30 deg.",
+  "scoring": "Read at the end of the trial (person check in brackets). 1.0 (ends the trial): the cable passes through the entry opening with the clamp tab resting on it (photo), 130-170 mm of cable inside the box measured along the cable from the entry wall's inner face to the cut end (tape measure), both grippers 120 mm or more from the cable and the cable still for 1 s (video: no part of the last 200 mm moving more than 5 mm). 0.5: through the clamp, released and still, but the length is outside 130-170 mm. Otherwise 0 (not through the clamp, still held, or moving).",
+  "reset_notes": "Press the clamp tab back with a screwdriver and pull the cable out of the box; straighten its last 20 cm and lay it flat on the bench at the setup's marks. Move the stud with its box to the setup's marks.",
+  "fidelity": "Isaac Lab-Arena yam_arena, PhysX (CPU) 240 Hz, 20 Hz control, full size. Cable: 30-link articulation with elastic-plastic bending (copper takes a set; it can kink), heavier than real (link mass floor). Clamp tab: articulation spring, about 10-15 N to lift (proposal's estimate, not measured); its bite on the sheath is a computed one-way stop. Allied P-181RK is a physical counterpart. Simulated cavity, tab and force are estimates. Bench mock-up: wall laid down, box face up. Full statement: README.",
+  "run_limit": "3600 control steps (3 min at 20 Hz). The trial also ends as soon as the score reaches 1.0.",
+  "scores": "Dream-1: 0.0 (seed 0, 3,600 steps). Scripted demo: 1.0 in the official Inspect Robots run (default seed, 1376 of 3600 steps); 1.0 twice from setup 0 (1805 steps). Doing nothing: 0. Open-loop replays at 3 other start/trace pairs: 0. Aimed at the box's nominal place: 0.",
+  "media": "M-ZFFDSQ"
+}

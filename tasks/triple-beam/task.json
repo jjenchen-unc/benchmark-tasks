@@ -1,0 +1,23 @@
+{
+  "title": "Weigh a sample jar on a triple-beam balance: riders seated in notches, poise slid until the free beam rests on zero",
+  "category": "Societal relatability",
+  "keywords": [
+    "triple-beam balance",
+    "school science",
+    "weighing",
+    "riders and notches",
+    "null balance",
+    "damped beam",
+    "hands off to read",
+    "closed loop"
+  ],
+  "instruction": "Weigh the sample jar on the balance.",
+  "context": "The triple-beam balance is the school science balance most people have used. Weighing an unknown sample on it is a feel-and-watch job: move the riders on the 500 g and 100 g beams notch by notch, letting go each time to see which way the beam swings, back off the notch that tips it, then slide the poise until the free beam settles with its pointer on the zero mark. A rider left between notches gives no reading, and a finger on a rider holds the beam, so every judgement needs the hand off. The jar's mass changes every trial and shows nowhere. Unlike weighing out granules on a digital balance, nothing is poured: the robot finds an unknown mass by balancing a lever. Unlike pumping a cuff against a gauge, the reading can only be taken with the hand away. Unlike dialling a pipette to a set volume, the target is unknown and has to be found from the beam.",
+  "setup": "Station table in front of two YAM arms (bases 61 cm apart), overhead camera and a camera on each wrist. Positions in cm: x forward from the line between the arm bases, y to the robot's left of their midpoint. A triple-beam balance modelled on the Ohaus 750-S0 (base 51 x 15 cm, beams along y) stands with its fulcrum at x 22.5, y 6 (moved up to 0.8 cm, turned up to 3 deg each trial), pan on the left, pointer and zero mark on the right. Beams front to back: 10 g graduated with a sliding poise, 100 g with notches every 10 g, 500 g with notches every 100 g; all riders at zero. A sealed white 250 mL jar of dry sand (120-480 g, unknown) stands on the 6 in pan, within 2.2 cm of its centre; the pan side is down and the pointer is up on its stop. Both arms start at their ready pose.",
+  "scoring": "Read at the end of the trial (person check in brackets). Reading = notch values of the two notched riders + the poise's scale reading; none if a notched rider is not in a notch. At rest on zero: pointer within 0.9 mm of the zero line (about 0.18 g), still, for 1.5 s (video). Hands off: no robot contact with the balance or jar for 2 s. 1.0 (ends the trial): jar on the pan, at rest on zero, hands off, riders seated, reading within 0.2 g of the jar's mass (weigh the jar on a digital scale). 0.5: at rest on zero and hands off, but a notched rider not seated or the reading off by more than 0.2 g. 0 otherwise.",
+  "reset_notes": "Slide all riders back to zero (notched riders seated in their zero notches). Put the next start's jar on the pan near its centre: a 250 mL HDPE jar filled with dry sand to the target mass on a 0.1 g scale, cap taped, mass written under its base. Set the balance on its start marks (every 2 mm).",
+  "fidelity": "Isaac Lab-Arena yam_arena, PhysX (CPU) 480 Hz, 20 Hz control. Modelled on the Ohaus 750-S0 at estimated size (no drawing); sim has the 500 g and 100 g beams swapped vs the real one (README). Beam on a revolute fulcrum, magnetic damping as speed-proportional torque, pan kept level by a mimic constraint, riders sliding on their beams: torque balance emergent. Notches are detent forces. Jar mass set per trial. Base fixed. Full statement: README.",
+  "run_limit": "2400 control steps (120 s at 20 Hz). The trial also ends as soon as the score reaches 1.0.",
+  "scores": "Dream-1: 0.0 (seed 0, 2,400 steps). Scripted demo: official 1.0 (default seed, 1281 of 2400 steps); 1.0 twice, same commands; seed 7: 1.0. Doing nothing: 0. Notched riders only: 0. 100 g rider off its notch, balanced: 0.5. Hand left on poise: 0. 4 open-loop replays: 0.",
+  "media": "M-XJ4Z5P"
+}
